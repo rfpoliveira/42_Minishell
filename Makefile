@@ -2,14 +2,16 @@
 #                                 Files and Paths                              #
 #==============================================================================#
 
-SRCS = 
+SRCS = $(addprefix $(SRCS_PATH)/, main.c)
 
 OBJS = $(addprefix $(BUILD_PATH)/, $(notdir $(SRCS:.c=.o)))
 
-NAME = 
+NAME = minishell
 
 BUILD_PATH = .build
-LIBFT_ARC = ../libft/libft.a
+SRCS_PATH = ./srcs
+LIBFT_ARC = ./libft/libft.a
+LIBFT_PATH = libft
 
 #==============================================================================#
 #                                   Alias                                      #
@@ -18,6 +20,7 @@ LIBFT_ARC = ../libft/libft.a
 RM = rm -rf
 AR = ar rcs
 CFLAGS = -Wall -Werror -Wextra
+SILENT_MAKE = make -s extra
 
 #==============================================================================#
 #                                    Rules                                     #
@@ -29,14 +32,14 @@ $(BUILD_PATH):
 	@mkdir $(BUILD_PATH)
 
 $(NAME): $(BUILD_PATH) $(OBJS)
-	@cc $(CFLAGS) $(OBJS) $(LIBFT_ARC) -o $(NAME)
-	@echo "$(GRN)[ successfully compiled]$(D)"
+	@cc $(CFLAGS) $(OBJS) $(LIBFT_ARC) -o $(NAME) -lreadline
+	@echo "$(GRN)[minishell successfully compiled]$(D)"
 	
-$(BUILD_PATH)/%.o: %.c
+$(BUILD_PATH)/%.o: $(SRCS_PATH)/%.c
 	@cc $(CFLAGS) -o $@ -c $<
 
 $(LIBFT_ARC): $(LIBFT_PATH)
-	@$(MAKEE) -C $(LIBFT_PATH)
+	@$(SILENT_MAKE) -C $(LIBFT_PATH)
 
 deps:
 	@if test ! -d "$(LIBFT_PATH)"; then make -s get_libft; \
@@ -53,9 +56,12 @@ clean:
 
 fclean: clean
 	@$(RM) $(NAME)
+	@$(RM) $(LIBFT_PATH)
 	@echo "$(BCYA)[fclean] Archive removed$(D)"
 
-re: fclean extra
+re: fclean all
+
+again: clean all
 
 #==============================================================================#
 #                                  UTILS                                       #
