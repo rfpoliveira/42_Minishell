@@ -14,10 +14,10 @@
 
 int main(void)
 {
-	t_command command;
+	t_command *command;
 	char *rl;
 
 	rl = readline(" $> ");
 	command = parsing(rl);
-	exit_program(&command);
+	exiting_program(command, 0);
 }

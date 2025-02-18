@@ -12,59 +12,59 @@
 
 #include "../incs/minishell.h"
 
-void set_single_command(t_command *command, char **s, int number_args, int index)
-{
-	t_simple_command *simple;
-	int	i;
-
-	i = 0;
-	command->table[command->number_simple_commands - 1] = simple;
-	simple->number_args = number_args;
-	while(number_args > 0)
-	{
-		simple->args[i] = ft_strdup(s[index - number_args]);
-		number_args--;
-		i++;
-	}
-	simple->args[i] = NULL;
-	if (ft_strncmp(s[index], "<", 2) == 0)
-		command->infile = ft_strdup(s[index + 1]);
-	if (ft_strncmp(s[index], ">", 2) == 0)
-		command->outfile = ft_strdup(s[index + 1]);
-}
-
-void  expande(char *sub)
-{
-	sub = get_env(sub + 1);
-}
-
-void  create_table(t_command *command, char **splited)
+void mount_table(t_command *command, char **splited)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	j = 0;
-	while(splited[i])
+	while(i < command->number_simple_commands)
 	{
-		if (splited[i][0] == '$')
-			expande(splited[i]);
-		if (ft_strncmp(splited[i], "|", 2) == 0 || ft_strncmp(splited[i], ">>", 3) == 0 || \
-				ft_strncmp(splited[i], "<<", 3) == 0 || ft_strncmp(splited[i], ">", 2) == 0 || \
-				ft_strncmp(splited[i], "<", 2) == 0)
+		command->table[i]->args = ft_split(splited[i], ' ');
+		if (!(command->table[i]->args))
+			exiting_program(command, MALLOC_ERROR);
+		command->table[i]->outfile = NULL;
+		command->table[i]->infile = NULL;
+		while(command->table[i]->args[j])
 		{
-			set_single_command(command, splited, i - j, i);
-			j = i;
-			command->number_simple_commands++;
+			if (command->table[i]->args[j][0] == '>')
+				command->table[i]->args[j + 1] = command->table[i]->outfile;
+			if (command->table[i]->args[j][0] == '<')
+				command->table[i]->args[j + 1] = command->table[i]->infile;
+			j++;
 		}
+		command->table[i]->number_args = j;
+		command->table[i]->args[j] = NULL;
+		j = 0;  
 		i++;
 	}
 }
 
-t_command parsing(t_command *command, char *s)
+t_command *ini_command(char **splited, t_command *command)
+{
+	int	i;
+
+	i = 0;
+	while(splited[i])
+		i++;
+	command->number_simple_commands = i;
+	command->table = malloc(sizeof(t_simple_command) * i + 1);
+	mount_table(command, splited);
+	return (command);
+}
+
+t_command *parsing(char *s)
 {
 	char **splited;
+	t_command *command;
 
-	splited = ft_split(s, ' ');
-	create_table(command, splited);	
+	splited = ft_split(s, '|');
+	if (!splited)
+	{
+		print_error(MALLOC_ERROR);
+		exit(EXIT_FAILURE);
+	}
+	command = ini_command(splited, command);
+	return (command);
 }

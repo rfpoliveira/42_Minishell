@@ -2,7 +2,7 @@
 #                                 Files and Paths                              #
 #==============================================================================#
 
-SRCS = $(addprefix $(SRCS_PATH)/, main.c)
+SRCS = $(addprefix $(SRCS_PATH)/, main.c exit,c parsing.c)
 
 OBJS = $(addprefix $(BUILD_PATH)/, $(notdir $(SRCS:.c=.o)))
 
@@ -32,7 +32,7 @@ $(BUILD_PATH):
 	@mkdir $(BUILD_PATH)
 
 $(NAME): $(BUILD_PATH) $(OBJS)
-	@cc $(CFLAGS) $(OBJS) $(LIBFT_ARC) -o $(NAME) -lreadline
+	@cc $(CFLAGS) -fsanatize=leaks $(OBJS) $(LIBFT_ARC) -o $(NAME) -lreadline
 	@echo "$(GRN)[minishell successfully compiled]$(D)"
 	
 $(BUILD_PATH)/%.o: $(SRCS_PATH)/%.c
