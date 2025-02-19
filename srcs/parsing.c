@@ -12,7 +12,7 @@
 
 #include "../incs/minishell.h"
 
-void mount_table(t_command *command, char **splited)
+void mount_table(t_command *command, char **splited) 
 {
 	int	i;
 	int	j;
@@ -28,10 +28,10 @@ void mount_table(t_command *command, char **splited)
 		command->table[i]->infile = NULL;
 		while(command->table[i]->args[j])
 		{
-			if (command->table[i]->args[j][0] == '>')
-				command->table[i]->args[j + 1] = command->table[i]->outfile;
-			if (command->table[i]->args[j][0] == '<')
-				command->table[i]->args[j + 1] = command->table[i]->infile;
+			if (command->table[i]->args[j][0] == '>' || ft_strncmp(command->table[i]->args[j], ">>", 2) == 0)
+				command->table[i]->outfile = command->table[i]->args[j + 1];
+			if (command->table[i]->args[j][0] == '<' || ft_strncmp(command->table[i]->args[j], "<<", 2 == 0))
+				command->table[i]->infile = command->table[i]->args[j + 1];
 			j++;
 		}
 		command->table[i]->number_args = j;
@@ -50,6 +50,7 @@ t_command *ini_command(char **splited, t_command *command)
 		i++;
 	command->number_simple_commands = i;
 	command->table = malloc(sizeof(t_simple_command) * i + 1);
+	command->table[i] = NULL;
 	mount_table(command, splited);
 	return (command);
 }
@@ -65,6 +66,7 @@ t_command *parsing(char *s)
 		print_error(MALLOC_ERROR);
 		exit(EXIT_FAILURE);
 	}
+	check_commands(splitted);
 	command = ini_command(splited, command);
 	return (command);
 }
