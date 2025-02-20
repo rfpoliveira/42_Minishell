@@ -47,7 +47,7 @@ typedef struct s_command
 
 //lexing/parsing
 t_command  *parsing(char *s);
-void  expande(char *sub);
+char	**parsing_split(const char *s, char c);
 
 //exiting
 void exiting_program(t_command *command, int error);
