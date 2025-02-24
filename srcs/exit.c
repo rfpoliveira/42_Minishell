@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"
+#include "../incs/minishell.h"\
 
 //printing errors by the code passed
 void print_error(int error_code)
@@ -24,11 +24,18 @@ void print_error(int error_code)
 void  exiting_program(t_command *command, int error)
 {
 	int	i;
+
 	print_error(error);
-	i = 0;
-	rl_clear_history();
-	while (i < command->number_simple_commands && command->table[i]->args)
+	//rl_clear_history();
+	i = -1;
+	while (command->table[++i])
+	{
 		matrix_free(command->table[i]->args);
-	free(command->table);
+		free(command->table[i]);
+	}
+	if (command->table)
+		free(command->table);
+	if(command)
+		free(command);
 	exit(0);
 }
