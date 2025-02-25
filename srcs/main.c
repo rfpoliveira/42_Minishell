@@ -17,8 +17,8 @@ int main(void)
 	t_command *command;
 	char *rl;
 
-	//rl = readline(" $> ");
-	rl = "echo $A$B";
+	rl = readline("$> ");
+	//rl = "'echo' -n '$A $B'";
 	command = parsing(rl);
-	exiting_program(command, 0);
+	exiting_program(NULL, command, 0);
 }

@@ -2,7 +2,8 @@
 #                                 Files and Paths                              #
 #==============================================================================#
 
-SRCS = $(addprefix $(SRCS_PATH)/, main.c exit.c parsing.c parsing_split.c expander.c)
+SRCS = $(addprefix $(SRCS_PATH)/, main.c exit.c parsing.c parsing_split.c \
+			 expander.c parsing_utils.c)
 
 OBJS = $(addprefix $(BUILD_PATH)/, $(notdir $(SRCS:.c=.o)))
 

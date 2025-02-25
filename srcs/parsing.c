@@ -23,17 +23,11 @@ void mount_table(t_command *command, char **splited)
 	{
 		command->table[i] = malloc(sizeof(t_simple_command));
 		if (!command->table[i])
-		{
-			matrix_free(splited);
-			exiting_program(command, MALLOC_ERROR);
-		}
+			exiting_program(splited, command, MALLOC_ERROR);
 		//split by spaces and quotes
 		command->table[i]->args = parsing_split(splited[i], ' ');
 		if (!(command->table[i]->args))
-		{
-			matrix_free(splited);
-			exiting_program(command, MALLOC_ERROR);
-		}
+			exiting_program(splited, command, MALLOC_ERROR);
 		//taking care of in and outfiles
 		command->table[i]->outfile = NULL;
 		command->table[i]->infile = NULL;
@@ -63,10 +57,7 @@ t_command *ini_command(char **splited, t_command *command)
 	//a simple command is anything bettewn pipes
 	command->table = malloc(sizeof(t_simple_command) * i + 8);
 	if (!command->table)
-	{
-		matrix_free(splited);
-		exiting_program(command, MALLOC_ERROR);
-	}
+		exiting_program(splited, command, MALLOC_ERROR);
 	//they are stored in the table array.
 	command->table[i] = NULL;
 	//takes the big command and puts it in smaller bits like a table
@@ -81,27 +72,34 @@ t_command *parsing(char *s)
 	t_command *command;
 	int	i;
 	int j;
+	int	error;
 
 	i = 0;
 	j = 0;
-	command = malloc(sizeof(t_command));
-	if (!command)
-		exiting_program(command, MALLOC_ERROR);
+	error = 0;
+	if (!s)
+		return (NULL);
 	//splites by pipes, making smaller blocks to handle
 	splited = parsing_split(s, '|');
 	if (!splited)
-		exiting_program(command, MALLOC_ERROR);
-	handle_quote(splited);
+		exiting_program(NULL, NULL, MALLOC_ERROR);
+	//expandes variables
+	handle_expanding(splited);
 	//inicialize the command table with all the commands passed by the user
+	command = malloc(sizeof(t_command));
+	if (!command)
+		exiting_program(splited, command, MALLOC_ERROR);
 	command = ini_command(splited, command);
-	//takes care of quotes and expandes the variables
+	//takes care of quotes since they are no longer needed
+	handle_quotes(command);
 	while(command->table[i])
 	{
 		while(command->table[i]->args[j])
 		{
-			printf("%s\n", command->table[i]->args[j]);
+			printf("%i: %s\n", j, command->table[i]->args[j]);
 			j++;
 		}
+		j = 0;
 		i++;
 	}
 	matrix_free(splited);

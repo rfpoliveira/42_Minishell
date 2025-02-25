@@ -17,14 +17,15 @@
 //34 ascii for double quote
 static size_t skip_quotes(const char *s, size_t i)
 {
+	i++;
 	if (s[i] == 39)
 	{
-		while (s[++i] != 39 && s[i])
+		while (s[i] != 39 && s[i])
 			i++;
 	}
 	if (s[i] == 34)
 	{
-		while (s[++i] != 34 && s[i])
+		while (s[i] != 34 && s[i])
 			i++;
 	}
 	return (i);
@@ -34,7 +35,9 @@ static size_t	r_count_sep(const char *s, char sep)
 {
 	size_t	i;
 	size_t	count;
+	int	quote;
 
+	quote = 0;
 	count = 0;
 	i = 0;
 	if (!s)
@@ -43,11 +46,18 @@ static size_t	r_count_sep(const char *s, char sep)
 		count++;
 	while (s[i])
 	{
-		i = skip_quotes(s, i);
-		if (s[i] == sep && s[i + 1] && s[i + 1] != sep)
+		if ((s[i] == 34 || s[i] == 39) && quote == 0)
+		{
+			i = skip_quotes(s, i);
+			quote = 1;
+		}
+		else if ((s[i] == 34 || s[i] == 39) && quote == 1)
+			quote = 0;
+		else if (s[i] == sep && s[i + 1] && s[i + 1] != sep)
 			count++;
 		i++;
 	}
+	printf("%ld\n", count);
 	return (count);
 }
 
@@ -57,29 +67,31 @@ static char	**fill(const char *s, char **res, char c)
 	int		r;
 	int		i;
 	int	skiped;
+	int quote;
 
 	i = -1;
 	j = 0;
 	skiped = 0;
 	r = -1;
+	quote = 0;
 	while (s[++i])
 	{
 		if (s[i] != c)
 		{
-			while (s[i] != c && s[i])
+			while (s[i] != c && s[i] && quote == 0)
 			{
-				if (s[i] == 34 || s[i] == 39)
+				if ((s[i] == 34 || s[i] == 39) && quote == 0)
 				{
 					skiped = skip_quotes(s, i);
 					j += skiped;
 					i += skiped;
 					skiped = 0;
+					quote = 1;
 				}
-				else
-				{
-					j++;
-					i++;
-				}
+				else if ((s[i] == 34 || s[i] == 39) && quote == 1)
+					quote = 0;
+				j++;
+				i++;
 			}	
 		}
 		res[++r] = ft_substr(s, i - j, j);

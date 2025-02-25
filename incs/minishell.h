@@ -22,6 +22,7 @@
 #============================================================================*/
 
 #define MALLOC_ERROR 1
+#define QUOTE_ERROR -1
 
 /*============================================================================#
 #								libraries									  #
@@ -48,9 +49,11 @@ typedef struct s_command
 //lexing/parsing
 t_command  *parsing(char *s);
 char	**parsing_split(const char *s, char c);
-void  handle_quote(char **s);
+void  handle_expanding(char **s);
+void  handle_quotes(t_command *command);
 
 //exiting
-void exiting_program(t_command *command, int error);
+void exiting_program(char **s, t_command *command, int error);
+void  ft_free(void	*ptr);
 void print_error(int error_code);
 #endif
