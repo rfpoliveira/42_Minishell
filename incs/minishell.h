@@ -3,6 +3,7 @@
 # define MINISHELL_H
 
 /*============================================================================# #                                 Libraries                                   #
+#								libraries									  #
 #============================================================================*/
 
 #include "../libft/libft.h"
@@ -18,14 +19,19 @@
 #include <term.h>
 
 /*============================================================================#
-#								libraries									  #
+#								  ERRORS									  #
 #============================================================================*/
 
 #define MALLOC_ERROR 1
 #define QUOTE_ERROR -1
+#define COM_NOT_FOUND -2
+#define	TOO_MANY_ARGS -3
+#define INV_PATH -4
+#define NO_ARGS -5
+#define	SYNTAX_ERROR -6
 
 /*============================================================================#
-#								libraries									  #
+#								 STRUCTS									  #
 #============================================================================*/
 
 typedef struct s_simple_command
@@ -52,8 +58,16 @@ char	**parsing_split(const char *s, char c);
 void  handle_expanding(char **s);
 void  handle_quotes(t_command *command);
 
-//exiting
-void exiting_program(char **s, t_command *command, int error);
+//parse_commands
+int  parse_commands(t_command *command);
+int parse_exit(t_simple_command *s);
+int	parse_cd(t_simple_command *s);
+int	parse_pwd_env(t_simple_command *s);
+int parse_export_unset(t_simple_command *s);
+
+
+//exiting/errors
+void memory_free(char **s, t_command *command, int error);
 void  ft_free(void	*ptr);
-void print_error(int error_code);
+int print_error(int error_code);
 #endif

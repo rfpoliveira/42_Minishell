@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:56:34 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/02/24 16:34:32 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:10:50 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ static char	*expande(char *s, int j)
 	ft_free(temp3);
 	temp2[j - 1] = '\0';
 	temp3 = ft_strjoin(temp2, env);
-	free(temp2);
+	if(env)
+		ft_free(temp2);
 	temp2 = ft_strjoin(temp3, temp + i);
 	ft_free(temp);
 	ft_free(temp3);
-	free(s);
+	ft_free(s);
 	return (temp2);
 }
 
@@ -92,7 +93,10 @@ void  handle_expanding(char **s)
 		while (s[i][++j])
 		{
 			if (quote_counter(s[i]) % 2 != 0)
-				exiting_program(s, NULL, QUOTE_ERROR);
+			{
+				memory_free(s, NULL, QUOTE_ERROR);
+				return ;
+			}
 			if (s[i][j] == 34 || s[i][j] == 39)
 				quote_found(&quote, &single, s[i][j]);
 			else if (s[i][j] == '$' && single == 0)

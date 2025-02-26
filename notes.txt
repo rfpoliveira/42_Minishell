@@ -1,0 +1,16 @@
+commands:
+
+cd: 
+			getcwd: obter diretorio (pwd)
+			chdir: mudar diretorio
+			stat: obter info sobre diretorio(existencia e permisoes)
+
+export: 
+				setenv/putenv: defenir as variaveis -> procurar alternativa 
+				getenv: obter valor da variavel
+
+exit:
+		usar exit(exit code) 
+		se o arg nao for numero elee utiliza o valor do ultimo comando
+
+

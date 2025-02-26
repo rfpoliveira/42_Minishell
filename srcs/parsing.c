@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/02/20 16:00:03 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/02/26 17:11:15 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,17 @@ void mount_table(t_command *command, char **splited)
 	{
 		command->table[i] = malloc(sizeof(t_simple_command));
 		if (!command->table[i])
-			exiting_program(splited, command, MALLOC_ERROR);
+		{
+			memory_free(splited, command, MALLOC_ERROR);
+			return ;
+		}
 		//split by spaces and quotes
 		command->table[i]->args = parsing_split(splited[i], ' ');
 		if (!(command->table[i]->args))
-			exiting_program(splited, command, MALLOC_ERROR);
+		{
+			memory_free(splited, command, MALLOC_ERROR);
+			return ;
+		}
 		//taking care of in and outfiles
 		command->table[i]->outfile = NULL;
 		command->table[i]->infile = NULL;
@@ -57,7 +63,7 @@ t_command *ini_command(char **splited, t_command *command)
 	//a simple command is anything bettewn pipes
 	command->table = malloc(sizeof(t_simple_command) * i + 8);
 	if (!command->table)
-		exiting_program(splited, command, MALLOC_ERROR);
+		return (memory_free(splited, command, MALLOC_ERROR), NULL);
 	//they are stored in the table array.
 	command->table[i] = NULL;
 	//takes the big command and puts it in smaller bits like a table
@@ -72,26 +78,30 @@ t_command *parsing(char *s)
 	t_command *command;
 	int	i;
 	int j;
-	int	error;
 
 	i = 0;
 	j = 0;
-	error = 0;
 	if (!s)
 		return (NULL);
 	//splites by pipes, making smaller blocks to handle
 	splited = parsing_split(s, '|');
 	if (!splited)
-		exiting_program(NULL, NULL, MALLOC_ERROR);
+		return (memory_free(NULL, NULL, MALLOC_ERROR), NULL);
 	//expandes variables
 	handle_expanding(splited);
+	if (!splited)
+		return (NULL);
 	//inicialize the command table with all the commands passed by the user
 	command = malloc(sizeof(t_command));
 	if (!command)
-		exiting_program(splited, command, MALLOC_ERROR);
+		return (memory_free(splited, command, MALLOC_ERROR), NULL);
 	command = ini_command(splited, command);
+	if (!command)
+		return (NULL);
 	//takes care of quotes since they are no longer needed
 	handle_quotes(command);
+	if (parse_commands(command) != 0)
+		return (memory_free(splited, command, 0), NULL);
 	while(command->table[i])
 	{
 		while(command->table[i]->args[j])
@@ -102,6 +112,5 @@ t_command *parsing(char *s)
 		j = 0;
 		i++;
 	}
-	matrix_free(splited);
-	return (command);
+	return (matrix_free(splited), command);
 }

@@ -57,7 +57,6 @@ static size_t	r_count_sep(const char *s, char sep)
 			count++;
 		i++;
 	}
-	printf("%ld\n", count);
 	return (count);
 }
 
