@@ -14,16 +14,21 @@
 
 static int check_path(char *s)
 {
-	int	i;
+	DIR *dir;
 
-	i = 0;
-	while(s[i])
+	dir = opendir(s);
+	if (dir)
 	{
-		//TODO
+		closedir(dir);
+		return (0);
 	}
-	return (0);
+	else if (ENOENT == errno)
+		return (print_error(INV_PATH));
+	else
+		return (print_error(OPEN_ERROR));
 }
 
+//cd can only have 1 argument and I chekc if the path is valid or exists
 int	parse_cd(t_simple_command *s)
 {
 	if (s->number_args > 2)

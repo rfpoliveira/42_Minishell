@@ -35,6 +35,8 @@ int print_error(int error_code)
 		return (printf("Error: Missing arguments!"));
 	else if (error_code == SYNTAX_ERROR)
 		return (printf("Syntax Error!"));
+	else if (error_code == OPEN_ERROR)
+		return (printf("Error accesing path!"));
 	return (0);
 }
 
