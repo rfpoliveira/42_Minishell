@@ -16,6 +16,7 @@ void  ft_free(void	*ptr)
 {
 	if (ptr)
 		free(ptr);
+	ptr = NULL;
 }
 
 //printing errors by the code passed
@@ -54,10 +55,10 @@ void memory_free(char **s, t_command *command, int error)
 		while (command->table[++i])
 		{
 			matrix_free(command->table[i]->args);
-			free(command->table[i]);
+			ft_free(command->table[i]->outfile);
+			ft_free(command->table[i]->infile);
 		}
-		if (command->table)
-			free(command->table);
+		ft_free(command->table);
 		free(command);
 	}
 	//s is the first matrix created and NULL if command is inicialized

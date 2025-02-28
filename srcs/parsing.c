@@ -12,13 +12,59 @@
 
 #include "../incs/minishell.h"
 
-void mount_table(t_command *command, char **splited) 
+static void assign_redirect(t_command *command, int	table, int	arg)
+{
+	size_t	i;
+	char *buff;
+
+	i = 0;
+	buff = command->table[table]->args[arg];
+	while (buff[i])
+	{
+		if (buff[i + 1] == 34 || buff[i + 1] == 39)
+			i = skip_quotes(buff, i);
+		if (buff[i] == '>')
+		{
+			if (buff[i + 1] == '\0' || (buff[i + 1] == '>' && buff[i + 2] == '\0'))	
+			command->table[table]->outfile = ft_strjoin(buff, command->table[table]->args[arg + 1]);
+			else
+				command->table[table]->outfile = ft_strdup(buff + i);
+		}
+		if (buff[i] == '<')
+		{
+			if (buff[i + 1] == '\0' || (buff[i + 1] == '<' && buff[i + 2] == '\0'))	
+			command->table[table]->outfile = ft_strjoin(buff, command->table[table]->args[arg + 1]);
+			else
+				command->table[table]->infile = ft_strdup(buff + i);
+		}
+		i++;
+	}
+}
+
+static void  check_for_red(t_command *command)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
+	while (command->table[i])
+	{
+		while (command->table[i]->args[j])
+		{
+			assign_redirect(command, i, j);
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+}
+
+static void mount_table(t_command *command, char **splited) 
+{
+	int	i;
+
+	i = 0;
 	while(i < command->number_simple_commands)
 	{
 		command->table[i] = malloc(sizeof(t_simple_command));
@@ -34,25 +80,15 @@ void mount_table(t_command *command, char **splited)
 			memory_free(splited, command, MALLOC_ERROR);
 			return ;
 		}
-		//taking care of in and outfiles
 		command->table[i]->outfile = NULL;
 		command->table[i]->infile = NULL;
-		while(command->table[i]->args[j])
-		{
-			if (command->table[i]->args[j][0] == '>' || ft_strncmp(command->table[i]->args[j], ">>", 2) == 0)
-				command->table[i]->outfile = command->table[i]->args[j + 1];
-			if (command->table[i]->args[j][0] == '<' || ft_strncmp(command->table[i]->args[j], "<<", 2 == 0))
-				command->table[i]->infile = command->table[i]->args[j + 1];
-			j++;
-		}
-		command->table[i]->number_args = j;
-		command->table[i]->args[j] = NULL;
-		j = 0;  
 		i++;
 	}
+	//taking care of redirects
+	check_for_red(command);
 }
 
-t_command *ini_command(char **splited, t_command *command)
+static t_command *ini_command(char **splited, t_command *command)
 {
 	int	i;
 
@@ -98,6 +134,8 @@ t_command *parsing(char *s)
 	command = ini_command(splited, command);
 	if (!command)
 		return (NULL);
+	if (parse_out_in_files(command) != 0)
+		return (memory_free(splited, command, 0), NULL);
 	//takes care of quotes since they are no longer needed
 	handle_quotes(command);
 	if (parse_commands(command) != 0)

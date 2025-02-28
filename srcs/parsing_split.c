@@ -15,7 +15,7 @@
 //this is a split moddified to skip anything bettewn quotes
 //39 ascii to single quote
 //34 ascii for double quote
-static size_t skip_quotes(const char *s, size_t i)
+size_t skip_quotes(const char *s, size_t i)
 {
 	i++;
 	if (s[i] == 39)

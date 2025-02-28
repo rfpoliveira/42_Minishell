@@ -12,6 +12,24 @@
 
 #include "../incs/minishell.h"
 
+int	parse_out_in_files(t_command *command)
+{
+	int	i;
+	int j;
+	
+	i = 0;
+	j = 0;
+	while (command->table[i])
+	{
+		while (command->table[i]->infile[j])
+		{
+			if (command->table[i]->infile[j + 1] == 34 || command->table[i]->infile[j + 1] == 39)
+				j = skip_quotes(command->table[i]->infile, j);
+			
+		}
+	}
+}
+
 int	after_quote_strlen(char	*s)
 {
 	int	i;

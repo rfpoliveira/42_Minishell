@@ -58,6 +58,8 @@ t_command  *parsing(char *s);
 char	**parsing_split(const char *s, char c);
 void  handle_expanding(char **s);
 void  handle_quotes(t_command *command);
+int	parse_out_in_files(t_command *command);
+size_t skip_quotes(const char *s, size_t i);
 
 //parse_commands
 int  parse_commands(t_command *command);
