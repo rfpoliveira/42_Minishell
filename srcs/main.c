@@ -18,7 +18,8 @@ int main(void)
 	char *rl;
 
 	//rl = readline("$> ");
-	rl = "echo '$A'$B";
+	rl = "echo $1A$C";
 	command = parsing(rl);
+	readline("teste");
 	memory_free(NULL, command, 0);
 }

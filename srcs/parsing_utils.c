@@ -12,25 +12,7 @@
 
 #include "../incs/minishell.h"
 
-int	parse_out_in_files(t_command *command)
-{
-	int	i;
-	int j;
-	
-	i = 0;
-	j = 0;
-	while (command->table[i])
-	{
-		while (command->table[i]->infile[j])
-		{
-			if (command->table[i]->infile[j + 1] == 34 || command->table[i]->infile[j + 1] == 39)
-				j = skip_quotes(command->table[i]->infile, j);
-			
-		}
-	}
-}
-
-int	after_quote_strlen(char	*s)
+static int	after_quote_strlen(char	*s)
 {
 	int	i;
 	int	count;
@@ -49,7 +31,7 @@ int	after_quote_strlen(char	*s)
 	return (count);
 }
 
-void  delete_quotes(char *s)
+static void  delete_quotes(char *s)
 {
 	int	i;
 	char*  temp;
@@ -73,7 +55,24 @@ void  delete_quotes(char *s)
 	free(temp);
 }
 
-void  handle_quotes(t_command *command)
+/*static int	parse_file(char *s)
+{
+	if (s[3] == '<' || s[3] == '>')
+		return (print_error(SYNTAX_ERROR));
+}
+
+static int	in_outfile_quotes(char *s)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	if (parse_file(s) != 0)
+		return (SYNTAX_ERROR);
+}*/
+
+int  handle_quotes(t_command *command)
 {
 	int	i;
 	int	j;
@@ -82,6 +81,11 @@ void  handle_quotes(t_command *command)
 	j = 0;
 	while(command->table[i])
 	{
+	/*	if (in_outfile_quotes(command->table[i]->infile) != 0)
+			return (SYNTAX_ERROR);
+		if (in_outfile_quotes(command->table[i]->outfile)
+			return (SYNTAX_ERROR);
+		}*/
 		while(command->table[i]->args[j])
 		{
 			delete_quotes(command->table[i]->args[j]);
@@ -90,4 +94,5 @@ void  handle_quotes(t_command *command)
 		j = 0;
 		i++;
 	}
+	return (0);
 }

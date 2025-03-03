@@ -12,36 +12,8 @@
 
 #include "../incs/minishell.h"
 
-static void assign_redirect(t_command *command, int	table, int	arg)
-{
-	size_t	i;
-	char *buff;
 
-	i = 0;
-	buff = command->table[table]->args[arg];
-	while (buff[i])
-	{
-		if (buff[i + 1] == 34 || buff[i + 1] == 39)
-			i = skip_quotes(buff, i);
-		if (buff[i] == '>')
-		{
-			if (buff[i + 1] == '\0' || (buff[i + 1] == '>' && buff[i + 2] == '\0'))	
-			command->table[table]->outfile = ft_strjoin(buff, command->table[table]->args[arg + 1]);
-			else
-				command->table[table]->outfile = ft_strdup(buff + i);
-		}
-		if (buff[i] == '<')
-		{
-			if (buff[i + 1] == '\0' || (buff[i + 1] == '<' && buff[i + 2] == '\0'))	
-			command->table[table]->outfile = ft_strjoin(buff, command->table[table]->args[arg + 1]);
-			else
-				command->table[table]->infile = ft_strdup(buff + i);
-		}
-		i++;
-	}
-}
-
-static void  check_for_red(t_command *command)
+/*static void  check_for_red(t_command *command)
 {
 	int	i;
 	int	j;
@@ -58,7 +30,7 @@ static void  check_for_red(t_command *command)
 		j = 0;
 		i++;
 	}
-}
+}*/
 
 static void mount_table(t_command *command, char **splited) 
 {
@@ -84,8 +56,6 @@ static void mount_table(t_command *command, char **splited)
 		command->table[i]->infile = NULL;
 		i++;
 	}
-	//taking care of redirects
-	check_for_red(command);
 }
 
 static t_command *ini_command(char **splited, t_command *command)
@@ -134,17 +104,16 @@ t_command *parsing(char *s)
 	command = ini_command(splited, command);
 	if (!command)
 		return (NULL);
-	if (parse_out_in_files(command) != 0)
-		return (memory_free(splited, command, 0), NULL);
-	//takes care of quotes since they are no longer needed
-	handle_quotes(command);
-	if (parse_commands(command) != 0)
+	//takes care of assigning the infile and outfile pointers
+	//check_for_red(command);
+	//takes care of quotes and checks if the command exists/has the correct arguments
+	if (handle_quotes(command) != 0 || parse_commands(command) != 0)
 		return (memory_free(splited, command, 0), NULL);
 	while(command->table[i])
 	{
 		while(command->table[i]->args[j])
 		{
-			printf("%i: %s\n", j, command->table[i]->args[j]);
+			printf("%i: %s\ninfile: %s\noutfile:%s\n", j, command->table[i]->args[j], command->table[i]->infile, command->table[i]->outfile);
 			j++;
 		}
 		j = 0;

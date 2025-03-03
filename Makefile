@@ -4,7 +4,7 @@
 
 SRCS = $(addprefix $(SRCS_PATH)/, main.c exit.c parsing.c parsing_split.c \
 			 expander.c parsing_utils.c parse_command.c parse_command_utils.c \
-			 parse_command_utils2.c)
+			 parse_command_utils2.c parse_redirect.c)
 
 OBJS = $(addprefix $(BUILD_PATH)/, $(notdir $(SRCS:.c=.o)))
 

@@ -29,15 +29,15 @@ static char	*expande(char *s, int j)
 	ft_memcpy(temp3, temp + j, i - j);
 	temp3[i - j] = '\0';
 	env = getenv(temp3);
-	ft_free(temp3);
+	ft_free(&temp3);
 	temp2[j - 1] = '\0';
 	temp3 = ft_strjoin(temp2, env);
 	if(env)
-		ft_free(temp2);
+		ft_free(&temp2);
 	temp2 = ft_strjoin(temp3, temp + i);
-	ft_free(temp);
-	ft_free(temp3);
-	ft_free(s);
+	ft_free(&temp);
+	ft_free(&temp3);
+	ft_free(&s);
 	return (temp2);
 }
 

@@ -12,11 +12,13 @@
 
 #include "../incs/minishell.h"\
 
-void  ft_free(void	*ptr)
+void  ft_free(char	**ptr)
 {
-	if (ptr)
-		free(ptr);
-	ptr = NULL;
+	if (*ptr)
+	{
+		free(*ptr);
+		*ptr = NULL;
+	}
 }
 
 //printing errors by the code passed
@@ -42,7 +44,7 @@ int print_error(int error_code)
 }
 
 //executed whenever you need to exit the program by error or in the end, takes care of memory
-void memory_free(char **s, t_command *command, int error)
+void memory_free(char **splited, t_command *command, int error)
 {
 	int	i;
 
@@ -55,13 +57,15 @@ void memory_free(char **s, t_command *command, int error)
 		while (command->table[++i])
 		{
 			matrix_free(command->table[i]->args);
-			ft_free(command->table[i]->outfile);
-			ft_free(command->table[i]->infile);
+			ft_free(&command->table[i]->outfile);
+			ft_free(&command->table[i]->infile);
+			free(command->table[i]);
 		}
-		ft_free(command->table);
+		if (command->table)
+			free(command->table);
 		free(command);
 	}
 	//s is the first matrix created and NULL if command is inicialized
-	if (s)
-		matrix_free(s);
+	if (splited)
+		matrix_free(splited);
 }

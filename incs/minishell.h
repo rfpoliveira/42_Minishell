@@ -57,9 +57,10 @@ typedef struct s_command
 t_command  *parsing(char *s);
 char	**parsing_split(const char *s, char c);
 void  handle_expanding(char **s);
-void  handle_quotes(t_command *command);
+int  handle_quotes(t_command *command);
 int	parse_out_in_files(t_command *command);
 size_t skip_quotes(const char *s, size_t i);
+void assign_redirect(t_command *command, int table_pos, int	arg_pos);
 
 //parse_commands
 int  parse_commands(t_command *command);
@@ -71,6 +72,6 @@ int parse_export_unset(t_simple_command *s);
 
 //exiting/errors
 void memory_free(char **s, t_command *command, int error);
-void  ft_free(void	*ptr);
+void  ft_free(char	**ptr);
 int print_error(int error_code);
 #endif
