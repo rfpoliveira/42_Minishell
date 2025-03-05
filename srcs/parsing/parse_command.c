@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"
+#include "../../incs/parsing.h"
+#include "../../incs/minishell.h"
 
 static int check_built_in(t_simple_command *s)
 {

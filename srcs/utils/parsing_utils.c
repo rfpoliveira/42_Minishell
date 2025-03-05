@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/02/25 15:31:59 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/05 15:14:00 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"
+#include "../../incs/parsing.h"
+#include "../../incs/minishell.h"
 
 static int	after_quote_strlen(char	*s)
 {
@@ -54,23 +55,12 @@ static void  delete_quotes(char *s)
 	ft_strlcpy(s, temp, len + 1);
 	free(temp);
 }
-
-/*static int	parse_file(char *s)
+int	ft_isspace(char c)
 {
-	if (s[3] == '<' || s[3] == '>')
-		return (print_error(SYNTAX_ERROR));
+	if (c == 32 || (c >= 9 && c <= 13))
+		return (1);
+	return (0);
 }
-
-static int	in_outfile_quotes(char *s)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	if (parse_file(s) != 0)
-		return (SYNTAX_ERROR);
-}*/
 
 int  handle_quotes(t_command *command)
 {

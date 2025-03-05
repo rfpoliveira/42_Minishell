@@ -2,18 +2,22 @@
 #                                 Files and Paths                              #
 #==============================================================================#
 
-SRCS = $(addprefix $(SRCS_PATH)/, main.c exit.c parsing.c parsing_split.c \
-			 expander.c parsing_utils.c parse_command.c parse_command_utils.c \
-			 parse_command_utils2.c parse_redirect.c)
+OBJS = $(SRCS:.c=.o)
 
-OBJS = $(addprefix $(BUILD_PATH)/, $(notdir $(SRCS:.c=.o)))
+MAIN = $(addprefix $(SRCS_PATH)/, main.c exit.c)
+PARSING = $(addprefix $(PARSING_PATH)/, parsing.c whitespaces_split.c expander.c parse_command.c \
+parse_redirect.c)
+UTILS = $(addprefix $(UTILS_PATH)/, parsing_utils.c parse_command_utils.c parse_command_utils2.c)
+
+SRCS = $(MAIN) $(PARSING) $(UTILS)
 
 NAME = minishell
 
-BUILD_PATH = .build
-SRCS_PATH = ./srcs
+SRCS_PATH = srcs
 LIBFT_ARC = ./libft/libft.a
 LIBFT_PATH = libft
+UTILS_PATH = srcs/utils
+PARSING_PATH = srcs/parsing
 
 #==============================================================================#
 #                                   Alias                                      #
@@ -31,15 +35,13 @@ SILENT_MAKE = make -s extra
 
 all: deps $(LIBFT_ARC) $(NAME)
 
-$(BUILD_PATH):
-	@mkdir $(BUILD_PATH)
-
-$(NAME): $(BUILD_PATH) $(OBJS)
+$(NAME): $(OBJS) 
 	@cc $(CFLAGS) $(OBJS) $(LIBFT_ARC) -o $(NAME) -lreadline
 	@echo "$(GRN)[minishell successfully compiled]$(D)"
 	
-$(BUILD_PATH)/%.o: $(SRCS_PATH)/%.c
-	@cc $(CFLAGS) -o $@ -c $<
+#==============================================================================#
+#                                    dependencies                              #
+#==============================================================================#
 
 $(LIBFT_ARC): $(LIBFT_PATH)
 	@$(SILENT_MAKE) -C $(LIBFT_PATH)
@@ -53,8 +55,11 @@ get_libft:
 	git clone git@github.com:rfpoliveira/42_Libft.git $(LIBFT_PATH)
 	@echo "$(CYA)[Libft successfully downloaded]$(D)"
 
+#==============================================================================#
+#                                    cleaning rules                            #
+#==============================================================================#
 clean: 
-	@$(RM) $(BUILD_PATH)
+	@$(RM) $(OBJS)
 	@echo "$(BCYA)[clean] Objects removed$(D)"
 
 fclean: clean

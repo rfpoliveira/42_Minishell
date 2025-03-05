@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:56:34 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/02/26 17:10:50 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/05 14:39:53 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"
+#include "../../incs/parsing.h"
+#include "../../incs/minishell.h"
 
 static char	*expande(char *s, int j)
 {

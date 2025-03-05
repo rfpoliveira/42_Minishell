@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"
+#include "../../incs/parsing.h"
+#include "../../incs/minishell.h"
 
 static int check_path(char *s)
 {

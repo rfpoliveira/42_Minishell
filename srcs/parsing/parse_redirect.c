@@ -10,15 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"
+#include "../../incs/parsing.h"
+#include "../../incs/minishell.h"
 
 static void	change_arg(char **arg, int arg_pos, int flag)
 {
 	int	i;
-	char  *temp;
 
 	i = arg_pos;
-	temp = NULL;
 	if (arg[arg_pos + flag] == NULL)
 	{
 		ft_free(&arg[arg_pos]);

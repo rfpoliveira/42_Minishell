@@ -10,13 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"
+#include "../../incs/parsing.h"
+#include "../../incs/minishell.h"
 
 int parse_exit(t_simple_command *s)
 {
-	int	i;
-
-	i = 1;
 	if (s->number_args > 2)
 		return (print_error(TOO_MANY_ARGS));
 	return (0);

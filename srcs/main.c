@@ -20,6 +20,5 @@ int main(void)
 	//rl = readline("$> ");
 	rl = "echo $1A$C";
 	command = parsing(rl);
-	readline("teste");
 	memory_free(NULL, command, 0);
 }
