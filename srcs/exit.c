@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:16 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/02/26 17:00:19 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/06 15:03:40 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,24 @@ void  ft_free(char	**ptr)
 }
 
 //printing errors by the code passed
-int print_error(int error_code)
+void print_error(int error_code)
 {
 	if (error_code == MALLOC_ERROR)
-		return (printf("Error Allocating memory!\n"));
+		ft_putstr_fd("Error Allocating memory!\n", STDERR_FILENO);
 	else if (error_code == QUOTE_ERROR)
-		return (printf("Error: non closed quotes!\n"));
+		ft_putstr_fd("Error: non closed quotes!\n", STDERR_FILENO);
 	else if (error_code == COM_NOT_FOUND)
-		return (printf("Error: command not found!"));
+		ft_putstr_fd("Error: command not found!\n", STDERR_FILENO);
 	else if (error_code == TOO_MANY_ARGS)
-		return (printf("Error: Too many arguments!"));
+		ft_putstr_fd("Error: Too many arguments!\n", STDERR_FILENO);
 	else if (error_code == INV_PATH)
-		return (printf("Error: Invalid Path!"));
+		ft_putstr_fd("Error: Invalid Path!\n", STDERR_FILENO);
 	else if (error_code == NO_ARGS)
-		return (printf("Error: Missing arguments!"));
+		ft_putstr_fd("Error: Missing arguments!\n", STDERR_FILENO);
 	else if (error_code == SYNTAX_ERROR)
-		return (printf("Syntax Error!"));
+		ft_putstr_fd("Syntax Error!\n", STDERR_FILENO);
 	else if (error_code == OPEN_ERROR)
-		return (printf("Error accesing path!"));
-	return (0);
+		ft_putstr_fd("Error accesing path!\n", STDERR_FILENO);
 }
 
 //executed whenever you need to exit the program by error or in the end, takes care of memory
@@ -67,5 +66,8 @@ void memory_free(char **splited, t_command *command, int error)
 	}
 	//s is the first matrix created and NULL if command is inicialized
 	if (splited)
+	{
 		matrix_free(splited);
+		splited = NULL;
+	}
 }

@@ -41,6 +41,8 @@ typedef struct s_simple_command
 	char **args;
 	char *infile;
 	char *outfile;
+	char **double_in;
+	char **double_out;
 }	t_simple_command;
 
 typedef struct s_command
@@ -58,5 +60,5 @@ t_command  *parsing(char *s);
 //exiting/errors
 void memory_free(char **s, t_command *command, int error);
 void  ft_free(char	**ptr);
-int print_error(int error_code);
+void print_error(int error_code);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/02/26 17:11:15 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/06 16:40:45 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ static void mount_table(t_command *command, char **splited)
 			memory_free(splited, command, MALLOC_ERROR);
 			return ;
 		}
-		//split by spaces and quotes
-		command->table[i]->args = parsing_split(splited[i], ' ');
+		command->table[i]->args = whitespaces_split(splited[i]);
 		if (!(command->table[i]->args))
 		{
 			memory_free(splited, command, MALLOC_ERROR);
@@ -55,6 +54,8 @@ static void mount_table(t_command *command, char **splited)
 		}
 		command->table[i]->outfile = NULL;
 		command->table[i]->infile = NULL;
+		command->table[i]->double_in = NULL;
+		command->table[i]->double_out = NULL;
 		i++;
 	}
 }
@@ -67,14 +68,10 @@ static t_command *ini_command(char **splited, t_command *command)
 	while(splited[i])
 		i++;
 	command->number_simple_commands = i;
-	//a simple command is anything bettewn pipes
 	command->table = malloc(sizeof(t_simple_command) * i + 8);
 	if (!command->table)
 		return (memory_free(splited, command, MALLOC_ERROR), NULL);
-	//they are stored in the table array.
 	command->table[i] = NULL;
-	//takes the big command and puts it in smaller bits like a table
-	//if the small command has a in or outfiles it is stored in the simple_command as well
 	mount_table(command, splited);
 	return (command);
 }
@@ -90,25 +87,25 @@ t_command *parsing(char *s)
 	j = 0;
 	if (!s)
 		return (NULL);
-	//splites by pipes, making smaller blocks to handle
+	if (check_first_pipe(s) == 0)
+		return (memory_free(NULL, NULL, SYNTAX_ERROR), NULL);
 	splited = parsing_split(s, '|');
 	if (!splited)
 		return (memory_free(NULL, NULL, MALLOC_ERROR), NULL);
-	//expandes variables
-	handle_expanding(splited);
+	//handle_expanding(splited); TODO!
 	if (!splited)
-		return (NULL);
-	//inicialize the command table with all the commands passed by the user
+		return (memory_free(NULL, command, 0), NULL);
 	command = malloc(sizeof(t_command));
 	if (!command)
 		return (memory_free(splited, command, MALLOC_ERROR), NULL);
 	command = ini_command(splited, command);
 	if (!command)
 		return (NULL);
-	//takes care of assigning the infile and outfile pointers
-	//check_for_red(command);
-	//takes care of quotes and checks if the command exists/has the correct arguments
-	if (handle_quotes(command) != 0 || parse_commands(command) != 0)
+	if (handle_redirect(command) != 0)
+		return (memory_free(splited, command, 0), NULL);
+	if (handle_quotes(command) != 0)
+		return (memory_free(splited, command, 0), NULL);
+	if (parse_commands(command) != 0)
 		return (memory_free(splited, command, 0), NULL);
 	while(command->table[i])
 	{

@@ -1,24 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/06 15:24:41 by rpedrosa         ###   ########.fr       */
+/*   Created: 2025/03/06 12:03:29 by rpedrosa          #+#    #+#             */
+/*   Updated: 2025/03/06 14:15:30 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"
-
-int main(void)
-{
-	t_command *command;
-	char *rl;
-
-	//rl = readline("$> ");
-	rl = "echo $A'$B'     | echo ola > test.txt";
-	command = parsing(rl);
-	memory_free(NULL, command, 0);
-}
+#include "../../incs/minishell.h"
+#include "../../incs/parsing.h"

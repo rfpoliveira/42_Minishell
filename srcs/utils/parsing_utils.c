@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/05 15:14:00 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/06 11:52:43 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,18 @@ int	ft_isspace(char c)
 	if (c == 32 || (c >= 9 && c <= 13))
 		return (1);
 	return (0);
+}
+
+int	check_first_pipe(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && ft_isspace(s[i]))
+		i++;
+	if (s[i] == '|')
+		return  (0);
+	return (1);
 }
 
 int  handle_quotes(t_command *command)
