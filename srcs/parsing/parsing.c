@@ -3,35 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/06 16:40:45 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:39:41 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/parsing.h"
 #include "../../incs/minishell.h"
-
-
-/*static void  check_for_red(t_command *command)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (command->table[i])
-	{
-		while (command->table[i]->args[j])
-		{
-			assign_redirect(command, i, j);
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-}*/
 
 static void mount_table(t_command *command, char **splited) 
 {

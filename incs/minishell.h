@@ -41,8 +41,8 @@ typedef struct s_simple_command
 	char **args;
 	char *infile;
 	char *outfile;
-	char **double_in;
-	char **double_out;
+	char *double_in;
+	char *double_out;
 }	t_simple_command;
 
 typedef struct s_command

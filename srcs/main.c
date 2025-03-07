@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/06 15:24:41 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/07 14:47:25 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int main(void)
 	char *rl;
 
 	//rl = readline("$> ");
-	rl = "echo $A'$B'     | echo ola > test.txt";
+	rl = "echo adeus | echo ola > test.txt";
 	command = parsing(rl);
 	memory_free(NULL, command, 0);
 }

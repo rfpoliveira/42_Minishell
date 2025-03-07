@@ -10,8 +10,12 @@
 
 void  handle_expanding(char **s);
 int  handle_quotes(t_command *command);
-int	parse_out_in_files(t_command *command);
-void assign_redirect(t_command *command, int table_pos, int	arg_pos);
+
+//redirect
+int	handle_redirect(t_command *command);
+void    string_to_pointer(t_simple_command *simple, char *red);
+void delete_args(t_simple_command *simple, int arg, char **buff,int flag);
+void reorganize_args(t_simple_command *simple, int del, int del2);
 
 //splits
 char	**whitespaces_split(char *s);
