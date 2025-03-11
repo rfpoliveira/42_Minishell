@@ -6,14 +6,14 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/06 11:52:43 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/11 15:36:04 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/parsing.h"
 #include "../../incs/minishell.h"
 
-static int	after_quote_strlen(char	*s)
+static int	after_sig_strlen(char	*s, char A, char B)
 {
 	int	i;
 	int	count;
@@ -24,28 +24,27 @@ static int	after_quote_strlen(char	*s)
 	{
 		while (s[i])
 		{
-			if (s[i] != 34 && s[i] != 39)
+			if (s[i] != A && s[i] != B)
 				count++;
 			i++;
 		}
 	}
 	return (count);
 }
-
-static void  delete_quotes(char *s)
+void  delete_sigs(char *s, char A, char B)
 {
 	int	i;
 	char*  temp;
 	int	len;
 
 	i = 0;
-	len = after_quote_strlen(s);
+	len = after_sig_strlen(s, A, B);
 	temp = malloc(len + 1);
 	temp[len] = '\0';
 	len = 0;
 	while (s[i])
 	{
-		if (s[i] != 34 && s[i] != 39)
+		if (s[i] != A && s[i] != B)
 		{
 			temp[len] = s[i];
 			len++;
@@ -55,6 +54,7 @@ static void  delete_quotes(char *s)
 	ft_strlcpy(s, temp, len + 1);
 	free(temp);
 }
+
 int	ft_isspace(char c)
 {
 	if (c == 32 || (c >= 9 && c <= 13))
@@ -87,10 +87,10 @@ int  handle_quotes(t_command *command)
 			return (SYNTAX_ERROR);
 		if (in_outfile_quotes(command->table[i]->outfile)
 			return (SYNTAX_ERROR);
-		}*/
+		}*/ //TODO
 		while(command->table[i]->args[j])
 		{
-			delete_quotes(command->table[i]->args[j]);
+			delete_sigs(command->table[i]->args[j], 34, 39);
 			j++;
 		}
 		j = 0;

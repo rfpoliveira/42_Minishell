@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:16 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/06 15:03:40 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/11 12:33:26 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void  ft_free(char	**ptr)
 {
-	if (*ptr)
+	if (*ptr != NULL)
 	{
 		free(*ptr);
 		*ptr = NULL;
@@ -58,6 +58,8 @@ void memory_free(char **splited, t_command *command, int error)
 			matrix_free(command->table[i]->args);
 			ft_free(&command->table[i]->outfile);
 			ft_free(&command->table[i]->infile);
+			ft_free(&command->table[i]->double_out);
+			ft_free(&command->table[i]->double_in);
 			free(command->table[i]);
 		}
 		if (command->table)

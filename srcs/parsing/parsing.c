@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/07 14:39:41 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/11 16:07:18 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void mount_table(t_command *command, char **splited)
 			memory_free(splited, command, MALLOC_ERROR);
 			return ;
 		}
+		command->table[i]->number_args = count_args(command->table[i]);
 		command->table[i]->outfile = NULL;
 		command->table[i]->infile = NULL;
 		command->table[i]->double_in = NULL;
@@ -85,15 +86,17 @@ t_command *parsing(char *s)
 		return (memory_free(splited, command, 0), NULL);
 	if (handle_quotes(command) != 0)
 		return (memory_free(splited, command, 0), NULL);
-	if (parse_commands(command) != 0)
-		return (memory_free(splited, command, 0), NULL);
+	/* if (parse_commands(command) != 0)
+		return (memory_free(splited, command, 0), NULL); */
 	while(command->table[i])
 	{
 		while(command->table[i]->args[j])
 		{
-			printf("%i: %s\ninfile: %s\noutfile:%s\n", j, command->table[i]->args[j], command->table[i]->infile, command->table[i]->outfile);
+			printf("%i: %s\n", j, command->table[i]->args[j]);
 			j++;
 		}
+		printf("infile: %s\noutfile:%s\n", command->table[i]->infile, command->table[i]->outfile);
+		printf("double_in: %s\ndouble_out:%s\n", command->table[i]->double_in, command->table[i]->double_out);
 		j = 0;
 		i++;
 	}

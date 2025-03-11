@@ -19,9 +19,11 @@ void reorganize_args(t_simple_command *simple, int del, int del2)
 
     i = del + 1;
     if (del2 != 0)
+	{
         i = del2 + 1;
+		ft_free(&simple->args[del2]);
+	}
     ft_free(&simple->args[del]);
-    ft_free(&simple->args[del2]);
     while (simple->args[i])
     {
         simple->args[del] = ft_strdup(simple->args[i]);
@@ -36,24 +38,27 @@ void delete_args(t_simple_command *simple, int arg, char **buff,int flag)
     if (flag == 1)
         reorganize_args(simple, arg, arg + 1);
     if (flag == 2)
-        reorganize_args(simple, arg, 0);
-    if (flag == 3)
+	{
         reorganize_args(simple, arg + 1, 0);
+		delete_sigs(simple->args[arg], '>', '<');
+	}
+    if (flag == 3)
+	{
+		ft_free(&simple->args[arg]);
+		simple->args[arg] = ft_strdup(buff[0]);
+	}
     if (flag == 4)
-    {
-        ft_free(&simple->args[arg]);
-        simple->args[arg] = ft_strdup(buff[0]);
-    }
+		reorganize_args(simple, arg, 0);
 }
 
-void    string_to_pointer(t_simple_command *simple, char *red)
+void    selecting_file(t_simple_command *simple, char *red, char *file)
 {
     if (red[0] == '>' && red[1] == '\0')
-        red = simple->outfile;
-    if (red[0] == '>' && red[1] == '>')
-        red = simple->double_out;
-    if (red[0] == '<' && red[1] == '\0')
-        red = simple->infile;
-    if (red[0] == '<' && red[1] == '<')
-        red = simple->double_in;
+        simple->outfile = file;
+    else if (red[0] == '>' && red[1] == '>')
+        simple->double_out = file;
+    else if (red[0] == '<' && red[1] == '\0')
+        simple->infile = file;
+    else if (red[0] == '<' && red[1] == '<')
+        simple->double_in = file;
 }

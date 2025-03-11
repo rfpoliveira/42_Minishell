@@ -10,10 +10,12 @@
 
 void  handle_expanding(char **s);
 int  handle_quotes(t_command *command);
+void  delete_sigs(char *s, char A, char B);
+int	count_args(t_simple_command *simple);
 
 //redirect
 int	handle_redirect(t_command *command);
-void    string_to_pointer(t_simple_command *simple, char *red);
+void selecting_file(t_simple_command *simple, char *red, char *file);
 void delete_args(t_simple_command *simple, int arg, char **buff,int flag);
 void reorganize_args(t_simple_command *simple, int del, int del2);
 
