@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/11 15:36:04 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/12 10:34:08 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void  delete_sigs(char *s, char A, char B)
 	int	len;
 
 	i = 0;
+	if (s == NULL)
+		return ;
 	len = after_sig_strlen(s, A, B);
 	temp = malloc(len + 1);
 	temp[len] = '\0';
@@ -83,16 +85,15 @@ int  handle_quotes(t_command *command)
 	j = 0;
 	while(command->table[i])
 	{
-	/*	if (in_outfile_quotes(command->table[i]->infile) != 0)
-			return (SYNTAX_ERROR);
-		if (in_outfile_quotes(command->table[i]->outfile)
-			return (SYNTAX_ERROR);
-		}*/ //TODO
 		while(command->table[i]->args[j])
 		{
 			delete_sigs(command->table[i]->args[j], 34, 39);
 			j++;
 		}
+		delete_sigs(command->table[i]->infile, 34, 39);
+		delete_sigs(command->table[i]->outfile, 34, 39);
+		delete_sigs(command->table[i]->double_in, 34, 39);
+		delete_sigs(command->table[i]->double_out, 34, 39);
 		j = 0;
 		i++;
 	}

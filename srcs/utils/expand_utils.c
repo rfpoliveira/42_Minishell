@@ -1,0 +1,59 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expand_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/12 14:30:00 by rpedrosa          #+#    #+#             */
+/*   Updated: 2025/03/12 15:40:33 by rpedrosa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../incs/minishell.h"
+#include "../../incs/parsing.h"
+
+int	quote_counter(char *s)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	if (!s)
+		return (0);
+	while(s[i])
+	{
+		if (s[i] == 34 || s[i] == 39)
+			count++;
+		i++;
+	}
+	return (count);
+}
+
+void free_expand(char **temp, char **prev, char **env, int flag)
+{
+	if (flag == 1 || flag == 2)
+	{
+		free(*temp);
+		free(*prev);
+	}
+	if (flag == 2)
+		free(*env);
+}
+
+void	my_getenv(char **s, char **env, int *x, int *free_flag)
+{
+	if ((*s)[*x] != '$' && !ft_isdigit((*s)[*x]) && (*s)[*x] != '?')
+		*env = getenv(*s + *x);
+	else
+	{
+		*env = ft_substr(*s, *x + 1, ft_strlen(*s) - *x);
+		*free_flag = 2;
+	}
+	if (*env == NULL)
+	{
+		*env = ft_strdup("");
+		*free_flag = 2;
+	}
+}

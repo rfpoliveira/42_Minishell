@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:09:43 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/06 14:15:09 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:29:25 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ static int check_built_in(t_simple_command *s)
 
 	i = 0;
 	joined_path = NULL;
-	command = ft_strjoin("/", s->args[0]);
+	if (s->args[0][0] != '|')
+		command = ft_strjoin("/", s->args[0]);
+	else
+		command = ft_strjoin("/", s->args[1]);
 	splited_path = ft_split(getenv("PATH"), ':');
 	while (splited_path[i])
 	{
@@ -44,7 +47,7 @@ static int check_pipes(t_simple_command *s, int *i)
 		if (!s->args[0][1])
 			(*i)++;
 	}
-	if (!s->args[1])
+	if (!s->args[*i])
 		return (print_error(SYNTAX_ERROR), 1);
 	return (0);
 }
@@ -61,15 +64,15 @@ static int detect_command(t_simple_command *s)
 	else if (ft_strncmp(s->args[i], "cd", 2) == 0)
 		return (parse_cd(s));
 	else if (ft_strncmp(s->args[i], "pwd", 3) == 0)
-		return (parse_pwd_env(s));
+		return (0);
 	else if (ft_strncmp(s->args[i], "export", 6) == 0)
 		return (parse_export_unset(s));
 	else if (ft_strncmp(s->args[i], "unset", 5) == 0)
 		return (parse_export_unset(s));
 	else if (ft_strncmp(s->args[i], "env", 3) == 0)
-		return (parse_pwd_env(s));
+		return (parse_env(s));
 	else if (ft_strncmp(s->args[i], "exit", 4) == 0)
-		return (parse_exit(s));
+		return (parse_exit(s)); //rever
 	else if (check_built_in(s) == 0)
 		return (0);
 	return (1);

@@ -54,11 +54,33 @@ void delete_args(t_simple_command *simple, int arg, char **buff,int flag)
 void    selecting_file(t_simple_command *simple, char *red, char *file)
 {
     if (red[0] == '>' && red[1] == '\0')
-        simple->outfile = file;
+    	simple->outfile = ft_strdup(file);
     else if (red[0] == '>' && red[1] == '>')
-        simple->double_out = file;
+    	simple->double_out = ft_strdup(file);
     else if (red[0] == '<' && red[1] == '\0')
-        simple->infile = file;
+    	simple->infile = ft_strdup(file);
     else if (red[0] == '<' && red[1] == '<')
-        simple->double_in = file;
+    	simple->double_in = ft_strdup(file);
+}
+
+int redirect_hopper(t_simple_command *simple, int arg, int i)
+{
+	int error;
+
+	error = 0;
+	if (simple->args[arg][i] == '<')
+	{
+		if (simple->args[arg][i + 1] == '<')
+			error = split_redirects(simple, arg, i, "<<");
+		else if (simple->args[arg][i + 1] != '<')
+			error = split_redirects(simple, arg, i, "<");
+	}
+	else if (simple->args[arg][i] == '>')
+	{
+		if (simple->args[arg][i + 1] == '>')
+			error = split_redirects(simple, arg, i, ">>");
+		else if (simple->args[arg][i + 1] != '>')
+			error = split_redirects(simple, arg, i, ">");
+	}
+	return (error);
 }

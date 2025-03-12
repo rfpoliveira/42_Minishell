@@ -6,7 +6,7 @@ MAIN = $(addprefix $(SRCS_PATH)/, main.c exit.c)
 PARSING = $(addprefix $(PARSING_PATH)/, parsing.c whitespaces_split.c expander.c parse_command.c \
 parse_redirect.c parsing_split.c)
 UTILS = $(addprefix $(UTILS_PATH)/, parse_command_utils.c parse_command_utils2.c \
-split_utils.c parsing_utils.c parsing_utils2.c redirect_utils.c)
+split_utils.c parsing_utils.c parsing_utils2.c redirect_utils.c expand_utils.c)
 
 SRCS = $(UTILS) $(MAIN) $(PARSING)
 OBJS = $(SRCS:.c=.o)
@@ -36,7 +36,7 @@ SILENT_MAKE = make -s extra
 all: deps $(LIBFT_ARC) $(NAME)
 
 $(NAME): $(OBJS) 
-	@cc $(CFLAGS) $(OBJS) $(LIBFT_ARC) -o $(NAME) -lreadline
+	@cc $(CFLAGS) $(LEAKS) $(OBJS) $(LIBFT_ARC) -o $(NAME) -lreadline
 	@echo "$(GRN)[minishell successfully compiled]$(D)"
 	
 #==============================================================================#

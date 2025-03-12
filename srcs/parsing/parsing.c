@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/11 16:07:18 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:30:10 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,7 @@ t_command *parsing(char *s)
 {
 	char **splited;
 	t_command *command;
-	int	i;
-	int j;
 
-	i = 0;
-	j = 0;
 	if (!s)
 		return (NULL);
 	if (check_first_pipe(s) == 0)
@@ -73,9 +69,6 @@ t_command *parsing(char *s)
 	splited = parsing_split(s, '|');
 	if (!splited)
 		return (memory_free(NULL, NULL, MALLOC_ERROR), NULL);
-	//handle_expanding(splited); TODO!
-	if (!splited)
-		return (memory_free(NULL, command, 0), NULL);
 	command = malloc(sizeof(t_command));
 	if (!command)
 		return (memory_free(splited, command, MALLOC_ERROR), NULL);
@@ -84,21 +77,11 @@ t_command *parsing(char *s)
 		return (NULL);
 	if (handle_redirect(command) != 0)
 		return (memory_free(splited, command, 0), NULL);
+	if (handle_expanding(command) != 0)
+		return (memory_free(splited, command, 0), NULL);
 	if (handle_quotes(command) != 0)
 		return (memory_free(splited, command, 0), NULL);
-	/* if (parse_commands(command) != 0)
-		return (memory_free(splited, command, 0), NULL); */
-	while(command->table[i])
-	{
-		while(command->table[i]->args[j])
-		{
-			printf("%i: %s\n", j, command->table[i]->args[j]);
-			j++;
-		}
-		printf("infile: %s\noutfile:%s\n", command->table[i]->infile, command->table[i]->outfile);
-		printf("double_in: %s\ndouble_out:%s\n", command->table[i]->double_in, command->table[i]->double_out);
-		j = 0;
-		i++;
-	}
+	if (parse_commands(command) != 0)
+		return (memory_free(splited, command, 0), NULL);
 	return (matrix_free(splited), command);
 }

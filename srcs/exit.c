@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:16 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/11 12:33:26 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:32:13 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,18 @@ void print_error(int error_code)
 		ft_putstr_fd("Syntax Error!\n", STDERR_FILENO);
 	else if (error_code == OPEN_ERROR)
 		ft_putstr_fd("Error accesing path!\n", STDERR_FILENO);
+	else if (error_code == EXIT_ERROR)
+		ft_putstr_fd("Error: numeric value needed!\n", STDERR_FILENO);
 }
 
 //executed whenever you need to exit the program by error or in the end, takes care of memory
 void memory_free(char **splited, t_command *command, int error)
 {
 	int	i;
-
+	
 	print_error(error);
 	//rl_clear_history();
 	i = -1;
-	//command is null is error is before it is inicialized
 	if (command)
 	{
 		while (command->table[++i])
@@ -66,7 +67,6 @@ void memory_free(char **splited, t_command *command, int error)
 			free(command->table);
 		free(command);
 	}
-	//s is the first matrix created and NULL if command is inicialized
 	if (splited)
 	{
 		matrix_free(splited);

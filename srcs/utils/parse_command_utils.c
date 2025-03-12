@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:25:06 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/06 14:04:08 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:17:56 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,23 +35,28 @@ int	parse_cd(t_simple_command *s)
 	int	i;
 
 	i = 1;
-	if (s->number_args > 2)
+	if ((s->number_args > 2 && s->args[0][0] != '|') || \
+	(s->number_args > 3 && s->args[0][0] == '|'))
 		return (print_error(TOO_MANY_ARGS), 1);
-	if (s->args[0][1] == '|')
+	if (s->args[0][0] == '|')
 		i++;
 	if (s->args[i])	
 	{
-		printf("%s\n", s->args[i]);
 		if (check_path(s->args[i]) != 0)
 			return (1);
 	}
 	return (0);
 }
 
-//pwd e env nao can't take arguments 
-int	parse_pwd_env(t_simple_command *s)
+//env nao can't take arguments 
+int	parse_env(t_simple_command *s)
 {
-	if (s->number_args > 2)
+	int	args;
+
+	args = 1;
+	if (s->args[0][0] == '|')
+		args++;
+	if (s->number_args > args)
 		return (print_error(TOO_MANY_ARGS), 1);
 	return (0);
 }

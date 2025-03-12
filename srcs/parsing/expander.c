@@ -6,103 +6,127 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:56:34 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/05 14:39:53 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/12 15:40:03 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/parsing.h"
 #include "../../incs/minishell.h"
 
-static char	*expande(char *s, int j)
+static int expande(char **s, int x)
 {
-	int	i;
-	char  *temp;
-	char  *temp2;
-	char  *temp3;
+	char *prev;
 	char *env;
-
-	i = j;
-	temp = ft_strdup(s);
-	temp2 = ft_strdup(s);
-	while (temp[i] != ' ' && temp[i] != 34 && temp[i] != 39 && temp[i] != '$' && temp[i])
-		i++;
-	temp3 = malloc(i - j + 1);
-	ft_memcpy(temp3, temp + j, i - j);
-	temp3[i - j] = '\0';
-	env = getenv(temp3);
-	ft_free(&temp3);
-	temp2[j - 1] = '\0';
-	temp3 = ft_strjoin(temp2, env);
-	if(env)
-		ft_free(&temp2);
-	temp2 = ft_strjoin(temp3, temp + i);
-	ft_free(&temp);
-	ft_free(&temp3);
-	ft_free(&s);
-	return (temp2);
+	char *temp;
+	int free_flag;
+	
+	free_flag = 0;
+	prev = NULL;
+	if (x > 1)
+	{
+		prev = ft_substr(*s, 0, x - 1);
+		if (prev == NULL)
+			return (print_error(MALLOC_ERROR), 1);
+	}
+	my_getenv(s, &env, &x, &free_flag);
+	temp = ft_strjoin(prev, env);
+	if (temp == NULL)
+		return (print_error(MALLOC_ERROR), 1);
+	free(*s);
+	*s = ft_strdup(temp);
+	if (prev != NULL)
+		free_flag = 1;
+	if (ft_strncmp(env, "", 1))
+		free_flag = 2;
+	free_expand(&temp, &prev, &env, free_flag);
+	return (0);
 }
 
-static void	quote_found(int	*quote, int *single, char c)
-{
-	if (c == 34)
-	{
-		if (*quote == 0 && *single == 0)
-			*quote = 1;
-		else if (*quote == 1)
-			quote = 0;
-	}
-	else
-	{
-		if (*single == 0 && *quote == 0)
-			*single = 1;
-		else if (*single == 1)
-			*single = 0;
-	}
-}
-
-int	quote_counter(char *s)
+static int	expande_red_util(char *file)
 {
 	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	if (!s)
-		return (0);
-	while(s[i])
-	{
-		if (s[i] == 34 || s[i] == 39)
-			count++;
-		i++;
-	}
-	return (count);
-}
-
-void  handle_expanding(char **s)
-{
-	int	i;
-	int	j;
-	int	quote;
-	int	single;
-
-	j = -1;
+	
 	i = -1;
-	single = 0;
-	quote = 0;
-	while (s[++i])
+	if (quote_counter(file) % 2 != 0)
+			return (print_error(QUOTE_ERROR), 1);
+	while (file[++i])
 	{
-		while (s[i][++j])
+		if (file[i] == 34 \
+			|| file[i] == 39)
+			i += skip_quotes(file, i);
+		if (file[i] == '$')
 		{
-			if (quote_counter(s[i]) % 2 != 0)
-			{
-				memory_free(s, NULL, QUOTE_ERROR);
-				return ;
-			}
-			if (s[i][j] == 34 || s[i][j] == 39)
-				quote_found(&quote, &single, s[i][j]);
-			else if (s[i][j] == '$' && single == 0)
-				s[i] = expande(s[i], j + 1);
+			if (expande(&file, i + 1) != 0)
+				return (1);
+		if (ft_strncmp(file, "", 1) == 0)
+			return (print_error(SYNTAX_ERROR), 1);
 		}
-		j = 0;
 	}
+	return (0);
+}
+static int expande_red(t_simple_command *s)
+{
+	if (s->infile)
+	{
+	if (expande_red_util(s->infile) != 0)
+			return (1);
+	}
+	if (s->outfile)
+	{
+		if (expande_red_util(s->outfile) != 0)
+			return (1);
+	}
+	if (s->double_in)
+	{
+		if (expande_red_util(s->double_in) != 0)
+			return (1);
+	}
+	if (s->double_out)
+	{
+		if (expande_red_util(s->double_out) != 0)
+			return (1);
+	}
+	return (0);
+}
+static int expand_args(t_command *command, int i)
+{
+	int	j;
+	int	x;
+
+	x = -1;
+	j = -1;
+	while (command->table[i]->args[++j])
+	{
+		if (quote_counter(command->table[i]->args[j]) % 2 != 0)
+			return (print_error(QUOTE_ERROR), 1);
+		while (command->table[i]->args[j][++x])
+		{
+			if (command->table[i]->args[j][x] == 34 \
+				|| command->table[i]->args[j][x] == 39)
+				x += skip_quotes(command->table[i]->args[j], x);
+			if (command->table[i]->args[j][x] == '$')
+			{
+				if (expande(&command->table[i]->args[j], x + 1) != 0)
+					return (1);
+			}
+		}
+		x = -1;
+	}
+	return (0);
+}
+
+int  handle_expanding(t_command *command)
+{
+	int	i;
+
+
+	i = -1;
+	while (command->table[++i])
+	{
+		if (expande_red(command->table[i]) != 0)
+			return (1);
+		if (expand_args(command, i) != 0)
+			return (1);
+	}
+	return (0);
 }
