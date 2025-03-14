@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:09:43 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/12 15:29:25 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/14 16:24:59 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/parsing.h"
 #include "../../incs/minishell.h"
 
-static int check_built_in(t_simple_command *s)
+//check if the command exist in back
+static int	check_built_in(t_simple_command *s)
 {
-	struct stat res_buff;
-	char **splited_path;
-	char *joined_path;
-	char  *command;
-	int	i;
+	struct stat	res_buff;
+	char		**splited_path;
+	char		*joined_path;
+	char		*command;
+	int			i;
 
 	i = 0;
 	joined_path = NULL;
@@ -32,15 +33,17 @@ static int check_built_in(t_simple_command *s)
 	{
 		joined_path = ft_strjoin(splited_path[i], command);
 		if (stat(joined_path, &res_buff) == 0)
-			return (matrix_free(splited_path), free(joined_path), free(command), 0);
+			return (matrix_free(splited_path), \
+			free(joined_path), free(command), 0);
 		free(joined_path);
 		joined_path = NULL;
 		i++;
 	}
-	return(matrix_free(splited_path), free(command), print_error(COM_NOT_FOUND), 1);
+	return (matrix_free(splited_path), free(command), \
+			print_error(COM_NOT_FOUND), 1);
 }
-
-static int check_pipes(t_simple_command *s, int *i)
+//check if there is a pipe in the beginning of the command
+static int	check_pipes(t_simple_command *s, int *i)
 {
 	if (s->args[0][0] == '|')
 	{
@@ -51,8 +54,9 @@ static int check_pipes(t_simple_command *s, int *i)
 		return (print_error(SYNTAX_ERROR), 1);
 	return (0);
 }
-
-static int detect_command(t_simple_command *s)
+//check if the command is one of the ones we need to implement
+//and takes it to the parsing of its own
+static int	detect_command(t_simple_command *s)
 {
 	int	i;
 
@@ -72,13 +76,13 @@ static int detect_command(t_simple_command *s)
 	else if (ft_strncmp(s->args[i], "env", 3) == 0)
 		return (parse_env(s));
 	else if (ft_strncmp(s->args[i], "exit", 4) == 0)
-		return (parse_exit(s)); //rever
+		return (parse_exit(s));
 	else if (check_built_in(s) == 0)
 		return (0);
 	return (1);
 }
 
-int  parse_commands(t_command *command)
+int	parse_commands(t_command *command)
 {
 	int	i;
 

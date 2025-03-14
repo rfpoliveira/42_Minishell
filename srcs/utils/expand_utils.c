@@ -6,17 +6,18 @@
 /*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:30:00 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/14 09:56:30 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/14 16:35:15 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
 
+//check if there is a even number of quotes
 int	quote_counter(char **s)
 {
 	int	i;
-	int j;
+	int	j;
 	int	count;
 
 	i = -1;
@@ -26,7 +27,7 @@ int	quote_counter(char **s)
 		return (0);
 	while (s[++j])
 	{
-		while(s[j][++i])
+		while (s[j][++i])
 		{
 			if (s[j][i] == 34 || s[j][i] == 39)
 				count++;
@@ -37,18 +38,18 @@ int	quote_counter(char **s)
 	else
 		return (print_error(QUOTE_ERROR), 1);
 }
-
-void free_expand(char **temp, char **prev, char **env, int flag)
+//free temporary variables inside the expande function
+void	free_expand(char **temp, char **prev, char **env, int flag)
 {
 	if (flag == 1 || flag == 2)
 	{
 		free(*temp);
 		free(*prev);
 	}
-	if (flag == 2)
+	if (flag == 2 && *env != *temp)
 		free(*env);
 }
-
+//uses getenv in the correct string depending of the case
 void	my_getenv(char **s, char **env, int *x, int *free_flag)
 {
 	if ((*s)[*x] != '$' && !ft_isdigit((*s)[*x]) && (*s)[*x] != '?')

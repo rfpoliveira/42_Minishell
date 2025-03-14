@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 10:42:07 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/06 11:42:27 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/14 16:08:42 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,21 @@
 //39 ascii to single quote
 //34 ascii for double quote
 
-static void	substring_calc(char *s, int *i, int *j, int *skiped, char sep)
+static void	substring_calc(char *s, int *i, int *j, char sep)
 {
+	int	skiped;
+
+	skiped = 0;
+	*j = 0;
 	while (s[*i] != sep && s[*i])
 	{
 		if ((s[*i] == 34 || s[*i] == 39))
 		{
-			*skiped = skip_quotes(s, *i);
-			*j += *skiped;
-			*i += *skiped;
-			*skiped = 0;
-		}	
+			skiped = skip_quotes(s, *i);
+			*j += skiped;
+			*i += skiped;
+			skiped = 0;
+		}
 		else
 		{
 			(*j)++;
@@ -41,26 +45,23 @@ static char	**fill(char *s, char **res, char sep)
 	int		j;
 	int		r;
 	int		i;
-	int		skiped;
 
 	i = -1;
 	j = 0;
-	skiped = 0;
 	r = -1;
 	while (s[++i])
 	{
 		if (s[i] != sep)
 		{
-			substring_calc(s, &i, &j, &skiped, sep);
-		if (r == -1)
-			res[++r] = ft_substr(s, i - j, j);
-		else
-			res[++r] = ft_substr(s, i - j - 1, j + 1);
-		if (!res[r])
-			return (matrix_free(res), NULL);
-		j = 0;
+			substring_calc(s, &i, &j, sep);
+			if (r == -1)
+				res[++r] = ft_substr(s, i - j, j);
+			else
+				res[++r] = ft_substr(s, i - j - 1, j + 1);
+			if (!res[r])
+				return (matrix_free(res), NULL);
 		}
-	if (s[i] == '\0')
+		if (s[i] == '\0')
 			break ;
 	}
 	if (s[i - 1] == sep)
@@ -83,16 +84,3 @@ char	**parsing_split(char *s, char sep)
 	result[count] = NULL;
 	return (result);
 }
-
-/* int	main()
-{
-	char	*buff = "|ola|adeus '| pronto 1'";
-	char **array = parsing_split(buff, '|');
-	int i = 0;
-    while (array[i])
-	{
-		printf("%s\n", array[i]);
-	   	i++;
-	}
-	matrix_free(array);
-} */

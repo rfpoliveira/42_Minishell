@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   whitespaces_split.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 10:37:05 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/06 10:41:14 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/14 16:34:14 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
 
-//this is a split moddified to skip anything bettewn quotes
+//this is a split moddified to split every thing betteewn whitespaces and
+//to skip anything bettewn quotes 
 //39 ascii to single quote
 //34 ascii for double quote
 
@@ -27,7 +28,7 @@ static void	substring_calc(char *s, int *i, int *j, int *skiped)
 			*j += *skiped;
 			*i += *skiped;
 			*skiped = 0;
-		}	
+		}
 		else
 		{
 			(*j)++;
@@ -52,12 +53,12 @@ static char	**fill(char *s, char **res)
 		if (ft_isspace(s[i]) == 0)
 		{
 			substring_calc(s, &i, &j, &skiped);
-		res[++r] = ft_substr(s, i - j, j);
-		if (!res[r])
-			return (matrix_free(res), NULL);
-		j = 0;
+			res[++r] = ft_substr(s, i - j, j);
+			if (!res[r])
+				return (matrix_free(res), NULL);
+			j = 0;
 		}
-	if (s[i] == '\0')
+		if (s[i] == '\0')
 			break ;
 	}
 	return (res);
@@ -78,16 +79,3 @@ char	**whitespaces_split(char *s)
 	result[count] = NULL;
 	return (result);
 }
-
-/* int	main()
-{
-	char	*buff = "ec'ho' '$   A 1'    $B$C";
-	char **array = whitespaces_split(buff);
-	int i = 0;
-    while (array[i])
-	{
-		printf("%s\n", array[i]);
-	   	i++;
-	}
-	matrix_free(array);
-} */

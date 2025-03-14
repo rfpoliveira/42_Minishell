@@ -6,13 +6,14 @@
 /*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:16 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/14 10:17:00 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/14 16:42:26 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"\
 
-void  ft_free(char	**ptr)
+//free that check if the pointer exists
+void	ft_free(char **ptr)
 {
 	if (*ptr != NULL)
 	{
@@ -20,15 +21,15 @@ void  ft_free(char	**ptr)
 		*ptr = NULL;
 	}
 }
-
-static void command_free(t_command **command)
+//free the command and sets the pointer to null
+static void	command_free(t_command **command)
 {
 	free(*command);
 	*command = NULL;
 }
 
-//printing errors by the code passed
-void print_error(int error_code)
+//printing errors to the standard error by the code passed
+void	print_error(int error_code)
 {
 	if (error_code == MALLOC_ERROR)
 		ft_putstr_fd("Error Allocating memory!\n", STDERR_FILENO);
@@ -50,11 +51,12 @@ void print_error(int error_code)
 		ft_putstr_fd("Error: numeric value needed!\n", STDERR_FILENO);
 }
 
-//executed whenever you need to exit the program by error or in the end, takes care of memory
-void memory_free(char **splited, t_command *command, int error)
+//executed whenever you need to exit the program by 
+//error or in the end, takes care of memory
+void	memory_free(char **splited, t_command *command, int error)
 {
 	int	i;
-	
+
 	print_error(error);
 	//rl_clear_history();
 	i = -1;

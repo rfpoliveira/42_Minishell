@@ -6,7 +6,7 @@
 /*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/14 10:36:03 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/14 16:39:47 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int main(void)
 	int i = 0;
 	int j = 0;
 	//rl = readline("$> ");
-	rl = "echo $$'$$'$$A";
+	rl = "echo $A >>     >text";
 	command = parsing(rl);
 	if (command == NULL)
 		return (1);

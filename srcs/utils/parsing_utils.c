@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/12 10:34:08 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/14 16:37:38 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/parsing.h"
 #include "../../incs/minishell.h"
 
+//strlen but ignore A and B
 static int	after_sig_strlen(char	*s, char A, char B)
 {
 	int	i;
@@ -31,11 +32,13 @@ static int	after_sig_strlen(char	*s, char A, char B)
 	}
 	return (count);
 }
-void  delete_sigs(char *s, char A, char B)
+//deletes A and B from the string (used to take out quotes
+//and redirect symbls in some edge cases)
+void	delete_sigs(char *s, char A, char B)
 {
-	int	i;
-	char*  temp;
-	int	len;
+	int		i;
+	char	*temp;
+	int		len;
 
 	i = 0;
 	if (s == NULL)
@@ -63,7 +66,7 @@ int	ft_isspace(char c)
 		return (1);
 	return (0);
 }
-
+//check if the first thing in the command is a pipe
 int	check_first_pipe(char *s)
 {
 	int	i;
@@ -72,20 +75,20 @@ int	check_first_pipe(char *s)
 	while (s[i] && ft_isspace(s[i]))
 		i++;
 	if (s[i] == '|')
-		return  (0);
+		return (0);
 	return (1);
 }
-
-int  handle_quotes(t_command *command)
+//deletes quotes from everything
+int	handle_quotes(t_command *command)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while(command->table[i])
+	while (command->table[i])
 	{
-		while(command->table[i]->args[j])
+		while (command->table[i]->args[j])
 		{
 			delete_sigs(command->table[i]->args[j], 34, 39);
 			j++;

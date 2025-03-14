@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 12:03:29 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/11 16:08:21 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/14 16:37:56 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
 
+//counts the arguments present in the command passed
 int	count_args(t_simple_command *simple)
 {
 	int	i;

@@ -6,20 +6,22 @@
 /*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:56:34 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/14 10:35:13 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/14 16:23:33 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/parsing.h"
 #include "../../incs/minishell.h"
 
-static int expande(char **s, int x)
+//trully expandes variables and maintains 
+//whatever can come first in the argument
+static int	expande(char **s, int x)
 {
-	char *prev;
-	char *env;
-	char *temp;
-	int free_flag;
-	
+	char	*prev;
+	char	*env;
+	char	*temp;
+	int		free_flag;
+
 	free_flag = 0;
 	prev = NULL;
 	if (x > 1)
@@ -41,11 +43,12 @@ static int expande(char **s, int x)
 	free_expand(&temp, &prev, &env, free_flag);
 	return (0);
 }
-
+//next 2 functions takes care of expanding 
+//on redirection files since is diferent in some cases
 static int	expande_red_util(char *file)
 {
 	int	i;
-	
+
 	i = -1;
 	while (file[++i])
 	{
@@ -61,18 +64,18 @@ static int	expande_red_util(char *file)
 			}
 			if (expande(&file, i + 1) != 0)
 				return (1);
-		if (ft_strncmp(file, "", 1) == 0)
-			return (print_error(SYNTAX_ERROR), 1);
+			if (ft_strncmp(file, "", 1) == 0)
+				return (print_error(SYNTAX_ERROR), 1);
 		}
 	}
 	return (0);
 }
-static int expande_red(t_simple_command *s)
+static int	expande_red(t_simple_command *s)
 {
 	if (s->infile)
 	{
-	if (expande_red_util(s->infile) != 0)
-			return (1);
+		if (expande_red_util(s->infile) != 0)
+				return (1);
 	}
 	if (s->outfile)
 	{
@@ -91,28 +94,29 @@ static int expande_red(t_simple_command *s)
 	}
 	return (0);
 }
-static int expand_args(t_command *command, int i)
+//iterates to expand in all arguments, ignores: $$
+static int	expand_args(t_simple_command *simple)
 {
 	int	j;
 	int	x;
 
 	x = -1;
 	j = -1;
-	while (command->table[i]->args[++j])
+	while (simple->args[++j])
 	{
-		while (command->table[i]->args[j][++x])
+		while (simple->args[j][++x])
 		{
-			if (command->table[i]->args[j][x] == 34 \
-				|| command->table[i]->args[j][x] == 39)
-				x += skip_quotes(command->table[i]->args[j], x);
-			if (command->table[i]->args[j][x] == '$')
+			if (simple->args[j][x] == 34 \
+				|| simple->args[j][x] == 39)
+				x += skip_quotes(simple->args[j], x);
+			if (simple->args[j][x] == '$')
 			{
-				if (command->table[i]->args[j][x + 1] == '$')
+				if (simple->args[j][x + 1] == '$')
 				{
 					x++;
 					continue ;
 				}
-				if (expande(&command->table[i]->args[j], x + 1) != 0)
+				if (expande(&simple->args[j], x + 1) != 0)
 					return (1);
 			}
 		}
@@ -125,13 +129,12 @@ int  handle_expanding(t_command *command)
 {
 	int	i;
 
-
 	i = -1;
 	while (command->table[++i])
 	{
 		if (expande_red(command->table[i]) != 0)
 			return (1);
-		if (expand_args(command, i) != 0)
+		if (expand_args(command->table[i]) != 0)
 			return (1);
 	}
 	return (0);

@@ -6,19 +6,20 @@
 /*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/14 10:05:57 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/14 16:33:23 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/parsing.h"
 #include "../../incs/minishell.h"
 
-static void mount_table(t_command *command, char **splited) 
+//puts everything separated by pipes and spaces ready to be parsed
+static void	mount_table(t_command *command, char **splited)
 {
 	int	i;
 
 	i = 0;
-	while(i < command->number_simple_commands)
+	while (i < command->number_simple_commands)
 	{
 		command->table[i] = malloc(sizeof(t_simple_command));
 		if (!command->table[i])
@@ -40,14 +41,13 @@ static void mount_table(t_command *command, char **splited)
 		i++;
 	}
 }
-
-static void ini_command(char **splited, t_command *command)
+//inicializacion of the main structure
+static void	ini_command(char **splited, t_command *command)
 {
 	int	i;
 
 	i = 0;
-
-	while(splited[i])
+	while (splited[i])
 		i++;
 	command->number_simple_commands = i;
 	command->table = malloc(sizeof(t_simple_command) * i + 8);
@@ -58,11 +58,20 @@ static void ini_command(char **splited, t_command *command)
 		return (memory_free(splited, command, 0));
 	mount_table(command, splited);
 }
+//calls everything in the following order:
+/* check_first_pipe to check if there is a pipe in the beggining
+parsing_split to split by pipes 
+ini_command for allocating most of the memory and inicializing the main struct
+handle_redirect to put any redirections on the correct place in the strcut 
+handle_expanding for expande everything correctly
+handle_quotes for deleting quotes since we dont be needing them anymore
+and parse command to check if the commands exist or not
+if any of this returns any error the programs stops and calls memory free */
 
-t_command *parsing(char *s)
+t_command	*parsing(char *s)
 {
-	char **splited;
-	t_command *command;
+	char		**splited;
+	t_command	*command;
 
 	if (!s)
 		return (NULL);

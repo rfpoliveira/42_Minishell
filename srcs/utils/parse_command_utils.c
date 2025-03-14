@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:25:06 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/12 15:17:56 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/14 16:35:35 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/parsing.h"
 #include "../../incs/minishell.h"
 
-static int check_path(char *s)
+//check if the path is valid or not
+static int	check_path(char *s)
 {
-	DIR *dir;
+	DIR	*dir;
 
 	dir = opendir(s);
 	if (dir)
@@ -40,7 +41,7 @@ int	parse_cd(t_simple_command *s)
 		return (print_error(TOO_MANY_ARGS), 1);
 	if (s->args[0][0] == '|')
 		i++;
-	if (s->args[i])	
+	if (s->args[i])
 	{
 		if (check_path(s->args[i]) != 0)
 			return (1);
@@ -61,7 +62,7 @@ int	parse_env(t_simple_command *s)
 	return (0);
 }
 
-static int check_export_arg(char *s)
+static int	check_export_arg(char *s)
 {
 	int	i;
 
@@ -85,7 +86,7 @@ static int check_export_arg(char *s)
 //first char is always a letter;
 //following name can have letter, '_' or digits;
 //can have more then 1 '='
-int parse_export_unset(t_simple_command *s)
+int	parse_export_unset(t_simple_command *s)
 {
 	int	i;
 

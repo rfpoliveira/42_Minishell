@@ -6,14 +6,15 @@
 /*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 10:30:51 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/14 10:15:42 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/14 16:41:52 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
 
-size_t skip_quotes(char *s, size_t i)
+//skips anything bettewn quotes and returns how many chars were skiped
+size_t	skip_quotes(char *s, size_t i)
 {
 	int	skiped;
 
@@ -38,7 +39,7 @@ size_t skip_quotes(char *s, size_t i)
 	skiped++;
 	return (skiped);
 }
-
+//word count for the whitespacs split
 size_t	r_count_whitespaces(char *s)
 {
 	size_t	i;
@@ -60,7 +61,7 @@ size_t	r_count_whitespaces(char *s)
 	}
 	return (count);
 }
-
+//word count for the parsing split
 size_t	r_count_sep(char *s, char sep)
 {
 	size_t	i;
