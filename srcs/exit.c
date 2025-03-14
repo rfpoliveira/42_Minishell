@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:16 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/12 15:32:13 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/14 10:17:00 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,19 @@ void  ft_free(char	**ptr)
 	}
 }
 
+static void command_free(t_command **command)
+{
+	free(*command);
+	*command = NULL;
+}
+
 //printing errors by the code passed
 void print_error(int error_code)
 {
 	if (error_code == MALLOC_ERROR)
 		ft_putstr_fd("Error Allocating memory!\n", STDERR_FILENO);
 	else if (error_code == QUOTE_ERROR)
-		ft_putstr_fd("Error: non closed quotes!\n", STDERR_FILENO);
+		ft_putstr_fd("Error: Non closed quotes!\n", STDERR_FILENO);
 	else if (error_code == COM_NOT_FOUND)
 		ft_putstr_fd("Error: command not found!\n", STDERR_FILENO);
 	else if (error_code == TOO_MANY_ARGS)
@@ -65,7 +71,7 @@ void memory_free(char **splited, t_command *command, int error)
 		}
 		if (command->table)
 			free(command->table);
-		free(command);
+		command_free(&command);
 	}
 	if (splited)
 	{

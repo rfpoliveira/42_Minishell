@@ -36,7 +36,7 @@ SILENT_MAKE = make -s extra
 all: deps $(LIBFT_ARC) $(NAME)
 
 $(NAME): $(OBJS) 
-	@cc $(CFLAGS) $(LEAKS) $(OBJS) $(LIBFT_ARC) -o $(NAME) -lreadline
+	@cc $(CFLAGS) $(OBJS) $(LIBFT_ARC) -o $(NAME) -lreadline
 	@echo "$(GRN)[minishell successfully compiled]$(D)"
 	
 #==============================================================================#

@@ -70,14 +70,20 @@ int redirect_hopper(t_simple_command *simple, int arg, int i)
 	error = 0;
 	if (simple->args[arg][i] == '<')
 	{
-		if (simple->args[arg][i + 1] == '<')
+		if (simple->args[arg][i + 2] && \
+			(simple->args[arg][i + 1] == '<' || simple->args[arg][i + 1] == '>'))
+			return (print_error(SYNTAX_ERROR), 1);
+		else if (simple->args[arg][i + 1] == '<')
 			error = split_redirects(simple, arg, i, "<<");
 		else if (simple->args[arg][i + 1] != '<')
 			error = split_redirects(simple, arg, i, "<");
 	}
 	else if (simple->args[arg][i] == '>')
 	{
-		if (simple->args[arg][i + 1] == '>')
+		if (simple->args[arg][i + 2] && \
+			(simple->args[arg][i + 1] == '<' || simple->args[arg][i + 1] == '>'))
+			return (print_error(SYNTAX_ERROR), 1);
+		else if (simple->args[arg][i + 1] == '>')
 			error = split_redirects(simple, arg, i, ">>");
 		else if (simple->args[arg][i + 1] != '>')
 			error = split_redirects(simple, arg, i, ">");

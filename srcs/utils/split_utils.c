@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 10:30:51 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/06 11:40:48 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/14 10:15:42 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

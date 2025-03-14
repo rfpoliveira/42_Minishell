@@ -4,5 +4,6 @@
 		"algorithm": "c",
 		"format": "c",
 		"parsing.h": "c"
-	}
+	},
+	"makefile.configureOnOpen": true
 }

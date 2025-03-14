@@ -3,40 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redirect.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:37:15 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/12 17:00:52 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/14 09:47:20 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
 
-static int check_redirect_error(t_simple_command *simple, int arg, int i)
+static int check_redirect_error(t_simple_command *simple)
 {
-	if (simple->args[arg][i] == '<')
+	if (simple->infile)
 	{
-		if (simple->args[arg][i + 1] == '<' && \
-			(simple->args[arg][i + 2] == '>' || \
-			(simple->args[arg][i + 2] == '\0' \
-			&& simple->args[arg + 1] && simple->args[arg + 1][0] == '>')))
-			return (print_error(SYNTAX_ERROR), 1);
-		else if ((simple->args[arg][i + 1] == '\0' && simple->args[arg + 1] && \
-				(simple->args[arg + 1][0] == '>') || \
-				simple->args[arg + 1][0] == '<') || \
-				simple->args[arg][i + 1] == '>')
+		if (simple->infile[0] == '<' || simple->infile[0] == '>')
 			return (print_error(SYNTAX_ERROR), 1);
 	}
-	else if (simple->args[arg][i] == '>')
+	if (simple->outfile)
 	{
-		if (simple->args[arg][i + 1] == '>' && (simple->args[arg][i + 2] == '<'\
-			|| (simple->args[arg][i + 2] == '\0' && simple->args[arg + 1] \
-			&& simple->args[arg + 1][0] == '<')))
+		if (simple->outfile[0] == '<' || simple->outfile[0] == '>')
 			return (print_error(SYNTAX_ERROR), 1);
-		else if ((simple->args[arg][i + 1] == '\0' && simple->args[arg + 1]) \
-			&& (simple->args[arg + 1][0] == '<' || \
-			simple->args[arg + 1][0] == '>') || simple->args[arg][i + 1] == '<')
+	}
+	if (simple->double_in)
+	{
+		if (simple->double_in[0] == '<' || simple->double_in[0] == '>')
+			return (print_error(SYNTAX_ERROR), 1);
+	}
+	if (simple->double_out)
+	{
+		if (simple->double_out[0] == '<' || simple->double_out[0] == '>')
 			return (print_error(SYNTAX_ERROR), 1);
 	}
 	return (0);
@@ -105,8 +101,8 @@ static int	iter_red(t_command *command, int i)
 			if (command->table[i]->args[j][x] == '<' || \
 				command->table[i]->args[j][x] == '>')
 			{
-				if (check_redirect_error(command->table[i], j , x) != 0 || \
-					redirect_hopper(command->table[i], j , x) != 0)
+				if (redirect_hopper(command->table[i], j , x) != 0 || \
+					check_redirect_error(command->table[i]) != 0)
 					return (1);
 				j = 0;
 				break ;

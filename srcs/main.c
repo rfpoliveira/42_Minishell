@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/12 15:44:16 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/14 10:36:03 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ int main(void)
 	int i = 0;
 	int j = 0;
 	//rl = readline("$> ");
-	rl = "echo ola > test.txt";
+	rl = "echo $$'$$'$$A";
 	command = parsing(rl);
+	if (command == NULL)
+		return (1);
 	while(command->table[i])
 	{
 		while(command->table[i]->args[j])

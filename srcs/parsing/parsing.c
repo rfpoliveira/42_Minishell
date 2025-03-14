@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/12 15:30:10 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/14 10:05:57 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,22 @@ static void mount_table(t_command *command, char **splited)
 	}
 }
 
-static t_command *ini_command(char **splited, t_command *command)
+static void ini_command(char **splited, t_command *command)
 {
 	int	i;
 
 	i = 0;
+
 	while(splited[i])
 		i++;
 	command->number_simple_commands = i;
 	command->table = malloc(sizeof(t_simple_command) * i + 8);
 	if (!command->table)
-		return (memory_free(splited, command, MALLOC_ERROR), NULL);
+		return (memory_free(splited, command, MALLOC_ERROR));
 	command->table[i] = NULL;
+	if (quote_counter(splited) != 0)
+		return (memory_free(splited, command, 0));
 	mount_table(command, splited);
-	return (command);
 }
 
 t_command *parsing(char *s)
@@ -71,8 +73,8 @@ t_command *parsing(char *s)
 		return (memory_free(NULL, NULL, MALLOC_ERROR), NULL);
 	command = malloc(sizeof(t_command));
 	if (!command)
-		return (memory_free(splited, command, MALLOC_ERROR), NULL);
-	command = ini_command(splited, command);
+		return (memory_free(splited, NULL, MALLOC_ERROR), NULL);
+	ini_command(splited, command);
 	if (!command)
 		return (NULL);
 	if (handle_redirect(command) != 0)

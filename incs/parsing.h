@@ -12,7 +12,7 @@
 int  handle_expanding(t_command *command);
 void free_expand(char **temp, char **prev, char **env, int flag);
 void	my_getenv(char **s, char **env, int *x, int *free_flag);
-int	quote_counter(char *s);
+int	quote_counter(char **s);
 
 //quotes
 int  handle_quotes(t_command *command);

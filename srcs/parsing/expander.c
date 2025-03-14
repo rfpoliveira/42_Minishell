@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:56:34 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/12 15:40:03 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/14 10:35:13 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int expande(char **s, int x)
 	*s = ft_strdup(temp);
 	if (prev != NULL)
 		free_flag = 1;
-	if (ft_strncmp(env, "", 1))
+	if (ft_strncmp(env, "", 1) == 0)
 		free_flag = 2;
 	free_expand(&temp, &prev, &env, free_flag);
 	return (0);
@@ -47,8 +47,6 @@ static int	expande_red_util(char *file)
 	int	i;
 	
 	i = -1;
-	if (quote_counter(file) % 2 != 0)
-			return (print_error(QUOTE_ERROR), 1);
 	while (file[++i])
 	{
 		if (file[i] == 34 \
@@ -56,6 +54,11 @@ static int	expande_red_util(char *file)
 			i += skip_quotes(file, i);
 		if (file[i] == '$')
 		{
+			if (file[i + 1] == '$')
+			{
+				i++;
+				continue ;
+			}
 			if (expande(&file, i + 1) != 0)
 				return (1);
 		if (ft_strncmp(file, "", 1) == 0)
@@ -97,8 +100,6 @@ static int expand_args(t_command *command, int i)
 	j = -1;
 	while (command->table[i]->args[++j])
 	{
-		if (quote_counter(command->table[i]->args[j]) % 2 != 0)
-			return (print_error(QUOTE_ERROR), 1);
 		while (command->table[i]->args[j][++x])
 		{
 			if (command->table[i]->args[j][x] == 34 \
@@ -106,6 +107,11 @@ static int expand_args(t_command *command, int i)
 				x += skip_quotes(command->table[i]->args[j], x);
 			if (command->table[i]->args[j][x] == '$')
 			{
+				if (command->table[i]->args[j][x + 1] == '$')
+				{
+					x++;
+					continue ;
+				}
 				if (expande(&command->table[i]->args[j], x + 1) != 0)
 					return (1);
 			}
