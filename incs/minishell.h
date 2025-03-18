@@ -18,6 +18,7 @@
 #include <curses.h>
 #include <term.h>
 #include <errno.h>
+#include <signal.h>
 
 /*============================================================================#
 #								  ERRORS									  #

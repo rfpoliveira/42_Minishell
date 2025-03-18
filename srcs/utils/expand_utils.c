@@ -6,7 +6,7 @@
 /*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:30:00 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/14 16:35:15 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/18 13:45:47 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,41 @@ int	quote_counter(char **s)
 //free temporary variables inside the expande function
 void	free_expand(char **temp, char **prev, char **env, int flag)
 {
-	if (flag == 1 || flag == 2)
-	{
-		free(*temp);
-		free(*prev);
-	}
+	ft_free(prev);
+	ft_free(temp);
 	if (flag == 2 && *env != *temp)
 		free(*env);
+}
+
+static void  my_getenv_util(char **s, int *x, int *i, char **env, int *free_flag)
+{
+	char *buff;
+	
+	buff = NULL;
+	buff = ft_substr(*s, *x, *i - *x - 1);
+	*env = getenv(buff);
+	ft_free(&buff);
+	buff = ft_substr(*s, *i - 1, ft_strlen(*s) - *i);
+	*env = ft_strjoin(*env, buff);
+	ft_free(&buff);
+	*free_flag = 2;
+
 }
 //uses getenv in the correct string depending of the case
 void	my_getenv(char **s, char **env, int *x, int *free_flag)
 {
+	int	i;
+
+	i = *x;
+	while ((*s)[i] && !ft_isspace((*s)[i - 1]))
+		i++;
 	if ((*s)[*x] != '$' && !ft_isdigit((*s)[*x]) && (*s)[*x] != '?')
-		*env = getenv(*s + *x);
+	{
+		if (i == ft_strlen(*s) && (*s)[i - 1] != 34)
+			*env = getenv(*s + *x);
+		else
+			my_getenv_util(s, x, &i, env, free_flag);
+	}
 	else
 	{
 		*env = ft_substr(*s, *x + 1, ft_strlen(*s) - *x);

@@ -6,7 +6,7 @@
 /*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:56:34 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/14 16:23:33 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/18 13:41:52 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ static int	expande(char **s, int x)
 		return (print_error(MALLOC_ERROR), 1);
 	free(*s);
 	*s = ft_strdup(temp);
-	if (prev != NULL)
-		free_flag = 1;
 	if (ft_strncmp(env, "", 1) == 0)
 		free_flag = 2;
 	free_expand(&temp, &prev, &env, free_flag);
@@ -52,8 +50,7 @@ static int	expande_red_util(char *file)
 	i = -1;
 	while (file[++i])
 	{
-		if (file[i] == 34 \
-			|| file[i] == 39)
+		if (file[i] == 39)
 			i += skip_quotes(file, i);
 		if (file[i] == '$')
 		{
@@ -106,8 +103,7 @@ static int	expand_args(t_simple_command *simple)
 	{
 		while (simple->args[j][++x])
 		{
-			if (simple->args[j][x] == 34 \
-				|| simple->args[j][x] == 39)
+			if (simple->args[j][x] == 39)
 				x += skip_quotes(simple->args[j], x);
 			if (simple->args[j][x] == '$')
 			{

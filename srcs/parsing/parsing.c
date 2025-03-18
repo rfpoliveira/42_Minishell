@@ -6,7 +6,7 @@
 /*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/14 16:33:23 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/18 13:54:51 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,23 +76,23 @@ t_command	*parsing(char *s)
 	if (!s)
 		return (NULL);
 	if (check_first_pipe(s) == 0)
-		return (memory_free(NULL, NULL, SYNTAX_ERROR), NULL);
+		return (ft_free(&s), memory_free(NULL, NULL, SYNTAX_ERROR), NULL);
 	splited = parsing_split(s, '|');
 	if (!splited)
-		return (memory_free(NULL, NULL, MALLOC_ERROR), NULL);
+		return (ft_free(&s), memory_free(NULL, NULL, MALLOC_ERROR), NULL);
 	command = malloc(sizeof(t_command));
 	if (!command)
-		return (memory_free(splited, NULL, MALLOC_ERROR), NULL);
+		return (ft_free(&s), memory_free(splited, NULL, MALLOC_ERROR), NULL);
 	ini_command(splited, command);
 	if (!command)
-		return (NULL);
+		return (ft_free(&s), NULL);
 	if (handle_redirect(command) != 0)
-		return (memory_free(splited, command, 0), NULL);
+		return (ft_free(&s), memory_free(splited, command, 0), NULL);
 	if (handle_expanding(command) != 0)
-		return (memory_free(splited, command, 0), NULL);
+		return (ft_free(&s), memory_free(splited, command, 0), NULL);
 	if (handle_quotes(command) != 0)
-		return (memory_free(splited, command, 0), NULL);
+		return (ft_free(&s), memory_free(splited, command, 0), NULL);
 	if (parse_commands(command) != 0)
-		return (memory_free(splited, command, 0), NULL);
-	return (matrix_free(splited), command);
+		return (ft_free(&s), memory_free(splited, command, 0), NULL);
+	return (ft_free(&s), matrix_free(splited), command);
 }

@@ -6,7 +6,7 @@
 /*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:16 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/14 16:42:26 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/18 12:39:52 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	memory_free(char **splited, t_command *command, int error)
 	int	i;
 
 	print_error(error);
-	//rl_clear_history();
+	rl_clear_history();
 	i = -1;
 	if (command)
 	{

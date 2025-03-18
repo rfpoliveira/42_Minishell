@@ -6,7 +6,7 @@
 /*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:09:43 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/14 16:24:59 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/18 13:56:49 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static int	detect_command(t_simple_command *s)
 	i = 0;
 	if (check_pipes(s, &i) != 0)
 		return (1);
+	if (s->args[i][0] == '|')
+		s->args[i]++;
 	if (ft_strncmp(s->args[i], "echo", 4) == 0)
 		return (0);
 	else if (ft_strncmp(s->args[i], "cd", 2) == 0)
