@@ -6,7 +6,7 @@
 /*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:16 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/18 12:39:52 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/19 17:13:06 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,30 @@ static void	command_free(t_command **command)
 	free(*command);
 	*command = NULL;
 }
+
+/* static void	handle_exit_code(int error_code, int *exit_code)
+{
+	if (error_code == MALLOC_ERROR)
+		*exit_code = 1;
+	else if (error_code == QUOTE_ERROR)
+		*exit_code = 1;
+	else if (error_code == COM_NOT_FOUND)
+		*exit_code = 127;
+	else if (error_code == TOO_MANY_ARGS)
+		*exit_code = 1;
+	else if (error_code == INV_PATH)
+		*exit_code = 1;
+	else if (error_code == NO_ARGS)
+		*exit_code = 2;
+	else if (error_code == SYNTAX_ERROR)
+		*exit_code = 2;
+	else if (error_code == OPEN_ERROR)
+		*exit_code = 2;
+	else if (error_code == EXIT_ERROR)
+		*exit_code = 2;
+	else if (error_code == STDIN_ERROR)
+		*exit_code = 2;
+} */
 
 //printing errors to the standard error by the code passed
 void	print_error(int error_code)
@@ -49,6 +73,9 @@ void	print_error(int error_code)
 		ft_putstr_fd("Error accesing path!\n", STDERR_FILENO);
 	else if (error_code == EXIT_ERROR)
 		ft_putstr_fd("Error: numeric value needed!\n", STDERR_FILENO);
+	else if (error_code == STDIN_ERROR)
+		ft_putstr_fd("Error reading from stdin!\n", STDERR_FILENO);
+	/* handle_exit_code(error_code, exit_code); */
 }
 
 //executed whenever you need to exit the program by 
@@ -58,7 +85,6 @@ void	memory_free(char **splited, t_command *command, int error)
 	int	i;
 
 	print_error(error);
-	rl_clear_history();
 	i = -1;
 	if (command)
 	{

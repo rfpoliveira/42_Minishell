@@ -6,12 +6,12 @@
 /*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/18 13:54:51 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/19 15:25:46 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/parsing.h"
 #include "../../incs/minishell.h"
+#include "../../incs/parsing.h"
 
 //puts everything separated by pipes and spaces ready to be parsed
 static void	mount_table(t_command *command, char **splited)

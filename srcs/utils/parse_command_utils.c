@@ -6,12 +6,12 @@
 /*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:25:06 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/14 16:35:35 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/19 15:25:29 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/parsing.h"
 #include "../../incs/minishell.h"
+#include "../../incs/parsing.h"
 
 //check if the path is valid or not
 static int	check_path(char *s)

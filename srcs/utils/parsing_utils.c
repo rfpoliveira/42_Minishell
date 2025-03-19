@@ -6,12 +6,12 @@
 /*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/14 16:37:38 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/19 15:25:35 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/parsing.h"
 #include "../../incs/minishell.h"
+#include "../../incs/parsing.h"
 
 //strlen but ignore A and B
 static int	after_sig_strlen(char	*s, char A, char B)
