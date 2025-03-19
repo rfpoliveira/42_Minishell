@@ -6,7 +6,7 @@
 /*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/19 17:13:37 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/19 17:19:11 by renato-oliv      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int main(void)
 			j = 0;
 			i++;
 		}
+		i = 0;
 		memory_free(NULL, command, 0);
 	}
 }
