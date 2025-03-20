@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   whitespaces_split.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 10:37:05 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/14 16:34:14 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/20 14:56:19 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

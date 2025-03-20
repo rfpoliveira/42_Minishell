@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/24 15:56:34 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/18 13:41:52 by renato-oliv      ###   ########.fr       */
+/*   Created: 2025/03/20 14:53:37 by rpedrosa          #+#    #+#             */
+/*   Updated: 2025/03/20 16:46:24 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 //trully expandes variables and maintains 
 //whatever can come first in the argument
-static int	expande(char **s, int x)
+static int	expande(char **s, int x, int *exit_code)
 {
 	char	*prev;
 	char	*env;
@@ -24,26 +24,33 @@ static int	expande(char **s, int x)
 
 	free_flag = 0;
 	prev = NULL;
+	if ((*s)[x] == '?')
+		return (expande_exit_code(s, exit_code));
 	if (x > 1)
 	{
 		prev = ft_substr(*s, 0, x - 1);
 		if (prev == NULL)
-			return (print_error(MALLOC_ERROR), 1);
+			return (print_error(MALLOC_ERROR, exit_code), 1);
 	}
-	my_getenv(s, &env, &x, &free_flag);
+	if (my_getenv(s, &env, &x, &free_flag) != 0)
+		return (print_error(MALLOC_ERROR, exit_code), ft_free(&prev), 1);
 	temp = ft_strjoin(prev, env);
 	if (temp == NULL)
-		return (print_error(MALLOC_ERROR), 1);
+		return (print_error(MALLOC_ERROR, exit_code), 1);
+	if (!env || !prev)
+		free_flag +=1;
 	free(*s);
 	*s = ft_strdup(temp);
+	if (*s == NULL)
+		return (print_error(MALLOC_ERROR, exit_code), 1);
 	if (ft_strncmp(env, "", 1) == 0)
-		free_flag = 2;
-	free_expand(&temp, &prev, &env, free_flag);
+		free_flag += 20;
+	free_expand(temp, prev, env, free_flag);
 	return (0);
 }
 //next 2 functions takes care of expanding 
 //on redirection files since is diferent in some cases
-static int	expande_red_util(char *file)
+static int	expande_red_util(char *file, int *exit_code)
 {
 	int	i;
 
@@ -59,40 +66,40 @@ static int	expande_red_util(char *file)
 				i++;
 				continue ;
 			}
-			if (expande(&file, i + 1) != 0)
+			if (expande(&file, i + 1, exit_code) != 0)
 				return (1);
 			if (ft_strncmp(file, "", 1) == 0)
-				return (print_error(SYNTAX_ERROR), 1);
+				return (print_error(SYNTAX_ERROR, exit_code), 1);
 		}
 	}
 	return (0);
 }
-static int	expande_red(t_simple_command *s)
+static int	expande_red(t_simple_command *s, int *exit_code)
 {
 	if (s->infile)
 	{
-		if (expande_red_util(s->infile) != 0)
+		if (expande_red_util(s->infile, exit_code) != 0)
 				return (1);
 	}
 	if (s->outfile)
 	{
-		if (expande_red_util(s->outfile) != 0)
+		if (expande_red_util(s->outfile, exit_code) != 0)
 			return (1);
 	}
 	if (s->double_in)
 	{
-		if (expande_red_util(s->double_in) != 0)
+		if (expande_red_util(s->double_in, exit_code) != 0)
 			return (1);
 	}
 	if (s->double_out)
 	{
-		if (expande_red_util(s->double_out) != 0)
+		if (expande_red_util(s->double_out, exit_code) != 0)
 			return (1);
 	}
 	return (0);
 }
 //iterates to expand in all arguments, ignores: $$
-static int	expand_args(t_simple_command *simple)
+static int	expand_args(t_simple_command *simple, int *exit_code)
 {
 	int	j;
 	int	x;
@@ -112,7 +119,7 @@ static int	expand_args(t_simple_command *simple)
 					x++;
 					continue ;
 				}
-				if (expande(&simple->args[j], x + 1) != 0)
+				if (expande(&simple->args[j], x + 1, exit_code) != 0)
 					return (1);
 			}
 		}
@@ -121,16 +128,16 @@ static int	expand_args(t_simple_command *simple)
 	return (0);
 }
 
-int  handle_expanding(t_command *command)
+int  handle_expanding(t_command *command, int *exit_code)
 {
 	int	i;
 
 	i = -1;
 	while (command->table[++i])
 	{
-		if (expande_red(command->table[i]) != 0)
+		if (expande_red(command->table[i], exit_code) != 0)
 			return (1);
-		if (expand_args(command->table[i]) != 0)
+		if (expand_args(command->table[i], exit_code) != 0)
 			return (1);
 	}
 	return (0);

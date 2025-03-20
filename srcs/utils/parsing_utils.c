@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/19 15:25:35 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/20 16:29:54 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	after_sig_strlen(char	*s, char A, char B)
 }
 //deletes A and B from the string (used to take out quotes
 //and redirect symbls in some edge cases)
-void	delete_sigs(char *s, char A, char B)
+int	delete_sigs(char *s, char A, char B, int *exit_code)
 {
 	int		i;
 	char	*temp;
@@ -42,9 +42,11 @@ void	delete_sigs(char *s, char A, char B)
 
 	i = 0;
 	if (s == NULL)
-		return ;
+		return (0);
 	len = after_sig_strlen(s, A, B);
 	temp = malloc(len + 1);
+	if (temp == NULL)
+		return (print_error(MALLOC_ERROR, exit_code), 1);
 	temp[len] = '\0';
 	len = 0;
 	while (s[i])
@@ -58,6 +60,7 @@ void	delete_sigs(char *s, char A, char B)
 	}
 	ft_strlcpy(s, temp, len + 1);
 	free(temp);
+	return (0);
 }
 
 int	ft_isspace(char c)
@@ -79,7 +82,7 @@ int	check_first_pipe(char *s)
 	return (1);
 }
 //deletes quotes from everything
-int	handle_quotes(t_command *command)
+int	handle_quotes(t_command *command, int *exit_code)
 {
 	int	i;
 	int	j;
@@ -90,13 +93,13 @@ int	handle_quotes(t_command *command)
 	{
 		while (command->table[i]->args[j])
 		{
-			delete_sigs(command->table[i]->args[j], 34, 39);
+			delete_sigs(command->table[i]->args[j], 34, 39, exit_code);
 			j++;
 		}
-		delete_sigs(command->table[i]->infile, 34, 39);
-		delete_sigs(command->table[i]->outfile, 34, 39);
-		delete_sigs(command->table[i]->double_in, 34, 39);
-		delete_sigs(command->table[i]->double_out, 34, 39);
+		delete_sigs(command->table[i]->infile, 34, 39, exit_code);
+		delete_sigs(command->table[i]->outfile, 34, 39, exit_code);
+		delete_sigs(command->table[i]->double_in, 34, 39, exit_code);
+		delete_sigs(command->table[i]->double_out, 34, 39, exit_code);
 		j = 0;
 		i++;
 	}

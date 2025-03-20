@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:16 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/19 17:13:06 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/20 15:13:01 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	command_free(t_command **command)
 	*command = NULL;
 }
 
-/* static void	handle_exit_code(int error_code, int *exit_code)
+static void	handle_exit_code(int error_code, int *exit_code)
 {
 	if (error_code == MALLOC_ERROR)
 		*exit_code = 1;
@@ -50,10 +50,10 @@ static void	command_free(t_command **command)
 		*exit_code = 2;
 	else if (error_code == STDIN_ERROR)
 		*exit_code = 2;
-} */
+}
 
 //printing errors to the standard error by the code passed
-void	print_error(int error_code)
+void	print_error(int error_code, int *exit_code)
 {
 	if (error_code == MALLOC_ERROR)
 		ft_putstr_fd("Error Allocating memory!\n", STDERR_FILENO);
@@ -75,16 +75,16 @@ void	print_error(int error_code)
 		ft_putstr_fd("Error: numeric value needed!\n", STDERR_FILENO);
 	else if (error_code == STDIN_ERROR)
 		ft_putstr_fd("Error reading from stdin!\n", STDERR_FILENO);
-	/* handle_exit_code(error_code, exit_code); */
+	handle_exit_code(error_code, exit_code);
 }
 
 //executed whenever you need to exit the program by 
 //error or in the end, takes care of memory
-void	memory_free(char **splited, t_command *command, int error)
+void	memory_free(int *exit_code, char **splited, t_command *command, int error)
 {
 	int	i;
 
-	print_error(error);
+	print_error(error, exit_code);
 	i = -1;
 	if (command)
 	{

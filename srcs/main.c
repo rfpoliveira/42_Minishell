@@ -3,25 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: renato-oliveira <renato-oliveira@studen    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/19 17:19:11 by renato-oliv      ###   ########.fr       */
+/*   Updated: 2025/03/20 15:51:14 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
-#include "../incs/signals.h"
-
-pid_t	current_pid = 0;
 
 int main(void)
 {
 	t_command *command;
 	char *rl;
+	int		exit_code;
 
 	int i = 0;
 	int j = 0;
+	exit_code = 0;
 	handle_signals();
 	while (42)
 	{
@@ -33,7 +32,7 @@ int main(void)
 			exit(0);
 		}
 		add_history(rl);
-		command = parsing(rl);
+		command = parsing(rl, &exit_code);
 		if (command == NULL)
 		{
 			ft_free(&rl);
@@ -52,6 +51,7 @@ int main(void)
 			i++;
 		}
 		i = 0;
-		memory_free(NULL, command, 0);
+		printf("exit_code: %i\n", exit_code);
+		memory_free(&exit_code, NULL, command, 0);
 	}
 }
