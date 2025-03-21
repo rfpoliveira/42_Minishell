@@ -12,7 +12,7 @@
 
 #include "../incs/minishell.h"
 
-int main(void)
+int main(int ac, char **av, char **envp)
 {
 	t_command *command;
 	char *rl;
@@ -33,6 +33,7 @@ int main(void)
 		}
 		add_history(rl);
 		command = parsing(rl, &exit_code);
+		ft_cmd(command->table[0], envp);
 		if (command == NULL)
 		{
 			ft_free(&rl);
@@ -54,4 +55,6 @@ int main(void)
 		printf("exit_code: %i\n", exit_code);
 		memory_free(&exit_code, NULL, command, 0);
 	}
+	(void) ac;
+	(void) av;
 }

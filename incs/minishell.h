@@ -56,6 +56,7 @@ typedef struct s_simple_command
 {
 	int	number_args;
 	char **args;
+	char	**paths;
 	char *infile;
 	char *outfile;
 	char *double_in;
@@ -72,6 +73,7 @@ typedef struct s_command
 #                                 Functions                                   #
 #============================================================================*/
 
+#include "exec.h"
 void    handle_signals(void);
 t_command  *parsing(char *s, int *exit_code);
 

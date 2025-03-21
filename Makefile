@@ -6,10 +6,11 @@ MAIN = $(addprefix $(SRCS_PATH)/, main.c exit.c)
 PARSING = $(addprefix $(PARSING_PATH)/, parsing.c whitespaces_split.c expander.c parse_command.c \
 parse_redirect.c parsing_split.c)
 SIGNAL = srcs/signals/handle_signals.c
+EXEC = $(addprefix $(EXEC_PATH)/, commands.c)
 UTILS = $(addprefix $(UTILS_PATH)/, parse_command_utils.c parse_command_utils2.c \
 split_utils.c parsing_utils.c parsing_utils2.c redirect_utils.c expand_utils.c)
 
-SRCS = $(UTILS) $(MAIN) $(PARSING) $(SIGNAL)
+SRCS = $(UTILS) $(MAIN) $(PARSING) $(SIGNAL) $(EXEC)
 OBJS = $(SRCS:.c=.o)
 
 NAME = minishell
@@ -19,6 +20,7 @@ LIBFT_ARC = ./libft/libft.a
 LIBFT_PATH = libft
 UTILS_PATH = srcs/utils
 PARSING_PATH = srcs/parsing
+EXEC_PATH = srcs/exec
 
 #==============================================================================#
 #                                   Alias                                      #
