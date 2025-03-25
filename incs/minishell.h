@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:55:27 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/20 15:50:30 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/25 17:22:01 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ t_command  *parsing(char *s, int *exit_code);
 
 //exiting/errors
 void memory_free(int *exit_code, char **s, t_command *command, int error);
+char	*get_prompt(void);
 void  ft_free(char	**ptr);
 void print_error(int error_code, int *exit_code);
 #endif
