@@ -33,7 +33,7 @@ int main(int ac, char **av, char **envp)
 		}
 		add_history(rl);
 		command = parsing(rl, &exit_code);
-		ft_cmd(command->table[0], envp);
+		ft_cmd(command, envp);
 		if (command == NULL)
 		{
 			ft_free(&rl);

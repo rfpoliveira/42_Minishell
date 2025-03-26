@@ -17,6 +17,6 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 
-void	ft_cmd(t_simple_command *cmd, char **envp);
+void	ft_cmd(t_command *cmd, char **envp);
 
 #endif // !EXEC_H

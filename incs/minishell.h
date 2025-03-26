@@ -56,7 +56,7 @@ typedef struct s_simple_command
 {
 	int	number_args;
 	char **args;
-	char	**paths;
+	char	*paths;
 	char *infile;
 	char *outfile;
 	char *double_in;
@@ -69,6 +69,12 @@ typedef struct s_command
 	t_simple_command  **table;
 }	t_command;
 
+typedef	struct s_data
+{
+	t_command	*command;
+	char		**envp_cpy;
+
+}	t_data;
 /*============================================================================#
 #                                 Functions                                   #
 #============================================================================*/
