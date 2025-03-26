@@ -11,10 +11,35 @@
 /* ************************************************************************** */
 
 #include "../../incs/exec.h"
+#include <unistd.h>
+
+int	pipe_child(t_command *cmds, t_data *data, int *fd)
+{
+	close(fd[1]);
+	dup2(fd[0], STDIN_FILENO);
+	close(fd[0]);
+	exec_cmd()
+	return (1);
+}
 
 int	pipe_parent(t_command *cmds, t_data *data, int *fd)
 {
-	
+	pid_t	pid;
+	int status;
+
+	close(fd[0]);
+	pid = fork();
+	if (pid == 0)
+	{
+		dup2(fd[1], STDOUT_FILENO);
+		pipe_init(cmds, data);
+		close(fd[1]);
+		exit(0);
+	}
+	else
+		close(fd[1]);
+	waitpid(-1, &status, NULL);
+	return (1);
 }
 
 int	pipe_handle(t_command *cmds, t_data *data, int *fd)
@@ -30,7 +55,7 @@ int	pipe_handle(t_command *cmds, t_data *data, int *fd)
 			pipe_parent(cmds, data, fd);
 		else
 			exit(127);
-
+ 
 	}
 }
 

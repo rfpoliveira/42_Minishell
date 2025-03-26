@@ -49,6 +49,8 @@ int	exec_pipe(t_simple_command *cmd, char **paths, char **envp)
 {
 	if (*cmd->args[0] == '|')
 		cmd->args++;
+	(void) paths;
+	(void) envp;
 	return (1);
 }
 
@@ -74,6 +76,6 @@ void	ft_cmd(t_command *cmd, char **envp)
 	i = 0;
 	paths = NULL;
 	paths = pathfind(envp);
-	while (i < cmd->number_simple_commands)
-		exec_pipe(cmd->table[i++], paths, envp);
+	if ()
+	exec_cmd(cmd->table[i], paths, envp);
 }

@@ -72,7 +72,7 @@ typedef struct s_command
 typedef	struct s_data
 {
 	t_command	*command;
-	char		**envp_cpy;
+	char		**env;
 
 }	t_data;
 /*============================================================================#
