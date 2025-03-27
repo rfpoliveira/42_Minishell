@@ -54,7 +54,7 @@ int	exec_pipe(t_simple_command *cmd, char **paths, char **envp)
 	return (1);
 }
 
-int	exec_cmd(t_simple_command *cmd, char **paths, char **envp)
+int	exec_cmd(t_simple_command *cmd, )
 {
 	pid_t	pid;
 
@@ -76,6 +76,6 @@ void	ft_cmd(t_command *cmd, char **envp)
 	i = 0;
 	paths = NULL;
 	paths = pathfind(envp);
-	if ()
+	exec_pipe(cmd->table, envp);
 	exec_cmd(cmd->table[i], paths, envp);
 }

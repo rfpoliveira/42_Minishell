@@ -18,5 +18,7 @@
 #include <sys/types.h>
 
 void	ft_cmd(t_command *cmd, char **envp);
+int	pipe_init(t_command *cmds, t_data *data);
+int	exec_cmd(t_simple_command *cmd, char **paths, char **envp);
 
 #endif // !EXEC_H
