@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/28 11:15:03 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/28 16:00:32 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	mount_table(t_command *command, char **splited)
 		command->table[i] = malloc(sizeof(t_simple_command));
 		if (!command->table[i])
 			return (memory_free(&command->exit_code, splited, command, MALLOC_ERROR));
-	
 		command->table[i]->args = whitespaces_split(splited[i]);
 		if (!(command->table[i]->args))
 			return (memory_free(&command->exit_code, splited, command, MALLOC_ERROR));
@@ -71,20 +70,20 @@ t_command	*parsing(char *s, 	t_command	*command)
 	i = 1;
 	if (!s)
 		return (NULL);
-	if (check_first_pipe(s) == 0)
+	if (check_pipes(s) == 0)
 		return (ft_free(&s), memory_free(&i, NULL, NULL, SYNTAX_ERROR), NULL);
 	splited = parsing_split(s, '|');
 	if (!splited)
 		return (ft_free(&s), memory_free(&i, NULL, NULL, MALLOC_ERROR), NULL);
 	ini_command(splited, command);
-	if (!command)
+	if (!command->table)
 		return (ft_free(&s), NULL);
 	if (handle_redirect(command) != 0)
 		return (ft_free(&s), memory_free(&command->exit_code, splited, command, 0), NULL);
 	if (handle_expanding(command) != 0)
 		return (ft_free(&s), memory_free(&command->exit_code, splited, command, 0), NULL);
-	if (handle_quotes(command) != 0)
-		return (ft_free(&s), memory_free(&command->exit_code, splited, command, 0), NULL);
+/* 	if (handle_quotes(command) != 0)
+		return (ft_free(&s), memory_free(&command->exit_code, splited, command, 0), NULL); */
 	/* if (parse_commands(command) != 0)
 		return (ft_free(&s), memory_free(&command->exit_code, splited, command, 0), NULL); */
 	return (ft_free(&s), matrix_free(splited), command);

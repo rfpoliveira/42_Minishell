@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:16 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/27 16:44:58 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/28 12:49:36 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	memory_free(int *exit_code, char **splited, t_command *command, int error)
 
 	print_error(error, exit_code);
 	i = -1;
-	if (command->table)
+	if (command && command->table)
 	{
 		while (command->table[++i])
 		{

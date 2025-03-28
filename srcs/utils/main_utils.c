@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 14:59:33 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/27 16:12:23 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/28 16:23:04 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	exit_bash(char **prompt, t_command *command)
 {
 	printf("exit\n");
 	ft_free(prompt);
-	memory_free(&command->exit_code, NULL, command, 0);
 	command_free(&command);
 	rl_clear_history();
 	exit(0);

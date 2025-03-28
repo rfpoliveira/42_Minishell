@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:09:43 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/27 15:05:38 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/28 15:40:17 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,6 @@ static int	check_built_in(t_simple_command *s, int *exit_code)
 	return (matrix_free(splited_path), free(command), \
 			print_error(COM_NOT_FOUND, exit_code), 1);
 }
-//check if there is a pipe in the beginning of the command
-static int	check_pipes(t_simple_command *s, int *i, int *exit_code)
-{
-	if (s->args[0][0] == '|')
-	{
-		if (!s->args[0][1])
-			(*i)++;
-	}
-	if (!s->args[*i])
-		return (print_error(SYNTAX_ERROR, exit_code), 1);
-	return (0);
-}
 //check if the command is one of the ones we need to implement
 //and takes it to the parsing of its own
 static int	detect_command(t_simple_command *s, int *exit_code)
@@ -61,10 +49,7 @@ static int	detect_command(t_simple_command *s, int *exit_code)
 	int	i;
 
 	i = 0;
-	if (check_pipes(s, &i, exit_code) != 0)
-		return (1);
-	if (s->args[i][0] == '|')
-		s->args[i]++;
+
 	if (ft_strncmp(s->args[i], "echo", 4) == 0)
 		return (0);
 	else if (ft_strncmp(s->args[i], "cd", 2) == 0)

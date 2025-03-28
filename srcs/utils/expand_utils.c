@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:30:00 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/20 16:46:12 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/28 16:12:13 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ int	quote_counter(char **s, int *exit_code)
 	int	i;
 	int	j;
 	int	count;
+	int chr;
 
 	i = -1;
 	j = -1;
+	chr = 0;
 	count = 0;
 	if (!s)
 		return (0);
@@ -39,7 +41,13 @@ int	quote_counter(char **s, int *exit_code)
 		while (s[j][++i])
 		{
 			if (s[j][i] == 34 || s[j][i] == 39)
+			{
 				count++;
+				chr = s[j][i];
+				i += skip_quotes(s[j], i);
+				if (chr == s[j][i - 1])
+					count++;
+			}	
 		}
 	}
 	if (count % 2 == 0)

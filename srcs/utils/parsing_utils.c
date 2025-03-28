@@ -6,32 +6,15 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/27 15:05:16 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/28 14:36:03 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
 
-//strlen but ignore A and B
-static int	after_sig_strlen(char	*s, char A, char B)
-{
-	int	i;
-	int	count;
 
-	i = 0;
-	count = 0;
-	if (s)
-	{
-		while (s[i])
-		{
-			if (s[i] != A && s[i] != B)
-				count++;
-			i++;
-		}
-	}
-	return (count);
-}
+
 //deletes A and B from the string (used to take out quotes
 //and redirect symbls in some edge cases)
 int	delete_sigs(char *s, char A, char B, int *exit_code)
@@ -70,13 +53,20 @@ int	ft_isspace(char c)
 	return (0);
 }
 //check if the first thing in the command is a pipe
-int	check_first_pipe(char *s)
+int	check_pipes(char *s)
 {
 	int	i;
 
 	i = 0;
 	while (s[i] && ft_isspace(s[i]))
 		i++;
+	if (s[i] == '|')
+		return (0);
+	while (s[i])
+		i++;
+	i--;
+	while (ft_isspace(s[i]))
+		i--;
 	if (s[i] == '|')
 		return (0);
 	return (1);

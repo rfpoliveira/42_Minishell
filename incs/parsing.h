@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:46:37 by renato-oliv       #+#    #+#             */
-/*   Updated: 2025/03/27 15:07:22 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/28 14:35:58 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	expande_exit_code(char **s, int *exit_code);
 //quotes
 int  handle_quotes(t_command *command);
 int  delete_sigs(char *s, char A, char B, int *exit_code);
+int	after_sig_strlen(char	*s, char A, char B);
 int	count_args(t_simple_command *simple);
 
 //redirect
@@ -57,7 +58,6 @@ int parse_exit(t_simple_command *s, int *exit_code);
 int	parse_cd(t_simple_command *s, int *exit_code);
 int	parse_env(t_simple_command *s, int *exit_code);
 int parse_export_unset(t_simple_command *s, int *exit_code);
-int	check_first_pipe(char *s);
-int	check_last_pipe(t_command *command);
+int	check_pipes(char *s);
 
 #endif
