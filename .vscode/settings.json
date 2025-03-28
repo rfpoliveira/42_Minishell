@@ -3,7 +3,8 @@
 		"minishell.h": "c",
 		"algorithm": "c",
 		"format": "c",
-		"parsing.h": "c"
+		"parsing.h": "c",
+		"cstdlib": "c"
 	},
 	"makefile.configureOnOpen": true
 }

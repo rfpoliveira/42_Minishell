@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 15:09:43 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/20 15:37:36 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/27 15:05:38 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,14 @@ static int	detect_command(t_simple_command *s, int *exit_code)
 	return (1);
 }
 
-int	parse_commands(t_command *command, int *exit_code)
+int	parse_commands(t_command *command)
 {
 	int	i;
 
 	i = -1;
 	while (command->table[++i])
 	{
-		if (detect_command(command->table[i], exit_code) != 0)
+		if (detect_command(command->table[i], &command->exit_code) != 0)
 			return (1);
 	}
 	return (0);

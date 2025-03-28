@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:16 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/20 15:13:01 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/27 16:44:58 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_free(char **ptr)
 	}
 }
 //free the command and sets the pointer to null
-static void	command_free(t_command **command)
+void	command_free(t_command **command)
 {
 	free(*command);
 	*command = NULL;
@@ -86,11 +86,12 @@ void	memory_free(int *exit_code, char **splited, t_command *command, int error)
 
 	print_error(error, exit_code);
 	i = -1;
-	if (command)
+	if (command->table)
 	{
 		while (command->table[++i])
 		{
-			matrix_free(command->table[i]->args);
+			if (command->table[i]->args)
+				matrix_free(command->table[i]->args);
 			ft_free(&command->table[i]->outfile);
 			ft_free(&command->table[i]->infile);
 			ft_free(&command->table[i]->double_out);
@@ -99,7 +100,6 @@ void	memory_free(int *exit_code, char **splited, t_command *command, int error)
 		}
 		if (command->table)
 			free(command->table);
-		command_free(&command);
 	}
 	if (splited)
 	{

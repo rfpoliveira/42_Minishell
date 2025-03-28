@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/25 17:40:02 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/27 15:23:57 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,29 @@ int main(void)
 	t_command *command;
 	char *prompt;
 	char *rl;
-	int		exit_code;
 
+	command = NULL;
+	alloc_struct(&command);
 	int i = 0;
 	int j = 0;
-	exit_code = 0;
 	handle_signals();
-	prompt = get_prompt();
-	if (prompt == NULL)
-		memory_free(&exit_code, NULL, NULL, MALLOC_ERROR);
 	while (42)
 	{
+		prompt = get_prompt();
+		if (prompt == NULL)
+		{
+			print_error(MALLOC_ERROR, &command->exit_code);
+			continue ;
+		}
 		rl = readline(prompt);
 		if (rl == NULL)
-		{
-			printf("exit\n");
-			ft_free(&prompt);
-			rl_clear_history();
-			exit(0);
-		}
+			exit_bash(&prompt, command);
 		add_history(rl);
-		command = parsing(rl, &exit_code);
-		if (command == NULL)
+		parsing(rl, command);
+		if (command->table == NULL)
 		{
 			ft_free(&rl);
+			ft_free(&prompt);
 			continue ;
 		}
 		while(command->table[i])
@@ -56,8 +55,7 @@ int main(void)
 			i++;
 		}
 		i = 0;
-		printf("exit_code: %i\n", exit_code);
-		memory_free(&exit_code, NULL, command, 0);
+		printf("exit_code: %i\n", command->exit_code);
+		ft_free(&prompt);
 	}
-	ft_free(&prompt);
 }

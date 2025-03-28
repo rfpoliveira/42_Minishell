@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:53:37 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/20 16:46:24 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/27 15:04:26 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,16 +128,16 @@ static int	expand_args(t_simple_command *simple, int *exit_code)
 	return (0);
 }
 
-int  handle_expanding(t_command *command, int *exit_code)
+int  handle_expanding(t_command *command)
 {
 	int	i;
 
 	i = -1;
 	while (command->table[++i])
 	{
-		if (expande_red(command->table[i], exit_code) != 0)
+		if (expande_red(command->table[i], &command->exit_code) != 0)
 			return (1);
-		if (expand_args(command->table[i], exit_code) != 0)
+		if (expand_args(command->table[i], &command->exit_code) != 0)
 			return (1);
 	}
 	return (0);

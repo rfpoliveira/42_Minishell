@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:55:27 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/25 17:22:01 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/27 15:23:08 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_command
 {
 	int number_simple_commands;
 	t_simple_command  **table;
+	int	exit_code;
 }	t_command;
 
 /*============================================================================#
@@ -73,11 +74,14 @@ typedef struct s_command
 #============================================================================*/
 
 void    handle_signals(void);
-t_command  *parsing(char *s, int *exit_code);
+void alloc_struct(t_command **command);
+t_command  *parsing(char *s, t_command *command);
 
-//exiting/errors
+//exiting/errors/memory
 void memory_free(int *exit_code, char **s, t_command *command, int error);
+void	command_free(t_command **command);
 char	*get_prompt(void);
 void  ft_free(char	**ptr);
 void print_error(int error_code, int *exit_code);
+void	exit_bash(char **prompt, t_command *command);
 #endif

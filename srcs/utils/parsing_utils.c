@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/20 16:29:54 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/03/27 15:05:16 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	check_first_pipe(char *s)
 	return (1);
 }
 //deletes quotes from everything
-int	handle_quotes(t_command *command, int *exit_code)
+int	handle_quotes(t_command *command)
 {
 	int	i;
 	int	j;
@@ -93,13 +93,13 @@ int	handle_quotes(t_command *command, int *exit_code)
 	{
 		while (command->table[i]->args[j])
 		{
-			delete_sigs(command->table[i]->args[j], 34, 39, exit_code);
+			delete_sigs(command->table[i]->args[j], 34, 39, &command->exit_code);
 			j++;
 		}
-		delete_sigs(command->table[i]->infile, 34, 39, exit_code);
-		delete_sigs(command->table[i]->outfile, 34, 39, exit_code);
-		delete_sigs(command->table[i]->double_in, 34, 39, exit_code);
-		delete_sigs(command->table[i]->double_out, 34, 39, exit_code);
+		delete_sigs(command->table[i]->infile, 34, 39, &command->exit_code);
+		delete_sigs(command->table[i]->outfile, 34, 39, &command->exit_code);
+		delete_sigs(command->table[i]->double_in, 34, 39, &command->exit_code);
+		delete_sigs(command->table[i]->double_out, 34, 39, &command->exit_code);
 		j = 0;
 		i++;
 	}
