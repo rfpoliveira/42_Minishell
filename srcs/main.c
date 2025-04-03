@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/28 16:18:36 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/03 17:02:14 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int main(void)
 	alloc_struct(&command);
 	int i = 0;
 	int j = 0;
+	int x = -1;
 	handle_signals();
 	while (42)
 	{
@@ -49,8 +50,30 @@ int main(void)
 				printf("%i: %s\n", j, command->table[i]->args[j]);
 				j++;
 			}
-			printf("infile: %s\noutfile: %s\n", command->table[i]->infile, command->table[i]->outfile);
-			printf("double_in: %s\ndouble_out: %s\n", command->table[i]->double_in, command->table[i]->double_out);
+			if (command->table[i]->infile)
+			{
+				while(command->table[i]->infile[++x])
+				printf("infile(%i): %s\n", x, command->table[i]->infile[x]);
+			}
+			x = -1;
+			if (command->table[i]->outfile)
+			{
+				while(command->table[i]->outfile[++x])
+					printf("outfile(%i): %s\n", x, command->table[i]->outfile[x]);
+			}
+			x = -1;
+			if (command->table[i]->double_in)
+			{
+				while(command->table[i]->double_in[++x])
+					printf("double_in(%i): %s\n", x, command->table[i]->double_in[x]);
+			}
+			x = -1;
+			if (command->table[i]->double_out)
+			{
+				while(command->table[i]->double_out[++x])
+					printf("double_out(%i): %s\n", x, command->table[i]->double_out[x]);
+			}
+			x = -1;
 			j = 0;
 			i++;
 		}

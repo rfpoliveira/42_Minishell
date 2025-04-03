@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:37:15 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/27 15:13:37 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/01 15:09:28 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ static int	iter_red(t_command *command, int i)
 					check_redirect_error(command->table[i], &command->exit_code) != 0)
 					return (1);
 				j = 0;
-				break ;
 			}
 		}
 		x = -1;

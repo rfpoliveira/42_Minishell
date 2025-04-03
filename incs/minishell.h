@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:55:27 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/27 15:23:08 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/03 17:04:39 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ typedef struct s_simple_command
 {
 	int	number_args;
 	char **args;
-	char *infile;
-	char *outfile;
-	char *double_in;
-	char *double_out;
+	char **infile;
+	char **outfile;
+	char **double_in;
+	char **double_out;
 }	t_simple_command;
 
 typedef struct s_command
@@ -82,6 +82,7 @@ void memory_free(int *exit_code, char **s, t_command *command, int error);
 void	command_free(t_command **command);
 char	*get_prompt(void);
 void  ft_free(char	**ptr);
+void	inoutfiles_free(char **file);
 void print_error(int error_code, int *exit_code);
 void	exit_bash(char **prompt, t_command *command);
 #endif

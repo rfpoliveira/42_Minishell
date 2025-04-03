@@ -3,12 +3,11 @@
 #==============================================================================#
 
 MAIN = $(addprefix $(SRCS_PATH)/, main.c exit.c prompt.c)
-PARSING = $(addprefix $(PARSING_PATH)/, parsing.c whitespaces_split.c expander.c parse_command.c \
-parse_redirect.c parsing_split.c)
+PARSING = $(addprefix $(PARSING_PATH)/, parsing.c whitespaces_split.c \
+parsing_split.c)
 SIGNAL = srcs/signals/handle_signals.c
-UTILS = $(addprefix $(UTILS_PATH)/, parse_command_utils.c parse_command_utils2.c \
-split_utils.c parsing_utils.c parsing_utils2.c redirect_utils.c expand_utils.c \
-main_utils.c)
+UTILS = $(addprefix $(UTILS_PATH)/, main_utils.c\
+split_utils.c parsing_utils.c parsing_utils2.c free_utils.c)
 
 SRCS = $(UTILS) $(MAIN) $(PARSING) $(SIGNAL)
 OBJS = $(SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:46:37 by renato-oliv       #+#    #+#             */
-/*   Updated: 2025/03/28 14:35:58 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/03 16:24:19 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,8 @@ int	expande_exit_code(char **s, int *exit_code);
 int  handle_quotes(t_command *command);
 int  delete_sigs(char *s, char A, char B, int *exit_code);
 int	after_sig_strlen(char	*s, char A, char B);
+int after_quotes_strlen(char *s);
 int	count_args(t_simple_command *simple);
-
-//redirect
-int	handle_redirect(t_command *command);
-int selecting_file(t_simple_command *simple, char *red, char *file, int *exit_code);
-int delete_args(t_simple_command *simple, int arg, char **buff,int flag);
-int reorganize_args(t_simple_command *simple, int del, int del2);
-int redirect_hopper(t_simple_command *simple, int arg, int i, int *exit_code);
-int	split_redirects(int *exit_code, t_simple_command *simple, int arg, int i, char *red);
 
 //splits
 char	**whitespaces_split(char *s);

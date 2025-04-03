@@ -6,27 +6,11 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:16 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/28 12:49:36 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/03 17:06:16 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"\
-
-//free that check if the pointer exists
-void	ft_free(char **ptr)
-{
-	if (*ptr != NULL)
-	{
-		free(*ptr);
-		*ptr = NULL;
-	}
-}
-//free the command and sets the pointer to null
-void	command_free(t_command **command)
-{
-	free(*command);
-	*command = NULL;
-}
 
 static void	handle_exit_code(int error_code, int *exit_code)
 {
@@ -92,10 +76,14 @@ void	memory_free(int *exit_code, char **splited, t_command *command, int error)
 		{
 			if (command->table[i]->args)
 				matrix_free(command->table[i]->args);
-			ft_free(&command->table[i]->outfile);
-			ft_free(&command->table[i]->infile);
-			ft_free(&command->table[i]->double_out);
-			ft_free(&command->table[i]->double_in);
+			if (command->table[i]->infile)
+				inoutfiles_free(command->table[i]->infile);
+			if (command->table[i]->outfile)
+				inoutfiles_free(command->table[i]->outfile);
+			if (command->table[i]->double_out)
+				inoutfiles_free(command->table[i]->double_out);
+			if (command->table[i]->double_in)
+				inoutfiles_free(command->table[i]->double_in);
 			free(command->table[i]);
 		}
 		if (command->table)

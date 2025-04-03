@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:30:00 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/28 16:12:13 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/03 16:37:46 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,40 +20,6 @@ int	expande_exit_code(char **s, int *exit_code)
 	if (*s == NULL)
 		return (print_error(MALLOC_ERROR, exit_code), 1);
 	return (0);
-}
-
-//check if there is a even number of quotes
-int	quote_counter(char **s, int *exit_code)
-{
-	int	i;
-	int	j;
-	int	count;
-	int chr;
-
-	i = -1;
-	j = -1;
-	chr = 0;
-	count = 0;
-	if (!s)
-		return (0);
-	while (s[++j])
-	{
-		while (s[j][++i])
-		{
-			if (s[j][i] == 34 || s[j][i] == 39)
-			{
-				count++;
-				chr = s[j][i];
-				i += skip_quotes(s[j], i);
-				if (chr == s[j][i - 1])
-					count++;
-			}	
-		}
-	}
-	if (count % 2 == 0)
-		return (0);
-	else
-		return (print_error(QUOTE_ERROR, exit_code), 1);
 }
 //free temporary variables inside the expande function
 //prev can always be freed (if NULL the functions does nothing)
