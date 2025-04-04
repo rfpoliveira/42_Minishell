@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/03 16:53:37 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/04 14:59:52 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ t_command	*parsing(char *s, 	t_command	*command)
 		return (ft_free(&s), NULL);
 /* 	if (handle_redirect(command) != 0)
 		return (ft_free(&s), memory_free(&command->exit_code, splited, command, 0), NULL); */
-	/* if (handle_expanding(command) != 0)
-		return (ft_free(&s), memory_free(&command->exit_code, splited, command, 0), NULL); */
+	if (handle_expanding(command) != 0)
+		return (ft_free(&s), memory_free(&command->exit_code, splited, command, 0), NULL);
 	if (handle_quotes(command) != 0)
 		return (ft_free(&s), memory_free(&command->exit_code, splited, command, 0), NULL);
 	/* if (parse_commands(command) != 0)

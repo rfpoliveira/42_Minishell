@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/03 17:02:14 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/04 14:55:01 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ int main(void)
 	int j = 0;
 	int x = -1;
 	handle_signals();
-	while (42)
-	{
-		prompt = get_prompt();
-		if (prompt == NULL)
+	prompt = get_prompt();
+	if (prompt == NULL)
 		{
 			print_error(MALLOC_ERROR, &command->exit_code);
-			continue ;
+			exit(1);
 		}
+	while (42)
+	{
 		rl = readline(prompt);
 		if (rl == NULL)
 			exit_bash(&prompt, command);
@@ -80,6 +80,5 @@ int main(void)
 		i = 0;
 		printf("exit_code: %i\n", command->exit_code);
 		memory_free(&command->exit_code, NULL, command, 0);
-		ft_free(&prompt);
 	}
 }

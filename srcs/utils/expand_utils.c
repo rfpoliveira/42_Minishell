@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:30:00 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/03 16:37:46 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:19:17 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,70 +21,52 @@ int	expande_exit_code(char **s, int *exit_code)
 		return (print_error(MALLOC_ERROR, exit_code), 1);
 	return (0);
 }
-//free temporary variables inside the expande function
-//prev can always be freed (if NULL the functions does nothing)
-//temp is only freed if env or prev are not null, if one of them are ft_strjoin does not allocate
-//if getenv returns NULL we allocate "" and that must be freed
-void	free_expand(char *temp, char *prev, char *env, int flag)
+char	*get_prev(char *s, int x)
 {
-	ft_free(&prev);
-	if (flag % 10 == 0)
-		ft_free(&temp);
-	if (flag >= 20 && *env != *temp)
-		free(env);
-}
-
-static int  my_getenv_util(char **s, int *x, int *i, char **env, int *free_flag)
-{
-	char *buff;
+	char *prev;
 	
-	buff = NULL;
-	buff = ft_substr(*s, *x, *i - *x - 1);
-	if (buff == NULL)
-		return (MALLOC_ERROR);
-	*env = getenv(buff);
-	ft_free(&buff);
-	buff = ft_substr(*s, *i - 1, ft_strlen(*s) - *i);
-	if (buff == NULL)
-		return (MALLOC_ERROR);
-	*env = ft_strjoin(*env, buff);
-	if (*env == NULL)
-		return (ft_free(&buff), MALLOC_ERROR);
-	ft_free(&buff);
-	*free_flag += 20;
-	return (0);
-}
-//uses getenv in the correct string depending of the case
-int	my_getenv(char **s, char **env, int *x, int *free_flag)
-{
-	int	i;
-
-	i = *x;
-	while ((*s)[i] && !ft_isspace((*s)[i - 1]))
-		i++;
-	if ((*s)[*x] != '$' && !ft_isdigit((*s)[*x]) && (*s)[*x] != '?')
+	if (x != 1)
 	{
-		if (i == ft_strlen(*s) && (*s)[i - 1] != 34)
-			*env = getenv(*s + *x);
-		else
-		{
-			if (my_getenv_util(s, x, &i, env, free_flag) != 0)
-				return (MALLOC_ERROR);
-		}
+		prev = ft_substr(s, 0, x - 1);
+		if (!prev)
+			return (NULL);
+		prev[x - 1] = '\0';	
 	}
 	else
 	{
-		*env = ft_substr(*s, *x + 1, ft_strlen(*s) - *x);
-		if (*env == NULL)
-			return (MALLOC_ERROR);
-		*free_flag += 20;
+		prev = ft_strdup("");
+			if (!prev)
+				return (NULL);
 	}
-	if (*env == NULL)
-	{
-		*env = ft_strdup("");
-		if (*env == NULL)
-			return (MALLOC_ERROR);
-		*free_flag += 20;
-	}
+	return (prev);
+}
+
+int my_get_env(char *s, char **env, int x)
+{
+	char *tmp;
+	int	len;
+
+	len = ft_strlen(s);
+	if (s[len - 1] == 34)
+		len--;
+	len -= x;
+	tmp = ft_substr(s, x, len);
+	if (!tmp)
+		return (MALLOC_ERROR);
+	*env = getenv(tmp);
+	return (free(tmp), 0);
+}
+
+int	get_str(char **s, char *prev, char *env, int len)
+{
+	if ((*s)[len - 2] == 34)
+		len--;
+	free(*s);
+	*s = ft_calloc(len, sizeof(char));
+	if (!(*s))
+		return (MALLOC_ERROR);
+	ft_strlcat(*s, prev, len);
+	if (env)
+		ft_strlcat(*s, env, len);
 	return (0);
 }

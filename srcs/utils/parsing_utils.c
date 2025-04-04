@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/03 17:23:46 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/04 14:42:18 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ int	quote_counter(char **s, int *exit_code)
 	int	i;
 	int	j;
 	int	count;
+	int flag;
 	
 	i = -1;
 	j = -1;
@@ -143,9 +144,12 @@ int	quote_counter(char **s, int *exit_code)
 		{
 			if (s[j][i] == 34 || s[j][i] == 39)
 			{
+				flag = s[j][i];
 				count++;
 				i += skip_quotes(s[j], i);
-				printf("after counter: %c\n", s[j][i]);
+				if (s[j][i - 1] == flag)
+					count++;
+				printf("i: %i\n", i);
 			}
 		}
 	}
