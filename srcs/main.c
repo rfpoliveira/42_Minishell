@@ -15,11 +15,13 @@
 int main(int ac, char **av, char **envp)
 {
 	t_command *command;
+	t_data	*data;
 	char *rl;
 	int		exit_code;
 
 	int i = 0;
 	int j = 0;
+	data = NULL;
 	exit_code = 0;
 	handle_signals();
 	while (42)
@@ -33,7 +35,8 @@ int main(int ac, char **av, char **envp)
 		}
 		add_history(rl);
 		command = parsing(rl, &exit_code);
-		ft_cmd(command, envp);
+		init_data(&data, &command, envp);
+		ft_cmd(data);
 		if (command == NULL)
 		{
 			ft_free(&rl);

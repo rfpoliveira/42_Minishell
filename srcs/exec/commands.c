@@ -12,17 +12,22 @@
 
 #include "../../incs/exec.h"
 
-char **pathfind(char **envp)
+char **pathfind(t_env *envp)
 {
 	char	**path;
+	t_env	*p;
 	int		j;
 
 	j = 0;
 	path = NULL;
-	while (envp[++j])
-		if (ft_strnstr(envp[j], "PATH=", 5))
-			path = ft_split(&envp[j][5], ':');
-	return (path);
+	p = envp;
+	while (p->next)
+	{
+		if (ft_strnstr(p->var, "PATH=", 5))
+			path = ft_split(&p->var[5], ':');
+		p = p->next;
+	}
+		return (path);
 }
 
 int	setpaths(t_simple_command *cmd, char **paths)
@@ -44,39 +49,38 @@ int	setpaths(t_simple_command *cmd, char **paths)
 	}
 	return (1);
 }
-/**/
-/*int	exec_pipe(t_simple_command *cmd, char **paths, char **envp)*/
-/*{*/
-/*	if (*cmd->args[0] == '|')*/
-/*		cmd->args++;*/
-/*	(void) paths;*/
-/*	(void) envp;*/
-/*	return (1);*/
-/*}*/
+
+int	exec_pipe(t_simple_command *cmd)
+{
+	if (*cmd->args[0] == '|')
+		cmd->args++;
+	return (1);
+}
 
 int	exec_cmd(t_simple_command *cmd, t_data *data)
 {
 	pid_t	pid;
+	char	**temp;
 
 	pid = fork();
+	temp = envp_cpy(data->env);
 	if (pid == 0)
 	{
-		setpaths(cmd, paths);
-		execve(cmd->paths, cmd->args, env);
+		setpaths(cmd, data->paths);
+		execve(cmd->paths, cmd->args, temp);
 	}
 	waitpid(pid, NULL, 0);
 	return (0);
 }
 
-void	ft_cmd(t_command *cmd, char **envp)
+void	ft_cmd(t_data *data)
 {
 	char	**paths;
 	int		i;
 
 	i = 0;
 	paths = NULL;
-	paths = pathfind(envp);
-	exec_pipe(cmd->table,paths, envp);
-
-	exec_cmd(cmd->table[i], paths, envp);
+	exec_pipe((*data->command)->table[i]);
+	/*printf("%s\n", (*data->command)->table[i]->args[0]);*/
+	exec_cmd((*data->command)->table[i], data);
 }

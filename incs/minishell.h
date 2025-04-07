@@ -66,19 +66,19 @@ typedef struct s_simple_command
 typedef struct s_command
 {
 	int					number_simple_commands;
-	t_simple_command  **table;
+	t_simple_command	**table;
 }	t_command;
 
 typedef	struct s_envlist
 {
 	struct s_envlist	*next;
 	struct s_envlist	*prev;
-	char	*var;
+	char				*var;
 }	t_env;
 
 typedef	struct s_data
 {
-	t_command	*command;
+	t_command	**command;
 	t_env		*env;
 	char		**paths;
 }	t_data;

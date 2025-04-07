@@ -18,6 +18,8 @@ int	pipe_child(t_command *cmds, t_data *data, int *fd)
 	close(fd[1]);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
+	(void) cmds;
+	(void) data;
 	return (1);
 }
 
@@ -37,7 +39,7 @@ int	pipe_parent(t_command *cmds, t_data *data, int *fd)
 	}
 	else
 		close(fd[1]);
-	waitpid(-1, &status, NULL);
+	waitpid(-1, &status, 0);
 	return (1);
 }
 
@@ -57,6 +59,7 @@ int	pipe_handle(t_command *cmds, t_data *data, int *fd)
 	}
 	else
 		exec_cmd(cmds->table[0], data);
+	return (0);
 }
 
 int	pipe_init(t_command *cmds, t_data *data)
