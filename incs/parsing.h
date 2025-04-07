@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:46:37 by renato-oliv       #+#    #+#             */
-/*   Updated: 2025/04/04 16:16:50 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/07 15:58:07 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@
 /*============================================================================#                               Libraries                                   #
 #								functions									  #
 #============================================================================*/
+
+//redirects
+int	count_infiles(char **current);
+int	count_outfiles(char **current);
+int	count_double_outs(char **current);
+int	count_double_ins(char **current);
 
 //expanding
 int  handle_expanding(t_command *command);

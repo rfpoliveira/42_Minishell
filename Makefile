@@ -7,7 +7,8 @@ PARSING = $(addprefix $(PARSING_PATH)/, parsing.c whitespaces_split.c \
 parsing_split.c expander.c)
 SIGNAL = srcs/signals/handle_signals.c
 UTILS = $(addprefix $(UTILS_PATH)/, main_utils.c expand_utils.c\
-split_utils.c parsing_utils.c parsing_utils2.c free_utils.c)
+split_utils.c parsing_utils.c parsing_utils2.c free_utils.c\
+count_utils.c)
 
 SRCS = $(UTILS) $(MAIN) $(PARSING) $(SIGNAL)
 OBJS = $(SRCS:.c=.o)
@@ -71,6 +72,25 @@ fclean: clean
 re: fclean all
 
 again: clean all
+
+#leaks: readline.supp
+#	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all -s --log-file=output.log ./minishell
+
+#readline.supp:
+#	echo "{" > readline.supp
+#	echo "    leak readline" >> readline.supp
+#	echo "    Memcheck:Leak" >> readline.supp
+#	echo "    ..." >> readline.supp
+#	echo "    fun:readline" >> readline.supp
+#	echo "}" >> readline.supp
+#	echo "{" >> readline.supp
+#	echo "    leak add_history" >> readline.supp
+#	echo "    Memcheck:Leak" >> readline.supp
+#	echo "    ..." >> readline.supp
+#	echo "    fun:add_history" >> readline.supp
+#	echo "}" >> readline.supp
+
+.PHONY: all clean fclean re
 
 #==============================================================================#
 #                                  UTILS                                       #
