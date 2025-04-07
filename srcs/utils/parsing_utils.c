@@ -3,35 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/20 16:29:54 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/04 14:42:18 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
 
-//strlen but ignore A and B
-static int	after_sig_strlen(char	*s, char A, char B)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	if (s)
-	{
-		while (s[i])
-		{
-			if (s[i] != A && s[i] != B)
-				count++;
-			i++;
-		}
-	}
-	return (count);
-}
 //deletes A and B from the string (used to take out quotes
 //and redirect symbls in some edge cases)
 int	delete_sigs(char *s, char A, char B, int *exit_code)
@@ -63,45 +44,118 @@ int	delete_sigs(char *s, char A, char B, int *exit_code)
 	return (0);
 }
 
-int	ft_isspace(char c)
+static int	delete_quotes(char *s, int *exit_code)
 {
-	if (c == 32 || (c >= 9 && c <= 13))
-		return (1);
+	int i;
+	int len;
+	char *temp;
+
+	i = -1;
+	if (!s)
+		return (0);
+	len = after_quotes_strlen(s);
+	temp = malloc(len + 1);
+	if (!temp)
+		return (print_error(MALLOC_ERROR, exit_code), 1);
+	temp[len] = '\0';
+	len = 0;
+	while(s[++i])
+	{
+		if (s[i] == 34)
+		{
+			i++;
+			while(s[i] != 34 && s[i])
+				temp[len++] = s[i++];
+		}
+		else if (s[i] == 39)
+		{
+			i++;
+			while(s[i] != 39 && s[i])
+				temp[len++] = s[i++];
+		}
+		else
+			temp[len++] = s[i];
+	}
+	ft_strlcpy(s, temp, len + 1);
+	free(temp);
 	return (0);
 }
-//check if the first thing in the command is a pipe
-int	check_first_pipe(char *s)
-{
-	int	i;
 
-	i = 0;
-	while (s[i] && ft_isspace(s[i]))
-		i++;
-	if (s[i] == '|')
-		return (0);
-	return (1);
+int	delete_sigs_from_outinfiles(char **file, t_command *command)
+{
+	int i;
+	int error;
+
+	i = -1;
+	error = 0;
+	while(file[++i])
+	{
+		error = delete_sigs(file[i], '<', '>', &command->exit_code);
+		error = delete_quotes(file[i], &command->exit_code);
+	}
+	return (error);
 }
 //deletes quotes from everything
-int	handle_quotes(t_command *command, int *exit_code)
+int	handle_quotes(t_command *command)
 {
+	int error;
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
+	error = 0;
 	while (command->table[i])
 	{
 		while (command->table[i]->args[j])
 		{
-			delete_sigs(command->table[i]->args[j], 34, 39, exit_code);
+			error = delete_quotes(command->table[i]->args[j], &command->exit_code);
 			j++;
 		}
-		delete_sigs(command->table[i]->infile, 34, 39, exit_code);
-		delete_sigs(command->table[i]->outfile, 34, 39, exit_code);
-		delete_sigs(command->table[i]->double_in, 34, 39, exit_code);
-		delete_sigs(command->table[i]->double_out, 34, 39, exit_code);
+		if (command->table[i]->infile)
+			error = delete_sigs_from_outinfiles(command->table[i]->infile, command);
+		if (command->table[i]->outfile)
+			error = delete_sigs_from_outinfiles(command->table[i]->outfile, command);
+		if (command->table[i]->double_out)
+			error = delete_sigs_from_outinfiles(command->table[i]->double_out, command);
+		if (command->table[i]->double_in)
+			error = delete_sigs_from_outinfiles(command->table[i]->double_in, command);
 		j = 0;
 		i++;
 	}
-	return (0);
+	return (error);
+}
+//check if there is a even number of quotes
+int	quote_counter(char **s, int *exit_code)
+{
+	int	i;
+	int	j;
+	int	count;
+	int flag;
+	
+	i = -1;
+	j = -1;
+	count = 0;
+	if (!s)
+		return (0);
+	while (s[++j])
+	{
+		while (s[j][++i])
+		{
+			if (s[j][i] == 34 || s[j][i] == 39)
+			{
+				flag = s[j][i];
+				count++;
+				i += skip_quotes(s[j], i);
+				if (s[j][i - 1] == flag)
+					count++;
+				printf("i: %i\n", i);
+			}
+		}
+	}
+	printf("count: %i\n", count);
+	if (count % 2 == 0)
+		return (0);
+	else
+		return (print_error(QUOTE_ERROR, exit_code), 1);
 }

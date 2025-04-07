@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_redirect.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 16:37:15 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/20 16:46:40 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/01 15:09:28 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	split_redirects(int *exit_code, t_simple_command *simple, int arg, int i, ch
 }
 //iterates threw all the "simple commands" ignoring quotes checking if 
 //there is a redirection symbol 
-static int	iter_red(t_command *command, int i, int *exit_code)
+static int	iter_red(t_command *command, int i)
 {
 	int	j;
 	int	x;
@@ -116,11 +116,10 @@ static int	iter_red(t_command *command, int i, int *exit_code)
 			if (command->table[i]->args[j][x] == '<' || \
 				command->table[i]->args[j][x] == '>')
 			{
-				if (redirect_hopper(command->table[i], j, x, exit_code) != 0 || \
-					check_redirect_error(command->table[i], exit_code) != 0)
+				if (redirect_hopper(command->table[i], j, x, &command->exit_code) != 0 || \
+					check_redirect_error(command->table[i], &command->exit_code) != 0)
 					return (1);
 				j = 0;
-				break ;
 			}
 		}
 		x = -1;
@@ -128,14 +127,14 @@ static int	iter_red(t_command *command, int i, int *exit_code)
 	return (0);
 }
 
-int	handle_redirect(t_command *command, int *exit_code)
+int	handle_redirect(t_command *command)
 {
 	int	i;
 
 	i = -1;
 	while (command->table[++i])
 	{
-		if (iter_red(command, i, exit_code) != 0)
+		if (iter_red(command, i) != 0)
 			return (1);
 	}
 	return (0);

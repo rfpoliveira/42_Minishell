@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 10:30:51 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/20 14:56:58 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/04 14:35:30 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ size_t	skip_quotes(char *s, size_t i)
 			i++;
 		}
 	}
-	skiped++;
+	if (s[i])
+		skiped++;
 	return (skiped);
 }
 //word count for the whitespacs split

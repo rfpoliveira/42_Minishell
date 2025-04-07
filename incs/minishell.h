@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:55:27 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/20 15:50:30 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/03 17:04:39 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,30 @@ typedef struct s_simple_command
 {
 	int	number_args;
 	char **args;
+<<<<<<< HEAD
 	char	*paths;
 	char *infile;
 	char *outfile;
 	char *double_in;
 	char *double_out;
+=======
+	char **infile;
+	char **outfile;
+	char **double_in;
+	char **double_out;
+>>>>>>> main
 }	t_simple_command;
 
 typedef struct s_command
 {
+<<<<<<< HEAD
 	int					number_simple_commands;
 	t_simple_command	**table;
+=======
+	int number_simple_commands;
+	t_simple_command  **table;
+	int	exit_code;
+>>>>>>> main
 }	t_command;
 
 typedef	struct s_envlist
@@ -88,10 +101,15 @@ typedef	struct s_data
 
 #include "exec.h"
 void    handle_signals(void);
-t_command  *parsing(char *s, int *exit_code);
+void alloc_struct(t_command **command);
+t_command  *parsing(char *s, t_command *command);
 
-//exiting/errors
+//exiting/errors/memory
 void memory_free(int *exit_code, char **s, t_command *command, int error);
+void	command_free(t_command **command);
+char	*get_prompt(void);
 void  ft_free(char	**ptr);
+void	inoutfiles_free(char **file);
 void print_error(int error_code, int *exit_code);
+void	exit_bash(char **prompt, t_command *command);
 #endif

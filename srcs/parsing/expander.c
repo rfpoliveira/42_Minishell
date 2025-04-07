@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:53:37 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/20 16:46:24 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/04 16:29:46 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,58 +19,49 @@ static int	expande(char **s, int x, int *exit_code)
 {
 	char	*prev;
 	char	*env;
-	char	*temp;
-	int		free_flag;
+	int		len;
 
-	free_flag = 0;
-	prev = NULL;
 	if ((*s)[x] == '?')
 		return (expande_exit_code(s, exit_code));
-	if (x > 1)
-	{
-		prev = ft_substr(*s, 0, x - 1);
-		if (prev == NULL)
-			return (print_error(MALLOC_ERROR, exit_code), 1);
-	}
-	if (my_getenv(s, &env, &x, &free_flag) != 0)
-		return (print_error(MALLOC_ERROR, exit_code), ft_free(&prev), 1);
-	temp = ft_strjoin(prev, env);
-	if (temp == NULL)
-		return (print_error(MALLOC_ERROR, exit_code), 1);
-	if (!env || !prev)
-		free_flag +=1;
-	free(*s);
-	*s = ft_strdup(temp);
-	if (*s == NULL)
-		return (print_error(MALLOC_ERROR, exit_code), 1);
-	if (ft_strncmp(env, "", 1) == 0)
-		free_flag += 20;
-	free_expand(temp, prev, env, free_flag);
+	prev = get_prev(*s, x);
+	if (!prev)
+		return (MALLOC_ERROR);
+	if (my_get_env(*s, &env, x) != 0)
+		return (MALLOC_ERROR);
+	len = ft_strlen(prev) + ft_strlen(env) + 1;
+	if (get_str(s, prev, env, len) != 0)
+		return (MALLOC_ERROR);
+	free(prev);
 	return (0);
 }
 //next 2 functions takes care of expanding 
 //on redirection files since is diferent in some cases
-static int	expande_red_util(char *file, int *exit_code)
+static int	expande_red_util(char **file, int *exit_code)
 {
 	int	i;
+	int j;
 
 	i = -1;
-	while (file[++i])
+	j = -1;
+	while (file[++j][i])
 	{
-		if (file[i] == 39)
-			i += skip_quotes(file, i);
-		if (file[i] == '$')
-		{
-			if (file[i + 1] == '$')
+		while (file[j][++i])
 			{
-				i++;
-				continue ;
+				if (file[j][i] == 39)
+					i += skip_quotes(file[j], i);
+				if (file[j][i] == '$')
+				{
+					if (file[j][i + 1] == '$')
+					{
+						i++;
+						continue ;
+					}
+					if (expande(&file[j], i + 1, exit_code) != 0)
+						return (1);
+					if (ft_strncmp(file[j], "", 1) == 0)
+						return (print_error(SYNTAX_ERROR, exit_code), 1);
+				}
 			}
-			if (expande(&file, i + 1, exit_code) != 0)
-				return (1);
-			if (ft_strncmp(file, "", 1) == 0)
-				return (print_error(SYNTAX_ERROR, exit_code), 1);
-		}
 	}
 	return (0);
 }
@@ -128,16 +119,16 @@ static int	expand_args(t_simple_command *simple, int *exit_code)
 	return (0);
 }
 
-int  handle_expanding(t_command *command, int *exit_code)
+int  handle_expanding(t_command *command)
 {
 	int	i;
 
 	i = -1;
 	while (command->table[++i])
 	{
-		if (expande_red(command->table[i], exit_code) != 0)
+		if (expande_red(command->table[i], &command->exit_code) != 0)
 			return (1);
-		if (expand_args(command->table[i], exit_code) != 0)
+		if (expand_args(command->table[i], &command->exit_code) != 0)
 			return (1);
 	}
 	return (0);

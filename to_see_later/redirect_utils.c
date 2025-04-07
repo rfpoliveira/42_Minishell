@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:56:47 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/20 16:44:30 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/01 15:21:23 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,32 +59,63 @@ int	delete_args(t_simple_command *simple, int arg, char **buff, int flag)
 		error = reorganize_args(simple, arg, 0);
 	return (error);
 }
-//sleectes if the redirectipn will be a outfile, infile etc
-int	selecting_file(t_simple_command *simple, char *red, char *file, int *exit_code)
+
+static	int selecting_file_util(char	*index, char *red, char *file, int *exit_code)
 {
-	if (red[0] == '>' && red[1] == '\0')
+		if (red[0] == '>' && red[1] == '\0')
 	{
-		simple->outfile = ft_strdup(file);
-		if (simple->outfile == NULL)
-			return (print_error(MALLOC_ERROR, exit_code), 1);
+		index = ft_strdup(file);
+		if (index == NULL)
+			return (print_error(MALLOC_ERROR, exit_code), 1); 
 	}
 	else if (red[0] == '>' && red[1] == '>')
 	{
-		simple->double_out = ft_strdup(file);
-		if (simple->double_out == NULL)
+		index = ft_strdup(file);
+		if (index == NULL)
 			return (print_error(MALLOC_ERROR, exit_code), 1);
 	}
 	else if (red[0] == '<' && red[1] == '\0')
-	{
-		simple->infile = ft_strdup(file);
-		if (simple->infile == NULL)
+	{		
+		index = ft_strdup(file);
+		if (index == NULL)
 			return (print_error(MALLOC_ERROR, exit_code), 1);
 	}
 	else if (red[0] == '<' && red[1] == '<')
 	{
-		simple->double_in = ft_strdup(file);
-		if (simple->double_in == NULL)
+		index = ft_strdup(file);
+		if (index == NULL)
 			return (print_error(MALLOC_ERROR, exit_code), 1);
+	}
+	return (0);
+}
+//sleectes if the redirectipn will be a outfile, infile etc
+int	selecting_file(t_simple_command *simple, char *red, char *file, int *exit_code)
+{
+	int	i;
+	
+	if (red[0] == '>' && red[1] == '\0')
+	{
+		while (simple->outfile[i])
+			i++;
+		return (selecting_file_util(simple->outfile[i], red, file, exit_code), 1);
+	}
+	else if (red[0] == '>' && red[1] == '>')
+	{
+		while (simple->double_out[i])
+			i++;
+		return (selecting_file_util(simple->double_out[i], red, file, exit_code), 1);
+	}
+	else if (red[0] == '<' && red[1] == '\0')
+	{		
+		while (simple->infile[i])
+			i++;
+		return (selecting_file_util(simple->infile[i], red, file, exit_code), 1);
+	}
+	else if (red[0] == '<' && red[1] == '<')
+	{
+		while (simple->double_in[i])
+			i++;
+		return (selecting_file_util(simple->double_in[i], red, file, exit_code), 1);
 	}
 	return (0);
 }
