@@ -49,13 +49,13 @@ int	setpaths(t_simple_command *cmd, char **paths)
 	}
 	return (1);
 }
-
-int	exec_pipe(t_simple_command *cmd)
-{
-	if (*cmd->args[0] == '|')
-		cmd->args++;
-	return (1);
-}
+/**/
+/*int	exec_pipe(t_simple_command *cmd)*/
+/*{*/
+/*	if (*cmd->args[0] == '|')*/
+/*		cmd->args++;*/
+/*	return (1);*/
+/*}*/
 
 int	exec_cmd(t_simple_command *cmd, t_data *data)
 {
@@ -80,7 +80,7 @@ void	ft_cmd(t_data *data)
 
 	i = 0;
 	paths = NULL;
-	exec_pipe((*data->command)->table[i]);
+	/*exec_pipe((*data->command)->table[i]);*/
 	/*printf("%s\n", (*data->command)->table[i]->args[0]);*/
 	exec_cmd((*data->command)->table[i], data);
 }
