@@ -24,7 +24,7 @@
 #============================================================================*/
 
 //expanding
-int  handle_expanding(t_command *command);
+int  handle_expanding(t_data *command);
 int	quote_counter(char **s, int *exit_code);
 int	expande_exit_code(char **s, int *exit_code);
 int my_get_env(char *s, char **env, int x);
@@ -32,7 +32,7 @@ char	*get_prev(char *s, int x);
 int	get_str(char **s, char *prev, char *env, int len);
 
 //quotes
-int  handle_quotes(t_command *command);
+int  handle_quotes(t_data *command);
 int  delete_sigs(char *s, char A, char B, int *exit_code);
 int	after_sig_strlen(char	*s, char A, char B);
 int after_quotes_strlen(char *s);
@@ -47,7 +47,7 @@ size_t	r_count_whitespaces(char *s);
 size_t	r_count_sep(char *s, char sep);
 
 //parse_commands
-int  parse_commands(t_command *command);
+int  parse_commands(t_data *command);
 int parse_exit(t_simple_command *s, int *exit_code);
 int	parse_cd(t_simple_command *s, int *exit_code);
 int	parse_env(t_simple_command *s, int *exit_code);

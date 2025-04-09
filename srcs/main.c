@@ -14,24 +14,15 @@
 
 int main(int ac, char **av, char **envp)
 {
-	t_command *command;
-<<<<<<< HEAD
-	t_data	*data;
-=======
+	t_data *command;
 	char *prompt;
->>>>>>> main
 	char *rl;
 
 	command = NULL;
 	alloc_struct(&command);
 	int i = 0;
 	int j = 0;
-<<<<<<< HEAD
-	data = NULL;
-	exit_code = 0;
-=======
 	int x = -1;
->>>>>>> main
 	handle_signals();
 	prompt = get_prompt();
 	if (prompt == NULL)
@@ -45,15 +36,13 @@ int main(int ac, char **av, char **envp)
 		if (rl == NULL)
 			exit_bash(&prompt, command);
 		add_history(rl);
-<<<<<<< HEAD
-		command = parsing(rl, &exit_code);
-		init_data(&data, &command, envp);
-		ft_cmd(data);
+		command = parsing(rl, command);
+		printf("%s\n", command->table[0]->args[0]);
+		init_data(command, envp);
+		ft_cmd(command);
 		if (command == NULL)
-=======
-		parsing(rl, command);
+			parsing(rl, command);
 		if (command->table == NULL)
->>>>>>> main
 		{
 			ft_free(&rl);
 			ft_free(&prompt);

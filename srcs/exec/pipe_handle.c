@@ -11,19 +11,19 @@
 /* ************************************************************************** */
 
 #include "../../incs/exec.h"
+#include <stdlib.h>
 #include <unistd.h>
 
-int	pipe_child(t_command *cmds, t_data *data, int *fd)
+int	pipe_child(t_simple_command *cmd, t_data *data, int *fd)
 {
 	close(fd[1]);
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
-	(void) cmds;
-	(void) data;
+	exec_cmd(cmd, data);
 	return (1);
 }
 
-int	pipe_parent(t_command *cmds, t_data *data, int *fd)
+int	pipe_parent(t_data *data, int *fd)
 {
 	pid_t	pid;
 	int status;
@@ -33,7 +33,7 @@ int	pipe_parent(t_command *cmds, t_data *data, int *fd)
 	if (pid == 0)
 	{
 		dup2(fd[1], STDOUT_FILENO);
-		pipe_init(cmds, data);
+		pipe_init(data);
 		close(fd[1]);
 		exit(0);
 	}
@@ -43,26 +43,35 @@ int	pipe_parent(t_command *cmds, t_data *data, int *fd)
 	return (1);
 }
 
-int	pipe_handle(t_command *cmds, t_data *data, int *fd)
+int	pipe_handle(t_data *data, int *fd)
 {
 	pid_t	pid;
+	int		status;
+	int		index;
 
-	if (cmds->number_simple_commands > 1)
+	index = 0;
+	if (data->number_simple_commands > 1)
 	{
 		pid = fork();
 		if (pid == 0)
-			pipe_child(cmds, data, fd);
+			pipe_child(*data->table, data, fd);
 		else if (pid > 0)
-			pipe_parent(cmds, data, fd);
+		{
+			data->table++;
+			pipe_parent(data, fd);
+		}
 		else
-			exit(127);
+			exit(data->exit_code);
 	}
 	else
-		exec_cmd(cmds->table[0], data);
+		printf("%s\n", data->table[0]->args[0]);
+	exec_cmd(data->table[0], data);
+	waitpid(-1, &status, 0);
+	data->exit_code = WIFEXITED(status);
 	return (0);
 }
 
-int	pipe_init(t_command *cmds, t_data *data)
+int	pipe_init(t_data *data)
 {
 	int	fd[2];
 	int	status;
@@ -70,7 +79,7 @@ int	pipe_init(t_command *cmds, t_data *data)
 	if(pipe(fd) == -1)
 		return (0);
 	else
-		pipe_handle(cmds, data, fd);
+		pipe_handle(data, fd);
 	waitpid(-1, &status, 0);
 	close(fd[0]);
 	close(fd[1]);

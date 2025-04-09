@@ -3,17 +3,16 @@
 #==============================================================================#
 
 MAIN = $(addprefix $(SRCS_PATH)/, main.c exit.c prompt.c)
+
 PARSING = $(addprefix $(PARSING_PATH)/, parsing.c whitespaces_split.c \
 parsing_split.c expander.c)
+
 SIGNAL = srcs/signals/handle_signals.c
-<<<<<<< HEAD
+
 EXEC = $(addprefix $(EXEC_PATH)/, commands.c commands_utils.c pipe_handle.c)
-UTILS = $(addprefix $(UTILS_PATH)/, parse_command_utils.c parse_command_utils2.c \
-split_utils.c parsing_utils.c parsing_utils2.c redirect_utils.c expand_utils.c)
-=======
+
 UTILS = $(addprefix $(UTILS_PATH)/, main_utils.c expand_utils.c\
 split_utils.c parsing_utils.c parsing_utils2.c free_utils.c)
->>>>>>> main
 
 SRCS = $(UTILS) $(MAIN) $(PARSING) $(SIGNAL) $(EXEC)
 OBJS = $(SRCS:.c=.o)
@@ -33,7 +32,7 @@ EXEC_PATH = srcs/exec
 
 RM = rm -rf
 AR = ar rcs
-# CFLAGS = -g -Wall -Werror -Wextra
+CFLAGS = -g -Wall -Werror -Wextra
 LEAKS = -fsanitize=leak
 SILENT_MAKE = make -s extra
 

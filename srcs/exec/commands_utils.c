@@ -50,14 +50,14 @@ char	**envp_cpy(t_env *envp)
 	return (env);
 }
 
-void	env_addback(t_env **env, t_env *node)
+void	env_addback(t_env *env, t_env *node)
 {
 	t_env	*p;
 
-	p = *env;
+	p = env;
 	if (!p)
 	{
-		*env = node;
+		env = node;
 		return ;
 	}
 	while (p->next)
@@ -75,26 +75,26 @@ void 	init_envp(t_env **env, char **envp)
 	n = *env;
 	while (n && (*(++envp)))
 	{
-		env_addback(env, env_new(*envp));
+		env_addback(*env, env_new(*envp));
 		n = n->next;
 	}
 }
 
-void	init_data(t_data **data, t_command **cmd,char **envp)
+void	init_data(t_data *data, char **envp)
 {
-	/*int i = -1;*/
-	(*data) = ft_calloc(sizeof(t_data), 1);
-	(*data)->command = cmd;
-	/*printf("%s\n", (*cmd)->table[0]->args[0]);*/
-	/*printf("%s\n", (*(*data)->command)->table[0]->args[0]);*/
-	init_envp(&(*data)->env, envp);
-	/*char **cpy = envp_cpy((*data)->env);*/
-	(*data)->paths = pathfind((*data)->env);
+	int i = -1;
+	/*data = ft_calloc(sizeof(t_data), 1);*/
+	/*(*data)->command = cmd;*/
+	/*printf("%s\n", data->table[0]->args[0]);*/
+	init_envp(&data->env, envp);
+	/*printf("DATA\t%d:\t%s\n", i, data->env->var);*/
+	/*char **cpy = envp_cpy(data->env);*/
+	data->paths = pathfind(data->env);
 	/*while (envp[++i])*/
 	/*{*/
 	/*	printf("ENVP\t%d:\t%s\n", i, envp[i]);*/
-	/*	printf("DATA\t%d:\t%s\n", i, (*data)->env->var);*/
-	/*	printf("COPY\t%d:\t%s\n", i, cpy[i]);*/
-	/*	(*data)->env = (*data)->env->next;*/
+	/*	printf("DATA\t%d:\t%s\n", i, data->env->var);*/
+	/*printf("COPY\t%d:\t%s\n", i, cpy[i]);*/
+	/*	data->env = data->env->next;*/
 	/*}*/
 }

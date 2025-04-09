@@ -14,7 +14,7 @@
 #include "../../incs/parsing.h"
 
 //puts everything separated by pipes and spaces ready to be parsed
-static void	mount_table(t_command *command, char **splited)
+static void	mount_table(t_data *command, char **splited)
 {
 	int	i;
 
@@ -36,7 +36,7 @@ static void	mount_table(t_command *command, char **splited)
 	}
 }
 //inicializacion of the main structure
-static void	ini_command(char **splited, t_command *command)
+static void	ini_command(char **splited, t_data *command)
 {
 	int	i;
 
@@ -62,7 +62,7 @@ handle_quotes for deleting quotes since we dont be needing them anymore
 and parse command to check if the commands exist or not
 if any of this returns any error the programs stops and calls memory free */
 
-t_command	*parsing(char *s, 	t_command	*command)
+t_data	*parsing(char *s, 	t_data	*command)
 {
 	char		**splited;
 	int i;

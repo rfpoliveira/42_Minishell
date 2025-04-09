@@ -22,7 +22,7 @@ void	ft_free(char **ptr)
 	}
 }
 //free the command and sets the pointer to null
-void	command_free(t_command **command)
+void	command_free(t_data **command)
 {
 	free(*command);
 	*command = NULL;

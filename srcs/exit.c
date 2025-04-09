@@ -64,7 +64,7 @@ void	print_error(int error_code, int *exit_code)
 
 //executed whenever you need to exit the program by 
 //error or in the end, takes care of memory
-void	memory_free(int *exit_code, char **splited, t_command *command, int error)
+void	memory_free(int *exit_code, char **splited, t_data *command, int error)
 {
 	int	i;
 

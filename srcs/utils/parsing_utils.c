@@ -81,7 +81,7 @@ static int	delete_quotes(char *s, int *exit_code)
 	return (0);
 }
 
-int	delete_sigs_from_outinfiles(char **file, t_command *command)
+int	delete_sigs_from_outinfiles(char **file, t_data *command)
 {
 	int i;
 	int error;
@@ -96,7 +96,7 @@ int	delete_sigs_from_outinfiles(char **file, t_command *command)
 	return (error);
 }
 //deletes quotes from everything
-int	handle_quotes(t_command *command)
+int	handle_quotes(t_data *command)
 {
 	int error;
 	int	i;

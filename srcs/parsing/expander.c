@@ -119,7 +119,7 @@ static int	expand_args(t_simple_command *simple, int *exit_code)
 	return (0);
 }
 
-int  handle_expanding(t_command *command)
+int  handle_expanding(t_data *command)
 {
 	int	i;
 

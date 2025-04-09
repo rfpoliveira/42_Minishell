@@ -62,14 +62,25 @@ int	exec_cmd(t_simple_command *cmd, t_data *data)
 	pid_t	pid;
 	char	**temp;
 
-	pid = fork();
 	temp = envp_cpy(data->env);
-	if (pid == 0)
+	if (data->number_simple_commands == 1)
+	{
+		pid = fork();
+		if (pid == 0)
+		{
+			setpaths(cmd, data->paths);
+			execve(cmd->paths, cmd->args, temp);
+			exit(1);
+		}
+		waitpid(pid, NULL, 0);
+	}
+	else 
 	{
 		setpaths(cmd, data->paths);
+		dprintf(2, "%s\n", cmd->paths);
 		execve(cmd->paths, cmd->args, temp);
-	}
-	waitpid(pid, NULL, 0);
+		exit(1);
+	}	
 	return (0);
 }
 
@@ -82,5 +93,6 @@ void	ft_cmd(t_data *data)
 	paths = NULL;
 	/*exec_pipe((*data->command)->table[i]);*/
 	/*printf("%s\n", (*data->command)->table[i]->args[0]);*/
-	exec_cmd((*data->command)->table[i], data);
+	/*exec_cmd((*data->command)->table[i], data);*/
+	pipe_init(data);
 }

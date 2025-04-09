@@ -12,9 +12,9 @@
 
 #include "../../incs/minishell.h"
 
-void alloc_struct(t_command **command)
+void alloc_struct(t_data **command)
 {
-	*command = malloc(sizeof(t_command));
+	*command = malloc(sizeof(t_data));
 	if (*command == NULL)
 	{
 		print_error(MALLOC_ERROR, 0);
@@ -23,7 +23,7 @@ void alloc_struct(t_command **command)
 	(*command)->exit_code = 0;	
 }
 
-void	exit_bash(char **prompt, t_command *command)
+void	exit_bash(char **prompt, t_data *command)
 {
 	printf("exit\n");
 	ft_free(prompt);
