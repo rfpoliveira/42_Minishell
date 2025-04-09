@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_signals.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:44:20 by renato-oliv       #+#    #+#             */
-/*   Updated: 2025/03/20 15:02:59 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/09 12:26:29 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void    signal_handler(int signumb)
 {
     (void)signumb;
     rl_replace_line("", 0);
-    printf("\n");
+    ft_putstr_fd(" \n", 1);
     rl_on_new_line();
     rl_redisplay();
 }    

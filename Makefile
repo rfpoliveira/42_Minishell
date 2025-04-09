@@ -8,7 +8,7 @@ parsing_split.c expander.c)
 SIGNAL = srcs/signals/handle_signals.c
 UTILS = $(addprefix $(UTILS_PATH)/, main_utils.c expand_utils.c\
 split_utils.c parsing_utils.c parsing_utils2.c free_utils.c\
-count_utils.c)
+count_utils.c redirect_utils.c redirect_file_assign.c)
 
 SRCS = $(UTILS) $(MAIN) $(PARSING) $(SIGNAL)
 OBJS = $(SRCS:.c=.o)
@@ -38,7 +38,7 @@ SILENT_MAKE = make -s extra
 all: deps $(LIBFT_ARC) $(NAME)
 
 $(NAME): $(OBJS) 
-	@cc $(CFLAGS) $(LEAKS) $(OBJS) $(LIBFT_ARC) -o $(NAME) -lreadline
+	@cc $(CFLAGS) $(OBJS) $(LIBFT_ARC) -o $(NAME) -lreadline
 	@echo "$(GRN)[minishell successfully compiled]$(D)"
 	
 #==============================================================================#

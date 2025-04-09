@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:53:37 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/04 16:29:46 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/09 15:51:49 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,22 +67,22 @@ static int	expande_red_util(char **file, int *exit_code)
 }
 static int	expande_red(t_simple_command *s, int *exit_code)
 {
-	if (s->infile)
+	if (s->infile[0])
 	{
 		if (expande_red_util(s->infile, exit_code) != 0)
 				return (1);
 	}
-	if (s->outfile)
+	if (s->outfile[0])
 	{
 		if (expande_red_util(s->outfile, exit_code) != 0)
 			return (1);
 	}
-	if (s->double_in)
+	if (s->double_in[0])
 	{
 		if (expande_red_util(s->double_in, exit_code) != 0)
 			return (1);
 	}
-	if (s->double_out)
+	if (s->double_out[0])
 	{
 		if (expande_red_util(s->double_out, exit_code) != 0)
 			return (1);
@@ -119,7 +119,7 @@ static int	expand_args(t_simple_command *simple, int *exit_code)
 	return (0);
 }
 
-int  handle_expanding(t_command *command)
+int  handle_expanding(t_data *command)
 {
 	int	i;
 

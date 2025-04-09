@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/07 12:08:51 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/09 15:53:42 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,44 +44,45 @@ int	delete_sigs(char *s, char A, char B, int *exit_code)
 	return (0);
 }
 
-static int	delete_quotes(char *s, int *exit_code)
+static int	delete_quotes(char **s, int *exit_code)
 {
 	int i;
 	int len;
 	char *temp;
 
 	i = -1;
-	if (!s)
+	if (!*s)
 		return (0);
-	len = after_quotes_strlen(s);
+	len = after_quotes_strlen(*s);
 	temp = malloc(len + 1);
 	if (!temp)
 		return (print_error(MALLOC_ERROR, exit_code), 1);
 	temp[len] = '\0';
 	len = 0;
-	while(s[++i])
+	while((*s)[++i])
 	{
-		if (s[i] == 34)
+		if ((*s)[i] == 34)
 		{
 			i++;
-			while(s[i] != 34 && s[i])
-				temp[len++] = s[i++];
+			while((*s)[i] != 34 && (*s)[i])
+				temp[len++] = (*s)[i++];
 		}
-		else if (s[i] == 39)
+		else if ((*s)[i] == 39)
 		{
 			i++;
-			while(s[i] != 39 && s[i])
-				temp[len++] = s[i++];
+			while((*s)[i] != 39 && (*s)[i])
+				temp[len++] = (*s)[i++];
 		}
 		else
-			temp[len++] = s[i];
+			temp[len++] = (*s)[i];
 	}
-	ft_strlcpy(s, temp, len + 1);
+	free((*s));
+	*s = ft_strdup(temp);
 	free(temp);
 	return (0);
 }
 
-int	delete_sigs_from_outinfiles(char **file, t_command *command)
+int	delete_sigs_from_outinfiles(char **file, t_data *command)
 {
 	int i;
 	int error;
@@ -91,12 +92,12 @@ int	delete_sigs_from_outinfiles(char **file, t_command *command)
 	while(file[++i])
 	{
 		error = delete_sigs(file[i], '<', '>', &command->exit_code);
-		error = delete_quotes(file[i], &command->exit_code);
+		error = delete_quotes(&file[i], &command->exit_code);
 	}
 	return (error);
 }
 //deletes quotes from everything
-int	handle_quotes(t_command *command)
+int	handle_quotes(t_data *command)
 {
 	int error;
 	int	i;
@@ -109,7 +110,7 @@ int	handle_quotes(t_command *command)
 	{
 		while (command->table[i]->args[j])
 		{
-			error = delete_quotes(command->table[i]->args[j], &command->exit_code);
+			error = delete_quotes(&command->table[i]->args[j], &command->exit_code);
 			j++;
 		}
 		if (command->table[i]->infile)

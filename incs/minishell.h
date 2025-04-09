@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:55:27 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/03 17:04:39 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:03:48 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,13 @@
 #								 STRUCTS									  #
 #============================================================================*/
 
+typedef	struct s_envlist
+{
+	struct s_envlist	*next;
+	struct s_envlist	*prev;
+	char				*var;
+}	t_env;
+
 typedef struct s_simple_command
 {
 	int	number_args;
@@ -62,27 +69,29 @@ typedef struct s_simple_command
 	char **double_out;
 }	t_simple_command;
 
-typedef struct s_command
+typedef	struct s_data
 {
 	int number_simple_commands;
 	t_simple_command  **table;
 	int	exit_code;
-}	t_command;
+	t_env		*env;
+	char		**paths;
+}	t_data;
 
 /*============================================================================#
 #                                 Functions                                   #
 #============================================================================*/
 
 void    handle_signals(void);
-void alloc_struct(t_command **command);
-t_command  *parsing(char *s, t_command *command);
+void alloc_struct(t_data **command);
+t_data  *parsing(char *s, t_data *command);
 
 //exiting/errors/memory
-void memory_free(int *exit_code, char **s, t_command *command, int error);
-void	command_free(t_command **command);
+void memory_free(int *exit_code, char **s, t_data *command, int error);
+void	command_free(t_data **command);
 char	*get_prompt(void);
 void  ft_free(char	**ptr);
-void	inoutfiles_free(char **file);
+void	inoutfiles_free(t_simple_command *table);
 void print_error(int error_code, int *exit_code);
-void	exit_bash(char **prompt, t_command *command);
+void	exit_bash(char **prompt, t_data *command);
 #endif

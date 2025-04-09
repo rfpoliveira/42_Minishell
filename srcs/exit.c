@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:16 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/03 17:06:16 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:03:38 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	print_error(int error_code, int *exit_code)
 
 //executed whenever you need to exit the program by 
 //error or in the end, takes care of memory
-void	memory_free(int *exit_code, char **splited, t_command *command, int error)
+void	memory_free(int *exit_code, char **splited, t_data *command, int error)
 {
 	int	i;
 
@@ -76,14 +76,7 @@ void	memory_free(int *exit_code, char **splited, t_command *command, int error)
 		{
 			if (command->table[i]->args)
 				matrix_free(command->table[i]->args);
-			if (command->table[i]->infile)
-				inoutfiles_free(command->table[i]->infile);
-			if (command->table[i]->outfile)
-				inoutfiles_free(command->table[i]->outfile);
-			if (command->table[i]->double_out)
-				inoutfiles_free(command->table[i]->double_out);
-			if (command->table[i]->double_in)
-				inoutfiles_free(command->table[i]->double_in);
+			inoutfiles_free(command->table[i]);
 			free(command->table[i]);
 		}
 		if (command->table)

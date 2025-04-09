@@ -6,11 +6,12 @@
 /*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 16:25:52 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/03 17:06:48 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/09 16:03:25 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
+#include "../../incs/parsing.h"
 
 //free that check if the pointer exists
 void	ft_free(char **ptr)
@@ -22,7 +23,7 @@ void	ft_free(char **ptr)
 	}
 }
 //free the command and sets the pointer to null
-void	command_free(t_command **command)
+void	command_free(t_data **command)
 {
 	free(*command);
 	*command = NULL;
@@ -30,12 +31,10 @@ void	command_free(t_command **command)
 
 //free the inoutfiles
 
-void	inoutfiles_free(char **file)
+void	inoutfiles_free(t_simple_command *table)
 {
-	int i;
-
-	i = -1;
-	while(file[i])
-		ft_free(&file[i]);
-	free(file);
+	matrix_free(table->infile);
+	matrix_free(table->outfile);
+	matrix_free(table->double_out);
+	matrix_free(table->double_in);
 }
