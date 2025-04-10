@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/09 15:53:42 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/10 11:40:43 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,8 @@ int	quote_counter(char **s, int *exit_code)
 			{
 				flag = s[j][i];
 				count++;
-				i += skip_quotes(s[j], i);
+				if(s[j][i + 1] != '\0') 
+					i += skip_quotes(s[j], i);
 				if (s[j][i - 1] == flag)
 					count++;
 			}

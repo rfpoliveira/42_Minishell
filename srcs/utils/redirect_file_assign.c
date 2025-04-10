@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_file_assign.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:07:30 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/09 16:11:18 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/10 10:50:02 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ int	assign_util_infile(t_data *command, int arg, int table, int chr)
 	i = 0;
 	while (file[i])
 		i++;
-	if (file[chr + 1] == '\0')
+	if (command->table[table]->args[arg][chr + 1] == '\0')
 	{
-		tmp = parsing_split(command->table[arg]->args[arg + 1], '<');
+		tmp = parsing_split(command->table[table]->args[arg + 1], '<');
 		file[i] = ft_strdup(tmp[0]);
 	}
 	else if (chr == 0)
 	{
-		tmp = parsing_split(command->table[arg]->args[arg], '<');
+		tmp = parsing_split(command->table[table]->args[arg], '<');
 		file[i] = ft_strdup(tmp[0]);
 	}
 	else
 	{
-		tmp = parsing_split(command->table[arg]->args[arg], '<');
+		tmp = parsing_split(command->table[table]->args[arg], '<');
 		file[i] = ft_strdup(tmp[1]);
 	}
 	file[i + 1] = NULL;
@@ -52,19 +52,19 @@ int	assign_util_outfile(t_data *command, int arg, int table, int chr)
 	i = 0;
 	while (file[i])
 		i++;
-	if (file[chr + 1] == '\0')
+	if (command->table[table]->args[arg][chr + 1] == '\0')
 	{
-		tmp = parsing_split(command->table[arg]->args[arg + 1], '>');
+		tmp = parsing_split(command->table[table]->args[arg + 1], '>');
 		file[i] = ft_strdup(tmp[0]);
 	}
 	else if (chr == 0)
 	{
-		tmp = parsing_split(command->table[arg]->args[arg], '>');
+		tmp = parsing_split(command->table[table]->args[arg], '>');
 		file[i] = ft_strdup(tmp[0]);
 	}
 	else
 	{
-		tmp = parsing_split(command->table[arg]->args[arg], '>');
+		tmp = parsing_split(command->table[table]->args[arg], '>');
 		file[i] = ft_strdup(tmp[1]);
 	}
 	file[i + 1] = NULL;
@@ -81,19 +81,19 @@ int	assign_util_double_in(t_data *command, int arg, int table, int chr)
 	i = 0;
 	while (file[i])
 		i++;
-	if (file[chr + 1] == '\0')
+	if (command->table[table]->args[arg][chr + 2] == '\0')
 	{
-		tmp = parsing_split(command->table[arg]->args[arg + 1], '<');
+		tmp = parsing_split(command->table[table]->args[arg + 1], '<');
 		file[i] = ft_strdup(tmp[0]);
 	}
 	else if (chr == 0)
 	{
-		tmp = parsing_split(command->table[arg]->args[arg], '<');
+		tmp = parsing_split(command->table[table]->args[arg], '<');
 		file[i] = ft_strdup(tmp[0]);
 	}
 	else
 	{
-		tmp = parsing_split(command->table[arg]->args[arg], '<');
+		tmp = parsing_split(command->table[table]->args[arg], '<');
 		file[i] = ft_strdup(tmp[1]);
 	}
 	file[i + 1] = NULL;
@@ -110,19 +110,19 @@ int	assign_util_double_out(t_data *command, int arg, int table, int chr)
 	i = 0;
 	while (file[i])
 		i++;
-	if (arg + 1 == '\0')
+	if (command->table[table]->args[arg][chr + 2] == '\0')
 	{
-		tmp = parsing_split(command->table[arg]->args[arg + 1], '>');
+		tmp = parsing_split(command->table[table]->args[arg + 1], '>');
 		file[i] = ft_strdup(tmp[0]);
 	}
-	else if (arg == 0)
+	else if (chr == 0)
 	{
-		tmp = parsing_split(command->table[arg]->args[arg], '>');
+		tmp = parsing_split(command->table[table]->args[arg], '>');
 		file[i] = ft_strdup(tmp[0]);
 	}
 	else
 	{
-		tmp = parsing_split(command->table[arg]->args[arg], '>');
+		tmp = parsing_split(command->table[table]->args[arg], '>');
 		file[i] = ft_strdup(tmp[1]);
 	}
 	file[i + 1] = NULL;

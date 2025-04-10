@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/09 15:51:16 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/10 11:00:39 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int main(void)
 {
 	t_data *command;
 	char *prompt;
-	char *rl;
+	char *user_line;
 
 	command = NULL;
 	alloc_struct(&command);
@@ -32,14 +32,13 @@ int main(void)
 		}
 	while (42)
 	{
-		rl = readline(prompt);
-		if (rl == NULL)
+		user_line = readline(prompt);
+		if (user_line == NULL)
 			exit_bash(&prompt, command);
-		add_history(rl);
-		parsing(rl, command);
-		if (command->table == NULL)
+		add_history(user_line);
+		if (parsing(user_line, command) != 0)
 		{
-			ft_free(&rl);
+			ft_free(&user_line);
 			ft_free(&prompt);
 			continue ;
 		}
@@ -79,6 +78,6 @@ int main(void)
 		}
 		i = 0;
 		ft_printf("exit_code: %i\n", command->exit_code);
-		memory_free(&command->exit_code, NULL, command, 0);
+		memory_free(NULL, command, 0);
 	}
 }

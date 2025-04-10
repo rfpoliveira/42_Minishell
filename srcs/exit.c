@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:16 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/09 16:03:38 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/10 11:33:24 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ void	print_error(int error_code, int *exit_code)
 
 //executed whenever you need to exit the program by 
 //error or in the end, takes care of memory
-void	memory_free(int *exit_code, char **splited, t_data *command, int error)
+void	memory_free(char **splited, t_data *command, int error)
 {
 	int	i;
 
-	print_error(error, exit_code);
+	print_error(error, &command->exit_code);
 	i = -1;
 	if (command && command->table)
 	{
@@ -77,10 +77,9 @@ void	memory_free(int *exit_code, char **splited, t_data *command, int error)
 			if (command->table[i]->args)
 				matrix_free(command->table[i]->args);
 			inoutfiles_free(command->table[i]);
-			free(command->table[i]);
+			table_free(&command->table[i]);
 		}
-		if (command->table)
-			free(command->table);
+		free(command->table);
 	}
 	if (splited)
 	{
