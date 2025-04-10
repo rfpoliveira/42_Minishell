@@ -33,7 +33,7 @@ EXEC_PATH = srcs/exec
 RM = rm -rf
 AR = ar rcs
 CFLAGS = -g -Wall -Werror -Wextra
-LEAKS = -fsanitize=leak
+# LEAKS = -fsanitize=leak
 SILENT_MAKE = make -s extra
 
 #==============================================================================#

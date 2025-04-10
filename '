@@ -23,34 +23,32 @@ int	pipe_child(t_simple_command *cmd, t_data *data, int *fd)
 	return (1);
 }
 
-int	pipe_parent(t_data *data, int *fd, int index)
+int	pipe_parent(t_data *data, int *fd)
 {
-	pid_t	pidt;
+	pid_t	pid;
 	int status;
 
 	close(fd[0]);
-	pidt = fork();
-	if (pidt == 0)
+	pid = fork();
+	if (pid == 0)
 	{
 		dup2(fd[1], STDOUT_FILENO);
-		pipe_init(data, index);
+		pipe_init(data);
 		close(fd[1]);
 		exit(0);
 	}
 	else
 		close(fd[1]);
-	waitpid(pidt, &status, 0);
-	data->exit_code = WIFEXITED(status);
+	waitpid(-1, &status, 0);
 	return (1);
 }
 
 int	pipe_handle(t_data *data, int *fd, int index)
 {
 	pid_t	pid;
-	/*int		status;*/
+	int		status;
 
-	printf("cmd num\t%d\n", data->number_simple_commands);
-	if (data->number_simple_commands > 1 && data->table[index + 1])
+	if (data->number_simple_commands > 1)
 	{
 		pid = fork();
 		if (pid == 0)
@@ -62,8 +60,10 @@ int	pipe_handle(t_data *data, int *fd, int index)
 		else
 			exit(data->exit_code);
 	}
-	else if (data->number_simple_commands == 1)
-		exec_cmd(data->table[index], data);
+	else
+		exec_cmd(data->table[0], data);
+	waitpid(-1, &status, 0);
+	data->exit_code = WIFEXITED(status);
 	return (0);
 }
 
@@ -72,14 +72,11 @@ int	pipe_init(t_data *data, int index)
 	int	fd[2];
 	int	status;
 
-	/*dup2(fd[0], STDIN_FILENO);*/
-	/*dup2(fd[1], STDOUT_FILENO);*/
 	if(pipe(fd) == -1)
 		return (0);
-	else if (data->table[++index])
-		pipe_handle(data, fd, index);
+	else
+		pipe_handle(data, fd, ++index);
 	waitpid(-1, &status, 0);
-	data->exit_code = WEXITSTATUS(status);
 	close(fd[0]);
 	close(fd[1]);
 	return (1);

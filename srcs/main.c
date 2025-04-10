@@ -15,7 +15,7 @@
 int main(int ac, char **av, char **envp)
 {
 	t_data *command;
-	char *prompt;
+	/*char *prompt;*/
 	char *rl;
 
 	command = NULL;
@@ -24,17 +24,18 @@ int main(int ac, char **av, char **envp)
 	int j = 0;
 	int x = -1;
 	handle_signals();
-	prompt = get_prompt();
-	if (prompt == NULL)
-		{
-			print_error(MALLOC_ERROR, &command->exit_code);
-			exit(1);
-		}
+	/*prompt = get_prompt();*/
+	/*if (prompt == NULL)*/
+	/*	{*/
+	/*		print_error(MALLOC_ERROR, &command->exit_code);*/
+	/*		exit(1);*/
+	/*	}*/
 	while (42)
 	{
-		rl = readline(prompt);
+		rl = readline("minishell>");
 		if (rl == NULL)
-			exit_bash(&prompt, command);
+			exit(0);
+			/*exit_bash(&prompt, command);*/
 		add_history(rl);
 		command = parsing(rl, command);
 		printf("%s\n", command->table[0]->args[0]);
@@ -45,7 +46,7 @@ int main(int ac, char **av, char **envp)
 		if (command->table == NULL)
 		{
 			ft_free(&rl);
-			ft_free(&prompt);
+			/*ft_free(&prompt);*/
 			continue ;
 		}
 		while(command->table[i])
@@ -83,7 +84,7 @@ int main(int ac, char **av, char **envp)
 			i++;
 		}
 		i = 0;
-		printf("exit_code: %i\n", command->exit_code);
+		/*printf("exit_code: %i\n", command->exit_code);*/
 		memory_free(&command->exit_code, NULL, command, 0);
 	}
 	(void) ac;

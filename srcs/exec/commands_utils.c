@@ -82,7 +82,7 @@ void 	init_envp(t_env **env, char **envp)
 
 void	init_data(t_data *data, char **envp)
 {
-	int i = -1;
+	/*int i = -1;*/
 	/*data = ft_calloc(sizeof(t_data), 1);*/
 	/*(*data)->command = cmd;*/
 	/*printf("%s\n", data->table[0]->args[0]);*/

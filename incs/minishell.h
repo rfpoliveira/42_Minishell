@@ -84,15 +84,15 @@ typedef	struct s_data
 
 #include "exec.h"
 void    handle_signals(void);
-void alloc_struct(t_data **command);
+void	alloc_struct(t_data **command);
 t_data  *parsing(char *s, t_data *command);
 
 //exiting/errors/memory
-void memory_free(int *exit_code, char **s, t_data *command, int error);
+void	memory_free(int *exit_code, char **s, t_data *command, int error);
 void	command_free(t_data **command);
 char	*get_prompt(void);
-void  ft_free(char	**ptr);
+void	ft_free(char	**ptr);
 void	inoutfiles_free(char **file);
-void print_error(int error_code, int *exit_code);
+void	print_error(int error_code, int *exit_code);
 void	exit_bash(char **prompt, t_data *command);
 #endif
