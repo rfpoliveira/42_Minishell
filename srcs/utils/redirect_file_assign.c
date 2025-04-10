@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:07:30 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/10 10:50:02 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/10 13:59:48 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	assign_util_infile(t_data *command, int arg, int table, int chr)
 		file[i] = ft_strdup(tmp[1]);
 	}
 	file[i + 1] = NULL;
-	return (free(tmp), 0);
+	return (matrix_free(tmp), 0);
 }
 
 int	assign_util_outfile(t_data *command, int arg, int table, int chr)
@@ -68,7 +68,7 @@ int	assign_util_outfile(t_data *command, int arg, int table, int chr)
 		file[i] = ft_strdup(tmp[1]);
 	}
 	file[i + 1] = NULL;
-	return (free(tmp), 0);
+	return (matrix_free(tmp), 0);
 }
 
 int	assign_util_double_in(t_data *command, int arg, int table, int chr)
@@ -97,7 +97,7 @@ int	assign_util_double_in(t_data *command, int arg, int table, int chr)
 		file[i] = ft_strdup(tmp[1]);
 	}
 	file[i + 1] = NULL;
-	return (free(tmp), 0);
+	return (matrix_free(tmp), 0);
 }
 
 int	assign_util_double_out(t_data *command, int arg, int table, int chr)
@@ -126,5 +126,5 @@ int	assign_util_double_out(t_data *command, int arg, int table, int chr)
 		file[i] = ft_strdup(tmp[1]);
 	}
 	file[i + 1] = NULL;
-	return (free(tmp), 0);
+	return (matrix_free(tmp), 0);
 }
