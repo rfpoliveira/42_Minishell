@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_signals.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:44:20 by renato-oliv       #+#    #+#             */
-/*   Updated: 2025/04/09 12:26:29 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:31:26 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/10 11:40:43 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:31:42 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,31 +15,31 @@
 
 //deletes A and B from the string (used to take out quotes
 //and redirect symbls in some edge cases)
-int	delete_sigs(char *s, char A, char B, int *exit_code)
+int	delete_sigs(char **s, char A, char B, int *exit_code)
 {
 	int		i;
 	char	*temp;
 	int		len;
 
 	i = 0;
-	if (s == NULL)
+	if (*s == NULL)
 		return (0);
-	len = after_sig_strlen(s, A, B);
+	len = after_sig_strlen(*s, A, B);
 	temp = malloc(len + 1);
 	if (temp == NULL)
 		return (print_error(MALLOC_ERROR, exit_code), 1);
 	temp[len] = '\0';
 	len = 0;
-	while (s[i])
+	while ((*s)[i])
 	{
-		if (s[i] != A && s[i] != B)
+		if ((*s)[i] != A && (*s)[i] != B)
 		{
-			temp[len] = s[i];
+			temp[len] = (*s)[i];
 			len++;
 		}
 		i++;
 	}
-	ft_strlcpy(s, temp, len + 1);
+	ft_strlcpy(*s, temp, len + 1);
 	free(temp);
 	return (0);
 }
@@ -91,7 +91,7 @@ int	delete_sigs_from_outinfiles(char **file, t_data *command)
 	error = 0;
 	while(file[++i])
 	{
-		error = delete_sigs(file[i], '<', '>', &command->exit_code);
+		error = delete_sigs(&file[i], '<', '>', &command->exit_code);
 		error = delete_quotes(&file[i], &command->exit_code);
 	}
 	return (error);

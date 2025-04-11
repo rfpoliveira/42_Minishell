@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 16:34:59 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/10 15:01:55 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:31:08 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int check_for_red(t_data *command, int table, int arg)
 	return (0);
 }
 
-static int reorganize_afer_redirect(t_data *command, int curr_table)
+static int reorganize_after_redirect(t_data *command, int curr_table)
 {
  	char **tmp;
 	int	new_arg_count;
@@ -90,7 +90,7 @@ int	handle_redirect(t_data *command)
 	}
 	while (command->table[++j])
 	{
-		if (reorganize_afer_redirect(command, j) != 0)
+		if (reorganize_after_redirect(command, j) != 0)
 			return (1);
 	}
 	return (0);

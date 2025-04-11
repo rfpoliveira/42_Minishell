@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:01:42 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/10 15:13:29 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:32:00 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int    populate_tmp(char **tmp, t_data *command, t_simple_command *current)
                 current->args[i][j + 1] == '>' ) && \
                 current->args[i][j + 2] == '\0')) || \
                 (j == 0 && current->args[i][j + 1] == '\0'))
-                    i += 2;
+                    i++;
                 else if (current->args[i][j + 1] == '\0' && j != 0)
                 {
                     tmp[++curr_tmp] = ft_strdup(current->args[i]);

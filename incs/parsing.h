@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:46:37 by renato-oliv       #+#    #+#             */
-/*   Updated: 2025/04/10 14:43:26 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:47:06 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	assign_util_outfile(t_data *command, int arg, int table, int chr);
 int	assign_util_infile(t_data *command, int arg, int table, int chr);
 int new_arg_counter(t_simple_command *table, char **args);
 int   populate_tmp(char **tmp, t_data *command, t_simple_command *current);
+int	alloc_file(t_data *command, char **splited, int curr_table);
 
 //expanding
 int  handle_expanding(t_data *command);
@@ -50,7 +51,7 @@ int	get_str(char **s, char *prev, char *env, int len);
 
 //quotes
 int  handle_quotes(t_data *command);
-int  delete_sigs(char *s, char A, char B, int *exit_code);
+int  delete_sigs(char **s, char A, char B, int *exit_code);
 int	after_sig_strlen(char	*s, char A, char B);
 int after_quotes_strlen(char *s);
 int	count_args(t_simple_command *simple);

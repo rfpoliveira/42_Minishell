@@ -6,30 +6,12 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/10 11:17:20 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:47:15 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
-
-int	alloc_file(t_data *command, int table)
-{
-	command->table[table]->infile = malloc(sizeof(char *));
-	command->table[table]->outfile = malloc(sizeof(char *));
-	command->table[table]->double_in = malloc(sizeof(char *));
-	command->table[table]->double_out = malloc(sizeof(char *));
-	if (command->table[table]->infile == NULL ||\
-	command->table[table]->outfile == NULL||\
-	command->table[table]->double_in == NULL||\
-	command->table[table]->double_out == NULL)
-		return(print_error(MALLOC_ERROR, &command->exit_code), 1);
-	command->table[table]->infile[0] = NULL;
-	command->table[table]->outfile[0] = NULL;
-	command->table[table]->double_in[0] = NULL;
-	command->table[table]->double_out[0] = NULL;
-	return (0);
-}
 
 // puts everything separated by pipes and spaces ready to be parsed
 static void mount_table(t_data *command, char **splited)
@@ -46,7 +28,7 @@ static void mount_table(t_data *command, char **splited)
 		if (!(command->table[i]->args))
 			return (memory_free(splited, command, MALLOC_ERROR));
 		command->table[i]->number_args = count_args(command->table[i]);
-		if (alloc_file(command, i) != 0)
+		if (alloc_file(command, splited, i) != 0)
 			return (memory_free(splited, command, MALLOC_ERROR));
 		i++;
 	}
@@ -79,18 +61,18 @@ handle_quotes for deleting quotes since we dont be needing them anymore
 and parse command to check if the commands exist or not
 if any of this returns any error the programs stops and calls memory free */
 
-int parsing(char *user_line, t_data *command)
+int parsing(char **user_line, t_data *command)
 {
 	char **splited;
 
-	if (!user_line)
+	if (!*user_line || !ft_strncmp(*user_line, "", 1))
 		return (1);
-	if (check_pipes(user_line) == 0)
-		return (ft_free(&user_line), memory_free(NULL, command, SYNTAX_ERROR), 1);
-	splited = parsing_split(user_line, '|');
+	if (check_pipes(*user_line) == 0)
+		return (ft_free(user_line), memory_free(NULL, command, SYNTAX_ERROR), 1);
+	splited = parsing_split(*user_line, '|');
 	if (!splited)
-		return (ft_free(&user_line), memory_free(NULL, command, MALLOC_ERROR), 1);
-	ft_free(&user_line);
+		return (ft_free(user_line), memory_free(NULL, command, MALLOC_ERROR), 1);
+	ft_free(user_line);
 	ini_command(splited, command);
 	if (!command->table)
 		return (1);

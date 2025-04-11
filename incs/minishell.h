@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:55:27 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/10 11:29:07 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:52:00 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef	struct s_data
 
 void    handle_signals(void);
 void alloc_struct(t_data **command);
-int parsing(char *user_line, t_data *command);
+int parsing(char **user_line, t_data *command);
 
 //exiting/errors/memory
 void memory_free(char **s, t_data *command, int error);
