@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:53:37 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/11 15:31:03 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:26:52 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,23 @@ static int	expande_red_util(char **file, int *exit_code)
 	while (file[++j])
 	{
 		while (file[j][++i])
+		{
+			if (file[j][i] == 39)
+				i += skip_quotes(file[j], i);
+			if (file[j][i] == '$')
 			{
-				if (file[j][i] == 39)
-					i += skip_quotes(file[j], i);
-				if (file[j][i] == '$')
+				if (file[j][i + 1] == '$')
 				{
-					if (file[j][i + 1] == '$')
-					{
-						i++;
-						continue ;
-					}
-					if (expande(&file[j], i + 1, exit_code) != 0)
-						return (1);
-					if (ft_strncmp(file[j], "", 1) == 0)
-						return (print_error(SYNTAX_ERROR, exit_code), 1);
+					i++;
+					continue ;
 				}
+				if (expande(&file[j], i + 1, exit_code) != 0)
+					return (1);
+				if (ft_strncmp(file[j], "", 1) == 0)
+					return (print_error(SYNTAX_ERROR, exit_code), 1);
 			}
+		}
+		i = -1;
 	}
 	return (0);
 }

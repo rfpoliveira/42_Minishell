@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/11 15:47:15 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:14:15 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 static void mount_table(t_data *command, char **splited)
 {
 	int i;
+
 
 	i = 0;
 	while (i < command->number_simple_commands)
