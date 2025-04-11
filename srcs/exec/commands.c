@@ -36,10 +36,9 @@ int	setpaths(t_simple_command *cmd, char **paths)
 	/*int		n;*/
 
 	i= -1;
-	if (cmd->paths)
-		free(cmd->paths);
-	else
-		cmd->paths = NULL;
+	/*if (cmd->paths)*/
+	/*	free(cmd->paths);*/
+	/*cmd->paths = NULL;*/
 	/*n =  0 + (cmd->args[0][0] == '|');*/
 	while (paths[++i])
 	{
@@ -75,11 +74,16 @@ int	exec_cmd(t_simple_command *cmd, t_data *data)
 	}
 	else 
 	{
-		setpaths(cmd, data->paths);
-		/*dprintf(2, "%s\n", cmd->paths);*/
-		execve(cmd->paths, cmd->args, temp);
-		free(temp);
-		exit(1);
+		pid = fork();
+		if (pid == 0)
+		{
+			setpaths(cmd, data->paths);
+			dprintf(2, "%s\n", cmd->paths);
+			execve(cmd->paths, cmd->args, temp);
+			free(temp);
+			exit(1);
+		}
+		waitpid(pid, &status, 0);
 	}	
 	return (0);
 }

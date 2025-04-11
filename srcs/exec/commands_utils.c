@@ -87,6 +87,7 @@ void	init_data(t_data *data, char **envp)
 	/*(*data)->command = cmd;*/
 	/*printf("%s\n", data->table[0]->args[0]);*/
 	init_envp(&data->env, envp);
+	/*data->table[0]->paths*/
 	/*printf("DATA\t%d:\t%s\n", i, data->env->var);*/
 	/*char **cpy = envp_cpy(data->env);*/
 	data->paths = pathfind(data->env);
