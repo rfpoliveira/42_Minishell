@@ -74,16 +74,16 @@ int	exec_cmd(t_simple_command *cmd, t_data *data)
 	}
 	else 
 	{
-		pid = fork();
-		if (pid == 0)
-		{
+		/*pid = fork();*/
+		/*if (pid == 0)*/
+		/*{*/
 			setpaths(cmd, data->paths);
 			dprintf(2, "%s\n", cmd->paths);
 			execve(cmd->paths, cmd->args, temp);
 			free(temp);
 			exit(1);
-		}
-		waitpid(pid, &status, 0);
+		/*}*/
+		/*waitpid(pid, &status, 0);*/
 	}	
 	return (0);
 }
@@ -98,5 +98,6 @@ void	ft_cmd(t_data *data)
 	/*exec_pipe((*data->command)->table[i]);*/
 	/*printf("%s\n", (*data->command)->table[i]->args[0]);*/
 	/*exec_cmd((*data->command)->table[i], data);*/
-	pipe_init(data, -1);
+	/*pipe_init(data, -1);*/
+	fd_handler(data);
 }

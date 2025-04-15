@@ -38,9 +38,8 @@ int main(int ac, char **av, char **envp)
 			/*exit_bash(&prompt, command);*/
 		add_history(rl);
 		command = parsing(rl, command);
-		printf("%s\n", command->table[0]->args[0]);
-		init_data(command, envp);
-		ft_cmd(command);
+		/*printf("%s\n", command->table[0]->args[0]);*/
+	
 		if (command == NULL)
 			parsing(rl, command);
 		if (command->table == NULL)
@@ -49,6 +48,8 @@ int main(int ac, char **av, char **envp)
 			/*ft_free(&prompt);*/
 			continue ;
 		}
+		init_data(command, envp);
+		ft_cmd(command);
 		while(command->table[i])
 		{
 			while(command->table[i]->args[j])
