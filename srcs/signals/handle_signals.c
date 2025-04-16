@@ -6,14 +6,17 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:44:20 by renato-oliv       #+#    #+#             */
-/*   Updated: 2025/04/11 15:31:26 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/16 13:45:48 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-//handles the sigint (ctrl + c) to replace the line begin written with whitespace
-//prints the new line and updates readline and the display
+/* @brief: handles the SIGINT
+    replaces the line introduced with ""
+    writes a newline
+    updates readline to the newline
+    and finnaly updates the display to match */
 void    signal_handler(int signumb)
 {
     (void)signumb;
@@ -22,7 +25,9 @@ void    signal_handler(int signumb)
     rl_on_new_line();
     rl_redisplay();
 }    
-//sets up signal handlers to captures ctrl + C (sigint) and ignores ctrl + \ (sigquit)
+/* @brief: handles the signals: cntl + c(SINGINT) and cntl + \(SIGQUIT) 
+    if the user uses SIGINT if calls the sighandler
+    if the user uses SIGQUIT it ignores it*/
 void    handle_signals(void)
 {
     struct  sigaction   sa_signal;

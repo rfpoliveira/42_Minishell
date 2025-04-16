@@ -6,15 +6,23 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:53:37 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/11 16:26:52 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/16 14:04:13 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/parsing.h"
 #include "../../incs/minishell.h"
 
-//trully expandes variables and maintains 
-//whatever can come first in the argument
+/* @brief: this expandes whats asked maintaining what comes before the "$"
+	@arguments: s is a pointer to the "$" in the string.
+				x is position in the string next to the "$"
+				exit_code is the exit code of the last command.
+	get_prev saves anything before the "$"
+	my_get_env gets the information that need to get expanded.
+	get_str puts the whole thing together.
+	@notes:"$?" -> expandes to the last command exit code;
+	@return: 0 in case of sucesss
+		 	 MALLO_ERROR or any number != 0 in case of any error */
 static int	expande(char **s, int x, int *exit_code)
 {
 	char	*prev;
@@ -34,8 +42,13 @@ static int	expande(char **s, int x, int *exit_code)
 	free(prev);
 	return (0);
 }
-//next 2 functions takes care of expanding 
-//on redirection files since is diferent in some cases
+/* @brief: is called to iterate threw the redirection saved.
+	@arguments: file is the current redirection being checked.
+				exit_code is the exit code of the last command.
+	if "$" is found expand whats next: if there is another "$" ignores,
+	ignores anything bettewn quotes (not double quotes this time)
+	@return: 0 in case of sucesss
+		 	 1 in case of any error (is error if something expandes to "")*/
 static int	expande_red_util(char **file, int *exit_code)
 {
 	int	i;
@@ -66,6 +79,11 @@ static int	expande_red_util(char **file, int *exit_code)
 	}
 	return (0);
 }
+/* @brief: is called to check if there are redirections saved
+	@arguments: curr_table is the current table being checked.
+				exit_code is the exit code of the last command.
+	@return: 0 in case of sucesss
+		 	 1 in case of any error */
 static int	expande_red(t_simple_command *curr_table, int *exit_code)
 {
 	if (curr_table->infile)
@@ -90,7 +108,14 @@ static int	expande_red(t_simple_command *curr_table, int *exit_code)
 	}
 	return (0);
 }
-//iterates to expand in all arguments, ignores: $$
+
+/* @brief: is called to iterate all the arguments and look for expansions
+	@arguments: curr_table is the current table being checked.
+				exit_code is the exit code of the last command.
+	@notes: if "$" is found expand whats next: if there is another "$" ignores,
+	ignores anything bettewn quotes or double quotes
+	@return: 0 in case of sucesss
+		 	 1 in case of any error */
 static int	expand_args(t_simple_command *curr_table, int *exit_code)
 {
 	int	j;
@@ -120,6 +145,11 @@ static int	expand_args(t_simple_command *curr_table, int *exit_code)
 	return (0);
 }
 
+/* @brief: iterates the tables and calls helper functions to find
+	stuff to expand in the arguments and redirects saved
+	@return: 0 in case of success
+			 1 in case of any error
+	@notes: the errors messages are called when the error is found */
 int  handle_expanding(t_data *command)
 {
 	int	i;
