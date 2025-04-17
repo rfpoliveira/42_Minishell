@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:54:00 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/28 12:39:36 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:32:20 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,19 @@ static void parse_path(char *user, char **path)
 	char	*temp;
 
 	check_len = 0;
-	check_len = 6 + ft_strlen(user) + 1;
+	check_len = 6 + ft_strlen(user);
 	temp = ft_calloc(check_len, sizeof(char));
 	ft_strlcat(temp, "/home/", check_len);
 	ft_strlcat(temp, user, check_len);
 	if (ft_strncmp(*path, temp, check_len - 1) == 0)
 	{
-		free(*path);
 		free(temp);
-		temp = ft_strdup(*path + check_len - 1);
-		*path = ft_strjoin("~", temp);
+		temp = ft_strdup(*path + check_len);
+		free(*path);
+		check_len = ft_strlen(temp) + 2;
+		*path = ft_calloc(check_len, sizeof(char));
+		(*path)[0] = '~';
+		ft_strlcat(*path, temp, check_len);
 	}
 	ft_free(&temp);
 }

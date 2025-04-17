@@ -5,14 +5,16 @@
 MAIN = $(addprefix $(SRCS_PATH)/, main.c exit.c prompt.c)
 
 PARSING = $(addprefix $(PARSING_PATH)/, parsing.c whitespaces_split.c \
-parsing_split.c expander.c)
+parsing_split.c expander.c parse_redirect.c)
 
 SIGNAL = srcs/signals/handle_signals.c
 
 EXEC = $(addprefix $(EXEC_PATH)/, commands.c commands_utils.c pipe_handle.c)
 
 UTILS = $(addprefix $(UTILS_PATH)/, main_utils.c expand_utils.c\
-split_utils.c parsing_utils.c parsing_utils2.c free_utils.c)
+split_utils.c parsing_utils.c parsing_utils2.c free_utils.c\
+count_utils.c redirect_utils.c redirect_file_assign.c reorganize_utils.c \
+parsing_utils3.c)
 
 SRCS = $(UTILS) $(MAIN) $(PARSING) $(SIGNAL) $(EXEC)
 OBJS = $(SRCS:.c=.o)
@@ -43,7 +45,7 @@ SILENT_MAKE = make -s extra
 all: deps $(LIBFT_ARC) $(NAME)
 
 $(NAME): $(OBJS) 
-	@cc $(CFLAGS) $(LEAKS) $(OBJS) $(LIBFT_ARC) -o $(NAME) -lreadline
+	@cc $(CFLAGS) $(OBJS) $(LIBFT_ARC) -o $(NAME) -lreadline
 	@echo "$(GRN)[minishell successfully compiled]$(D)"
 	
 #==============================================================================#
@@ -77,6 +79,25 @@ fclean: clean
 re: fclean all
 
 again: clean all
+
+#leaks: readline.supp
+#	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all -s --log-file=output.log ./minishell
+
+#readline.supp:
+#	echo "{" > readline.supp
+#	echo "    leak readline" >> readline.supp
+#	echo "    Memcheck:Leak" >> readline.supp
+#	echo "    ..." >> readline.supp
+#	echo "    fun:readline" >> readline.supp
+#	echo "}" >> readline.supp
+#	echo "{" >> readline.supp
+#	echo "    leak add_history" >> readline.supp
+#	echo "    Memcheck:Leak" >> readline.supp
+#	echo "    ..." >> readline.supp
+#	echo "    fun:add_history" >> readline.supp
+#	echo "}" >> readline.supp
+
+.PHONY: all clean fclean re
 
 #==============================================================================#
 #                                  UTILS                                       #

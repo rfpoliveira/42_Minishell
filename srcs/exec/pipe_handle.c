@@ -11,64 +11,156 @@
 /* ************************************************************************** */
 
 #include "../../incs/exec.h"
+#include <unistd.h>
 
-int	fd_handler(t_data *data)
+#define READ 0
+#define WRITE 1
+
+int fd_handler(t_data *data)
 {
-	int		**fd;
-	int		i;
-	int		j;
-	int		status;
-	size_t	pid;
+	int pid[data->number_simple_commands - 1];
+    int fd[data->number_simple_commands][2];
+    int i;
+	int j;
+	int status;
 
 	i = -1;
 	j = -1;
-	fd = NULL;
 	if (data->number_simple_commands == 1)
 	{
 		exec_cmd(data->table[0], data);
-		exit (0);
+		return 0;
 	}
-	fd = ft_calloc(sizeof(int *), data->number_simple_commands);
-	while (++i < data->number_simple_commands)
-	{
-		fd[i] = ft_calloc(sizeof(int), 2);
+    while (++i < data->number_simple_commands)
 		if (pipe(fd[i]) == -1)
-			exit (1);
-	}
-	i = 0;
-	while (i++ < data->number_simple_commands - 1)
+            exit (1);
+	i = -1;
+    while (++i < data->number_simple_commands)
 	{
-		pid = fork();
-		if (!pid)
+        pid[i] = fork();
+        if (pid[i] == -1)
+            exit (2);
+        if (pid[i] == 0)
 		{
-			if (i == 0)
-			{
-				close(fd[i][1]);
-				dup2(fd[i][0], 0);
-				close(fd[i][0]);
-				while (fd[++i])
+            // Child process
+		if (i < data->number_simple_commands - 1)
+            {
+				if (data->number_simple_commands == i +1)
 				{
-					close(fd[i][0]);
-					close(fd[i][1]);
-				}	
+					exec_cmd(data->table[i], data);
+					exit (0);
+				}
+				while (++j < data->number_simple_commands)
+				{
+	                if (i != j)
+	                    close(fd[j][READ]);
+	                if (i + 1 != j)
+	                    close(fd[j][WRITE]);
+	            }
+				if (dup2(fd[i][READ], STDIN_FILENO) == -1)
+				{
+					printf("error on read\n");
+					exit (1);		
+				}
+				if (dup2(fd[i + 1][WRITE], STDOUT_FILENO) == -1)
+				{
+					printf("error on write\n");
+					exit (2);
+				}
+				close(fd[i][READ]);
+		        close(fd[i + 1][WRITE]);
+				exec_cmd(data->table[i], data);
+				exit (2);
+
 			}
-			 while (++j < i - 1)
-			{
-				close(fd[j][0]);
-				close(fd[j][1]);
-			}
-			printf("index\t%d\n", i);
-			close(fd[i][0]);
-			dup2(fd[i - 1][0], 0);
-			dup2(fd[i][1], 1);
-			close(fd[i - 1][0]);
-			close(fd[i][1]);
-			exec_cmd(data->table[i], data);
-		}
+        }
 	}
-	waitpid(-1, &status, 0);
-	return (0);
+	j = -1;
+	while (++j < data->number_simple_commands)
+	{
+		if (j != 0)
+			close(fd[j][WRITE]);
+		if (j != data->number_simple_commands - 1)
+			close(fd[j][READ]);
+	}
+	if (dup2(fd[0][WRITE], STDOUT_FILENO) == -1)
+	{
+		printf("error on write\n");
+		exit (1);		
+	}
+
+	if (dup2(fd[data->number_simple_commands - 1][READ], STDIN_FILENO) == -1)
+	{
+		printf("error on read\n");
+		exit (1);		
+	}
+    close(fd[0][WRITE]);
+	/*close(fd[data->number_simple_commands][WRITE]);*/
+	close(fd[data->number_simple_commands - 1][READ]);
+	i = -1;
+	while (++i < data->number_simple_commands - 1)
+	/*	wait(NULL);*/
+	/*(void) status;*/
+	       waitpid(-1, &status, 0);
+    return 0;
 }
+/**/
+/*int	fd_handler(t_data *data)*/
+/*{*/
+/*	int		**fd;*/
+/*	int		i;*/
+/*	int		j;*/
+/*	int		status;*/
+/*	size_t	*pid;*/
+/**/
+/*	i = -1;*/
+/*	j = -1;*/
+/*	fd = NULL;*/
+/*	if (data->number_simple_commands == 1)*/
+/*	{*/
+/*		exec_cmd(data->table[0], data);*/
+/*	}*/
+/*	fd = ft_calloc(sizeof(int *), data->number_simple_commands + 1);*/
+/*	pid = ft_calloc(sizeof(pid_t), data->number_simple_commands);*/
+/*	while (++i < data->number_simple_commands)*/
+/*	{*/
+/*		fd[i] = ft_calloc(sizeof(int), 2);*/
+/*		if (pipe(fd[i]) == -1)*/
+/*			exit (1);*/
+/*	}*/
+/*	i = 0;*/
+/*	while (i++ < data->number_simple_commands - 1)*/
+/*	{*/
+/*		pid[i] = fork();*/
+/*		if (!pid[i])*/
+/*		{*/
+/**/
+/*				close(fd[i][1]);*/
+/*				dup2(fd[i][0], 0);*/
+/*				close(fd[i][0]);*/
+/*				while (fd[++i])*/
+/*				{*/
+/*					close(fd[i][0]);*/
+/*					close(fd[i][1]);*/
+/*				}*/
+/*			 while (++j < i - 1)*/
+/*			{*/
+/*				close(fd[j][0]);*/
+/*				close(fd[j][1]);*/
+/*			}*/
+/*			close(fd[i][0]);*/
+/*			dup2(fd[i - 1][0], 0);*/
+/*			dup2(fd[i][1], 1);*/
+/*			close(fd[i - 1][0]);*/
+/*			close(fd[i][1]);*/
+/*			exec_cmd(data->table[i], data);*/
+/*		}*/
+/*	}*/
+/*	i = 0;*/
+/*	while (pid[i++]) */
+/*		waitpid(pid[i], &status, 0);*/
+/*	return (0);*/
+/*}*/
 /*#include <stdio.h>*/
 /*#include <stdlib.h>*/
 /*#include <unistd.h>*/

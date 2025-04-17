@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:16 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/03 17:06:16 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:32:10 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/minishell.h"\
+#include "../incs/minishell.h"
 
 static void	handle_exit_code(int error_code, int *exit_code)
 {
@@ -64,11 +64,11 @@ void	print_error(int error_code, int *exit_code)
 
 //executed whenever you need to exit the program by 
 //error or in the end, takes care of memory
-void	memory_free(int *exit_code, char **splited, t_data *command, int error)
+void	memory_free(char **splited, t_data *command, int error)
 {
 	int	i;
 
-	print_error(error, exit_code);
+	print_error(error, &command->exit_code);
 	i = -1;
 	if (command && command->table)
 	{
@@ -76,18 +76,10 @@ void	memory_free(int *exit_code, char **splited, t_data *command, int error)
 		{
 			if (command->table[i]->args)
 				matrix_free(command->table[i]->args);
-			if (command->table[i]->infile)
-				inoutfiles_free(command->table[i]->infile);
-			if (command->table[i]->outfile)
-				inoutfiles_free(command->table[i]->outfile);
-			if (command->table[i]->double_out)
-				inoutfiles_free(command->table[i]->double_out);
-			if (command->table[i]->double_in)
-				inoutfiles_free(command->table[i]->double_in);
-			free(command->table[i]);
+			inoutfiles_free(command->table[i]);
+			table_free(&command->table[i]);
 		}
-		if (command->table)
-			free(command->table);
+		free(command->table);
 	}
 	if (splited)
 	{

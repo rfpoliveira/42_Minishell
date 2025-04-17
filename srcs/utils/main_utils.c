@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 14:59:33 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/28 16:23:04 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:31:38 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void alloc_struct(t_data **command)
 
 void	exit_bash(char **prompt, t_data *command)
 {
-	printf("exit\n");
+	ft_putstr_fd("exit\n", 1);
 	ft_free(prompt);
 	command_free(&command);
 	rl_clear_history();

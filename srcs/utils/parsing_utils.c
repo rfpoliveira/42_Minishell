@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/04 14:42:18 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:31:42 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,68 +15,69 @@
 
 //deletes A and B from the string (used to take out quotes
 //and redirect symbls in some edge cases)
-int	delete_sigs(char *s, char A, char B, int *exit_code)
+int	delete_sigs(char **s, char A, char B, int *exit_code)
 {
 	int		i;
 	char	*temp;
 	int		len;
 
 	i = 0;
-	if (s == NULL)
+	if (*s == NULL)
 		return (0);
-	len = after_sig_strlen(s, A, B);
+	len = after_sig_strlen(*s, A, B);
 	temp = malloc(len + 1);
 	if (temp == NULL)
 		return (print_error(MALLOC_ERROR, exit_code), 1);
 	temp[len] = '\0';
 	len = 0;
-	while (s[i])
+	while ((*s)[i])
 	{
-		if (s[i] != A && s[i] != B)
+		if ((*s)[i] != A && (*s)[i] != B)
 		{
-			temp[len] = s[i];
+			temp[len] = (*s)[i];
 			len++;
 		}
 		i++;
 	}
-	ft_strlcpy(s, temp, len + 1);
+	ft_strlcpy(*s, temp, len + 1);
 	free(temp);
 	return (0);
 }
 
-static int	delete_quotes(char *s, int *exit_code)
+static int	delete_quotes(char **s, int *exit_code)
 {
 	int i;
 	int len;
 	char *temp;
 
 	i = -1;
-	if (!s)
+	if (!*s)
 		return (0);
-	len = after_quotes_strlen(s);
+	len = after_quotes_strlen(*s);
 	temp = malloc(len + 1);
 	if (!temp)
 		return (print_error(MALLOC_ERROR, exit_code), 1);
 	temp[len] = '\0';
 	len = 0;
-	while(s[++i])
+	while((*s)[++i])
 	{
-		if (s[i] == 34)
+		if ((*s)[i] == 34)
 		{
 			i++;
-			while(s[i] != 34 && s[i])
-				temp[len++] = s[i++];
+			while((*s)[i] != 34 && (*s)[i])
+				temp[len++] = (*s)[i++];
 		}
-		else if (s[i] == 39)
+		else if ((*s)[i] == 39)
 		{
 			i++;
-			while(s[i] != 39 && s[i])
-				temp[len++] = s[i++];
+			while((*s)[i] != 39 && (*s)[i])
+				temp[len++] = (*s)[i++];
 		}
 		else
-			temp[len++] = s[i];
+			temp[len++] = (*s)[i];
 	}
-	ft_strlcpy(s, temp, len + 1);
+	free((*s));
+	*s = ft_strdup(temp);
 	free(temp);
 	return (0);
 }
@@ -90,8 +91,8 @@ int	delete_sigs_from_outinfiles(char **file, t_data *command)
 	error = 0;
 	while(file[++i])
 	{
-		error = delete_sigs(file[i], '<', '>', &command->exit_code);
-		error = delete_quotes(file[i], &command->exit_code);
+		error = delete_sigs(&file[i], '<', '>', &command->exit_code);
+		error = delete_quotes(&file[i], &command->exit_code);
 	}
 	return (error);
 }
@@ -109,7 +110,7 @@ int	handle_quotes(t_data *command)
 	{
 		while (command->table[i]->args[j])
 		{
-			error = delete_quotes(command->table[i]->args[j], &command->exit_code);
+			error = delete_quotes(&command->table[i]->args[j], &command->exit_code);
 			j++;
 		}
 		if (command->table[i]->infile)
@@ -146,14 +147,13 @@ int	quote_counter(char **s, int *exit_code)
 			{
 				flag = s[j][i];
 				count++;
-				i += skip_quotes(s[j], i);
+				if(s[j][i + 1] != '\0') 
+					i += skip_quotes(s[j], i);
 				if (s[j][i - 1] == flag)
 					count++;
-				printf("i: %i\n", i);
 			}
 		}
 	}
-	printf("count: %i\n", count);
 	if (count % 2 == 0)
 		return (0);
 	else

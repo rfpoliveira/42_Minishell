@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 10:42:07 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/03/28 11:42:23 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:31:14 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ static char	**fill(char *s, char **res, char sep)
 		if (s[i] != sep)
 		{
 			substring_calc(s, &i, &j, sep);
-			if (r == -1)
+/* 			if (r == -1) */
 				res[++r] = ft_substr(s, i - j, j);
-			else
-				res[++r] = ft_substr(s, i - j, j + 1);
+/* 			else
+				res[++r] = ft_substr(s, i - j, j + 1); */
 			if (!res[r])
 				return (matrix_free(res), NULL);
 		}

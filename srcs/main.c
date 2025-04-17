@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/04 14:55:01 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/11 15:32:17 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int main(int ac, char **av, char **envp)
 {
 	t_data *command;
 	/*char *prompt;*/
-	char *rl;
+	char *user_line;
 
 	command = NULL;
 	alloc_struct(&command);
@@ -32,20 +32,14 @@ int main(int ac, char **av, char **envp)
 	/*	}*/
 	while (42)
 	{
-		rl = readline("minishell>");
-		if (rl == NULL)
-			exit(0);
+		user_line = readline("minishell > ");
+		if (user_line == NULL)
+			exit(1);
 			/*exit_bash(&prompt, command);*/
-		add_history(rl);
-		command = parsing(rl, command);
-		/*printf("%s\n", command->table[0]->args[0]);*/
-	
-		if (command == NULL)
-			parsing(rl, command);
-		if (command->table == NULL)
+		add_history(user_line);
+		if (parsing(&user_line, command) != 0)
 		{
-			ft_free(&rl);
-			/*ft_free(&prompt);*/
+			ft_free(&user_line);
 			continue ;
 		}
 		init_data(command, envp);
@@ -54,39 +48,39 @@ int main(int ac, char **av, char **envp)
 		{
 			while(command->table[i]->args[j])
 			{
-				printf("%i: %s\n", j, command->table[i]->args[j]);
+				ft_printf("%i: %s\n", j, command->table[i]->args[j]);
 				j++;
 			}
 			if (command->table[i]->infile)
 			{
 				while(command->table[i]->infile[++x])
-				printf("infile(%i): %s\n", x, command->table[i]->infile[x]);
+				ft_printf("infile(%i): %s\n", x, command->table[i]->infile[x]);
 			}
 			x = -1;
 			if (command->table[i]->outfile)
 			{
 				while(command->table[i]->outfile[++x])
-					printf("outfile(%i): %s\n", x, command->table[i]->outfile[x]);
+					ft_printf("outfile(%i): %s\n", x, command->table[i]->outfile[x]);
 			}
 			x = -1;
 			if (command->table[i]->double_in)
 			{
 				while(command->table[i]->double_in[++x])
-					printf("double_in(%i): %s\n", x, command->table[i]->double_in[x]);
+					ft_printf("double_in(%i): %s\n", x, command->table[i]->double_in[x]);
 			}
 			x = -1;
 			if (command->table[i]->double_out)
 			{
 				while(command->table[i]->double_out[++x])
-					printf("double_out(%i): %s\n", x, command->table[i]->double_out[x]);
+					ft_printf("double_out(%i): %s\n", x, command->table[i]->double_out[x]);
 			}
 			x = -1;
 			j = 0;
 			i++;
 		}
 		i = 0;
-		/*printf("exit_code: %i\n", command->exit_code);*/
-		memory_free(&command->exit_code, NULL, command, 0);
+		ft_printf("exit_code: %i\n", command->exit_code);
+		memory_free(NULL, command, 0);
 	}
 	(void) ac;
 	(void) av;

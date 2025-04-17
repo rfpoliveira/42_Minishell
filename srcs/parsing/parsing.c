@@ -3,42 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/04 14:59:52 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/11 16:14:15 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
 
-//puts everything separated by pipes and spaces ready to be parsed
-static void	mount_table(t_data *command, char **splited)
+static void mount_table(t_data *command, char **splited)
 {
-	int	i;
+	int i;
+
 
 	i = 0;
 	while (i < command->number_simple_commands)
 	{
 		command->table[i] = malloc(sizeof(t_simple_command));
 		if (!command->table[i])
-			return (memory_free(&command->exit_code, splited, command, MALLOC_ERROR));
+			return (memory_free(splited, command, MALLOC_ERROR));
 		command->table[i]->args = whitespaces_split(splited[i]);
 		if (!(command->table[i]->args))
-			return (memory_free(&command->exit_code, splited, command, MALLOC_ERROR));
+			return (memory_free(splited, command, MALLOC_ERROR));
 		command->table[i]->number_args = count_args(command->table[i]);
-		command->table[i]->outfile = NULL;
-		command->table[i]->infile = NULL;
-		command->table[i]->double_in = NULL;
-		command->table[i]->double_out = NULL;
+		if (alloc_file(command, splited, i) != 0)
+			return (memory_free(splited, command, MALLOC_ERROR));
 		i++;
 	}
 }
-//inicializacion of the main structure
-static void	ini_command(char **splited, t_data *command)
+// inicializacion of the main structure
+static void ini_command(char **splited, t_data *command)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (splited[i])
@@ -46,45 +44,45 @@ static void	ini_command(char **splited, t_data *command)
 	command->number_simple_commands = i;
 	command->table = malloc(sizeof(t_simple_command) * i + 8);
 	if (!command->table)
-		return (memory_free(&command->exit_code, splited, command, MALLOC_ERROR));
+		return (memory_free(splited, command, MALLOC_ERROR));
 	command->table[i] = NULL;
-	if (quote_counter(splited, &command->exit_code) != 0)
-		return (memory_free(&command->exit_code, splited, command, 0));
 	mount_table(command, splited);
+	if (quote_counter(splited, &command->exit_code) != 0)
+		return (memory_free(splited, command, 0));
 }
-//calls everything in the following order:
+// calls everything in the following order:
 /* check_first_pipe to check if there is a pipe in the beggining
-parsing_split to split by pipes 
+parsing_split to split by pipes
 ini_command for allocating most of the memory and inicializing the main struct
-handle_redirect to put any redirections on the correct place in the strcut 
+handle_redirect to put any redirections on the correct place in the strcut
 handle_expanding for expande everything correctly
 handle_quotes for deleting quotes since we dont be needing them anymore
 and parse command to check if the commands exist or not
 if any of this returns any error the programs stops and calls memory free */
 
-t_data	*parsing(char *s, 	t_data	*command)
+
+int parsing(char **user_line, t_data *command)
 {
-	char		**splited;
-	int i;
-	
-	i = 1;
-	if (!s)
-		return (NULL);
-	if (check_pipes(s) == 0)
-		return (ft_free(&s), memory_free(&i, NULL, NULL, SYNTAX_ERROR), NULL);
-	splited = parsing_split(s, '|');
+	char **splited;
+
+	if (!*user_line || !ft_strncmp(*user_line, "", 1))
+		return (1);
+	if (check_pipes(*user_line) == 0)
+		return (ft_free(user_line), memory_free(NULL, command, SYNTAX_ERROR), 1);
+	splited = parsing_split(*user_line, '|');
 	if (!splited)
-		return (ft_free(&s), memory_free(&i, NULL, NULL, MALLOC_ERROR), NULL);
+		return (ft_free(user_line), memory_free(NULL, command, MALLOC_ERROR), 1);
+	ft_free(user_line);
 	ini_command(splited, command);
 	if (!command->table)
-		return (ft_free(&s), NULL);
-/* 	if (handle_redirect(command) != 0)
-		return (ft_free(&s), memory_free(&command->exit_code, splited, command, 0), NULL); */
+		return (1);
+	if (handle_redirect(command) != 0)
+		return (memory_free(splited, command, 0), 1);
 	if (handle_expanding(command) != 0)
-		return (ft_free(&s), memory_free(&command->exit_code, splited, command, 0), NULL);
+		return (memory_free(splited, command, 0), 1);
 	if (handle_quotes(command) != 0)
-		return (ft_free(&s), memory_free(&command->exit_code, splited, command, 0), NULL);
+		return (memory_free(splited, command, 0), 1);
 	/* if (parse_commands(command) != 0)
-		return (ft_free(&s), memory_free(&command->exit_code, splited, command, 0), NULL); */
-	return (ft_free(&s), matrix_free(splited), command);
+		return (memory_free(splited, command, 0), 1); */
+	return (matrix_free(splited), 0);
 }
