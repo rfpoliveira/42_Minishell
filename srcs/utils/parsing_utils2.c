@@ -3,27 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 12:03:29 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/03 16:10:44 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/17 11:32:45 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
-
-//counts the arguments present in the command passed
-int	count_args(t_simple_command *simple)
+/* @brief: counts the number of arguments saved in the current table
+	@return: number of arguments counted */
+int	count_args(t_simple_command *curr_table)
 {
 	int	i;
 
 	i = 0;
-	while (simple->args[i])
+	while (curr_table->args[i])
 		i++;
 	return (i);
 }
-
+/* @brief: counts the number of chars s will have after we deletes the quotes
+			needed to alloc space for the new altered string
+	@return: len of the new string */
 int after_quotes_strlen(char *s)
 {
 	int	i;
@@ -46,7 +48,8 @@ int after_quotes_strlen(char *s)
 	}
 	return (i - quote_skipped);
 }
-//strlen but ignore A and B
+/* @brief: counts the len of s after A and B are deleted
+	@return: the len counted */
 int	after_sig_strlen(char	*s, char A, char B)
 {
 	int	i;
@@ -67,14 +70,19 @@ int	after_sig_strlen(char	*s, char A, char B)
 	}
 	return (count);
 }
-
+/* @brief: checks if a char is a whitespace
+	@return: 1 if it is
+			 0 if it is not */
 int	ft_isspace(char c)
 {
 	if (c == 32 || (c >= 9 && c <= 13))
 		return (1);
 	return (0);
 }
-//check if the first thing in the command is a pipe
+/* @brief: checks if there is a pipe in the beggining or the end of the command
+			if it finds any the program will give an error
+	@return: 0 if it finds any
+			 1 if it does not */
 int	check_pipes(char *s)
 {
 	int	i;

@@ -6,12 +6,13 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:49:43 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/11 15:31:29 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/17 10:56:47 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
-
+/* @brief: counts the number of infiles in the current argument
+	@return: int that represent the count*/
 int	count_infiles(char **current)
 {
 	int j;
@@ -39,6 +40,8 @@ int	count_infiles(char **current)
 	}
 	return (count);
 }
+/* @brief: counts the number of outfiles in the current argument
+	@return: int that represent the count*/
 int	count_outfiles(char **current)
 {
 	int j;
@@ -66,6 +69,8 @@ int	count_outfiles(char **current)
 	}
 	return (count);
 }
+/* @brief: counts the number of "<<" in the current argument
+	@return: int that represent the count*/
 int	count_double_ins(char **current)
 {
 	int j;
@@ -86,6 +91,8 @@ int	count_double_ins(char **current)
 	}
 	return (count);
 }
+/* @brief: counts the number of ">>" in the current argument
+	@return: int that represent the count*/
 int	count_double_outs(char **current)
 {
 	int j;

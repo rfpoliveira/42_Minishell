@@ -6,15 +6,18 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/11 15:31:42 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/17 11:27:28 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
-
-//deletes A and B from the string (used to take out quotes
-//and redirect symbls in some edge cases)
+/* @brief: deletes A and B from s 
+	@arguments: s is the string from which we will take out some chars
+				A and B and the chars to take out
+	used to take out quotes, double quotes and redirect symbols
+	@return: 0 in case of success
+			 1 or any other number in case of errors. */
 int	delete_sigs(char **s, char A, char B, int *exit_code)
 {
 	int		i;
@@ -43,7 +46,10 @@ int	delete_sigs(char **s, char A, char B, int *exit_code)
 	free(temp);
 	return (0);
 }
-
+/* @brief: deletes quotes from s 
+	@arguments: s is the string from which we will take out some chars
+	@return: 0 in case of success
+			 1 or any other number in case of errors. */
 static int	delete_quotes(char **s, int *exit_code)
 {
 	int i;
@@ -81,7 +87,11 @@ static int	delete_quotes(char **s, int *exit_code)
 	free(temp);
 	return (0);
 }
-
+/* @brief: deletes quotes and redirect signs from the files saved
+	@arguments: file is the current file to check
+				command is the main struct with all the data
+	@return: 0 in case of success
+			 1 or any other number in case of errors. */
 int	delete_sigs_from_outinfiles(char **file, t_data *command)
 {
 	int i;
@@ -96,17 +106,20 @@ int	delete_sigs_from_outinfiles(char **file, t_data *command)
 	}
 	return (error);
 }
-//deletes quotes from everything
+/* @brief: iterates and calls and the functions need to delete quotes and redirects from everything saved.
+	@arguments: command is the main struct with all the data
+	@return: 0 in case of success
+			 1 or any other number in case of errors. */
 int	handle_quotes(t_data *command)
 {
 	int error;
 	int	i;
 	int	j;
 
-	i = 0;
+	i = -1;
 	j = 0;
 	error = 0;
-	while (command->table[i])
+	while (command->table[++i])
 	{
 		while (command->table[i]->args[j])
 		{
@@ -122,11 +135,16 @@ int	handle_quotes(t_data *command)
 		if (command->table[i]->double_in)
 			error = delete_sigs_from_outinfiles(command->table[i]->double_in, command);
 		j = 0;
-		i++;
 	}
 	return (error);
 }
-//check if there is a even number of quotes
+/* @brief: checks if there is a even number of quotes.
+	@arguments: s is the current string (arg or file) being checked
+				exit_code saves the exit code of the last command
+	if we have and unclosed quote we give an error
+	if that quote is bettewn other quotes it should be ignored
+	@return: 0 in case of success
+			 1 or any other number in case of errors. */
 int	quote_counter(char **s, int *exit_code)
 {
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:46:37 by renato-oliv       #+#    #+#             */
-/*   Updated: 2025/04/11 15:47:06 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:01:12 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int	count_infiles(char **current);
 int	count_outfiles(char **current);
 int	count_double_outs(char **current);
 int	count_double_ins(char **current);
-int	assign_double_out(t_data *command,int table, int arg, int chr);
-int	assign_double_in(t_data *command,int table, int arg, int chr);
+int	assign_file(t_data *command,int table, int arg, int chr);
+/* int	assign_double_in(t_data *command,int table, int arg, int chr);
 int	assign_infile(t_data *command,int table, int arg, int chr);
-int	assign_outfile(t_data *command,int table, int arg, int chr);
+int	assign_outfile(t_data *command,int table, int arg, int chr); */
 int	assign_util_double_in(t_data *command, int arg, int table, int chr);
 int	assign_util_double_out(t_data *command, int arg, int table, int chr);
 int	assign_util_outfile(t_data *command, int arg, int table, int chr);
@@ -40,6 +40,7 @@ int	assign_util_infile(t_data *command, int arg, int table, int chr);
 int new_arg_counter(t_simple_command *table, char **args);
 int   populate_tmp(char **tmp, t_data *command, t_simple_command *current);
 int	alloc_file(t_data *command, char **splited, int curr_table);
+char *copy_red(char *str);
 
 //expanding
 int  handle_expanding(t_data *command);

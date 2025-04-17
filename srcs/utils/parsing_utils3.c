@@ -6,13 +6,17 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:43:54 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/11 16:19:24 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/17 11:35:54 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
-
+/* @brief: inicialize every matrix need to save the files
+	@arguments: command is the main struct with all the data
+                splited is the user input after being separated by pipes
+                curr_table is the current table we are inicializing
+*/
 void    ini_files(t_data *command, char **splited, int curr_table)
 {
     int count;
@@ -30,7 +34,13 @@ void    ini_files(t_data *command, char **splited, int curr_table)
     while  (count >= 0)
         command->table[curr_table]->double_in[count--] = NULL;
 }
-
+/* @brief: alloc and inicialize every matrix need to save the files
+	@arguments: command is the main struct with all the data
+                splited is the user input after being separated by pipes
+                curr_table is the current table we are inicializing
+    @return: 0 in case of success.
+             1 or any other number in case of error.
+*/
 int	alloc_file(t_data *command, char **splited, int curr_table)
 {
 	command->table[curr_table]->infile = malloc(sizeof(char *) * (count_infiles(splited) + 1));

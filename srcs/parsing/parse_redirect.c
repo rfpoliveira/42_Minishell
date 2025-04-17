@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 16:34:59 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/16 14:13:20 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/17 14:05:16 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,18 @@
 				chr the index of the ">" that was found.
 	@return: 0 in case of sucess
 			 any other number in case of errors */
-int	check_red_out(t_data *command, int chr, int table, int arg)
+int	check_red_out(t_data *command, int *chr, int table, int arg)
 {
 	char *current;
 
 	current = command->table[table]->args[arg];
-	if (current[chr + 1] == '>')
-		return (assign_double_out(command, table, arg, chr));
+	if (current[*chr + 1] == '>')
+	{
+		(*chr)++;
+		return (assign_file(command, table, arg, *chr));
+	}
 	else
-		return (assign_outfile(command, table, arg, chr));
+		return (assign_file(command, table, arg, *chr));
 }
 /* @brief: separates bettewn "<" and "<<"
 	@arguments: command is the main struct with all the info
@@ -36,15 +39,18 @@ int	check_red_out(t_data *command, int chr, int table, int arg)
 				chr the index of the "<" that was found.
 	@return: 0 in case of sucess
 			 any other number in case of errors */
-int	check_red_in(t_data *command, int chr, int table, int arg)
+int	check_red_in(t_data *command, int *chr, int table, int arg)
 {
 	char *current;
 
 	current = command->table[table]->args[arg];
-	if (current[chr + 1] == '<')
-		return (assign_double_in(command, table, arg, chr));
+	if (current[*chr + 1] == '<')
+	{
+		(*chr)++;
+		return (assign_file(command, table, arg, *chr));
+	}	
 	else
-		return (assign_infile(command, table, arg, chr));
+		return (assign_file(command, table, arg, *chr));
 }
 /* @brief: iterates the current arg to check if there are redirects
 	splits bettewn ins and outs
@@ -63,9 +69,15 @@ int check_for_red(t_data *command, int table, int arg)
 	while(current[++chr])
 	{
 		if (current[chr] == '<')
-			return (check_red_in(command, chr, table, arg));
+		{
+			if(check_red_in(command, &chr, table, arg) != 0)
+				return (1);
+		}
 		else if (current[chr] == '>')
-			return (check_red_out(command, chr, table, arg));
+		{
+			if(check_red_out(command, &chr, table, arg) != 0)
+				return (1);
+		}
 	}
 	return (0);
 }
