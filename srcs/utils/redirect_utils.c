@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:34:23 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/17 15:58:51 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/18 14:37:52 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
                 arg is the current arg we found the redirect
 				talbe is the current table we working on
 				chr is the index of the redirect sign in the string (arg)
+	@notes: we cant have empty netx to redirect of multiple diferent signs (<<> or >< for exemple)
     @return: 0 in case of success.
              1 or any other number in case of error. */
 
@@ -31,6 +32,8 @@ int	assign_file(t_data *command, int table, int arg, int chr)
 		return (print_error(SYNTAX_ERROR, &command->exit_code), 1);
 	if (current[chr + 1] == '\0')
 	{
+		if (command->table[table]->args[arg + 1] == NULL)
+			return (print_error(SYNTAX_ERROR, &command->exit_code), 1);
 		if (command->table[table]->args[arg + 1][0] == '<' || \
 		command->table[table]->args[arg + 1][0] == '>')
 			return (print_error(SYNTAX_ERROR, &command->exit_code), 1);
@@ -45,24 +48,20 @@ int	assign_file(t_data *command, int table, int arg, int chr)
 char *copy_red(char *str)
 {
 	int	len;
-	int tmp;
 	char *dup;
 	int	i;
 
 	if (!str)
 		return(NULL);
-	i = 0;
-	len = ft_strlen(str);
-	tmp = len;
-	while (tmp > 0 && str[tmp] != '>' && str[tmp] != '<')
-		tmp--;
-	dup = malloc (len - tmp + 1);
+	i = -1;
+	len = 0;
+	while (str[len] && str[len] != '>' && str[len] != '<')
+		len++;
+	dup = malloc (len + 1);
 	if (!dup)
 		return (NULL);
-	if (str[tmp] == '<' || str[tmp] == '>')
-    	tmp++;
-	while (tmp < len)
-		dup[i++] = str[tmp++];
+	while (str[++i] && str[i] != '>' && str[i] != '<')
+		dup[i] = str[i];
 	dup[i] = '\0';
 	return (dup);
 }

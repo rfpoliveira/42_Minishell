@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:01:42 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/17 12:08:26 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/18 14:29:53 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,14 @@ int    populate_tmp(char **tmp, t_data *command, t_simple_command *current)
     int i;
     int j;
     int curr_tmp;
+    int flag;
 
     i = 0;
     j = -1;
     curr_tmp = -1;
     while (current->args[i])
     {
+        flag = 0;
         while (current->args[i][++j])
         {
             if (current->args[i][j] == '<' || current->args[i][j] == '>')
@@ -118,24 +120,19 @@ int    populate_tmp(char **tmp, t_data *command, t_simple_command *current)
                 else if (current->args[i][j + 1] == '\0' && j != 0)
                 {
                     tmp[++curr_tmp] = ft_strdup(current->args[i]);
-                    i++;
+                        i++;
                 }
-                else
-                    i++;
+                flag = 1;
                 break ;
-            }
+            } 
         }
-        if (current->args[i])
-        {
-            if (current->args[i][j] == '\0')
-            {
-                tmp[++curr_tmp] = ft_strdup(current->args[i]);
-                if (tmp[curr_tmp] == NULL)
-                    return (print_error(MALLOC_ERROR, &command->exit_code), 1);
-            }
+        if (flag == 0)
+        {            
+            tmp[++curr_tmp] = ft_strdup(current->args[i]);
+            if (tmp[curr_tmp] == NULL)
+                return (print_error(MALLOC_ERROR, &command->exit_code), 1);
         }
-        if (!current->args[i])
-            break ;
+/*         if (ft_strchr(current->args[i], '<') == 0 || ft_strchr(current->args[i], '>') == 0) */
         i++;
         j = -1;
     }

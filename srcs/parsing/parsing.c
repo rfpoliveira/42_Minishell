@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/16 14:57:51 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/18 11:25:52 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static void mount_table(t_data *command, char **splited)
 		command->table[i] = malloc(sizeof(t_simple_command));
 		if (!command->table[i])
 			return (memory_free(splited, command, MALLOC_ERROR));
+		command->table[i]->in_iter = 0;
+		command->table[i]->out_iter = 0;
 		command->table[i]->args = whitespaces_split(splited[i]);
 		if (!(command->table[i]->args))
 			return (memory_free(splited, command, MALLOC_ERROR));

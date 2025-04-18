@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:55:27 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/11 14:52:00 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/18 11:25:24 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ typedef struct s_simple_command
 	char **outfile;
 	char **double_in;
 	char **double_out;
+	int	out_iter;
+	int in_iter;
 }	t_simple_command;
 
 typedef	struct s_data

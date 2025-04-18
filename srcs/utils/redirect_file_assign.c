@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:07:30 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/17 15:53:41 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/18 12:06:42 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@
 int	assign_util_infile(t_data *command, int arg, int table, int chr)
 {
 	int i;
-	static int j;
 	char **tmp;
 	char **file;
 
@@ -47,10 +46,10 @@ int	assign_util_infile(t_data *command, int arg, int table, int chr)
 	}
 	else
 	{
-		if (chr != 0)
-			j++;
+		if (chr != 0 || (file == command->table[table]->double_in && chr != 1))
+			command->table[table]->in_iter++;
 		tmp = parsing_split(command->table[table]->args[arg], '<');
-		file[i++] = copy_red(tmp[j]);
+		file[i++] = copy_red(tmp[command->table[table]->in_iter]);
 	}
 	file[i] = NULL;
 	return (matrix_free(tmp), 0);
@@ -59,10 +58,10 @@ int	assign_util_infile(t_data *command, int arg, int table, int chr)
 int	assign_util_outfile(t_data *command, int arg, int table, int chr)
 {
 	int i;
-	static int j;
 	char **tmp;
 	char **file;
 
+	tmp = NULL;
 	if (chr > 0 && command->table[table]->args[arg][chr - 1] == '>')
 		file = command->table[table]->double_out;
 	else
@@ -72,16 +71,16 @@ int	assign_util_outfile(t_data *command, int arg, int table, int chr)
 		i++;
 	if (command->table[table]->args[arg][chr + 1] == '\0')
 	{
-		tmp = parsing_split(command->table[table]->args[arg + 1], '>');
-		file[i++] = ft_strdup(tmp[0]);
+		/* tmp = parsing_split(command->table[table]->args[arg + 1], '>'); */
+		file[i++] = copy_red(command->table[table]->args[arg + 1]);
 	}
 	else
 	{
-		if (chr != 0)
-			j++;
+		if (chr != 0 || (file == command->table[table]->double_out && chr != 1))
+			command->table[table]->out_iter++;
 		tmp = parsing_split(command->table[table]->args[arg], '>');
-		file[i++] = copy_red(tmp[j]);
+		file[i++] = copy_red(tmp[command->table[table]->out_iter]);
 	}
- 	file[i] = NULL;
+	file[i] = NULL;
 	return (matrix_free(tmp), 0);
 }
