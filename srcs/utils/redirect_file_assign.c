@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:07:30 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/18 12:06:42 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/19 13:41:19 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int	assign_util_infile(t_data *command, int arg, int table, int chr)
 		i++;
 	if (command->table[table]->args[arg][chr + 1] == '\0')
 	{
-		tmp = parsing_split(command->table[table]->args[arg + 1], '<');
-		file[i++] = ft_strdup(tmp[0]);
+/* 		tmp = parsing_split(command->table[table]->args[arg + 1], '<'); */
+		file[i++] = copy_red(command->table[table]->args[arg + 1]);
 	}
 	else
 	{

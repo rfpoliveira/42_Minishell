@@ -6,11 +6,12 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:01:42 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/18 14:29:53 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/19 13:56:42 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
+#include "../../incs/parsing.h"
 
 /* @brief: counts the number of arguments were you have a single redirect that will be deleted and returns them
    @notes: we need to take in consideracion some case will delite multiple args: echo test > file
@@ -118,21 +119,17 @@ int    populate_tmp(char **tmp, t_data *command, t_simple_command *current)
                 (j == 0 && current->args[i][j + 1] == '\0'))
                     i++;
                 else if (current->args[i][j + 1] == '\0' && j != 0)
-                {
-                    tmp[++curr_tmp] = ft_strdup(current->args[i]);
-                        i++;
-                }
+                    tmp[++curr_tmp] = copy_red(current->args[i]);
                 flag = 1;
                 break ;
             } 
         }
-        if (flag == 0)
+        if (flag == 0 && curr_tmp != new_arg_counter(current, current->args))
         {            
             tmp[++curr_tmp] = ft_strdup(current->args[i]);
             if (tmp[curr_tmp] == NULL)
                 return (print_error(MALLOC_ERROR, &command->exit_code), 1);
         }
-/*         if (ft_strchr(current->args[i], '<') == 0 || ft_strchr(current->args[i], '>') == 0) */
         i++;
         j = -1;
     }
