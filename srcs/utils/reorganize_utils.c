@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:01:42 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/19 13:56:42 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/21 16:01:32 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,43 +95,29 @@ int    populate_tmp(char **tmp, t_data *command, t_simple_command *current)
     int i;
     int j;
     int curr_tmp;
-    int flag;
+    int last_chr_idx;
 
-    i = 0;
+    i = -1;
     j = -1;
+    last_chr_idx = 0;
     curr_tmp = -1;
-    while (current->args[i])
+    while (current->args[++i])
     {
-        flag = 0;
         while (current->args[i][++j])
         {
             if (current->args[i][j] == '<' || current->args[i][j] == '>')
-            {
-                if (current->args[i][j + 1] != '\0' && j > 0)
-                {
-                    tmp[++curr_tmp] = ft_substr(current->args[i], 0, j);
-                    if (tmp[curr_tmp] == NULL)
-                        return (print_error(MALLOC_ERROR, &command->exit_code), 1);
-                }
-                else if ((j == 0 && ((current->args[i][j + 1] == '<' || \
-                current->args[i][j + 1] == '>' ) && \
-                current->args[i][j + 2] == '\0')) || \
-                (j == 0 && current->args[i][j + 1] == '\0'))
-                    i++;
-                else if (current->args[i][j + 1] == '\0' && j != 0)
-                    tmp[++curr_tmp] = copy_red(current->args[i]);
-                flag = 1;
                 break ;
-            } 
         }
-        if (flag == 0 && curr_tmp != new_arg_counter(current, current->args))
-        {            
-            tmp[++curr_tmp] = ft_strdup(current->args[i]);
+        if ((j != 0 && i == 0) || \
+        (!current->args[i][j] && (current->args[i - 1][last_chr_idx] != '<' && current->args[i - 1][last_chr_idx] != '>')))
+        {
+            tmp[++curr_tmp] = copy_red(current->args[i]);
             if (tmp[curr_tmp] == NULL)
                 return (print_error(MALLOC_ERROR, &command->exit_code), 1);
         }
-        i++;
+        last_chr_idx = ft_strlen(current->args[i]) - 1;
         j = -1;
     }
     return (0);
 }
+
