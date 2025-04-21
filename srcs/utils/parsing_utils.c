@@ -6,18 +6,21 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/17 11:27:28 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/21 19:29:10 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
+
 /* @brief: deletes A and B from s 
 	@arguments: s is the string from which we will take out some chars
 				A and B and the chars to take out
 	used to take out quotes, double quotes and redirect symbols
 	@return: 0 in case of success
-			 1 or any other number in case of errors. */
+			 1 or any other number in case of errors. 
+*/
+
 int	delete_sigs(char **s, char A, char B, int *exit_code)
 {
 	int		i;
@@ -49,16 +52,16 @@ int	delete_sigs(char **s, char A, char B, int *exit_code)
 /* @brief: deletes quotes from s 
 	@arguments: s is the string from which we will take out some chars
 	@return: 0 in case of success
-			 1 or any other number in case of errors. */
+			 1 or any other number in case of errors. 
+*/
+
 static int	delete_quotes(char **s, int *exit_code)
 {
-	int i;
-	int len;
-	char *temp;
+	int		i;
+	int		len;
+	char	*temp;
 
 	i = -1;
-	if (!*s)
-		return (0);
 	len = after_quotes_strlen(*s);
 	temp = malloc(len + 1);
 	if (!temp)
@@ -84,18 +87,21 @@ static int	delete_quotes(char **s, int *exit_code)
 	}
 	free((*s));
 	*s = ft_strdup(temp);
-	free(temp);
-	return (0);
+		if (*s == NULL)
+			return (free(temp), print_error(MALLOC_ERROR, exit_code), 1);
+	return (free(temp), 0);
 }
 /* @brief: deletes quotes and redirect signs from the files saved
 	@arguments: file is the current file to check
 				command is the main struct with all the data
 	@return: 0 in case of success
-			 1 or any other number in case of errors. */
+			 1 or any other number in case of errors. 
+*/
+
 int	delete_sigs_from_outinfiles(char **file, t_data *command)
 {
-	int i;
-	int error;
+	int	i;
+	int	error;
 
 	i = -1;
 	error = 0;
@@ -109,10 +115,12 @@ int	delete_sigs_from_outinfiles(char **file, t_data *command)
 /* @brief: iterates and calls and the functions need to delete quotes and redirects from everything saved.
 	@arguments: command is the main struct with all the data
 	@return: 0 in case of success
-			 1 or any other number in case of errors. */
+			 1 or any other number in case of errors. 
+*/
+
 int	handle_quotes(t_data *command)
 {
-	int error;
+	int	error;
 	int	i;
 	int	j;
 
@@ -144,13 +152,15 @@ int	handle_quotes(t_data *command)
 	if we have and unclosed quote we give an error
 	if that quote is bettewn other quotes it should be ignored
 	@return: 0 in case of success
-			 1 or any other number in case of errors. */
+			 1 or any other number in case of errors. 
+*/
+
 int	quote_counter(char **s, int *exit_code)
 {
 	int	i;
 	int	j;
 	int	count;
-	int flag;
+	int	flag;
 	
 	i = -1;
 	j = -1;

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 10:30:51 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/17 12:13:36 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/21 19:36:47 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 /* @brief: it is called when a quote is found and it skippes until the one that closes it 
 	@arguments: s is the current string we are interating threw
 				i is the index next to the quote
-	@return: it returns the number of char we skipping because there are in the middle of quotes*/
+	@return: it returns the number of char we skipping because there are in the middle of quotes
+*/
+
 size_t	skip_quotes(char *s, size_t i)
 {
 	int	skiped;
@@ -45,7 +47,9 @@ size_t	skip_quotes(char *s, size_t i)
 }
 /* @brief: word count for the whitespacs split 
 	@notes: it skips anything bettewn quotes
-	@return: the number of "words" separated by whitespaces in a string */
+	@return: the number of "words" separated by whitespaces in a string 
+*/
+
 size_t	r_count_whitespaces(char *s)
 {
 	size_t	i;
@@ -71,7 +75,9 @@ size_t	r_count_whitespaces(char *s)
 	@arguments: s is the string being checked
 				sep is the separator used 
 	@notes: it skips anything bettewn quotes
-	@return: the number of "words" separated by sep in a string */
+	@return: the number of "words" separated by sep in a string 
+*/
+
 size_t	r_count_sep(char *s, char sep)
 {
 	size_t	i;

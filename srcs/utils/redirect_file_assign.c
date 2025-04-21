@@ -6,12 +6,13 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:07:30 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/21 17:20:04 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/21 19:33:54 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
+
 /* EVERY FUNCTION IN THE FILE WORKS THIS WAY
 	@brief: takes the info from the arguments and saves it in the matrix that refer to the files
 	@arguments: command is the main struct with all the data
@@ -27,11 +28,12 @@
     @return: 0 in case of success.
              1 or any other number in case of error.
 */
+
 int	assign_util_infile(t_data *command, int arg, int table, int chr)
 {
-	int i;
-	char **tmp;
-	char **file;
+	int		i;
+	char	**tmp;
+	char	**file;
 
 	if (chr > 0 && command->table[table]->args[arg][chr - 1] == '<')
 		file = command->table[table]->double_in;
@@ -57,9 +59,9 @@ int	assign_util_infile(t_data *command, int arg, int table, int chr)
 
 int	assign_util_outfile(t_data *command, int arg, int table, int chr)
 {
-	int i;
-	char **tmp;
-	char **file;
+	int		i;
+	char	**tmp;
+	char	**file;
 
 	tmp = NULL;
 	if (chr > 0 && command->table[table]->args[arg][chr - 1] == '>')
@@ -83,3 +85,4 @@ int	assign_util_outfile(t_data *command, int arg, int table, int chr)
 	file[i] = NULL;
 	return (0);
 }
+

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:01:42 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/21 17:02:00 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/21 19:35:34 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
    @notes: we need to take in consideracion some case will delite multiple args: echo test > file
            other the number of args will be the same (we only delete part of the arg): echo test>file 
 */
-static int count_singles(char **args, int curr_arg, int curr_chr)
+
+static int	count_singles(char **args, int curr_arg, int curr_chr)
 {
     if (args[curr_arg][curr_chr + 1] == '\0')
     {
@@ -36,8 +37,10 @@ static int count_singles(char **args, int curr_arg, int curr_chr)
 }
 /* @brief: counts the number of arguments were you have a double redirect that will be deleted and returns them
 @notes: we need to take in consideracion some case will delite multiple args: echo test >> file
-           other the number of args will be the same (we only delete part of the arg): echo test>>file */
-static int count_doubles(char **args, int curr_arg, int curr_chr)
+           other the number of args will be the same (we only delete part of the arg): echo test>>file 
+*/
+
+static int	count_doubles(char **args, int curr_arg, int curr_chr)
 {
     if (args[curr_arg][curr_chr + 2] == '\0')
     {
@@ -55,12 +58,14 @@ static int count_doubles(char **args, int curr_arg, int curr_chr)
     }
 }
 /* @brief: counts the number of arguments left after we delete what we dont need (the args with redirect and the file names)
-    @return: will return the number of arguments left after the deletion */
-int new_arg_counter(t_simple_command *table, char **args)
+    @return: will return the number of arguments left after the deletion 
+*/
+
+int	new_arg_counter(t_simple_command *table, char **args)
 {
-    int i;
-    int j;
-    int count;
+    int	i;
+    int	j;
+    int	count;
 
     i = -1;
     j = -1;
@@ -93,13 +98,15 @@ int new_arg_counter(t_simple_command *table, char **args)
             symbols in the last chars to make sure the current args is not a redirection, 
             if all this is true we can copy.
     @return: 0 in case of success
-            1 or any other number in case of error */
+            1 or any other number in case of error 
+*/
+
 int    populate_tmp(char **tmp, t_data *command, t_simple_command *current)
 {
-    int i;
-    int j;
-    int curr_tmp;
-    int last_chr_idx;
+    int	i;
+    int	j;
+    int	curr_tmp;
+    int	last_chr_idx;
 
     i = -1;
     j = 0;

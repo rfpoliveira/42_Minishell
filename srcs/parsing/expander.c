@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:53:37 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/16 14:04:13 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/21 18:31:21 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@
 	get_str puts the whole thing together.
 	@notes:"$?" -> expandes to the last command exit code;
 	@return: 0 in case of sucesss
-		 	 MALLO_ERROR or any number != 0 in case of any error */
+		 	 MALLOC_ERROR or any number != 0 in case of any error 
+*/
+
 static int	expande(char **s, int x, int *exit_code)
 {
 	char	*prev;
@@ -45,17 +47,16 @@ static int	expande(char **s, int x, int *exit_code)
 /* @brief: is called to iterate threw the redirection saved.
 	@arguments: file is the current redirection being checked.
 				exit_code is the exit code of the last command.
+				i and j are to iterate in the loops, 
+				they are declared and inicialized previously to use fewer lines here (42 norm)
 	if "$" is found expand whats next: if there is another "$" ignores,
 	ignores anything bettewn quotes (not double quotes this time)
 	@return: 0 in case of sucesss
-		 	 1 in case of any error (is error if something expandes to "")*/
-static int	expande_red_util(char **file, int *exit_code)
-{
-	int	i;
-	int j;
+		 	 1 in case of any error (is error if something expandes to "")
+*/
 
-	i = -1;
-	j = -1;
+static int	expande_red_util(char **file, int i, int j, int *exit_code)
+{
 	while (file[++j])
 	{
 		while (file[j][++i])
@@ -83,30 +84,27 @@ static int	expande_red_util(char **file, int *exit_code)
 	@arguments: curr_table is the current table being checked.
 				exit_code is the exit code of the last command.
 	@return: 0 in case of sucesss
-		 	 1 in case of any error */
+		 	 1 in case of any error 
+*/
+
 static int	expande_red(t_simple_command *curr_table, int *exit_code)
 {
+	int	i;
+	int	j;
+	int	error;
+
+	i = -1;
+	j = -1;
+	error = 0;
 	if (curr_table->infile)
-	{
-		if (expande_red_util(curr_table->infile, exit_code) != 0)
-				return (1);
-	}
+		error = expande_red_util(curr_table->infile, i, j, exit_code) != 0;
 	if (curr_table->outfile)
-	{
-		if (expande_red_util(curr_table->outfile, exit_code) != 0)
-			return (1);
-	}
+		error = expande_red_util(curr_table->outfile, i, j, exit_code) != 0;
 	if (curr_table->double_in)
-	{
-		if (expande_red_util(curr_table->double_in, exit_code) != 0)
-			return (1);
-	}
+		error = expande_red_util(curr_table->double_in, i, j, exit_code) != 0;
 	if (curr_table->double_out)
-	{
-		if (expande_red_util(curr_table->double_out, exit_code) != 0)
-			return (1);
-	}
-	return (0);
+		error = expande_red_util(curr_table->double_out, i, j, exit_code) != 0;
+	return (error);
 }
 
 /* @brief: is called to iterate all the arguments and look for expansions
@@ -115,7 +113,9 @@ static int	expande_red(t_simple_command *curr_table, int *exit_code)
 	@notes: if "$" is found expand whats next: if there is another "$" ignores,
 	ignores anything bettewn quotes or double quotes
 	@return: 0 in case of sucesss
-		 	 1 in case of any error */
+		 	 1 in case of any error 
+*/
+
 static int	expand_args(t_simple_command *curr_table, int *exit_code)
 {
 	int	j;
@@ -149,8 +149,10 @@ static int	expand_args(t_simple_command *curr_table, int *exit_code)
 	stuff to expand in the arguments and redirects saved
 	@return: 0 in case of success
 			 1 in case of any error
-	@notes: the errors messages are called when the error is found */
-int  handle_expanding(t_data *command)
+	@notes: the errors messages are called when the error is found 
+*/
+
+int	handle_expanding(t_data *command)
 {
 	int	i;
 

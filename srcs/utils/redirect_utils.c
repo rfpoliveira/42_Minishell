@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:34:23 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/21 17:26:07 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/21 19:34:28 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@
 				chr is the index of the redirect sign in the string (arg)
 	@notes: we cant have empty netx to redirect of multiple diferent signs (<<> or >< for exemple)
     @return: 0 in case of success.
-             1 or any other number in case of error. */
+             1 or any other number in case of error.
+*/
 
 int	assign_file(t_data *command, int table, int arg, int chr)
 {
-	char *current;
-	int error;
+	char	*current;
+	int		error;
 
 	current = command->table[table]->args[arg];
 	if (current[chr + 1] == '<' || current[chr + 1] == '>')
@@ -48,7 +49,8 @@ int	assign_file(t_data *command, int table, int arg, int chr)
 /* @brief: alloc and copies a string until it finds redirect symbols or '\0' 
 	@arguments: str is the string to be copied
 	@note: based of strdup
-	@return: the copy until the correct point*/
+	@return: the copy until the correct point
+*/
 
 char *copy_red(char *str)
 {
@@ -57,7 +59,7 @@ char *copy_red(char *str)
 	int	i;
 
 	if (!str)
-		return(NULL);
+		return (NULL);
 	i = -1;
 	len = 0;
 	while (str[len] && str[len] != '>' && str[len] != '<')
