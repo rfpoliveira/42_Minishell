@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:01:42 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/21 16:01:32 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/21 17:02:00 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,13 @@ int new_arg_counter(t_simple_command *table, char **args)
     return (table->number_args - count);
 }
 /* @brief: takes each argument and copys to tmp everything which is not a redirect
-           in case of for exemple: test>file we maintain part of the string and use substring
-           in case of "> file" we need to skip the 2 arguments (1 in the consicion and the other normally in the loop)
-           in any other case we simply copy the arg as we will keep it 
+            i iterate all the arg, if it finds a symbol it stops.
+            if it stops in the first arg(i = 0) and is not the first chr (j != 0) we can
+            save what comes before the symbol
+            pass that point we check if we did get to null (!current->args[i][j]), telling
+            us that the loop did not find anything, then check if the previous arg add
+            symbols in the last chars to make sure the current args is not a redirection, 
+            if all this is true we can copy.
     @return: 0 in case of success
             1 or any other number in case of error */
 int    populate_tmp(char **tmp, t_data *command, t_simple_command *current)
@@ -98,16 +102,13 @@ int    populate_tmp(char **tmp, t_data *command, t_simple_command *current)
     int last_chr_idx;
 
     i = -1;
-    j = -1;
+    j = 0;
     last_chr_idx = 0;
     curr_tmp = -1;
     while (current->args[++i])
     {
-        while (current->args[i][++j])
-        {
-            if (current->args[i][j] == '<' || current->args[i][j] == '>')
-                break ;
-        }
+        while (current->args[i][j] && current->args[i][j] != '<' && current->args[i][j] != '>')
+            j++;
         if ((j != 0 && i == 0) || \
         (!current->args[i][j] && (current->args[i - 1][last_chr_idx] != '<' && current->args[i - 1][last_chr_idx] != '>')))
         {
@@ -116,7 +117,7 @@ int    populate_tmp(char **tmp, t_data *command, t_simple_command *current)
                 return (print_error(MALLOC_ERROR, &command->exit_code), 1);
         }
         last_chr_idx = ft_strlen(current->args[i]) - 1;
-        j = -1;
+        j = 0;
     }
     return (0);
 }

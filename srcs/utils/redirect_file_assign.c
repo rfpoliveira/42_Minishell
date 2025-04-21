@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:07:30 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/21 11:48:57 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/21 17:20:04 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@
                 arg is the current arg we found the redirect
 				talbe is the current table we working on
 				chr is the index of the redirect sign in the string (arg)
-	@notes: I split the args and depending on the result i can tell what case I got and select what is the file: 
-			exemples: echo test > file, echo test> file, echo test >file, echo test>file.
-					in the first 2 cases we now next to the sign is a null char, so the next arg is the file.
-					in the third and fourth case the redirect is in the same arg as the file so we split them and the files are what comes next,
-					we have a loop in the case of multiple redirections with no whitespaces.
+	@notes: I iterate until null (the index where the new redirect will be assigned)
+			then check if the index after the redirect signal is null (echo> test or echo > test)
+			that case we simply copy until the next symbol if there is any
+			in the other cases we split the argument and use the iter variables to
+			store if any previous infiles have already been saved and that makes sure we save the next one.
+			we always null terminate so when the next call of this function enter counts the file infex correctly
     @return: 0 in case of success.
              1 or any other number in case of error.
 */
@@ -43,7 +44,8 @@ int	assign_util_infile(t_data *command, int arg, int table, int chr)
 		file[i++] = copy_red(command->table[table]->args[arg + 1]);
 	else
 	{
-		if (chr != 0 || (file == command->table[table]->double_in && chr != 1))
+		if ((file == command->table[table]->infile && chr != 0) || 
+		(file == command->table[table]->double_in && chr != 1))
 			command->table[table]->in_iter++;
 		tmp = parsing_split(command->table[table]->args[arg], '<');
 		file[i++] = copy_red(tmp[command->table[table]->in_iter]);
@@ -71,7 +73,8 @@ int	assign_util_outfile(t_data *command, int arg, int table, int chr)
 		file[i++] = copy_red(command->table[table]->args[arg + 1]);
 	else
 	{
-		if (chr != 0 || (file == command->table[table]->double_out && chr != 1))
+		if ((file == command->table[table]->outfile && chr != 0) || \
+		(file == command->table[table]->double_out && chr != 1))
 			command->table[table]->out_iter++;
 		tmp = parsing_split(command->table[table]->args[arg], '>');
 		file[i++] = copy_red(tmp[command->table[table]->out_iter]);

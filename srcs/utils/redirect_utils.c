@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:34:23 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/18 14:37:52 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/21 17:26:07 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,11 @@ int	assign_file(t_data *command, int table, int arg, int chr)
 		error = assign_util_outfile(command, arg, table, chr);
 	return (error);
 }
+
+/* @brief: alloc and copies a string until it finds redirect symbols or '\0' 
+	@arguments: str is the string to be copied
+	@note: based of strdup
+	@return: the copy until the correct point*/
 
 char *copy_red(char *str)
 {
