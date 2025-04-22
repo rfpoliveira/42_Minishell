@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 12:03:29 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/21 19:32:23 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:20:09 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,30 +52,6 @@ int	after_quotes_strlen(char *s)
 	}
 	return (i - quote_skipped);
 }
-/* @brief: counts the len of s after A and B are deleted
-	@return: the len counted 
-*/
-
-int	after_sig_strlen(char *s, char A, char B)
-{
-	int	i;
-	int count;
-
-	i = 0;
-	count = 0;
-	if (s)
-	{
-		while (s[i])
-		{
-			if (s[i] == A || s[i] == B)
-				count = skip_quotes(s, i);
-			if (s[i] != A && s[i] != B)
-				count++;
-			i++;
-		}
-	}
-	return (count);
-}
 /* @brief: checks if a char is a whitespace
 	@return: 1 if it is
 			 0 if it is not 
@@ -111,4 +87,3 @@ int	check_pipes(char *s)
 		return (0);
 	return (1);
 }
-

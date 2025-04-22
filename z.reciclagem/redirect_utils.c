@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpedrosa <rpedrosa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:56:47 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/01 15:21:23 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/22 10:54:10 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	delete_args(t_simple_command *simple, int arg, char **buff, int flag)
 	else if (flag == 2)
 	{
 		error = reorganize_args(simple, arg + 1, 0);
-		delete_sigs(simple->args[arg], '>', '<', NULL);
+		/* delete_sigs(simple->args[arg], '>', '<', NULL); */
 	}
 	else if (flag == 3)
 	{

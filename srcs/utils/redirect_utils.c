@@ -6,19 +6,21 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:34:23 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/21 19:34:28 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/22 11:27:27 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
 /* 
-	@brief: checks errors of multiple redirect chars following each other then calls the util to copy the files to their matrixes
+	@brief: checks errors of multiple redirect chars following each other 
+			then calls the util to copy the files to their matrixes
 	@arguments: command is the main struct with all the data
                 arg is the current arg we found the redirect
 				talbe is the current table we working on
 				chr is the index of the redirect sign in the string (arg)
-	@notes: we cant have empty netx to redirect of multiple diferent signs (<<> or >< for exemple)
+	@notes: we cant have empty netx to redirect of multiple diferent signs 
+			(<<> or >< for exemple)
     @return: 0 in case of success.
              1 or any other number in case of error.
 */
@@ -52,11 +54,11 @@ int	assign_file(t_data *command, int table, int arg, int chr)
 	@return: the copy until the correct point
 */
 
-char *copy_red(char *str)
+char	*copy_red(char *str)
 {
-	int	len;
-	char *dup;
-	int	i;
+	int		len;
+	char	*dup;
+	int		i;
 
 	if (!str)
 		return (NULL);

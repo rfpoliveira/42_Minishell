@@ -4,7 +4,8 @@
 		"algorithm": "c",
 		"format": "c",
 		"parsing.h": "c",
-		"cstdlib": "c"
+		"cstdlib": "c",
+		"readline.h": "c"
 	},
 	"makefile.configureOnOpen": true
 }

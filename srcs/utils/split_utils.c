@@ -6,17 +6,19 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 10:30:51 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/21 19:36:47 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/22 14:31:08 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
 
-/* @brief: it is called when a quote is found and it skippes until the one that closes it 
+/* @brief: it is called when a quote is found and it skippes
+			until the one that closes it 
 	@arguments: s is the current string we are interating threw
 				i is the index next to the quote
-	@return: it returns the number of char we skipping because there are in the middle of quotes
+	@return: it returns the number of char we skipping because 
+			 there are in the middle of quotes
 */
 
 size_t	skip_quotes(char *s, size_t i)

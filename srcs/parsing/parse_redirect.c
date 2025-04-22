@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 16:34:59 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/21 18:37:48 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/22 14:26:23 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,10 @@ static int	reorganize_after_redirect(t_data *command, int curr_table)
 {
 	char				**tmp;
 	int					new_arg_count;
+	int					i;
 	t_simple_command	*current;
 
+	i = -1;
 	current = command->table[curr_table];
 	new_arg_count = new_arg_counter(current, current->args);
 	current->number_args = new_arg_count;
@@ -116,7 +118,7 @@ static int	reorganize_after_redirect(t_data *command, int curr_table)
 	if (tmp == NULL)
 		return (print_error(MALLOC_ERROR, &command->exit_code), 1);
 	tmp[new_arg_count] = NULL;
-	if (populate_tmp(tmp, command, current) != 0)
+	if (populate_tmp(tmp, command, current, i) != 0)
 		return (matrix_free(tmp), 1);
 	matrix_free(current->args);
 	current->args = tmp;
