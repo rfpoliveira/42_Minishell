@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/22 11:12:15 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/22 14:49:03 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	delete_quotes_files(char **file, t_data *command)
 	while (file[++i])
 	{
 		/* error = delete_sigs(&file[i], '<', '>', &command->exit_code); */
-		error = delete_quotes(&file[i], &command->exit_code);
+		error = delete_quotes(&file[i], command);
 	}
 	return (error);
 }

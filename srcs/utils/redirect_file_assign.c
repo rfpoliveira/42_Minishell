@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:07:30 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/22 11:26:15 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/22 16:37:51 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ int	assign_util_infile(t_data *command, int arg, int table, int chr)
 	i = 0;
 	while (file[i])
 		i++;
-	if (command->table[table]->args[arg][chr + 1] == '\0')
+	if (file == command->table[table]->infile && \
+	command->table[table]->args[arg][chr] == '<' && \
+	command->table[table]->args[arg][chr + 1] == '>')
+		file[i++] = strdup("");
+	else if (command->table[table]->args[arg][chr + 1] == '\0')
 		file[i++] = copy_red(command->table[table]->args[arg + 1]);
 	else
 	{
