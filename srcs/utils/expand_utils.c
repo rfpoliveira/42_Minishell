@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:30:00 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/21 19:29:17 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/23 19:59:53 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,20 +69,31 @@ char	*get_prev(char *s, int x)
 			 MALLOC_ERROR or any number in case of error 
 */
 
-int	my_get_env(char *s, char **env, int x)
+int	my_get_env(char *s, char **env, int *x)
 {
 	char	*tmp;
+	char	*post;
 	int		len;
-
-	len = ft_strlen(s);
-	if (s[len - 1] == 34)
-		len--;
-	len -= x;
-	tmp = ft_substr(s, x, len);
+	int		i;
+	
+	i = *x;
+	while (s[i] && s[i] != '$' && s[i] != 34 && s[i] != 39)
+			i++;
+	len = i - *x;
+	tmp = ft_substr(s, *x, len);
 	if (!tmp)
 		return (MALLOC_ERROR);
+	post = ft_substr(s, i, ft_strlen(s));
+	if (!post)
+		return (free(tmp), MALLOC_ERROR);
 	*env = getenv(tmp);
-	return (free(tmp), 0);
+	if (*env == NULL)
+		*env = ft_strdup("");
+	*env = ft_strjoin(*env, post);
+	if (!*env)
+		return (ft_free(&tmp), ft_free(&post), MALLOC_ERROR);
+	*x += len; //todo
+	return (ft_free(&tmp), ft_free(&post), 0);
 }
 /* @brief:  takes the original string (s) with something to expande
 			and substituits it for a new string with and variable

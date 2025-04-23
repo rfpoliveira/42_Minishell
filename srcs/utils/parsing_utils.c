@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/22 14:49:03 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/23 19:06:12 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,12 @@ static void	delete_quotes_util(char **s, char **temp, int *i, int *len)
 
 	quote = (*s)[*i];
 	(*i)++;
-	while ((*s)[*i] != quote && (*s)[*i])
-		(*temp)[(*len)++] = (*s)[(*i)++];
+	while ((*s)[*i] && (*s)[*i] != quote)
+	{
+		(*temp)[(*len)] = (*s)[(*i)];
+		(*len)++;
+		(*i)++;
+	}
 }
 
 static int	delete_quotes(char **s, t_data *command)
@@ -36,25 +40,29 @@ static int	delete_quotes(char **s, t_data *command)
 	int		len;
 	char	*temp;
 
-	i = -1;
+	i = 0;
 	len = after_quotes_strlen(*s);
-	temp = malloc(len + 1);
+	temp = ft_calloc(len + 1, sizeof(char));
 	if (!temp)
 		return (print_error(MALLOC_ERROR, &command->exit_code), 1);
 	temp[len] = '\0';
 	len = 0;
-	while ((*s)[++i])
+	while ((*s)[i])
 	{
 		if ((*s)[i] == 34 || (*s)[i] == 39)
 			delete_quotes_util(s, &temp, &i, &len);
 		else
-			temp[len++] = (*s)[i];
+		{
+			temp[len] = (*s)[i];
+			len++;
+		}
+		if (!(*s)[i])
+			break ;
+		i++;
 	}
 	free((*s));
-	*s = ft_strdup(temp);
-	if (*s == NULL)
-		return (free(temp), print_error(MALLOC_ERROR, &command->exit_code), 1);
-	return (free(temp), 0);
+	*s = temp;
+	return (0);
 }
 /* @brief: deletes quotes and redirect signs from the files saved
 	@arguments: file is the current file to check
