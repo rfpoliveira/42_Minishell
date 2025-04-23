@@ -72,7 +72,7 @@ int	exec_cmd(t_simple_command *cmd, t_data *data)
 		}
 		waitpid(pid, &status, 0);
 	}
-	else 
+	else if (data->number_simple_commands > 1) 
 	{
 		/*pid = fork();*/
 		/*if (pid == 0)*/

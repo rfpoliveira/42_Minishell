@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../incs/exec.h"
+#include <stdlib.h>
 #include <unistd.h>
 
 #define READ 0
@@ -34,6 +35,7 @@ int fd_handler(t_data *data)
     while (++i < data->number_simple_commands)
 		if (pipe(fd[i]) == -1)
             exit (1);
+	printf("fd count:\t%d\n", i);
 	i = -1;
     while (++i < data->number_simple_commands)
 	{
@@ -43,65 +45,91 @@ int fd_handler(t_data *data)
         if (pid[i] == 0)
 		{
             // Child process
-		if (i < data->number_simple_commands - 1)
+		if (i < data->number_simple_commands)
             {
-				if (data->number_simple_commands == i +1)
+				if (i == 0)
 				{
-					exec_cmd(data->table[i], data);
-					exit (0);
+					j = -1;
+					while (++j < data->number_simple_commands)
+					{
+						if (j != 0)
+						{
+							close(fd[j][WRITE]);
+							close(fd[j][READ]);
+						}
+					}
+					dup2(fd[0][WRITE], STDOUT_FILENO);
+					close(fd[0][WRITE]);
+					close(fd[0][READ]);
 				}
-				while (++j < data->number_simple_commands)
+				else if (data->number_simple_commands == i + 1)
 				{
-	                if (i != j)
-	                    close(fd[j][READ]);
-	                if (i + 1 != j)
-	                    close(fd[j][WRITE]);
-	            }
-				if (dup2(fd[i][READ], STDIN_FILENO) == -1)
-				{
-					printf("error on read\n");
-					exit (1);		
-				}
-				if (dup2(fd[i + 1][WRITE], STDOUT_FILENO) == -1)
-				{
-					printf("error on write\n");
-					exit (2);
-				}
-				close(fd[i][READ]);
-		        close(fd[i + 1][WRITE]);
-				exec_cmd(data->table[i], data);
-				exit (2);
+					j = -1;
+					while (++j < data->number_simple_commands)
+					{
+						/*close(fd[j][WRITE]);*/
+						if (j != data->number_simple_commands - 1)
+						{
+							close(fd[j][READ]);
+							close(fd[j][WRITE]);
+						}
+					}
+					dup2(fd[data->number_simple_commands - 1][READ], STDIN_FILENO);
+					/*dup2(fd[j - 1][WRITE], STDOUT_FILENO);*/
+					close(fd[data->number_simple_commands - 1][READ]);
+					close(fd[data->number_simple_commands - 1][WRITE]);
 
+			printf("here\n");
+				}
+				else
+				{
+					j = -1;
+					while (++j < data->number_simple_commands)
+					{
+	            	    if (i != j)
+	            	        close(fd[j][READ]);
+	            	    if (i + 1 != j)
+	            	        close(fd[j][WRITE]);
+	            	}
+					dup2(fd[i][READ], STDIN_FILENO);
+					dup2(fd[i + 1][WRITE], STDOUT_FILENO);
+					close(fd[i][READ]);
+		        	close(fd[i + 1][WRITE]);
+				}
 			}
+			exec_cmd(data->table[i], data);
+			exit (2);
         }
 	}
+
+	/*if (dup2(fd[0][WRITE], STDOUT_FILENO) == -1)*/
+	/*{*/
+	/*	printf("error on write\n");*/
+	/*	exit (1);		*/
+	/*}*/
+	/**/
+	/*if (dup2(fd[data->number_simple_commands - 1][READ], STDIN_FILENO) == -1)*/
+	/*{*/
+	/*	printf("error on read\n");*/
+	/*	exit (1);		*/
+	/*}*/
+	/*   close(fd[0][WRITE]);*/
+	/*close(fd[data->number_simple_commands][WRITE]);*/
+	/*close(fd[data->number_simple_commands - 1][READ]);*/
+	i = -1;
+	while (++i < data->number_simple_commands - 1)
+		wait(NULL);
+	(void) status;
 	j = -1;
 	while (++j < data->number_simple_commands)
 	{
-		if (j != 0)
+		/*if (j != 0)*/
 			close(fd[j][WRITE]);
-		if (j != data->number_simple_commands - 1)
+		/*if (j != data->number_simple_commands - 1)*/
 			close(fd[j][READ]);
 	}
-	if (dup2(fd[0][WRITE], STDOUT_FILENO) == -1)
-	{
-		printf("error on write\n");
-		exit (1);		
-	}
-
-	if (dup2(fd[data->number_simple_commands - 1][READ], STDIN_FILENO) == -1)
-	{
-		printf("error on read\n");
-		exit (1);		
-	}
-    close(fd[0][WRITE]);
-	/*close(fd[data->number_simple_commands][WRITE]);*/
-	close(fd[data->number_simple_commands - 1][READ]);
-	i = -1;
-	while (++i < data->number_simple_commands - 1)
-	/*	wait(NULL);*/
-	/*(void) status;*/
-	       waitpid(-1, &status, 0);
+	       /*waitpid(-1, &status, 0);*/
+	/*data->exit_code = WIFEXITED(status);*/
     return 0;
 }
 /**/
