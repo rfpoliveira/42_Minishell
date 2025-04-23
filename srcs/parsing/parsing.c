@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/22 16:33:06 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:23:07 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int	parsing(char **user_line, t_data *command)
 	splited = parsing_split(*user_line, '|');
 	if (!splited)
 		return (memory_free(NULL, command, MALLOC_ERROR), 1);
-	ft_free(user_line);
 	ini_command(splited, command);
 	if (!command->table)
 		return (1);

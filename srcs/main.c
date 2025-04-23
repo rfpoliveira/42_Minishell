@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/11 15:32:17 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:24:12 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int main(void)
 		user_line = readline(prompt);
 		if (user_line == NULL)
 			exit_bash(&prompt, command);
-		add_history(user_line);
 		if (parsing(&user_line, command) != 0)
 		{
 			ft_free(&user_line);
@@ -77,6 +76,7 @@ int main(void)
 		}
 		i = 0;
 		ft_printf("exit_code: %i\n", command->exit_code);
+		handle_history(command, &user_line);
 		memory_free(NULL, command, 0);
 	}
 }
