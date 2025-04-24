@@ -81,10 +81,12 @@ int	exec_cmd(t_simple_command *cmd, t_data *data)
 			dprintf(2, "%s\n", cmd->paths);
 			execve(cmd->paths, cmd->args, temp);
 			free(temp);
-			exit(1);
+			/*exit(1);*/
 		/*}*/
 		/*waitpid(pid, &status, 0);*/
-	}	
+	}
+	/*else*/
+	/*	exit (2);*/
 	return (0);
 }
 
