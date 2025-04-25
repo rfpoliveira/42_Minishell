@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 16:25:52 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/21 19:16:40 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/25 10:54:37 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void	ft_free(char **ptr)
 {
-	if (*ptr != NULL)
+	if (*ptr != NULL && ptr != NULL)
 	{
 		free(*ptr);
 		*ptr = NULL;

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/23 19:06:12 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:40:39 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	delete_quotes(char **s, t_data *command)
 	char	*temp;
 
 	i = 0;
-	len = after_quotes_strlen(*s);
+	len = after_quotes_strlen(s);
 	temp = ft_calloc(len + 1, sizeof(char));
 	if (!temp)
 		return (print_error(MALLOC_ERROR, &command->exit_code), 1);
@@ -71,17 +71,26 @@ static int	delete_quotes(char **s, t_data *command)
 			 1 or any other number in case of errors. 
 */
 
-static int	delete_quotes_files(char **file, t_data *command)
+static int	check_for_quotes(char **file, t_data *command)
 {
 	int	i;
+	int j;
 	int	error;
 
 	i = -1;
+	j = -1;
 	error = 0;
 	while (file[++i])
 	{
-		/* error = delete_sigs(&file[i], '<', '>', &command->exit_code); */
-		error = delete_quotes(&file[i], command);
+		while (file[i][++j])
+		{
+			if (file[i][j] == 34 || file[i][j] == 39)
+			{
+				error = delete_quotes(&file[i], command);
+				break ;
+			}
+		}
+		j = -1;
 	}
 	return (error);
 }
@@ -96,24 +105,20 @@ int	handle_quotes(t_data *command)
 {
 	int	error;
 	int	i;
-	int	j;
 
 	i = -1;
-	j = -1;
 	error = 0;
 	while (command->table[++i])
 	{
-		while (command->table[i]->args[++j])
-			error = delete_quotes(&command->table[i]->args[j], command);
+		error = check_for_quotes(command->table[i]->args, command);
 		if (command->table[i]->infile)
-			error = delete_quotes_files(command->table[i]->infile, command);
+			error = check_for_quotes(command->table[i]->infile, command);
 		if (command->table[i]->outfile)
-			error = delete_quotes_files(command->table[i]->outfile, command);
+			error = check_for_quotes(command->table[i]->outfile, command);
 		if (command->table[i]->double_out)
-			error = delete_quotes_files(command->table[i]->double_out, command);
+			error = check_for_quotes(command->table[i]->double_out, command);
 		if (command->table[i]->double_in)
-			error = delete_quotes_files(command->table[i]->double_in, command);
-		j = -1;
+			error = check_for_quotes(command->table[i]->double_in, command);
 	}
 	return (error);
 }

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:43:54 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/23 18:20:45 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/25 12:51:50 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ static void	quote_counter_util(char **s, int *i, int *j, int *count)
 {
 	int	flag;
 
-	flag = 0;
 	flag = s[*j][*i];
 	(*count)++;
 	if (s[*j][(*i) + 1] != '\0')
@@ -98,7 +97,10 @@ int	quote_counter(char **s, int *exit_code)
 		while (s[j][++i])
 		{
 			if (s[j][i] == 34 || s[j][i] == 39)
+			{
 				quote_counter_util(s, &i, &j, &count);
+				i--;
+			}
 			if (!s[j][i])
 				break ;
 		}

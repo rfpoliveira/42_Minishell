@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 12:03:29 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/22 11:20:09 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/25 15:38:49 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,30 @@ int	count_args(t_simple_command *curr_table)
 	@return: len of the new string 
 */
 
-int	after_quotes_strlen(char *s)
+int	after_quotes_strlen(char **s)
 {
 	int	i;
 	int	quote_skipped;
+	int quote;
 
 	quote_skipped = 0;
 	i = 0;
-	if (s)
+	quote = 0;
+	while ((*s)[i])
 	{
-		while (s[i])
+		if ((*s)[i] == 34 || (*s)[i] == 39)
 		{
-			if (s[i] == 34 || s[i] == 39)
-			{
-				i += skip_quotes(s, i);
-				quote_skipped += 2;
-			}
-			if (s[i])
+			quote_skipped++;
+			quote = (*s)[i];
+			i++;
+			while ((*s)[i] && (*s)[i] != quote)
 				i++;
+			if ((*s)[i])
+				quote_skipped++;
 		}
-	}
+		if ((*s)[i])
+			i++;
+		}
 	return (i - quote_skipped);
 }
 /* @brief: checks if a char is a whitespace

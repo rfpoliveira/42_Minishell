@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:53:37 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/23 19:44:07 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/25 16:58:11 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,18 @@
 		 	 MALLOC_ERROR or any number != 0 in case of any error 
 */
 
-static int	expande(char **s, int *x, int *exit_code)
+static int	expande(char **s, int x, int *exit_code)
 {
 	char	*prev;
 	char	*env;
 	int		len;
 
-	(*x)++;
-	if ((*s)[*x] == '$')
+	x++;
+	if ((*s)[x] == '$')
 		return (0);
-	if ((*s)[*x] == '?')
+	if ((*s)[x] == '?')
 		return (expande_exit_code(s, exit_code));
-	prev = get_prev(*s, *x);
+	prev = get_prev(*s, x);
 	if (!prev)
 		return (MALLOC_ERROR);
 	if (my_get_env(*s, &env, x) != 0)
@@ -46,7 +46,8 @@ static int	expande(char **s, int *x, int *exit_code)
 	len = ft_strlen(prev) + ft_strlen(env) + 1;
 	if (get_str(s, prev, env, len) != 0)
 		return (MALLOC_ERROR);
-	free(prev);
+	ft_free(&prev);
+	ft_free(&env);
 	return (0);
 }
 /* @brief: is called to iterate threw the redirection saved.
@@ -62,17 +63,22 @@ static int	expande(char **s, int *x, int *exit_code)
 
 static int	expande_red_util(char **file, int i, int j, int *exit_code)
 {
+	int flag;
+
+	flag = 0;
 	while (file[j])
 	{
 		while (file[j][i])
 		{
-			if (file[j][i] == 39)
+			if (file[j][i] == 34)
+				flag++;
+			if (file[j][i] == 39 && (flag % 2 == 0))
 				i += skip_quotes(file[j], i);
 			if (!file[j][i])
 				break ;
 			if (file[j][i] == '$')
 			{
-				if (expande(&file[j], &i, exit_code) != 0)
+				if (expande(&file[j], i, exit_code) != 0)
 					return (1);
 				if (ft_strncmp(file[j], "", 1) == 0)
 					return (print_error(SYNTAX_ERROR, exit_code), 1);
@@ -80,7 +86,7 @@ static int	expande_red_util(char **file, int i, int j, int *exit_code)
 			i++;
 		}
 		j++;
-		i = -1;
+		i = 0;
 	}
 	return (0);
 }
@@ -124,21 +130,26 @@ static int	expand_args(t_simple_command *curr_table, int *exit_code)
 {
 	int	j;
 	int	x;
+	int flag;
 
 	x = 0;
 	j = 0;
+	flag = 0;
 	while (curr_table->args[j])
 	{
 		while (curr_table->args[j][x])
 		{
-			if (curr_table->args[j][x] == 39)
+			if (curr_table->args[j][x] == 34)
+				flag++;
+			if (curr_table->args[j][x] == 39 && (flag % 2 == 0))
 				x += skip_quotes(curr_table->args[j], x);
 			if (!curr_table->args[j][x])
 				break ;
 			if (curr_table->args[j][x] == '$')
 			{
-				if (expande(&curr_table->args[j], &x, exit_code) != 0)
+				if (expande(&curr_table->args[j], x, exit_code) != 0)
 					return (1);
+				x = -1;
 			}
 			x++;
 		}

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:30:00 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/23 19:59:53 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/25 12:23:18 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,30 @@ char	*get_prev(char *s, int x)
 	}
 	return (prev);
 }
+/* @brief: puus env and post together.
+	@arguments: tmp is a buffer.
+				env is the pointer where we save the expanded 
+				environment variable;
+				post is what comes after the expanded variable;
+*/
+
+static void	apend_post(char **tmp, char **env, char *post)
+{
+	int len;
+
+	len = 0;
+	if (!*env)
+	*env = ft_strdup(post);
+	else
+	{
+		ft_free(tmp);
+		len = ft_strlen(*env) + ft_strlen(post) + 1;
+		*tmp = malloc(len);
+		ft_strlcpy(*tmp, *env, len);
+		ft_strlcat(*tmp, post, len);
+		*env = ft_strdup(*tmp);
+	}
+}
 /* @brief: gets the string that should be expanded and does so
 	@arguments: s is a pointer to the "$" in the string.
 				x is position in the string next to the "$".
@@ -69,30 +93,27 @@ char	*get_prev(char *s, int x)
 			 MALLOC_ERROR or any number in case of error 
 */
 
-int	my_get_env(char *s, char **env, int *x)
+int	my_get_env(char *s, char **env, int x)
 {
 	char	*tmp;
 	char	*post;
 	int		len;
 	int		i;
 	
-	i = *x;
+	i = x;
 	while (s[i] && s[i] != '$' && s[i] != 34 && s[i] != 39)
 			i++;
-	len = i - *x;
-	tmp = ft_substr(s, *x, len);
+	len = i - x;
+	tmp = ft_substr(s, x, len);
 	if (!tmp)
 		return (MALLOC_ERROR);
 	post = ft_substr(s, i, ft_strlen(s));
 	if (!post)
 		return (free(tmp), MALLOC_ERROR);
 	*env = getenv(tmp);
-	if (*env == NULL)
-		*env = ft_strdup("");
-	*env = ft_strjoin(*env, post);
+	apend_post(&tmp, env, post);
 	if (!*env)
 		return (ft_free(&tmp), ft_free(&post), MALLOC_ERROR);
-	*x += len; //todo
 	return (ft_free(&tmp), ft_free(&post), 0);
 }
 /* @brief:  takes the original string (s) with something to expande

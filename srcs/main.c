@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/23 17:24:12 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/25 12:57:31 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int main(void)
 			i++;
 		}
 		i = 0;
-		ft_printf("exit_code: %i\n", command->exit_code);
+		command->exit_code = 0;
 		handle_history(command, &user_line);
 		memory_free(NULL, command, 0);
 	}

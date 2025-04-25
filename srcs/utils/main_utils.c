@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 14:59:33 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/23 17:54:16 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/25 12:49:03 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	alloc_struct(t_data **command)
 		print_error(MALLOC_ERROR, 0);
 		exit(1);
 	}
+	(*command)->table = NULL;
 	(*command)->exit_code = 0;
 }
 /* @brief: called to exit the program in case of EOF input by the user */

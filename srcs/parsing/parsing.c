@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/23 17:23:07 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/25 12:46:28 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	mount_table(t_data *command, char **splited)
 	@return: frees the memory in case of errors (not closed quotes or malloc)
 */
 
-static void	ini_command(char **splited, t_data *command)
+static int	ini_command(char **splited, t_data *command)
 {
 	int	i;
 
@@ -60,11 +60,12 @@ static void	ini_command(char **splited, t_data *command)
 	command->number_simple_commands = i;
 	command->table = malloc(sizeof(t_simple_command) * i + 8);
 	if (!command->table)
-		return (memory_free(splited, command, MALLOC_ERROR));
+		return (print_error(MALLOC_ERROR, &command->exit_code), 1);
 	command->table[i] = NULL;
 	mount_table(command, splited);
 	if (quote_counter(splited, &command->exit_code) != 0)
-		return (memory_free(splited, command, 0));
+		return (1);
+	return (0);
 }
 
 /* @brief: takes the line input by the user, parses errors 
@@ -93,9 +94,8 @@ int	parsing(char **user_line, t_data *command)
 	splited = parsing_split(*user_line, '|');
 	if (!splited)
 		return (memory_free(NULL, command, MALLOC_ERROR), 1);
-	ini_command(splited, command);
-	if (!command->table)
-		return (1);
+	if (ini_command(splited, command) != 0)
+		return (memory_free(splited, command, 0), 1);
 	if (handle_redirect(command) != 0)
 		return (memory_free(splited, command, 0), 1);
 	if (handle_expanding(command) != 0)
