@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:53:37 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/25 16:58:11 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:32:27 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ static int	expande(char **s, int x, int *exit_code)
 	@arguments: file is the current redirection being checked.
 				exit_code is the exit code of the last command.
 				i and j are to iterate in the loops, 
-				they are declared and inicialized previously to use fewer lines here (42 norm)
+				they are declared and inicialized previously 
+				to use fewer lines here (42 norm)
 	if "$" is found expand whats next: if there is another "$" ignores,
 	ignores anything bettewn quotes (not double quotes this time)
 	@return: 0 in case of sucesss
@@ -63,18 +64,14 @@ static int	expande(char **s, int x, int *exit_code)
 
 static int	expande_red_util(char **file, int i, int j, int *exit_code)
 {
-	int flag;
+	int	flag;
 
 	flag = 0;
 	while (file[j])
 	{
 		while (file[j][i])
 		{
-			if (file[j][i] == 34)
-				flag++;
-			if (file[j][i] == 39 && (flag % 2 == 0))
-				i += skip_quotes(file[j], i);
-			if (!file[j][i])
+			if (mid_expand_quote_handler(&flag, &i, file[j]) != 0)
 				break ;
 			if (file[j][i] == '$')
 			{
@@ -82,6 +79,8 @@ static int	expande_red_util(char **file, int i, int j, int *exit_code)
 					return (1);
 				if (ft_strncmp(file[j], "", 1) == 0)
 					return (print_error(SYNTAX_ERROR, exit_code), 1);
+				i = -1;
+				flag = 0;
 			}
 			i++;
 		}
@@ -130,30 +129,26 @@ static int	expand_args(t_simple_command *curr_table, int *exit_code)
 {
 	int	j;
 	int	x;
-	int flag;
+	int	flag;
 
 	x = 0;
-	j = 0;
+	j = -1;
 	flag = 0;
-	while (curr_table->args[j])
+	while (curr_table->args[++j])
 	{
 		while (curr_table->args[j][x])
 		{
-			if (curr_table->args[j][x] == 34)
-				flag++;
-			if (curr_table->args[j][x] == 39 && (flag % 2 == 0))
-				x += skip_quotes(curr_table->args[j], x);
-			if (!curr_table->args[j][x])
+			if (mid_expand_quote_handler(&flag, &x, curr_table->args[j]) != 0)
 				break ;
 			if (curr_table->args[j][x] == '$')
 			{
 				if (expande(&curr_table->args[j], x, exit_code) != 0)
 					return (1);
 				x = -1;
+				flag = 0;
 			}
 			x++;
 		}
-		j++;
 		x = 0;
 	}
 	return (0);

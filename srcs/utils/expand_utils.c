@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:30:00 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/25 12:23:18 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:32:41 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,11 @@ char	*get_prev(char *s, int x)
 
 static void	apend_post(char **tmp, char **env, char *post)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	if (!*env)
-	*env = ft_strdup(post);
+		*env = ft_strdup(post);
 	else
 	{
 		ft_free(tmp);
@@ -99,10 +99,10 @@ int	my_get_env(char *s, char **env, int x)
 	char	*post;
 	int		len;
 	int		i;
-	
+
 	i = x;
 	while (s[i] && s[i] != '$' && s[i] != 34 && s[i] != 39)
-			i++;
+		i++;
 	len = i - x;
 	tmp = ft_substr(s, x, len);
 	if (!tmp)

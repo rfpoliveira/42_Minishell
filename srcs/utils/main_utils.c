@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 14:59:33 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/25 12:49:03 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:06:00 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 			should not be included
 */
 
-void handle_history(t_data *command, char **user_line)
+void	handle_history(t_data *command, char **user_line)
 {
 	if (!*user_line || !user_line)
 		return ;

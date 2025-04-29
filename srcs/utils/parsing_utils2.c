@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 12:03:29 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/25 15:38:49 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:10:11 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	after_quotes_strlen(char **s)
 {
 	int	i;
 	int	quote_skipped;
-	int quote;
+	int	quote;
 
 	quote_skipped = 0;
 	i = 0;
@@ -53,7 +53,7 @@ int	after_quotes_strlen(char **s)
 		}
 		if ((*s)[i])
 			i++;
-		}
+	}
 	return (i - quote_skipped);
 }
 /* @brief: checks if a char is a whitespace

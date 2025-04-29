@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:43:54 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/25 12:51:50 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:31:43 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,11 @@ static void	quote_counter_util(char **s, int *i, int *j, int *count)
 	(*count)++;
 	if (s[*j][(*i) + 1] != '\0')
 		*i += skip_quotes(s[*j], *i);
+	else
+	{
+		(*i)++;
+		return ;
+	}
 	if (s[*j][(*i) - 1] == flag)
 		(*count)++;
 }
@@ -101,9 +106,8 @@ int	quote_counter(char **s, int *exit_code)
 				quote_counter_util(s, &i, &j, &count);
 				i--;
 			}
-			if (!s[j][i])
-				break ;
 		}
+		i = -1;
 	}
 	if (count % 2 == 0)
 		return (0);

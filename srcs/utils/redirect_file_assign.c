@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:07:30 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/22 16:37:51 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:36:17 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@
 int	assign_util_infile(t_data *command, int arg, int table, int chr)
 {
 	int		i;
-	char	**tmp;
 	char	**file;
+	char	**tmp;
 
 	if (chr > 0 && command->table[table]->args[arg][chr - 1] == '<')
 		file = command->table[table]->double_in;

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:34:23 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/23 17:20:35 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/04/29 16:09:39 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ int	assign_file(t_data *command, int table, int arg, int chr)
 	int		error;
 
 	current = command->table[table]->args[arg];
- 	if (current[chr] == '<' && current[chr + 1] == '>')
+	if (current[chr] == '<' && current[chr + 1] == '>')
 	{
 		if (chr == 0 || (chr > 0 && current[chr - 1] != '<'))
-		return (assign_util_infile(command, arg, table, chr));
+			return (assign_util_infile(command, arg, table, chr));
 	}
 	else if (current[chr + 1] == '<' || current[chr + 1] == '>')
 		return (print_error(SYNTAX_ERROR, &command->exit_code), 1);
