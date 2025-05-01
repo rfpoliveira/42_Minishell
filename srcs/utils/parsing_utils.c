@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/29 16:44:11 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/01 10:42:13 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ static int	delete_quotes(char **s, t_data *command)
 		if ((*s)[i] == 34 || (*s)[i] == 39)
 			delete_quotes_util(s, &temp, &i, &len);
 		else
-		{
-			temp[len] = (*s)[i];
-			len++;
-		}
+			temp[len++] = (*s)[i];
 		if (!(*s)[i])
 			break ;
 		i++;
@@ -74,7 +71,7 @@ static int	delete_quotes(char **s, t_data *command)
 static int	check_for_quotes(char **file, t_data *command)
 {
 	int	i;
-	int j;
+	int	j;
 	int	error;
 
 	i = -1;

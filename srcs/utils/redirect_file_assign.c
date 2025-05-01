@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:07:30 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/29 16:36:17 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/01 10:37:20 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,21 @@
              1 or any other number in case of error.
 */
 
+static char	**detect_infile(t_data *command, int arg, int table, int chr)
+{
+	if (chr > 0 && command->table[table]->args[arg][chr - 1] == '<')
+		return (command->table[table]->double_in);
+	else
+		return (command->table[table]->infile);
+}
+
 int	assign_util_infile(t_data *command, int arg, int table, int chr)
 {
 	int		i;
 	char	**file;
 	char	**tmp;
 
-	if (chr > 0 && command->table[table]->args[arg][chr - 1] == '<')
-		file = command->table[table]->double_in;
-	else
-		file = command->table[table]->infile;
+	file = detect_infile(command, arg, table, chr);
 	i = 0;
 	while (file[i])
 		i++;
