@@ -18,7 +18,7 @@
 #include <sys/types.h>
 
 int		ft_cmd(t_data *data);
-int	fd_handler(t_data *data, pid_t *pid);
+void	fd_handler(t_data *data, pid_t *pid);
 int		pipe_handle(t_data *data, int *fd, int index);
 int		pipe_init(t_data *data, int index);
 int		exec_cmd(t_simple_command *cmd, t_data *data);

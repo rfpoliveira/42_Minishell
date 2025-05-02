@@ -69,18 +69,27 @@ void	last_arg(t_data *data, int i)
 	close(data->table[i]->fd[WRITE]);
 }
 
-int fd_handler(t_data *data, pid_t *pid)
+void parent_process(t_data *data, pid_t *pid)
 {
-    int i;
+	int i;
 	int status;
 
-	/*i = -1;*/
-	/*if (data->number_simple_commands == 1)*/
-	/*	return (exec_cmd(data->table[0], data), 0);*/
-	/*while (++i < data->number_simple_commands)*/
-	/*	if (pipe(data->table[i]->fd) == -1)*/
-	/*		exit(1);*/
-	/*pid = ft_calloc(sizeof(pid_t), data->number_simple_commands);*/
+	i = -1;
+	while (++i < data->number_simple_commands)
+	{
+		close(data->table[i]->fd[READ]);
+		close(data->table[i]->fd[WRITE]);
+	}
+	i = -1;
+	while (++i < data->number_simple_commands)
+	   waitpid(pid[i], &status, 0);
+	data->exit_code = WIFEXITED(status);
+}
+
+void fd_handler(t_data *data, pid_t *pid)
+{
+    int i;
+
 	i = -1;
     while (++i < data->number_simple_commands)
 	{
@@ -99,16 +108,5 @@ int fd_handler(t_data *data, pid_t *pid)
 			exit(1);
         }
 	}
-	i = -1;
-	while (++i < data->number_simple_commands)
-	{
-		close(data->table[i]->fd[READ]);
-		close(data->table[i]->fd[WRITE]);
-	}
-	i = -1;
-	while (++i < data->number_simple_commands)
-	   waitpid(pid[i], &status, 0);
-	data->exit_code = WIFEXITED(status);
-	(void) status;
-    return 0;
+	parent_process(data, pid);
 }
