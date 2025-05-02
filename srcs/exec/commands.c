@@ -81,7 +81,7 @@ int	exec_cmd(t_simple_command *cmd, t_data *data)
 			dprintf(2, "%s\n", cmd->paths);
 			execve(cmd->paths, cmd->args, temp);
 			free(temp);
-			/*exit(1);*/
+			exit(1);
 		/*}*/
 		/*waitpid(pid, &status, 0);*/
 	}
@@ -90,16 +90,20 @@ int	exec_cmd(t_simple_command *cmd, t_data *data)
 	return (0);
 }
 
-void	ft_cmd(t_data *data)
+int	ft_cmd(t_data *data)
 {
 	/*char	**paths;*/
 	int		i;
+	pid_t *pid;
 
-	i = 0;
 	data->table[0]->paths = NULL;
-	/*exec_pipe((*data->command)->table[i]);*/
-	/*printf("%s\n", (*data->command)->table[i]->args[0]);*/
-	/*exec_cmd((*data->command)->table[i], data);*/
-	/*pipe_init(data, -1);*/
-	fd_handler(data);
+	i = -1;
+	if (data->number_simple_commands == 1)
+		return (exec_cmd(data->table[0], data), 0);
+	while (++i < data->number_simple_commands)
+		if (pipe(data->table[i]->fd) == -1)
+			exit(1);
+	pid = ft_calloc(sizeof(pid_t), data->number_simple_commands);
+	fd_handler(data, pid);
+	return (0);
 }

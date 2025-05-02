@@ -64,6 +64,7 @@ typedef struct s_simple_command
 	int	number_args;
 	char **args;
 	char	*paths;
+	int		fd[2];
 	char **infile;
 	char **outfile;
 	char **double_in;

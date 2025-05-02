@@ -134,14 +134,14 @@ int	quote_counter(char **s, int *exit_code)
 	int	count;
 	int flag;
 	
-	i = -1;
 	j = -1;
 	count = 0;
 	if (!s)
 		return (0);
 	while (s[++j])
 	{
-		while (s[j][++i])
+		i = -1;
+		while (s[j] && s[j][++i])
 		{
 			if (s[j][i] == 34 || s[j][i] == 39)
 			{
