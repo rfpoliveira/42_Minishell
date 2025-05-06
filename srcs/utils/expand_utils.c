@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:30:00 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/29 16:32:41 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/06 15:13:39 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,15 @@ static void	apend_post(char **tmp, char **env, char *post)
 			 MALLOC_ERROR or any number in case of error 
 */
 
+static int get_len(char *s, int *i, int x)
+{
+	if (ft_isdigit(s[*i]))
+		return (++(*i) - x);
+	while (s[*i] && (ft_isalnum(s[*i]) || s[*i] == '_'))
+		(*i)++;
+	return (*i - x);
+}
+
 int	my_get_env(char *s, char **env, int x)
 {
 	char	*tmp;
@@ -101,9 +110,7 @@ int	my_get_env(char *s, char **env, int x)
 	int		i;
 
 	i = x;
-	while (s[i] && s[i] != '$' && s[i] != 34 && s[i] != 39)
-		i++;
-	len = i - x;
+	len = get_len(s, &i, x);
 	tmp = ft_substr(s, x, len);
 	if (!tmp)
 		return (MALLOC_ERROR);

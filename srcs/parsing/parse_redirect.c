@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 16:34:59 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/22 14:26:23 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/06 16:11:49 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,31 +65,35 @@ int	check_red_in(t_data *command, int *chr, int table, int arg)
 				curr_table is the index in the matrix 
 				of the current table we working on;
 				arg is the current arg we working on;
-	@return: 0 in case of sucess
-			 any other number in case of errors 
+	@return: the number of redirects
+			 -1 in case of errors 
 */
 
 int	check_for_red(t_data *command, int table, int arg)
 {
 	int		chr;
 	char	*current;
+	int		red_count;
 
 	chr = -1;
+	red_count = 0;
 	current = command->table[table]->args[arg];
 	while (current[++chr])
 	{
 		if (current[chr] == '<')
 		{
 			if (check_red_in(command, &chr, table, arg) != 0)
-				return (1);
+				return (-1);
+			red_count++;
 		}
 		else if (current[chr] == '>')
 		{
 			if (check_red_out(command, &chr, table, arg) != 0)
-				return (1);
+				return (-1);
+			red_count++;
 		}
 	}
-	return (0);
+	return (red_count);
 }
 /* @brief: takes out of the args what are redirects
 	@arguments: command is the main struct with all the info;
@@ -134,19 +138,26 @@ int	handle_redirect(t_data *command)
 {
 	int	i;
 	int	j;
-
+	int	red_count;
+	int	reorganize_flag;
+	
+	red_count = 0;
+	reorganize_flag = 0;
 	i = -1;
 	j = -1;
 	while (command->table[++i])
 	{
 		while (command->table[i]->args[++j])
 		{
-			if (check_for_red(command, i, j) != 0)
+			red_count = check_for_red(command, i, j);
+			if (red_count == -1)
 				return (1);
+			else if (red_count != 0)
+				reorganize_flag = 1;
 		}
 		j = -1;
 	}
-	while (command->table[++j])
+	while (reorganize_flag == 1 && command->table[++j])
 	{
 		if (reorganize_after_redirect(command, j) != 0)
 			return (1);

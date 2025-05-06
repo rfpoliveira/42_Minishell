@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 10:30:51 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/23 18:19:30 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/06 16:43:48 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ size_t	skip_quotes(char *s, size_t i)
 			skiped++;
 		}
 	}
-	if (s[i - 1] == 34)
+	else if (s[i - 1] == 34)
 	{
 		while (s[i] != 34 && s[i])
 		{
@@ -65,11 +65,11 @@ size_t	r_count_whitespaces(char *s)
 		count++;
 	while (s[i])
 	{
-		if ((s[i] == 34 || s[i] == 39))
+		while ((s[i] == 34 || s[i] == 39))
 			i += skip_quotes(s, i);
 		if (!s[i])
 			break ;
-		if (ft_isspace(s[i]) && s[i + 1] && !ft_isspace(s[i + 1]))
+		if (ft_isspace(s[i]) && !ft_isspace(s[i + 1]))
 			count++;
 		i++;
 	}
@@ -95,7 +95,7 @@ size_t	r_count_sep(char *s, char sep)
 		count++;
 	while (s[i])
 	{
-		if ((s[i] == 34 || s[i] == 39))
+		while ((s[i] == 34 || s[i] == 39))
 			i += skip_quotes(s, i);
 		if (!s[i])
 			break ;
