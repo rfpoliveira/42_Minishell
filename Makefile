@@ -9,7 +9,8 @@ parsing_split.c expander.c parse_redirect.c)
 
 SIGNAL = srcs/signals/handle_signals.c
 
-EXEC = $(addprefix $(EXEC_PATH)/, commands.c commands_utils.c pipe_handle.c)
+EXEC = $(addprefix $(EXEC_PATH)/, commands.c commands_utils.c pipe_handle.c \
+	   redirects.c)
 
 UTILS = $(addprefix $(UTILS_PATH)/, main_utils.c expand_utils.c\
 split_utils.c parsing_utils.c parsing_utils2.c free_utils.c\

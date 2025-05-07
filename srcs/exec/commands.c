@@ -80,12 +80,13 @@ int	exec_cmd(t_simple_command *cmd, t_data *data)
 int	ft_cmd(t_data *data)
 {
 	int		i;
-	pid_t *pid;
+	pid_t	*pid;
 
 	data->table[0]->paths = NULL;
-	i = -1;
 	if (data->number_simple_commands == 1)
 		return (exec_cmd(data->table[0], data), 0);
+	redirects(data);
+	i = -1;
 	while (++i < data->number_simple_commands)
 		if (pipe(data->table[i]->fd) == -1)
 			exit(1);

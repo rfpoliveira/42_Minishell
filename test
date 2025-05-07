@@ -1,0 +1,15 @@
+incs$
+libft$
+Makefile$
+minishell$
+README.md$
+srcs$
+test$
+test2$
+to_see_later$
+0: ls
+0: cat
+1: -e
+outfile(0): test
+exit_code: 1
+[?2004hminishell > [?2004l
