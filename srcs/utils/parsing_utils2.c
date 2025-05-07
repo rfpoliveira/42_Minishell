@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 12:03:29 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/29 16:10:11 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/07 11:29:27 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,30 @@ int	ft_isspace(char c)
 	return (0);
 }
 /* @brief: checks if there is a pipe in the beggining or the end of the command
+			or if there is a OR operator (we dont deal with that)
 			if it finds any the program will give an error
 	@return: 0 if it finds any
 			 1 if it does not 
 */
 
+static int	check_consecutives(char *s)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i])
+	{
+		if (s[i] == '|')
+		{
+			i++;
+			while(s[i] && ft_isspace(s[i]))
+				i++;
+			if (s[i] == '\0' || s[i] == '|')
+				return (1);
+		}
+	}	
+	return (0);
+}
 int	check_pipes(char *s)
 {
 	int	i;
@@ -81,13 +100,8 @@ int	check_pipes(char *s)
 	while (s[i] && ft_isspace(s[i]))
 		i++;
 	if (s[i] == '|')
-		return (0);
-	while (s[i])
-		i++;
-	i--;
-	while (ft_isspace(s[i]))
-		i--;
-	if (s[i] == '|')
-		return (0);
-	return (1);
+		return (1);
+	if (check_consecutives(s) != 0)
+		return (1);
+	return (0);
 }

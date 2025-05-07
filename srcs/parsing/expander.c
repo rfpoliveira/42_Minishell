@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:53:37 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/29 16:32:27 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/07 13:39:14 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ static int	expande(char **s, int x, int *exit_code)
 		return (expande_exit_code(s, exit_code));
 	prev = get_prev(*s, x);
 	if (!prev)
-		return (MALLOC_ERROR);
+		return (print_error(MALLOC_ERROR, exit_code), MALLOC_ERROR);
 	if (my_get_env(*s, &env, x) != 0)
-		return (MALLOC_ERROR);
+		return (print_error(MALLOC_ERROR, exit_code), MALLOC_ERROR);
 	len = ft_strlen(prev) + ft_strlen(env) + 1;
 	if (get_str(s, prev, env, len) != 0)
-		return (MALLOC_ERROR);
+		return (print_error(MALLOC_ERROR, exit_code), MALLOC_ERROR);
 	ft_free(&prev);
 	ft_free(&env);
 	return (0);
@@ -169,9 +169,11 @@ int	handle_expanding(t_data *command)
 	while (command->table[++i])
 	{
 		if (expande_red(command->table[i], &command->exit_code) != 0)
-			return (print_error(MALLOC_ERROR, &command->exit_code), 1);
+			return (1);
 		if (expand_args(command->table[i], &command->exit_code) != 0)
-			return (print_error(MALLOC_ERROR, &command->exit_code), 1);
+			return (1);
+		if (sep_per_words(command->table[i], &command->exit_code) != 0)
+			return (1);
 	}
 	return (0);
 }

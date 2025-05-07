@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 10:30:51 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/06 16:43:48 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/07 11:17:03 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ size_t	r_count_whitespaces(char *s)
 			i += skip_quotes(s, i);
 		if (!s[i])
 			break ;
-		if (ft_isspace(s[i]) && !ft_isspace(s[i + 1]))
+		if (ft_isspace(s[i]) && (!ft_isspace(s[i + 1]) && s[i + 1] != '\0'))
 			count++;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:30:00 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/06 15:13:39 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:02:10 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ static void	apend_post(char **tmp, char **env, char *post)
 		ft_free(tmp);
 		len = ft_strlen(*env) + ft_strlen(post) + 1;
 		*tmp = malloc(len);
+		if (*tmp == NULL)
+		{
+			*env = NULL;
+			return ;
+		}
 		ft_strlcpy(*tmp, *env, len);
 		ft_strlcat(*tmp, post, len);
 		*env = ft_strdup(*tmp);

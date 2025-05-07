@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 10:37:05 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/21 18:52:18 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/07 11:17:11 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char	**whitespaces_split(char *s)
 	size_t	count;
 
 	count = r_count_whitespaces(s);
-	result = malloc(sizeof (char *) * (count + 1));
+	result = malloc(sizeof(char *) * (count + 1));
 	if (!result)
 		return (NULL);
 	result = fill(s, result);

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/25 12:46:28 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/07 11:27:38 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	parsing(char **user_line, t_data *command)
 
 	if (!*user_line || !ft_strncmp(*user_line, "", 1))
 		return (1);
-	if (check_pipes(*user_line) == 0)
+	if (check_pipes(*user_line) != 0)
 		return (memory_free(NULL, command, SYNTAX_ERROR), 1);
 	splited = parsing_split(*user_line, '|');
 	if (!splited)
