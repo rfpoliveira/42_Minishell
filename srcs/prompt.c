@@ -6,20 +6,22 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:54:00 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/21 18:17:47 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:21:14 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-/* @brief: parses the path to mimic bash
+/**
+ @brief parses the path to mimic bash
+ 
 	check if there is a /home/ in the
 	begining (there is not if you at home) substituits that out
 	for a "~" like bash does 
-	@return: 1 in case of a malloc error
-			 0 if there are no erros 
-*/
 
+ @return 1 in case of a malloc error,
+		  0 if there are no erros 
+*/
 static int	parse_path(char *user, char **path)
 {
 	int		check_len;
@@ -48,13 +50,15 @@ static int	parse_path(char *user, char **path)
 	}
 	return (ft_free(&temp), 0);
 }
-/* @brief: puts the arguments recieved in a unique prompt
+/**
+ @brief puts the arguments recieved in a unique prompt
+ 
 	first it alter the path then fuses everything 
 	mimicing the bash prompt
-	@return: in case of malloc errors returns null
+
+ @return in case of malloc errors returns null
 	else returns the correct prompt
 */
-
 static char	*join_everything(char *user, char *path, char *hostname)
 {
 	char	*prompt;
@@ -77,13 +81,13 @@ static char	*join_everything(char *user, char *path, char *hostname)
 	ft_free(&path);
 	return (prompt);
 }
-/* @brief: gets us the correct hostname
-	@notes: the exact path of the file might be different in different machines,
+/**
+ @brief gets us the correct hostname
+ @note the exact path of the file might be different in different machines,
 	the one used is the most common, in case of the file not being there we
 	use a placeholder
-	@return: an alloced string with the hostname 
+ @return an alloced string with the hostname 
 */
-
 static char	*get_hostname(void)
 {
 	int		fd;
@@ -108,11 +112,14 @@ static char	*get_hostname(void)
 	return (hostname);
 }
 
-/* @brief it get the current user, current path and the hostname to get 
-	a prompt mimicing bash
-	it takes the information for envriomental variables if they are
+/**
+ @brief it get the current user, current path and the hostname to get 
+	    a prompt mimicing bash
+
+ @note it takes the information for envriomental variables if they are
 	not available it puts a placeholder.
-	@return it returns NULL in case of error or the prompt that mimics bash:
+
+ @return it returns NULL in case of error or the prompt that mimics bash:
 	"<USER>@<HOSTNAME>:~/<PATH>$ "
 */
 char	*get_prompt(void)

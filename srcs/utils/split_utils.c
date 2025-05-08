@@ -6,21 +6,21 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 10:30:51 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/07 11:17:03 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:15:27 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
 
-/* @brief: it is called when a quote is found and it skippes
+/**
+ @brief it is called when a quote is found and it skippes
 			until the one that closes it 
-	@arguments: s is the current string we are interating threw
-				i is the index next to the quote
-	@return: it returns the number of char we skipping because 
+ @param s is the current string we are interating threw
+ @param i is the index next to the quote
+ @return it returns the number of char we skipping because 
 			 there are in the middle of quotes
 */
-
 size_t	skip_quotes(char *s, size_t i)
 {
 	int	skiped;
@@ -47,11 +47,11 @@ size_t	skip_quotes(char *s, size_t i)
 		skiped++;
 	return (skiped);
 }
-/* @brief: word count for the whitespacs split 
-	@notes: it skips anything bettewn quotes
-	@return: the number of "words" separated by whitespaces in a string 
+/**
+ @brief word count for the whitespacs split 
+ @note it skips anything bettewn quotes
+ @return the number of "words" separated by whitespaces in a string 
 */
-
 size_t	r_count_whitespaces(char *s)
 {
 	size_t	i;
@@ -75,13 +75,13 @@ size_t	r_count_whitespaces(char *s)
 	}
 	return (count);
 }
-/* @brief: word count for the parsing split 
-	@arguments: s is the string being checked
-				sep is the separator used 
-	@notes: it skips anything bettewn quotes
-	@return: the number of "words" separated by sep in a string 
+/**
+ @brief word count for the parsing split 
+ @param s is the string being checked
+ @param sep is the separator used 
+ @note it skips anything bettewn quotes
+ @return the number of "words" separated by sep in a string 
 */
-
 size_t	r_count_sep(char *s, char sep)
 {
 	size_t	i;

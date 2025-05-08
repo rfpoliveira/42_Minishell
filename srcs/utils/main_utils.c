@@ -6,18 +6,18 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 14:59:33 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/29 16:06:00 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:54:50 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
 
-/* @brief: creates the history and frees the user inputed string
-   @notes: string starting with whitespaces or any that cause errors
-			should not be included
+/**
+ @brief creates the history and frees the user inputed string
+ @note string starting with whitespaces or any that cause errors
+	    should not be included
 */
-
 void	handle_history(t_data *command, char **user_line)
 {
 	if (!*user_line || !user_line)
@@ -29,10 +29,10 @@ void	handle_history(t_data *command, char **user_line)
 	ft_free(user_line);
 }
 
-/* @brief: allocs space for the main struct
-			exists the program in case of error 
+/**
+ @brief allocs space for the main struct
+		exits the program in case of error 
 */
-
 void	alloc_struct(t_data **command)
 {
 	*command = malloc(sizeof(t_data));
@@ -44,8 +44,9 @@ void	alloc_struct(t_data **command)
 	(*command)->table = NULL;
 	(*command)->exit_code = 0;
 }
-/* @brief: called to exit the program in case of EOF input by the user */
-
+/**
+ @brief called to exit the program in case of EOF input by the user 
+ */
 void	exit_bash(char **prompt, t_data *command)
 {
 	ft_putstr_fd("exit\n", 1);

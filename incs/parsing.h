@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:46:37 by renato-oliv       #+#    #+#             */
-/*   Updated: 2025/05/07 14:04:29 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/08 11:26:35 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ char	*copy_red(char *str);
 //expanding
 int		handle_expanding(t_data *command);
 int		quote_counter(char **s, int *exit_code);
-int		expande_exit_code(char **s, int *exit_code);
-int		my_get_env(char *s, char **env, int x);
+int		expande_exit_code(char **env, int *exit_code);
+int		my_get_env(char *s, char **env, int x, int *exit_code);
 char	*get_prev(char *s, int x);
 int		get_str(char **s, char *prev, char *env, int len);
 int		mid_expand_quote_handler(int *flag, int *i, char *current);

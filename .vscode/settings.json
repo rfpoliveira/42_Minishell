@@ -5,7 +5,8 @@
 		"format": "c",
 		"parsing.h": "c",
 		"cstdlib": "c",
-		"readline.h": "c"
+		"readline.h": "c",
+		"text_encoding": "c"
 	},
 	"makefile.configureOnOpen": true
 }

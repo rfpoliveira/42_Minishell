@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:55:27 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/07 15:02:34 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:20:03 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # define _XOPEN_SOURCE 700
+extern int	SIGINT_FLAG;
 
 /*============================================================================#
 #								libraries									  #

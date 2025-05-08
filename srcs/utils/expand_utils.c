@@ -6,37 +6,25 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:30:00 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/07 14:02:10 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:48:22 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
 
-/* @brief: substituits the contents of s ($$) 
-			with the exit code of the last command 
-	@return: 0 in case of success
-			 1 or any other number in case of error (Malloc)
-*/
-
-int	expande_exit_code(char **s, int *exit_code)
-{
-	free(*s);
-	*s = ft_itoa(*exit_code);
-	if (*s == NULL)
-		return (print_error(MALLOC_ERROR, exit_code), 1);
-	return (0);
-}
-/* @brief: allocs and gets whats before whats being expanded
-	@arguments: s is the string where the expand symbol ($) is found.
-				x - 1 is the index where "$" is found in s.
-	the first condicion checks if there is anything to save and saves it,
+/**
+ @brief allocs and gets whats before whats being expanded
+ 
+ 	the first condicion checks if there is anything to save and saves it,
 	if not it allocs an empty string to have 
 	something to free in either, facilitating that.
-	@return: a string allocated with whats before the "$" sign
-			 NULL in case of malloc error 
+	
+ @param s is the string where the expand symbol ($) is found.
+ @param x is the index after the one where "$" is found in s.
+ @return a string allocated with whats before the "$" sign,
+		 NULL in case of malloc error 
 */
-
 char	*get_prev(char *s, int x)
 {
 	char	*prev;
@@ -56,13 +44,13 @@ char	*get_prev(char *s, int x)
 	}
 	return (prev);
 }
-/* @brief: puus env and post together.
-	@arguments: tmp is a buffer.
-				env is the pointer where we save the expanded 
-				environment variable;
-				post is what comes after the expanded variable;
+/**
+ @brief puts env and post together.
+ @param tmp is a buffer.
+ @param env is the pointer where we save the expanded 
+			environment variable;
+ @param post is what comes after the expanded variable;
 */
-
 static void	apend_post(char **tmp, char **env, char *post)
 {
 	int	len;
@@ -77,37 +65,38 @@ static void	apend_post(char **tmp, char **env, char *post)
 		*tmp = malloc(len);
 		if (*tmp == NULL)
 		{
-			*env = NULL;
+			ft_free(env);
 			return ;
 		}
 		ft_strlcpy(*tmp, *env, len);
 		ft_strlcat(*tmp, post, len);
+		ft_free(env);
 		*env = ft_strdup(*tmp);
 	}
 }
-/* @brief: gets the string that should be expanded and does so
-	@arguments: s is a pointer to the "$" in the string.
-				x is position in the string next to the "$".
-				env is the pointer where we save the expanded 
-				environment variable;
-	@notes: takes len does if finds 34(double quote) 
-			cuz is supposed to expand anyway;
-			gets only the enviroment var name 
-			to tmp ready to use in getenv;
-	@return: 0 in case of success. 
-			 MALLOC_ERROR or any number in case of error 
+/**
+ @brief gets the string that should be expanded and does so
+ @param s is a pointer to the "$" in the string.
+ @param x is position in the string next to the "$".
+ @param env is the pointer where we save the expanded 
+			environment variable;
+ @note takes len does if finds 34(double quote) 
+		cuz is supposed to expand anyway;
+		gets only the enviroment var name 
+		to tmp ready to use in getenv;
+ @return 0 in case of success,
+		 MALLOC_ERROR or any number in case of error 
 */
-
-static int get_len(char *s, int *i, int x)
+static int	get_len(char *s, int *i, int x)
 {
-	if (ft_isdigit(s[*i]))
+	if (ft_isdigit(s[*i]) || s[*i] == '?' || s[*i] == '$')
 		return (++(*i) - x);
 	while (s[*i] && (ft_isalnum(s[*i]) || s[*i] == '_'))
 		(*i)++;
 	return (*i - x);
 }
 
-int	my_get_env(char *s, char **env, int x)
+int	my_get_env(char *s, char **env, int x, int *exit_code)
 {
 	char	*tmp;
 	char	*post;
@@ -122,24 +111,29 @@ int	my_get_env(char *s, char **env, int x)
 	post = ft_substr(s, i, ft_strlen(s));
 	if (!post)
 		return (free(tmp), MALLOC_ERROR);
-	*env = getenv(tmp);
+	if (s[x] == '?')
+		expande_exit_code(env, exit_code);
+	else if (s[x++] == '$')
+		*env = ft_strdup("");
+	else
+		*env = ft_strdup(getenv(tmp));
 	apend_post(&tmp, env, post);
 	if (!*env)
 		return (ft_free(&tmp), ft_free(&post), MALLOC_ERROR);
 	return (ft_free(&tmp), ft_free(&post), 0);
 }
-/* @brief:  takes the original string (s) with something to expande
-			and substituits it for a new string with and variable
-			expanded (env)
-	@arguments: s is the original string (must be a double pointer
-				because we will alter the pointer itself);
-				prev is whay comes before the '$';
-				env is the expanded variable;
-				len is the total lenght of the new string;
-	@note: if we find a $ bettewn quotes(34 in ascii) we still need to
-		   expande 
+/**
+ @brief takes the original string (s) with something to expande
+		and substituits it for a new string with and variable
+		expanded (env)
+ @param s is the original string (must be a double pointer
+		  because we will alter the pointer itself);
+ @param prev is whay comes before the '$';
+ @param env is the expanded variable;
+ @param len is the total lenght of the new string;
+ @note if we find a $ bettewn quotes(34 in ascii) we still need to
+	   expande 
 */
-
 int	get_str(char **s, char *prev, char *env, int len)
 {
 	if ((*s)[ft_strlen(*s) - 1] == 34)

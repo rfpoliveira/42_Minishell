@@ -6,20 +6,20 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/01 10:42:13 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:59:58 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
 
-/* @brief: deletes quotes from s 
-	@arguments: s is the string from which we will take out some chars
-	@util: ignores the quote and copies until the next one;
-	@return: 0 in case of success
-			 1 or any other number in case of errors. 
+/** 
+ @brief ignores the quote and copies until the next one;
+ @param s is the string from which we will take out some chars
+ @param tmp is the new string that was pass on the data to
+ @param i the index of the quote found
+ @param len the index where we put the new info in the tmp
 */
-
 static void	delete_quotes_util(char **s, char **temp, int *i, int *len)
 {
 	int	quote;
@@ -33,7 +33,12 @@ static void	delete_quotes_util(char **s, char **temp, int *i, int *len)
 		(*i)++;
 	}
 }
-
+/** 
+ @brief deletes quotes from s 
+ @param s is the string from which we will take out some chars
+ @return: 0 in case of success, 
+		  1 or any other number in case of errors. 
+*/
 static int	delete_quotes(char **s, t_data *command)
 {
 	int		i;
@@ -61,13 +66,13 @@ static int	delete_quotes(char **s, t_data *command)
 	*s = temp;
 	return (0);
 }
-/* @brief: deletes quotes and redirect signs from the files saved
-	@arguments: file is the current file to check
-				command is the main struct with all the data
-	@return: 0 in case of success
-			 1 or any other number in case of errors. 
+/**
+ @brief deletes quotes and redirect signs from the files saved
+ @param file is the current file to check
+ @param command is the main struct with all the data
+ @return 0 in case of success,
+		 1 or any other number in case of errors. 
 */
-
 static int	check_for_quotes(char **file, t_data *command)
 {
 	int	i;
@@ -91,13 +96,13 @@ static int	check_for_quotes(char **file, t_data *command)
 	}
 	return (error);
 }
-/* @brief: iterates and calls and the functions need to delete quotes 
+/**
+ @brief iterates and calls and the functions need to delete quotes 
 			and redirects from everything saved.
-	@arguments: command is the main struct with all the data
-	@return: 0 in case of success
-			 1 or any other number in case of errors. 
+ @param command is the main struct with all the data
+ @return 0 in case of success,
+		 1 or any other number in case of errors. 
 */
-
 int	handle_quotes(t_data *command)
 {
 	int	error;

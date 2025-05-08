@@ -6,19 +6,20 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:44:20 by renato-oliv       #+#    #+#             */
-/*   Updated: 2025/05/07 15:02:41 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/08 15:43:09 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-/* @brief: handles the SIGINT
-    replaces the line introduced with ""
-    writes a newline
-    updates readline to the newline
-    and finnaly updates the display to match 
+/**
+ @brief handles the SIGINT
+ 
+    replaces the line introduced with "",
+    writes a newline,
+    updates readline to the newline,
+    and finnaly updates the display to match.
 */
-
 void	signal_handler(int signumb)
 {
 	(void)signumb;
@@ -26,12 +27,14 @@ void	signal_handler(int signumb)
 	ft_putstr_fd(" \n", 1);
 	rl_on_new_line();
 	rl_redisplay();
+	SIGINT_FLAG = 1;
 }
-/* @brief: handles the signals: cntl + c(SINGINT) and cntl + \(SIGQUIT) 
+/**
+ @brief handles the signals: cntl + c(SINGINT) and cntl + \(SIGQUIT) 
+ 
     if the user uses SIGINT if calls the sighandler
     if the user uses SIGQUIT it ignores it
 */
-
 void	handle_signals(void)
 {
 	struct sigaction	sa_signal;

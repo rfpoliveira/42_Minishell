@@ -6,25 +6,24 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:34:23 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/04/29 16:09:39 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/08 16:12:07 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
-/* 
-	@brief: checks errors of multiple redirect chars following each other 
-			then calls the util to copy the files to their matrixes
-	@arguments: command is the main struct with all the data
-                arg is the current arg we found the redirect
-				talbe is the current table we working on
-				chr is the index of the redirect sign in the string (arg)
-	@notes: we cant have empty netx to redirect of multiple diferent signs 
-			(<<> or >< for exemple)
-    @return: 0 in case of success.
+/**
+ @brief: checks errors of multiple redirect chars following each other 
+		 then calls the util to copy the files to their matrixes
+ @param command is the main struct with all the data
+ @param arg is the current arg we found the redirect
+ @param table is the current table we working on
+ @param chr is the index of the redirect sign in the string (arg)
+ @note we cant have empty netx to redirect of multiple diferent signs 
+	   (<<> or >< for exemple)
+ @return 0 in case of success.
              1 or any other number in case of error.
 */
-
 int	assign_file(t_data *command, int table, int arg, int chr)
 {
 	char	*current;
@@ -53,12 +52,12 @@ int	assign_file(t_data *command, int table, int arg, int chr)
 	return (error);
 }
 
-/* @brief: alloc and copies a string until it finds redirect symbols or '\0' 
-	@arguments: str is the string to be copied
-	@note: based of strdup
-	@return: the copy until the correct point
+/**
+ @brief alloc and copies a string until it finds redirect symbols or '\0' 
+ @param str is the string to be copied
+ @note based of strdup
+ @return the copy until the correct point
 */
-
 char	*copy_red(char *str)
 {
 	int		len;

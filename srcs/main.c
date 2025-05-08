@@ -6,11 +6,13 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/07 15:02:50 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:25:01 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
+
+int SIGINT_FLAG = 0;
 
 int main(void)
 {
@@ -32,7 +34,15 @@ int main(void)
 		}
 	while (42)
 	{
+		printf("last exit_code: %i\n", command->exit_code);
 		user_line = readline(prompt);
+		if (SIGINT_FLAG == 1)
+		{
+			SIGINT_FLAG = 0;
+			ft_free(&user_line);
+			command->exit_code = 128 + 2;
+			continue ;
+		}
 		if (user_line == NULL)
 			exit_bash(&prompt, command);
 		if (parsing(&user_line, command) != 0)

@@ -9,7 +9,7 @@ SIGNAL = srcs/signals/handle_signals.c
 UTILS = $(addprefix $(UTILS_PATH)/, main_utils.c expand_utils.c\
 split_utils.c parsing_utils.c parsing_utils2.c free_utils.c\
 count_utils.c redirect_utils.c redirect_file_assign.c reorganize_utils.c \
-parsing_utils3.c expand_utils2.c)
+parsing_utils3.c expand_utils2.c expand_utils3.c)
 
 SRCS = $(UTILS) $(MAIN) $(PARSING) $(SIGNAL)
 OBJS = $(SRCS:.c=.o)
