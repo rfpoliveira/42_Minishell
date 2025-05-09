@@ -61,6 +61,7 @@ int	exec_cmd(t_simple_command *cmd, t_data *data)
 		if (pid == 0)
 		{
 			setpaths(cmd, data->paths);
+			redirects(cmd);
 			execve(cmd->paths, cmd->args, temp);
 			free(temp);
 			exit(1);
@@ -70,6 +71,7 @@ int	exec_cmd(t_simple_command *cmd, t_data *data)
 	else if (data->number_simple_commands > 1) 
 	{
 			setpaths(cmd, data->paths);
+			redirects(cmd);
 			execve(cmd->paths, cmd->args, temp);
 			free(temp);
 			exit(1);
@@ -82,10 +84,10 @@ int	ft_cmd(t_data *data)
 	int		i;
 	pid_t	*pid;
 
+	/*re_fd = NULL;*/
 	data->table[0]->paths = NULL;
 	if (data->number_simple_commands == 1)
 		return (exec_cmd(data->table[0], data), 0);
-	redirects(data);
 	i = -1;
 	while (++i < data->number_simple_commands)
 		if (pipe(data->table[i]->fd) == -1)

@@ -28,6 +28,7 @@ char	**envp_cpy(t_env *envp);
 void	env_addback(t_env *env, t_env *node);
 void 	init_envp(t_env **env, char **envp);
 void	init_data(t_data *data, char **envp);
-void	redirects(t_data *data);
+void	redirects(t_simple_command *cmd);
+void	infile_redir(char *infile);
 
 #endif // !EXEC_H
