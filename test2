@@ -1,8 +1,0 @@
-0
-
-
-minishell > 0: cat
-infile(0): test
-outfile(0): test2
-exit_code: 0
-[?2004hminishell > [?2004l
