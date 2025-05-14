@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:46:37 by renato-oliv       #+#    #+#             */
-/*   Updated: 2025/05/08 11:26:35 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/14 11:47:51 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		my_get_env(char *s, char **env, int x, int *exit_code);
 char	*get_prev(char *s, int x);
 int		get_str(char **s, char *prev, char *env, int len);
 int		mid_expand_quote_handler(int *flag, int *i, char *current);
-int sep_per_words(t_simple_command *curr_table, int *exit_code);
+int		sep_per_words(t_simple_command *curr_table, int *exit_code);
 
 //quotes
 int		handle_quotes(t_data *command);
@@ -63,11 +63,7 @@ size_t	r_count_whitespaces(char *s);
 size_t	r_count_sep(char *s, char sep);
 
 //parse_commands
-int		parse_commands(t_data *command);
-int		parse_exit(t_simple_command *s, int *exit_code);
-int		parse_cd(t_simple_command *s, int *exit_code);
-int		parse_env(t_simple_command *s, int *exit_code);
-int		parse_export_unset(t_simple_command *s, int *exit_code);
+char	*red_order_code(int count, char* command);
 int		check_pipes(char *s);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/08 12:25:01 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/14 17:25:42 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ int main(void)
 		if (SIGINT_FLAG == 1)
 		{
 			SIGINT_FLAG = 0;
-			ft_free(&user_line);
-			command->exit_code = 128 + 2;
-			continue ;
+ 			command->exit_code = 128 + 2;
 		}
 		if (user_line == NULL)
 			exit_bash(&prompt, command);
@@ -80,6 +78,7 @@ int main(void)
 				while(command->table[i]->double_out[++x])
 					ft_printf("double_out(%i): %s\n", x, command->table[i]->double_out[x]);
 			}
+			ft_printf("order: %s\n", command->table[i]->red_order);
 			x = -1;
 			j = 0;
 			i++;

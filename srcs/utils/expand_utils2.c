@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 16:08:04 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/08 15:52:02 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/14 10:40:27 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ static int	pop_mtx(char **new_mtx, t_simple_command *curr, char **tmp, int *i)
  @return 0 in case of success,
 		 1 if there is any malloc errors
 */
-static int	reorg_mtx(t_simple_command *curr, int curr_arg, int *exit_code)
+static int	reorg_mtx(t_simple_command *curr, int curr_arg)
 {
 	char	**tmp;
 	char	**new_matrix;
@@ -143,7 +143,7 @@ int	sep_per_words(t_simple_command *curr_table, int *exit_code)
 				j += skip_quotes(curr_table->args[i], j);
 			if (ft_isspace(curr_table->args[i][j]))
 			{
-				if (reorg_mtx(curr_table, i, exit_code))
+				if (reorg_mtx(curr_table, i))
 					return (print_error(MALLOC_ERROR, exit_code), 1);
 				i = -1;
 				j = 0;

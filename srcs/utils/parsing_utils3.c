@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:43:54 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/08 16:07:42 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/14 11:57:33 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,3 +124,4 @@ int	quote_counter(char **s, int *exit_code)
 	else
 		return (print_error(QUOTE_ERROR, exit_code), 1);
 }
+
