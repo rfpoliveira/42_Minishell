@@ -14,5 +14,11 @@
 
 int	ft_echo(t_simple_command *cmd)
 {
-	if ()
+	int	i;
+
+	i = 0;
+	while (cmd->args[++i])
+		ft_printf("%s", cmd->args[i]);
+	if (!flagsearch(cmd))
+		write(1, "\n", 1);
 }
