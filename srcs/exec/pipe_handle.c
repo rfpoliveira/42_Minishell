@@ -104,7 +104,10 @@ void fd_handler(t_data *data, pid_t *pid)
 				last_arg(data, i);
 			else
 				mid_args(data, i);
-			exec_cmd(data->table[i], data);
+			if (ft_strncmp(data->table[i]->args[0], "echo", 5) == 0)
+				ft_echo(data->table[i]);
+			else
+				exec_cmd(data->table[i], data);
 			exit(1);
         }
 	}

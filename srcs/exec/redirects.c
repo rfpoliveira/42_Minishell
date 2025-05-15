@@ -41,9 +41,7 @@ void	outfile_redir(t_simple_command *cmd)
 void	infile_redir(char *infile)
 {
 	int	fd;
-	int	i;
 
-	i = -1;
 	fd = -1;
 	if (infile)
 		fd = open(infile, O_RDONLY);
@@ -65,7 +63,7 @@ void	redirects(t_simple_command *cmd)
 	while (cmd->double_in[++i])
 		hd = ft_heredoc(cmd->double_in[i]);
 	i = -1;
-	while (!access(cmd->infile[++i], F_OK | R_OK) || hd)
+	while ((cmd->infile[++i] && !access(cmd->infile[i], F_OK | R_OK)) || hd)
 	{
 		if (hd)
 		{

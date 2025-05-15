@@ -12,12 +12,14 @@ SIGNAL = srcs/signals/handle_signals.c
 EXEC = $(addprefix $(EXEC_PATH)/, commands.c commands_utils.c pipe_handle.c \
 	   redirects.c heredoc.c)
 
+BUILTINS = $(addprefix $(BUILTINS_PATH)/, ft_echo.c)
+
 UTILS = $(addprefix $(UTILS_PATH)/, main_utils.c expand_utils.c\
 split_utils.c parsing_utils.c parsing_utils2.c free_utils.c\
 count_utils.c redirect_utils.c redirect_file_assign.c reorganize_utils.c \
 parsing_utils3.c)
 
-SRCS = $(UTILS) $(MAIN) $(PARSING) $(SIGNAL) $(EXEC)
+SRCS = $(UTILS) $(MAIN) $(PARSING) $(SIGNAL) $(EXEC) $(BUILTINS)
 OBJS = $(SRCS:.c=.o)
 
 NAME = minishell
@@ -28,6 +30,7 @@ LIBFT_PATH = libft
 UTILS_PATH = srcs/utils
 PARSING_PATH = srcs/parsing
 EXEC_PATH = srcs/exec
+BUILTINS_PATH = srcs/builtins
 
 #==============================================================================#
 #                                   Alias                                      #

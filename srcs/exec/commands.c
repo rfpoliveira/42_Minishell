@@ -16,9 +16,7 @@ char **pathfind(t_env *envp)
 {
 	char	**path;
 	t_env	*p;
-	int		j;
 
-	j = 0;
 	path = NULL;
 	p = envp;
 	while (p->next)

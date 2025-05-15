@@ -30,5 +30,6 @@ void 	init_envp(t_env **env, char **envp);
 void	init_data(t_data *data, char **envp);
 void	redirects(t_simple_command *cmd);
 char	*ft_heredoc(char *eof);
+int	ft_echo(t_simple_command *cmd);
 
 #endif // !EXEC_H
