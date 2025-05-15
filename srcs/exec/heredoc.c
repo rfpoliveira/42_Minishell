@@ -11,27 +11,35 @@
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
-#include <fcntl.h>
 
 char	*heredoc_file()
 {
 	static int	i;
 	char		*filename;
 
-	filename = ft_strjoin(".hd_temp_file", ft_itoa(i++));
+	filename = ft_strjoin(".hd_temp_file_", ft_itoa(i++));
 	return (filename);
 }
 
-void	ft_heredoc(t_simple_command *cmd)
+char	*ft_heredoc(char *eof)
 {
 	int		fd;
-	char	*file;
+	static char	*file;
 	char	*input;
 
+	if (file)
+		free(file);
 	file = heredoc_file();
 	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
-	while (input && ft_strncmp(input, cmd->double_in, ft_strlen(input)))
+	input = readline("> ");
+	while (input && ft_strncmp(input, eof, ft_strlen(input)))
 	{
-
+		ft_putstr_fd(input, fd);
+		write(fd, "\n", 1);
+		free(input);
+		input = readline("> ");
 	}
+	free(input);
+	close(fd);
+	return (file);
 }

@@ -29,7 +29,6 @@ void	env_addback(t_env *env, t_env *node);
 void 	init_envp(t_env **env, char **envp);
 void	init_data(t_data *data, char **envp);
 void	redirects(t_simple_command *cmd);
-void	infile_redir(t_simple_command *cmd);
-void	ft_heredoc(t_simple_command *cmd);
+char	*ft_heredoc(char *eof);
 
 #endif // !EXEC_H

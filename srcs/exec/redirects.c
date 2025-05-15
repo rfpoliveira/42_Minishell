@@ -6,7 +6,7 @@
 /*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 19:35:02 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/05/06 19:35:06 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/05/14 17:15:06 by jpatrici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,29 +21,32 @@ void	outfile_redir(t_simple_command *cmd)
 
 	i = -1;
 	fd = -1;
-	if (cmd->outfile)
-		while (cmd->outfile[++i])
-			fd = open(cmd->outfile[i], O_CREAT | O_RDWR | O_TRUNC, 0644);
-	if (cmd->double_out)
+	while (cmd->outfile[++i])
 	{
-		i = -1;
-		while (cmd->double_out[++i])
-			fd = open(cmd->double_out[i], O_CREAT | O_RDWR | O_APPEND, 0644);
+		if (access(cmd->outfile[i], F_OK | W_OK))
+			exit(127);
+		fd = open(cmd->outfile[i], O_CREAT | O_RDWR | O_TRUNC, 0644);
+	}
+	i = -1;
+	while (cmd->double_out[++i])
+	{
+		if (access(cmd->double_out[i], F_OK | W_OK))
+			exit(127);
+		fd = open(cmd->double_out[i], O_CREAT | O_RDWR | O_APPEND, 0644);
 	}
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 }
 
-void	infile_redir(t_simple_command *cmd)
+void	infile_redir(char *infile)
 {
 	int	fd;
 	int	i;
 
 	i = -1;
 	fd = -1;
-	if (cmd->infile)
-		while (cmd->infile[++i])
-			fd = open(cmd->infile[i], O_RDONLY);
+	if (infile)
+		fd = open(infile, O_RDONLY);
 	if (dup2(fd, STDIN_FILENO) == -1)
 		return ;
 	close(fd);
@@ -51,14 +54,29 @@ void	infile_redir(t_simple_command *cmd)
 
 void	redirects(t_simple_command *cmd)
 {
-	/*if (cmd->double_in)*/
-	/*	ft_heredoc(cmd);*/
-	if (!access(cmd->infile[0], F_OK | R_OK))
-			infile_redir(cmd);
-	else if (cmd->infile && access(cmd->infile[0], F_OK | R_OK))
-		exit(127);
-	if (cmd->outfile || cmd->double_out)
+	int		i;
+	char	*hd;
+	
+	i = -1;
+	hd = NULL;
+	if (!cmd->double_in && !cmd->infile 
+		&& !cmd->outfile && !cmd->double_out)
+		return ;
+	while (cmd->double_in[++i])
+		hd = ft_heredoc(cmd->double_in[i]);
+	i = -1;
+	while (!access(cmd->infile[++i], F_OK | R_OK) || hd)
+	{
+		if (hd)
+		{
+			infile_redir(hd);
+			break ;
+		}
+		else if (!access(cmd->infile[i], F_OK | R_OK))
+			infile_redir(cmd->infile[i]);
+		if (cmd->infile[i] && access(cmd->infile[i], F_OK | R_OK))
+			exit(127);
+	}
+	if (cmd->outfile[0] || cmd->double_out[0])
 		outfile_redir(cmd);
-		/*while (data->table[i]->double_in)*/
-		/*	ft_heredoc(data->table[i]->double_in);*/
 }
