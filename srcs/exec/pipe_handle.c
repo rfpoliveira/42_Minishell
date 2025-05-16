@@ -84,6 +84,7 @@ void parent_process(t_data *data, pid_t *pid)
 	while (++i < data->number_simple_commands)
 	   waitpid(pid[i], &status, 0);
 	data->exit_code = WIFEXITED(status);
+	/*exit(data->exit_code);*/
 }
 
 void fd_handler(t_data *data, pid_t *pid)
@@ -104,10 +105,7 @@ void fd_handler(t_data *data, pid_t *pid)
 				last_arg(data, i);
 			else
 				mid_args(data, i);
-			if (ft_strncmp(data->table[i]->args[0], "echo", 5) == 0)
-				ft_echo(data->table[i]);
-			else
-				exec_cmd(data->table[i], data);
+			exec_cmd(data->table[i], data);
 			exit(1);
         }
 	}

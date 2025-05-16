@@ -22,6 +22,7 @@ void	fd_handler(t_data *data, pid_t *pid);
 int		pipe_handle(t_data *data, int *fd, int index);
 int		pipe_init(t_data *data, int index);
 int		exec_cmd(t_simple_command *cmd, t_data *data);
+int		setpaths(t_simple_command *cmd, char **paths);
 char	**pathfind(t_env *envp);
 t_env	*env_new(char *envp);
 char	**envp_cpy(t_env *envp);
@@ -30,6 +31,6 @@ void 	init_envp(t_env **env, char **envp);
 void	init_data(t_data *data, char **envp);
 void	redirects(t_simple_command *cmd);
 char	*ft_heredoc(char *eof);
-int	ft_echo(t_simple_command *cmd);
+int		ft_echo(t_simple_command *cmd);
 
 #endif // !EXEC_H

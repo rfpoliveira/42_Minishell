@@ -10,69 +10,55 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/exec.h"
+#include "../../incs/minishell.h"
 
-char **pathfind(t_env *envp)
+int	builtin_exec(t_simple_command *cmd)
 {
-	char	**path;
-	t_env	*p;
-
-	path = NULL;
-	p = envp;
-	while (p->next)
-	{
-		if (ft_strnstr(p->var, "PATH=", 5))
-			path = ft_split(&p->var[5], ':');
-		p = p->next;
-	}
-		return (path);
+	if (cmd->args[0] && !ft_strncmp(cmd->args[0], "echo", 5))
+		return (ft_echo(cmd), 1);
+	return (0);
 }
 
-int	setpaths(t_simple_command *cmd, char **paths)
-{
-	int		i;
-
-	i= -1;
-	while (paths[++i])
-	{
-		cmd->paths = ft_strjoin(paths[i], "/");
-		cmd->paths = ft_strjoin(cmd->paths, *cmd->args);
-		if (access(cmd->paths, F_OK) != -1
-			&& open(cmd->paths, O_DIRECTORY) == -1)
-			break ;
-		else
-			free(cmd->paths);
-	}
-	return (1);
-}
-
-int	exec_cmd(t_simple_command *cmd, t_data *data)
+int	node_exec(t_simple_command *cmd, t_data *data)
 {
 	pid_t	pid;
 	int		status;
 	char	**temp;
 
 	temp = envp_cpy(data->env);
-	if (data->number_simple_commands == 1)
+	pid = fork();
+	if (pid == 0)
 	{
-		pid = fork();
-		if (pid == 0)
-		{
-			setpaths(cmd, data->paths);
-			redirects(cmd);
-			execve(cmd->paths, cmd->args, temp);
-			free(temp);
+		setpaths(cmd, data->paths);
+		redirects(cmd);
+		if (builtin_exec(cmd))
 			exit(1);
-		}
-		waitpid(pid, &status, 0);
+		else
+			execve(cmd->paths, cmd->args, temp);
+		free(temp);
+		exit(1);
 	}
+	waitpid(pid, &status, 0);
+	return (0);
+}
+
+int	exec_cmd(t_simple_command *cmd, t_data *data)
+{
+	char	**temp;
+
+	temp = envp_cpy(data->env);
+	if (data->number_simple_commands == 1)
+		node_exec(cmd, data);
 	else if (data->number_simple_commands > 1) 
 	{
-			setpaths(cmd, data->paths);
-			redirects(cmd);
+		setpaths(cmd, data->paths);
+		redirects(cmd);
+		if (!builtin_exec(cmd))
 			execve(cmd->paths, cmd->args, temp);
-			free(temp);
-			exit(1);
+		else
+			exit(-1);
+		free(temp);
+		exit(1);
 	}
 	return (0);
 }
@@ -82,7 +68,6 @@ int	ft_cmd(t_data *data)
 	int		i;
 	pid_t	*pid;
 
-	/*re_fd = NULL;*/
 	data->table[0]->paths = NULL;
 	if (data->number_simple_commands == 1)
 		return (exec_cmd(data->table[0], data), 0);
@@ -92,5 +77,6 @@ int	ft_cmd(t_data *data)
 			exit(1);
 	pid = ft_calloc(sizeof(pid_t), data->number_simple_commands);
 	fd_handler(data, pid);
+	free(pid);
 	return (0);
 }
