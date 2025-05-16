@@ -23,14 +23,16 @@ void	outfile_redir(t_simple_command *cmd)
 	fd = -1;
 	while (cmd->outfile[++i])
 	{
-		if (access(cmd->outfile[i], F_OK | W_OK))
+		if (!access(cmd->outfile[i], F_OK)
+		 && access(cmd->outfile[i], W_OK))
 			exit(127);
 		fd = open(cmd->outfile[i], O_CREAT | O_RDWR | O_TRUNC, 0644);
 	}
 	i = -1;
 	while (cmd->double_out[++i])
 	{
-		if (access(cmd->double_out[i], F_OK | W_OK))
+		if (!access(cmd->double_out[i], F_OK)
+		&& access(cmd->double_out[i], W_OK))
 			exit(127);
 		fd = open(cmd->double_out[i], O_CREAT | O_RDWR | O_APPEND, 0644);
 	}
