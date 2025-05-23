@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:01:42 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/08 16:14:14 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:45:23 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static int	count_singles(char **args, int curr_arg, int curr_chr)
 			return (1);
 	}
 }
+
 /**
  @brief counts the number of arguments were you have a double redirect 
         that will be deleted and returns them
@@ -64,6 +65,7 @@ static int	count_doubles(char **args, int curr_arg, int curr_chr)
 			return (1);
 	}
 }
+
 /**
  @brief counts the number of arguments left after we delete 
         what we dont need (the args with redirect and the file names)
@@ -97,6 +99,7 @@ int	new_arg_counter(t_simple_command *table, char **args)
 	}
 	return (table->number_args - count);
 }
+
 /**
  @brief takes each argument and copys to tmp everything which is not a
          redirect i iterate all the arg, if it finds a symbol it stops.

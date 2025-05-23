@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 12:03:29 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/08 16:02:30 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:40:14 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	count_args(t_simple_command *curr_table)
 		i++;
 	return (i);
 }
+
 /**
  @brief counts the number of chars s will have after we deletes the quotes
 		needed to alloc space for the new altered string
@@ -57,6 +58,7 @@ int	after_quotes_strlen(char **s)
 	}
 	return (i - quote_skipped);
 }
+
 /**
  @brief checks if a char is a whitespace
  @return 1 if it is,
@@ -68,6 +70,7 @@ int	ft_isspace(char c)
 		return (1);
 	return (0);
 }
+
 /**
  @brief checks for a OR operator (we dont deal with that)
 		if it finds any the program will give an error
@@ -92,6 +95,7 @@ static int	check_consecutives(char *s)
 	}
 	return (0);
 }
+
 /**
  @brief checks if there is a pipe in the beggining or the end of the command
 		if it finds any the program will give an error

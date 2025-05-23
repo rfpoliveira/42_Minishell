@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:44:20 by renato-oliv       #+#    #+#             */
-/*   Updated: 2025/05/08 15:43:09 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:36:21 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	signal_handler(int signumb)
 	ft_putstr_fd(" \n", 1);
 	rl_on_new_line();
 	rl_redisplay();
-	SIGINT_FLAG = 1;
+	g_sigint_flag = 1;
 }
 /**
  @brief handles the signals: cntl + c(SINGINT) and cntl + \(SIGQUIT) 
@@ -35,6 +35,7 @@ void	signal_handler(int signumb)
     if the user uses SIGINT if calls the sighandler
     if the user uses SIGQUIT it ignores it
 */
+
 void	handle_signals(void)
 {
 	struct sigaction	sa_signal;

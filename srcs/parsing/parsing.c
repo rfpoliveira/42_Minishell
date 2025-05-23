@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/14 17:32:42 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:58:28 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,15 @@ static void	mount_table(t_data *command, char **splited)
 		command->table[i]->number_args = count_args(command->table[i]);
 		if (alloc_file(command, splited, i) != 0)
 			return (memory_free(splited, command, MALLOC_ERROR));
-			
-		count = count_infiles(command->table[i]->args) + count_outfiles(command->table[i]->args) + count_double_ins(command->table[i]->args) + count_double_outs(command->table[i]->args) + 1;
-		
-		printf("count: %i\n", count);
-
+		count = count_infiles(command->table[i]->args)
+			+ count_outfiles(command->table[i]->args)
+			+ count_double_ins(command->table[i]->args)
+			+ count_double_outs(command->table[i]->args) + 1;
 		command->table[i]->red_order = red_order_code(count, splited[i]);
 		i++;
 	}
 }
+
 /**
  @brief allocs and puts the informacion in the command struct (mount_table)
  @param splited is the user input line after being splited by pipe
@@ -97,7 +97,11 @@ static int	ini_command(char **splited, t_data *command)
 int	parsing(char **user_line, t_data *command)
 {
 	char	**splited;
+	int		i;
+	int		j;
 
+	i = -1;
+	j = -1;
 	if (!*user_line || !ft_strncmp(*user_line, "", 1))
 		return (1);
 	if (check_pipes(*user_line) != 0)
@@ -107,7 +111,7 @@ int	parsing(char **user_line, t_data *command)
 		return (memory_free(NULL, command, MALLOC_ERROR), 1);
 	if (ini_command(splited, command) != 0)
 		return (memory_free(splited, command, 0), 1);
-	if (handle_redirect(command) != 0)
+	if (handle_redirect(command, i, j) != 0)
 		return (memory_free(splited, command, 0), 1);
 	if (handle_expanding(command) != 0)
 		return (memory_free(splited, command, 0), 1);

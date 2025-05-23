@@ -6,13 +6,13 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/14 17:25:42 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:34:44 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
 
-int SIGINT_FLAG = 0;
+int g_sigint_flag = 0;
 
 int main(void)
 {
@@ -36,9 +36,9 @@ int main(void)
 	{
 		printf("last exit_code: %i\n", command->exit_code);
 		user_line = readline(prompt);
-		if (SIGINT_FLAG == 1)
+		if (g_sigint_flag == 1)
 		{
-			SIGINT_FLAG = 0;
+			g_sigint_flag = 0;
  			command->exit_code = 128 + 2;
 		}
 		if (user_line == NULL)

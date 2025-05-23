@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/08 15:59:58 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:39:56 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	delete_quotes_util(char **s, char **temp, int *i, int *len)
 		(*i)++;
 	}
 }
+
 /** 
  @brief deletes quotes from s 
  @param s is the string from which we will take out some chars
@@ -66,6 +67,7 @@ static int	delete_quotes(char **s, t_data *command)
 	*s = temp;
 	return (0);
 }
+
 /**
  @brief deletes quotes and redirect signs from the files saved
  @param file is the current file to check
@@ -96,6 +98,7 @@ static int	check_for_quotes(char **file, t_data *command)
 	}
 	return (error);
 }
+
 /**
  @brief iterates and calls and the functions need to delete quotes 
 			and redirects from everything saved.

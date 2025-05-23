@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:43:54 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/14 11:57:33 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:40:35 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	ini_files(t_data *command, char **splited, int curr_table)
 	while (count >= 0)
 		command->table[curr_table]->double_in[count--] = NULL;
 }
+
 /**
  @brief alloc and inicialize every matrix need to save the files
  @param command is the main struct with all the data
@@ -62,6 +63,7 @@ int	alloc_file(t_data *command, char **splited, int curr_table)
 	ini_files(command, splited, curr_table);
 	return (0);
 }
+
 /**
  @brief skips the quotes found until the next one and ajusts the count
  @param s is the current matrix (arg or file) being checked
@@ -85,6 +87,7 @@ static void	quote_counter_util(char **s, int *i, int *j, int *count)
 	if (s[*j][(*i) - 1] == flag)
 		(*count)++;
 }
+
 /**
  @brief checks if there is a even number of quotes.
   
@@ -124,4 +127,3 @@ int	quote_counter(char **s, int *exit_code)
 	else
 		return (print_error(QUOTE_ERROR, exit_code), 1);
 }
-

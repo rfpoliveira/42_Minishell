@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:46:37 by renato-oliv       #+#    #+#             */
-/*   Updated: 2025/05/14 11:47:51 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:55:02 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 #============================================================================*/
 
 //redirects
-int		handle_redirect(t_data *command);
+int		handle_redirect(t_data *command, int i, int j);
 int		count_infiles(char **current);
 int		count_outfiles(char **current);
 int		count_double_outs(char **current);
@@ -63,7 +63,7 @@ size_t	r_count_whitespaces(char *s);
 size_t	r_count_sep(char *s, char sep);
 
 //parse_commands
-char	*red_order_code(int count, char* command);
+char	*red_order_code(int count, char *command);
 int		check_pipes(char *s);
 
 #endif

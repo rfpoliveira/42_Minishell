@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:49:43 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/14 17:34:16 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:38:13 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	count_infiles(char **current)
 	}
 	return (count);
 }
+
 /** 
  @brief counts the number of outfiles in the current argument
  @return int that represent the count
@@ -74,6 +75,7 @@ int	count_outfiles(char **current)
 	}
 	return (count);
 }
+
 /** 
  @brief counts the number of "<<" in the current argument
  @return int that represent the count
@@ -98,6 +100,7 @@ int	count_double_ins(char **current)
 	}
 	return (count);
 }
+
 /**
  @brief counts the number of ">>" in the current argument
  @return int that represent the count

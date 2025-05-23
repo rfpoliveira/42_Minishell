@@ -6,15 +6,12 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:55:27 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/14 10:42:39 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:35:37 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
-# define _XOPEN_SOURCE 700
-extern int	SIGINT_FLAG;
 
 /*============================================================================#
 #								libraries									  #
@@ -34,6 +31,9 @@ extern int	SIGINT_FLAG;
 # include <errno.h>
 # include <signal.h>
 
+# define _XOPEN_SOURCE 700
+
+extern int	g_sigint_flag;
 /*============================================================================#
 #								  ERRORS									  #
 #============================================================================*/
@@ -70,7 +70,7 @@ typedef struct s_simple_command
 	char	**double_out;
 	int		out_iter;
 	int		in_iter;
-	char*	red_order;
+	char	*red_order;
 }			t_simple_command;
 
 typedef struct s_data

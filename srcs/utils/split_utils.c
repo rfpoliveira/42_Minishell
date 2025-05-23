@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 10:30:51 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/08 16:15:27 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:45:42 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ size_t	skip_quotes(char *s, size_t i)
 		skiped++;
 	return (skiped);
 }
+
 /**
  @brief word count for the whitespacs split 
  @note it skips anything bettewn quotes
@@ -75,6 +76,7 @@ size_t	r_count_whitespaces(char *s)
 	}
 	return (count);
 }
+
 /**
  @brief word count for the parsing split 
  @param s is the string being checked

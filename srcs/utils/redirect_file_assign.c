@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:07:30 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/08 16:10:13 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:45:05 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static char	**detect_infile(t_data *command, int arg, int table, int chr)
 	else
 		return (command->table[table]->infile);
 }
+
 /**
  @brief takes the info from the arguments and saves it in the matrix
  
@@ -69,6 +70,7 @@ int	assign_util_infile(t_data *command, int arg, int table, int chr)
 	file[i] = NULL;
 	return (0);
 }
+
 /**
  @brief takes the info from the arguments and saves it in the matrix
  

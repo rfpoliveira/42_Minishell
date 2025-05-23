@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:30:00 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/08 15:48:22 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:38:38 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ char	*get_prev(char *s, int x)
 	}
 	return (prev);
 }
+
 /**
  @brief puts env and post together.
  @param tmp is a buffer.
@@ -74,6 +75,7 @@ static void	apend_post(char **tmp, char **env, char *post)
 		*env = ft_strdup(*tmp);
 	}
 }
+
 /**
  @brief gets the string that should be expanded and does so
  @param s is a pointer to the "$" in the string.
@@ -122,6 +124,7 @@ int	my_get_env(char *s, char **env, int x, int *exit_code)
 		return (ft_free(&tmp), ft_free(&post), MALLOC_ERROR);
 	return (ft_free(&tmp), ft_free(&post), 0);
 }
+
 /**
  @brief takes the original string (s) with something to expande
 		and substituits it for a new string with and variable

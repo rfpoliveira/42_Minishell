@@ -6,13 +6,13 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 11:57:07 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/14 17:19:56 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:58:03 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
-static	void symbol_checker (char *tmp, char *command, int *i, int *j)
+static void	symbol_checker(char *tmp, char *command, int *i, int *j)
 {
 	if (command[*i] == '>')
 	{
@@ -48,16 +48,17 @@ static	void symbol_checker (char *tmp, char *command, int *i, int *j)
  @param command is the arguments of the current table
  @param code is where the code will be stored
 */
-char	*red_order_code(int count, char* command)
+char	*red_order_code(int count, char *command)
 {
-	int	i;
-	int j;
-	char tmp[count];
+	int		i;
+	int		j;
+	char	*tmp;
 
 	i = -1;
 	j = -1;
+	tmp = malloc(sizeof(char) * count);
 	tmp[count - 1] = '\0';
 	while (command[++i] && j != count - 1)
 		symbol_checker(tmp, command, &i, &j);
-	return (ft_strdup(tmp));
+	return (tmp);
 }

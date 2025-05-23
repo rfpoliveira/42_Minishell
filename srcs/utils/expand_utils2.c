@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 16:08:04 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/14 10:40:27 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:38:58 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	mid_expand_quote_handler(int *flag, int *i, char *current)
 		return (1);
 	return (0);
 }
+
 /**
  @brief copies the args from the old to the new matrix
 		 malloc is protected as well and i is incremented
@@ -50,6 +51,7 @@ static int	copy_n_iter(char **new_mtx, t_simple_command *curr, int *i, int x)
 		return (1);
 	return (0);
 }
+
 /**
  @brief constructs the new matrix with the arguments to keep
 		and the new separated ones
@@ -87,6 +89,7 @@ static int	pop_mtx(char **new_mtx, t_simple_command *curr, char **tmp, int *i)
 	}
 	return (error);
 }
+
 /** 
  @brief creats the new matrix and replaces the one with the non seprated
 		arguments
@@ -120,6 +123,7 @@ static int	reorg_mtx(t_simple_command *curr, int curr_arg)
 	curr->args = new_matrix;
 	return (0);
 }
+
 /**
  @brief in case there are spaces after expanding
 		it sperates the args

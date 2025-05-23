@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 14:59:33 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/08 15:54:50 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:39:37 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	alloc_struct(t_data **command)
 	(*command)->table = NULL;
 	(*command)->exit_code = 0;
 }
+
 /**
  @brief called to exit the program in case of EOF input by the user 
  */

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:53:37 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/08 15:26:27 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:46:31 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static int	expande(char **s, int x, int *exit_code)
 	ft_free(&env);
 	return (0);
 }
+
 /**
  * @brief is called to iterate threw the redirection saved
  * @param file is the current redirection being checked.
@@ -88,6 +89,7 @@ static int	expande_red_util(char **file, int i, int j, int *exit_code)
 	}
 	return (0);
 }
+
 /** 
  * @brief is called to check if there are redirections saved
  * @param curr_table is the current table being checked.

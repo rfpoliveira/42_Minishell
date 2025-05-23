@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 10:42:07 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/08 15:36:27 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:58:51 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static void	substring_calc(char *s, int *i, int *j, char sep)
 		}
 	}
 }
+
 /**
  @brief populates the matrix with the smaller strings 
 		 that are suposed to be separated.
@@ -87,6 +88,7 @@ static char	**fill(char *s, char **res, char sep)
 	}
 	return (res);
 }
+
 /**
  @brief seperate a string into many
  

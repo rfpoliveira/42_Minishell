@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 16:34:59 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/08 15:31:27 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/05/23 13:56:27 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	check_red_out(t_data *command, int *chr, int table, int arg)
 	else
 		return (assign_file(command, table, arg, *chr));
 }
+
 /** 
  @brief separates bettewn "<" and "<<"
  @param command is the main struct with all the info;
@@ -59,6 +60,7 @@ int	check_red_in(t_data *command, int *chr, int table, int arg)
 	else
 		return (assign_file(command, table, arg, *chr));
 }
+
 /**
  @brief iterates the current arg to check if there are redirects
 	    and splits bettewn ins and outs
@@ -95,6 +97,7 @@ int	check_for_red(t_data *command, int table, int arg)
 	}
 	return (red_count);
 }
+
 /**
  @brief takes out of the args which are redirects
 
@@ -130,23 +133,20 @@ static int	reorganize_after_redirect(t_data *command, int curr_table)
 	current->args = tmp;
 	return (0);
 }
+
 /**
  @brief iterates all the args locking for redirect signs, 
 	     then reoganize the arguments (takes out of the args what are redirects)
  @return 0 in case of sucess
 			 1 in case of errors 
 */
-int	handle_redirect(t_data *command)
+int	handle_redirect(t_data *command, int i, int j)
 {
-	int	i;
-	int	j;
 	int	red_count;
 	int	reorganize_flag;
-	
+
 	red_count = 0;
 	reorganize_flag = 0;
-	i = -1;
-	j = -1;
 	while (command->table[++i])
 	{
 		while (command->table[i]->args[++j])
