@@ -21,8 +21,8 @@ char **pathfind(t_env *envp)
 	p = envp;
 	while (p->next)
 	{
-		if (ft_strnstr(p->var, "PATH=", 5))
-			path = ft_split(&p->var[5], ':');
+		if (ft_strnstr(p->key, "PATH", 5))
+			path = ft_split(p->value, ':');
 		p = p->next;
 	}
 		return (path);

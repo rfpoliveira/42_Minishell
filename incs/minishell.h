@@ -57,22 +57,23 @@ typedef struct s_envlist
 {
 	struct s_envlist	*next;
 	struct s_envlist	*prev;
-	char				*var;
+	char				*key;
+	char				*value;
 }	t_env;
 
 typedef struct s_simple_command
 {
-	int	number_args;
+	int		number_args;
 	char	**args;
 	char	*paths;
 	int		fd[2];
-	char **infile;
-	char **outfile;
-	char **double_in;
-	char **double_out;
+	char	**infile;
+	char	**outfile;
+	char	**double_in;
+	char	**double_out;
 	int		out_iter;
 	int		in_iter;
-	char*	red_order;
+	char	*red_order;
 }			t_simple_command;
 
 typedef struct s_data
@@ -81,6 +82,7 @@ typedef struct s_data
 	t_simple_command	**table;
 	int					exit_code;
 	t_env				*env;
+	char				**envp;
 	char				**paths;
 }						t_data;
 

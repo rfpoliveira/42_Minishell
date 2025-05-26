@@ -32,5 +32,8 @@ void	init_data(t_data *data, char **envp);
 void	redirects(t_simple_command *cmd);
 char	*ft_heredoc(char *eof);
 int		ft_echo(t_simple_command *cmd);
+int		ft_cd(t_simple_command *cmd);
+int	ft_strchrlen(char *s, char c);
+int		ft_export(t_simple_command *cmd, t_data *data);
 
 #endif // !EXEC_H

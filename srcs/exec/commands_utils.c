@@ -13,6 +13,17 @@
 #include "../../incs/exec.h"
 #include <stdio.h>
 
+int	ft_strchrlen(char *s, char c)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i] != c && s[i] != '\0')
+		i++;
+	return (i);
+}
 t_env	*env_new(char *envp)
 {
 	t_env	*env;
@@ -22,7 +33,8 @@ t_env	*env_new(char *envp)
 		return (NULL);
 	env->next = NULL;
 	env->prev = NULL;
-	env->var = ft_strdup(envp);
+	env->key = ft_substr(envp, 0, ft_strchrlen(envp, '='));
+	env->value = ft_strdup(ft_strchr(envp, '=') + 1);
 	return (env);
 }
 
@@ -34,7 +46,8 @@ char	**envp_cpy(t_env *envp)
 
 	i = 0;
 	t = envp;
-	while (t){
+	while (t)
+	{
 		t = t->next;
 		i++;
 	}
@@ -43,7 +56,9 @@ char	**envp_cpy(t_env *envp)
 	i = -1;
 	while (t)
 	{
-		env[++i] = ft_strdup(t->var);
+		env[++i] = ft_strdup(t->key);
+		env[i] = ft_strjoin(env[i], "=");
+		env[i] = ft_strjoin(env[i], t->value);
 		t = t->next;
 	}
 	env[++i] = NULL;
@@ -82,20 +97,6 @@ void 	init_envp(t_env **env, char **envp)
 
 void	init_data(t_data *data, char **envp)
 {
-	/*int i = -1;*/
-	/*data = ft_calloc(sizeof(t_data), 1);*/
-	/*(*data)->command = cmd;*/
-	/*printf("%s\n", data->table[0]->args[0]);*/
 	init_envp(&data->env, envp);
-	/*data->table[0]->paths*/
-	/*printf("DATA\t%d:\t%s\n", i, data->env->var);*/
-	/*char **cpy = envp_cpy(data->env);*/
 	data->paths = pathfind(data->env);
-	/*while (envp[++i])*/
-	/*{*/
-	/*	printf("ENVP\t%d:\t%s\n", i, envp[i]);*/
-	/*	printf("DATA\t%d:\t%s\n", i, data->env->var);*/
-	/*printf("COPY\t%d:\t%s\n", i, cpy[i]);*/
-	/*	data->env = data->env->next;*/
-	/*}*/
 }
