@@ -61,27 +61,27 @@ int		export_swap(t_env **exp)
 	return (0);
 }
 
-int		ft_add_key(t_env *env, char *args, int keysep)
+int		ft_add_key(t_env **env, char *args, int keysep)
 {
 	int		i;
 	t_env	*temp;
 
 	i = -1;
-	temp = env;
-	while (env)
+	temp = *env;
+	while (*env)
 	{
-		if (!ft_strncmp(env->key, args, keysep))
+		if (!ft_strncmp((*env)->key, args, keysep))
 		{
 			if (args[keysep - 1] == '+')
-				env->value = ft_strjoin(env->value, &args[keysep - 1]);
+				(*env)->value = ft_strjoin((*env)->value, &args[keysep - 1]);
 			else
-				env->value = &args[1];
-			env = env->next;
+				(*env)->value = &args[1];
+			*env = (*env)->next;
 		}
 		else
 		{
-			env = temp;
-			env_addback(env, env_new(args));
+			*env = temp;
+			env_addback(*env, env_new(args));
 			break ;
 		}
 	}
@@ -90,16 +90,13 @@ int		ft_add_key(t_env *env, char *args, int keysep)
 
 int		ft_export(t_simple_command *cmd, t_data *data)
 {
-	t_env	*exp;
 	t_env	*temp;
 	int		i;
 	int		j;
 	int		keysep;
 
 	temp = data->env;
-	exp = NULL;
 	i = 0;
-	init_envp(&exp, data->envp);
 	while (cmd->args[++i])
 	{
 		j = -1;
@@ -111,18 +108,18 @@ int		ft_export(t_simple_command *cmd, t_data *data)
 				keysep = 0;
 		if (keysep == 0)
 			continue ;
-		ft_add_key(data->env, cmd->args[i], keysep);
-		ft_add_key(exp, cmd->args[i], keysep);
+		ft_add_key(&data->env, cmd->args[i], keysep);
 	}
-	export_swap(&exp);
-	while (exp)
+	export_swap(&data->env);
+	while (data->env)
 	{
 		ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(exp->key, 1);
+		ft_putstr_fd(data->env->key, 1);
 		ft_putstr_fd("=", 1);
-		ft_putstr_fd(exp->value, 1);
+		ft_putstr_fd(data->env->value, 1);
 		ft_putstr_fd("\n", 1);
-		exp = exp->next;
+		data->env = data->env->next;
 	}
+	data->env = temp;
 	return (0);
 }
