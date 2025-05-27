@@ -33,7 +33,10 @@ t_env	*env_new(char *envp)
 		return (NULL);
 	env->next = NULL;
 	env->prev = NULL;
-	env->key = ft_substr(envp, 0, ft_strchrlen(envp, '='));
+	if (envp[ft_strchrlen(envp, '=') - 1] == '+')
+		env->key = ft_substr(envp, 0, ft_strchrlen(envp, '+'));
+	else
+		env->key = ft_substr(envp, 0, ft_strchrlen(envp, '='));
 	env->value = ft_strdup(ft_strchr(envp, '=') + 1);
 	return (env);
 }

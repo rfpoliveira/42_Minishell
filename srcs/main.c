@@ -22,6 +22,7 @@ int main(int ac, char **av, char **envp)
 
 	command = NULL;
 	alloc_struct(&command);
+	init_data(command, envp);
 	int i = 0;
 	int j = 0;
 	int x = -1;
@@ -49,7 +50,6 @@ int main(int ac, char **av, char **envp)
 			ft_free(&user_line);
 			continue ;
 		}
-		init_data(command, envp);
 		ft_cmd(command);
 		while(command->table[i])
 		{

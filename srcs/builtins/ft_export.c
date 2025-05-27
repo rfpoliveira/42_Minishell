@@ -34,7 +34,7 @@ int		export_swap(t_env **exp)
 
 	temp = ft_calloc(sizeof(t_env), 1);
 	p = (*exp);
-	while (!is_sorted(*exp))
+	while ((*exp) && !is_sorted(*exp))
 	{
 		while ((*exp)->next)
 		{
@@ -63,27 +63,43 @@ int		export_swap(t_env **exp)
 
 int		ft_add_key(t_env **env, char *args, int keysep)
 {
-	int		i;
 	t_env	*temp;
 
-	i = -1;
 	temp = *env;
 	while (*env)
 	{
-		if (!ft_strncmp((*env)->key, args, keysep))
+		keysep -= (args[keysep - 1] == '+');
+		if (!ft_strncmp((*env)->key, args, keysep) && (*env)->key[keysep] == '\0')
 		{
-			if (args[keysep - 1] == '+')
-				(*env)->value = ft_strjoin((*env)->value, &args[keysep - 1]);
+			if (args[keysep] == '+')
+				(*env)->value = ft_strjoin((*env)->value, &args[keysep + 2]);
 			else
-				(*env)->value = &args[1];
-			*env = (*env)->next;
+			{
+				free((*env)->value);
+				(*env)->value = ft_strdup(&args[keysep + 1]);
+			}
+			return ((*env = temp), 0);
 		}
-		else
-		{
-			*env = temp;
-			env_addback(*env, env_new(args));
-			break ;
-		}
+		*env = (*env)->next;
+	}
+	*env = temp;
+	env_addback(*env, env_new(args));
+	return (0);
+}
+
+int	ft_print_export(t_env *env)
+{
+	if (!env)
+		return (0);
+	while (env)
+	{
+		ft_putstr_fd("declare -x ", 1);
+		ft_putstr_fd(env->key, 1);
+		ft_putstr_fd("=\"", 1);
+		if (env->value)
+			ft_putstr_fd(env->value, 1);
+		ft_putstr_fd("\"\n", 1);
+		env = env->next;
 	}
 	return (0);
 }
@@ -102,24 +118,19 @@ int		ft_export(t_simple_command *cmd, t_data *data)
 		j = -1;
 		keysep = ft_strchrlen(cmd->args[i], '=');
 		while (++j < keysep)
+		{
+			if (cmd->args[i][j] == '+' && j == keysep - 1)
+				break ;
 			if ((cmd->args[i][j] != '_' && !ft_isalnum(cmd->args[i][j]))
-				|| ft_isdigit(cmd->args[i][0]) 
-				|| (cmd->args[i][j] == '+' && j != keysep - 1))
-				keysep = 0;
+				|| ft_isdigit(cmd->args[i][0])) 
+					keysep = 0;
+		}
 		if (keysep == 0)
 			continue ;
 		ft_add_key(&data->env, cmd->args[i], keysep);
 	}
 	export_swap(&data->env);
-	while (data->env)
-	{
-		ft_putstr_fd("declare -x ", 1);
-		ft_putstr_fd(data->env->key, 1);
-		ft_putstr_fd("=", 1);
-		ft_putstr_fd(data->env->value, 1);
-		ft_putstr_fd("\n", 1);
-		data->env = data->env->next;
-	}
+	ft_print_export(data->env);
 	data->env = temp;
 	return (0);
 }
