@@ -21,6 +21,10 @@ int	builtin_exec(t_simple_command *cmd, t_data *data)
 		return (ft_cd(cmd));
 	if (cmd->args[0] && !ft_strncmp(cmd->args[0], "export", 7))
 		return (ft_export(cmd, data), 1);
+	if (cmd->args[0] && !ft_strncmp(cmd->args[0], "env", 4))
+		return (ft_env(data), 1);
+	if (cmd->args[0] && !ft_strncmp(cmd->args[0], "unset", 6))
+		return (ft_unset(cmd, data), 1);
 	return (0);
 }
 

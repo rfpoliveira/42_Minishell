@@ -12,7 +12,8 @@ SIGNAL = srcs/signals/handle_signals.c
 EXEC = $(addprefix $(EXEC_PATH)/, commands.c commands_utils.c commands_utils2.c \
 	   pipe_handle.c redirects.c heredoc.c)
 
-BUILTINS = $(addprefix $(BUILTINS_PATH)/, ft_echo.c ft_cd.c ft_export.c)
+BUILTINS = $(addprefix $(BUILTINS_PATH)/, ft_echo.c ft_cd.c ft_export.c export_utils.c \
+		   ft_env.c)
 
 UTILS = $(addprefix $(UTILS_PATH)/, main_utils.c expand_utils.c\
 split_utils.c parsing_utils.c parsing_utils2.c free_utils.c\

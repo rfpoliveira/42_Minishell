@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/exec.h"
+#include "../../incs/minishell.h"
 #include <stdio.h>
 
 int	ft_strchrlen(char *s, char c)
@@ -37,7 +37,10 @@ t_env	*env_new(char *envp)
 		env->key = ft_substr(envp, 0, ft_strchrlen(envp, '+'));
 	else
 		env->key = ft_substr(envp, 0, ft_strchrlen(envp, '='));
-	env->value = ft_strdup(ft_strchr(envp, '=') + 1);
+	if (!envp[ft_strchrlen(envp, '=')])
+		env->value = NULL;
+	else
+		env->value = ft_strdup(ft_strchr(envp, '=') + 1);
 	return (env);
 }
 
@@ -47,21 +50,17 @@ char	**envp_cpy(t_env *envp)
 	t_env	*t;
 	int		i;
 
-	i = 0;
 	t = envp;
-	while (t)
-	{
-		t = t->next;
-		i++;
-	}
-	env = ft_calloc(sizeof(char *), i + 1);
-	t = envp;
+	env = ft_calloc(sizeof(char *), env_len(t) + 1);
 	i = -1;
 	while (t)
 	{
-		env[++i] = ft_strdup(t->key);
-		env[i] = ft_strjoin(env[i], "=");
-		env[i] = ft_strjoin(env[i], t->value);
+		if (t->value)
+		{
+			env[++i] = ft_strdup(t->key);
+			env[i] = ft_strjoin(env[i], "=");
+			env[i] = ft_strjoin(env[i], t->value);
+		}
 		t = t->next;
 	}
 	env[++i] = NULL;
@@ -80,6 +79,7 @@ void	env_addback(t_env *env, t_env *node)
 	}
 	while (p->next)
 		p = p->next;
+	node->prev = p;
 	p->next = node;
 }
 

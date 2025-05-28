@@ -6,7 +6,7 @@
 /*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:54:10 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/03/21 17:58:41 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/05/28 16:31:19 by jpatrici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,14 @@ void	redirects(t_simple_command *cmd);
 char	*ft_heredoc(char *eof);
 int		ft_echo(t_simple_command *cmd);
 int		ft_cd(t_simple_command *cmd);
-int	ft_strchrlen(char *s, char c);
+int		ft_strchrlen(char *s, char c);
 int		ft_export(t_simple_command *cmd, t_data *data);
+int		swap_util(t_env **exp, t_env *temp);
+int		export_parse(char *args, int keysep);
+int		export_error(char *error);
+int		add_to_export(t_env **env, char *args, int keysep);
+int		env_len(t_env *env);
+int		ft_env(t_data *data);
+int		ft_unset(t_simple_command *cmd, t_data *data);
 
 #endif // !EXEC_H
