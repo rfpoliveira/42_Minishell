@@ -10,6 +10,13 @@ int	ft_exit(t_simple_command *cmd, t_data *data)
         data->exit_code = 1;
         return (1);
     }
+    else if (cmd->args[1] && !ft_isdigit(cmd->args[1][0]))
+    {
+        ft_putstr_fd("minishell: exit: ", 2);
+        ft_putstr_fd(cmd->args[1], 2);
+        ft_putstr_fd(": numeric argument required\n", 2);
+        exit(exit_status = 2);
+    }
     if (cmd->args[1])
     {
         exit_status = ft_atoi(cmd->args[1]);
@@ -19,6 +26,5 @@ int	ft_exit(t_simple_command *cmd, t_data *data)
     else
         exit_status = data->exit_code;
     ft_putstr_fd("exit\n", 1);
-    free_data(data);
     exit(exit_status);
 }

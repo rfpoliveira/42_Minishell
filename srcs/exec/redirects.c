@@ -14,28 +14,31 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-void	outfile_redir(t_simple_command *cmd)
+void	outfile_redir(t_simple_command *cmd, t_data *data)
 {
-	int	i;
+	static int	i;
 	int	fd;
 
-	i = -1;
 	fd = -1;
-	while (cmd->outfile[++i])
+	while (cmd->outfile[i++] && cmd->red_order[i] != '>')
 	{
-		if (!access(cmd->outfile[i], F_OK)
-		 && access(cmd->outfile[i], W_OK))
-			exit(127);
-		fd = open(cmd->outfile[i], O_CREAT | O_RDWR | O_TRUNC, 0644);
+		if (!access(cmd->outfile[i], F_OK))
+		{
+			if (!access(cmd->outfile[i], F_OK)
+			 && access(cmd->outfile[i], W_OK))
+				exit(1);
+			fd = open(cmd->outfile[i], O_CREAT | O_RDWR | O_TRUNC, 0644);
+		}
 	}
-	i = -1;
-	while (cmd->double_out[++i])
+	while (cmd->double_out[i++] && cmd->red_order[i] == '>')
 	{
 		if (!access(cmd->double_out[i], F_OK)
 		&& access(cmd->double_out[i], W_OK))
-			exit(127);
+			exit(1);
 		fd = open(cmd->double_out[i], O_CREAT | O_RDWR | O_APPEND, 0644);
 	}
+	if (cmd->red_order[i] != '\0')
+		outfile_redir(cmd, data);
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 }
@@ -52,7 +55,7 @@ void	infile_redir(char *infile)
 	close(fd);
 }
 
-void	redirects(t_simple_command *cmd)
+void	redirects(t_simple_command *cmd, t_data *data)
 {
 	int		i;
 	char	*hd;
@@ -78,5 +81,5 @@ void	redirects(t_simple_command *cmd)
 			exit(127);
 	}
 	if (cmd->outfile[0] || cmd->double_out[0])
-		outfile_redir(cmd);
+		outfile_redir(cmd, data);
 }

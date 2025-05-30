@@ -29,7 +29,7 @@ char	**envp_cpy(t_env *envp);
 void	env_addback(t_env *env, t_env *node);
 void 	init_envp(t_env **env, char **envp);
 void	init_data(t_data *data, char **envp);
-void	redirects(t_simple_command *cmd);
+void	redirects(t_simple_command *cmd, t_data *data);
 char	*ft_heredoc(char *eof);
 int		ft_echo(t_simple_command *cmd);
 int		ft_cd(t_simple_command *cmd);
@@ -42,5 +42,6 @@ int		add_to_export(t_env **env, char *args, int keysep);
 int		env_len(t_env *env);
 int		ft_env(t_data *data);
 int		ft_unset(t_simple_command *cmd, t_data *data);
+int	    ft_exit(t_simple_command *cmd, t_data *data);
 
 #endif // !EXEC_H
