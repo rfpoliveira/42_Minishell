@@ -19,20 +19,16 @@ static	void symbol_checker (char *tmp, char *command, int *i, int *j)
 		if (command[*i + 1] != '>')
 			tmp[++(*j)] = '2';
 		else
-		{
 			tmp[++(*j)] = '4';
-			(*i)++;
-		}
+		(*i)++;
 	}
 	if (command[*i] == '<')
 	{
 		if (command[*i + 1] != '<')
 			tmp[++(*j)] = '1';
 		else
-		{
 			tmp[++(*j)] = '3';
-			(*i)++;
-		}
+		(*i)++;
 	}
 }
 
@@ -48,7 +44,7 @@ static	void symbol_checker (char *tmp, char *command, int *i, int *j)
  @param command is the arguments of the current table
  @param code is where the code will be stored
 */
-char	*red_order_code(int count, char* command)
+char	*red_order_code(int count, char *command)
 {
 	int	i;
 	int j;
@@ -56,8 +52,8 @@ char	*red_order_code(int count, char* command)
 
 	i = -1;
 	j = -1;
-	tmp[count - 1] = '\0';
-	while (command[++i] && j != count - 1)
+	while (command[++i])
 		symbol_checker(tmp, command, &i, &j);
+	tmp[++j] = '\0';
 	return (ft_strdup(tmp));
 }

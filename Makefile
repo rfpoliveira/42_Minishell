@@ -10,7 +10,7 @@ parsing_split.c expander.c parse_redirect.c)
 SIGNAL = srcs/signals/handle_signals.c
 
 EXEC = $(addprefix $(EXEC_PATH)/, commands.c commands_utils.c commands_utils2.c \
-	   pipe_handle.c redirects.c heredoc.c)
+	   pipe_handle.c redirects.c heredoc.c redirect_utils.c)
 
 BUILTINS = $(addprefix $(BUILTINS_PATH)/, ft_echo.c ft_cd.c ft_export.c export_utils.c \
 		   ft_env.c ft_unset.c ft_exit.c)

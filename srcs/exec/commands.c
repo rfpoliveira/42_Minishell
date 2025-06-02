@@ -41,7 +41,7 @@ int	node_exec(t_simple_command *cmd, t_data *data)
 	if (pid == 0)
 	{
 		setpaths(cmd, data->paths);
-		redirects(cmd);
+		redirects(cmd, data);
 		if (cmd->args[0] && !builtin_exec(cmd, data))
 			execve(cmd->paths, cmd->args, temp);
 		else
@@ -60,7 +60,7 @@ int	exec_cmd(t_simple_command *cmd, t_data *data)
 	else if (data->number_simple_commands > 1) 
 	{
 		setpaths(cmd, data->paths);
-		redirects(cmd);
+		redirects(cmd, data);
 		if (cmd->args[0] && !builtin_exec(cmd, data))
 			execve(cmd->paths, cmd->args, data->envp);
 		else
@@ -77,7 +77,6 @@ int	ft_cmd(t_data *data)
 	pid_t	*pid;
 
 	data->table[0]->paths = NULL;
-	data->envp = NULL;
 	data->envp = envp_cpy(data->env);
 	if (data->number_simple_commands == 1
 		&& builtin_exec(data->table[0], data))

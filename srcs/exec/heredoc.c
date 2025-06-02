@@ -43,3 +43,19 @@ char	*ft_heredoc(char *eof)
 	close(fd);
 	return (file);
 }
+void	init_hd(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	j = -1;
+	while (data->table[++i])
+		while (data->table[i]->double_in[++j])
+			data->hd = ft_heredoc(data->table[i]->double_in[j]);
+	printf("%s\n", data->hd);
+	/*if (data->hd)*/
+	/*{*/
+	/*	infile_redir(data->hd);*/
+	/*}*/
+}

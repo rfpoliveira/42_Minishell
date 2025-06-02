@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/14 17:25:42 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/02 20:19:34 by jpatrici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int main(int ac, char **av, char **envp)
 			ft_free(&user_line);
 			continue ;
 		}
+		init_hd(command);
 		ft_cmd(command);
 		while(command->table[i])
 		{

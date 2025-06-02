@@ -16,29 +16,24 @@
 
 void	outfile_redir(t_simple_command *cmd, t_data *data)
 {
-	static int	i;
+	int	i;
+	int	j;
 	int	fd;
+	int	n;
 
+	i = -1;
 	fd = -1;
-	while (cmd->outfile[i++] && cmd->red_order[i] != '>')
+	j = -1;
+	n = -1;
+	while (cmd->red_order[++i])
 	{
-		if (!access(cmd->outfile[i], F_OK))
-		{
-			if (!access(cmd->outfile[i], F_OK)
-			 && access(cmd->outfile[i], W_OK))
-				exit(1);
-			fd = open(cmd->outfile[i], O_CREAT | O_RDWR | O_TRUNC, 0644);
-		}
+		if (cmd->outfile[j + 1] && cmd->red_order[i] == '2' && ++j)
+			fd = redir_out(cmd->outfile[j], data);
+		else if (cmd->double_out[n + 1] && cmd->red_order[i] == '4' && ++n)
+			fd = redir_double_out(cmd->double_out[n], data);
 	}
-	while (cmd->double_out[i++] && cmd->red_order[i] == '>')
-	{
-		if (!access(cmd->double_out[i], F_OK)
-		&& access(cmd->double_out[i], W_OK))
-			exit(1);
-		fd = open(cmd->double_out[i], O_CREAT | O_RDWR | O_APPEND, 0644);
-	}
-	if (cmd->red_order[i] != '\0')
-		outfile_redir(cmd, data);
+	if (fd == -1)
+		dprintf(2, "here\n") ;
 	dup2(fd, STDOUT_FILENO);
 	close(fd);
 }
@@ -58,21 +53,17 @@ void	infile_redir(char *infile)
 void	redirects(t_simple_command *cmd, t_data *data)
 {
 	int		i;
-	char	*hd;
 	
 	i = -1;
-	hd = NULL;
 	if (!cmd->double_in && !cmd->infile 
 		&& !cmd->outfile && !cmd->double_out)
 		return ;
-	while (cmd->double_in[++i])
-		hd = ft_heredoc(cmd->double_in[i]);
-	i = -1;
-	while ((cmd->infile[++i] && !access(cmd->infile[i], F_OK | R_OK)) || hd)
+	while ((cmd->infile[++i] && !access(cmd->infile[i], F_OK | R_OK)) || data->hd)
 	{
-		if (hd)
+		
+		if (data->hd)
 		{
-			infile_redir(hd);
+			infile_redir(data->hd);
 			break ;
 		}
 		else if (!access(cmd->infile[i], F_OK | R_OK))

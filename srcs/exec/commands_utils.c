@@ -100,6 +100,9 @@ void 	init_envp(t_env **env, char **envp)
 
 void	init_data(t_data *data, char **envp)
 {
+	data->paths = NULL;
 	init_envp(&data->env, envp);
 	data->paths = pathfind(data->env);
+	data->hd = NULL;
+	data->envp = NULL;
 }

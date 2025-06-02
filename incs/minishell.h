@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:55:27 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/14 10:42:39 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/02 19:29:54 by jpatrici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ typedef struct s_data
 	int					exit_code;
 	t_env				*env;
 	char				**envp;
+	char				*hd;
 	char				**paths;
 }						t_data;
 
