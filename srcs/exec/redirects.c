@@ -6,7 +6,7 @@
 /*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 19:35:02 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/04 17:01:21 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/06/04 17:15:31 by jpatrici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,26 @@
 void	outfile_redir(t_simple_command *cmd, t_data *data, int i)
 {
 	/*int	i;*/
-	int	j;
+	/*int	j;*/
 	int	fd;
-	int	n;
+	/*int	n;*/
 
 	/*i = -1;*/
 	fd = -1;
-	j = -1;
-	n = -1;
+	/*j = -1;*/
+	/*n = -1;*/
 	/*while (cmd->red_order[++i])*/
 	/*{*/
-		if (cmd->outfile[j + 1] && cmd->red_order[i] == '2' && (++j || !j))
-			fd = redir_out(cmd->outfile[j], data);
-		else if (cmd->double_out[n + 1] && cmd->red_order[i] == '4' && (++n || !n))
-			fd = redir_double_out(cmd->double_out[n], data);
+		if (*cmd->outfile && cmd->red_order[i] == '2')
+		{
+			fd = redir_out(*cmd->outfile, data);
+			(*cmd->outfile)++;
+		}
+		else if (*cmd->double_out && cmd->red_order[i] == '4')
+		{
+			fd = redir_double_out(*cmd->double_out, data);
+			(*cmd->double_out)++;
+		}
 		else
 			return ;
 	/*}*/
@@ -43,21 +49,22 @@ void	outfile_redir(t_simple_command *cmd, t_data *data, int i)
 
 void	in_redir(t_simple_command *cmd, int j)
 {
-	int	i;
+	/*int	i;*/
 	/*int	j;*/
 
 	/*i = -1;*/
 	/*j = -1;*/
 	/*while (cmd->red_order[++j])*/
 	/*{*/
-		if ((cmd->infile[i + 1] && !access(cmd->infile[i + 1], F_OK | R_OK)
-			&& cmd->red_order[j] == '1' && (++i || !i)))
+		if (*cmd->infile && !access(*cmd->infile, F_OK | R_OK)
+			&& cmd->red_order[j] == '1')
 		{
-			if (!access(cmd->infile[i], F_OK | R_OK) && cmd->red_order[j] == '1')
-				infile_redir(cmd->infile[i]);
-			if (cmd->infile[i] && access(cmd->infile[i], F_OK | R_OK))
-				exit(127);
+			if (!access(*cmd->infile, F_OK | R_OK) && cmd->red_order[j] == '1')
+				infile_redir(*cmd->infile);
+			(*cmd->infile)++;
 		}
+		else if (*cmd->infile && access(*cmd->infile, F_OK | R_OK))
+			exit(127);
 		else
 			return ;
 	/*}*/
