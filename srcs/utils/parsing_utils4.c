@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 11:57:07 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/14 17:19:56 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/04 16:50:40 by jpatrici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,15 @@ static	void symbol_checker (char *tmp, char *command, int *i, int *j)
 */
 char	*red_order_code(int count, char *command)
 {
-	int	i;
-	int j;
-	char tmp[count];
+	int		i;
+	int		j;
+	char	*tmp;
 
 	i = -1;
 	j = -1;
+	tmp = ft_calloc(sizeof(char), count + 1);
 	while (command[++i])
 		symbol_checker(tmp, command, &i, &j);
 	tmp[++j] = '\0';
-	return (ft_strdup(tmp));
+	return (tmp);
 }

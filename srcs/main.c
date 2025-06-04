@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/02 20:19:34 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/06/04 14:03:58 by jpatrici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int main(int ac, char **av, char **envp)
 		i = 0;
 		command->exit_code = 0;
 		handle_history(command, &user_line);
+		unlink(command->hd);
 		memory_free(NULL, command, 0);
 	}
 	(void) ac;
