@@ -12,6 +12,25 @@
 
 #include "../../incs/minishell.h"
 
+void	ft_unlink_hd(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	if (!data->hd)
+		return ;
+	while (data->hd[++i])
+	{
+		if (unlink(data->hd[i]) == -1)
+		{
+			perror("unlink");
+			exit(EXIT_FAILURE);
+		}
+		free(data->hd[i]);
+		data->hd[i] = NULL;
+	}
+}
+
 char	*heredoc_file()
 {
 	static int	i;
@@ -49,11 +68,17 @@ void	init_hd(t_data *data)
 	int	j;
 
 	i = -1;
+	j = 0;
+	while (data->table[++i])
+		while (data->table[i]->double_in[j])
+			j++;
+	data->hd = ft_calloc(sizeof(char *),j);
+	i = -1;
 	j = -1;
 	while (data->table[++i])
 		while (data->table[i]->double_in[++j])
-			data->hd = ft_heredoc(data->table[i]->double_in[j]);
-	printf("%s\n", data->hd);
+			data->hd[j] = ft_heredoc(data->table[i]->double_in[j]);
+	// printf("%s\n", data->hd);
 	/*if (data->hd)*/
 	/*{*/
 	/*	infile_redir(data->hd);*/

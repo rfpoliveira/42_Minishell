@@ -47,5 +47,6 @@ int		env_len(t_env *env);
 int		ft_env(t_data *data);
 int		ft_unset(t_simple_command *cmd, t_data *data);
 int	    ft_exit(t_simple_command *cmd, t_data *data);
+void	ft_unlink_hd(t_data *data);
 
 #endif // !EXEC_H

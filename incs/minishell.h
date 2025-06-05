@@ -83,7 +83,7 @@ typedef struct s_data
 	int					exit_code;
 	t_env				*env;
 	char				**envp;
-	char				*hd;
+	char				**hd;
 	char				**paths;
 }						t_data;
 

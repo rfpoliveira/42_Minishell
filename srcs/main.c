@@ -50,7 +50,8 @@ int main(int ac, char **av, char **envp)
 			ft_free(&user_line);
 			continue ;
 		}
-		init_hd(command);
+		if (command->table[0]->double_out)
+			init_hd(command);
 		ft_cmd(command);
 		while(command->table[i])
 		{
@@ -90,7 +91,7 @@ int main(int ac, char **av, char **envp)
 		i = 0;
 		command->exit_code = 0;
 		handle_history(command, &user_line);
-		unlink(command->hd);
+		ft_unlink_hd(command);
 		memory_free(NULL, command, 0);
 	}
 	(void) ac;
