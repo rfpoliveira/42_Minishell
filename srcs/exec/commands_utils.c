@@ -55,7 +55,7 @@ char	**envp_cpy(t_env *envp)
 	i = -1;
 	while (t)
 	{
-		if (t->value)
+		if (t->key && t->value)
 		{
 			env[++i] = ft_strdup(t->key);
 			env[i] = ft_strjoin(env[i], "=");
@@ -86,6 +86,7 @@ void	env_addback(t_env *env, t_env *node)
 void 	init_envp(t_env **env, char **envp)
 {
 	t_env	*n;
+	int		num;
 
 	*env  = env_new(*envp);
 	if (!*env)
@@ -96,6 +97,25 @@ void 	init_envp(t_env **env, char **envp)
 		env_addback(*env, env_new(*envp));
 		n = n->next;
 	}
+	n = *env;
+	while (n->next)
+	{
+		if (!ft_strncmp(n->key ,"SHLVL", ft_strlen(n->key) + 1))
+		{
+			if (n->value)
+			{
+				num = ft_atoi(n->value) + 1;
+				free(n->value);
+				n->value = ft_itoa(num);
+			}
+			else
+				n->value = ft_itoa(1);
+			break ;
+		}
+		n = n->next;
+	}
+	if (ft_strncmp(n->key ,"SHLVL", ft_strlen(n->key) + 1))
+		env_addback(*env , env_new("SHLVL=1"));
 }
 
 void	init_data(t_data *data, char **envp)

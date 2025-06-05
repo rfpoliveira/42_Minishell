@@ -41,8 +41,13 @@ int	setpaths(t_simple_command *cmd, char **paths)
 			&& open(cmd->paths, O_DIRECTORY) == -1)
 			break ;
 		else
+		{
 			free(cmd->paths);
+			cmd->paths = NULL;
+		}
 	}
+	if (!cmd->paths)
+		cmd->paths = ft_strdup(*cmd->args);
 	return (1);
 }
 

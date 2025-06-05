@@ -12,12 +12,14 @@
 
 #include "../../incs/minishell.h"
 
+extern int SIGINT_FLAG;
+
 void	ft_unlink_hd(t_data *data)
 {
 	int	i;
 
 	i = -1;
-	if (!data->hd)
+	if (data->hd == NULL)
 		return ;
 	while (data->hd[++i])
 	{
@@ -72,15 +74,14 @@ void	init_hd(t_data *data)
 	while (data->table[++i])
 		while (data->table[i]->double_in[j])
 			j++;
-	data->hd = ft_calloc(sizeof(char *),j);
-	i = -1;
-	j = -1;
-	while (data->table[++i])
-		while (data->table[i]->double_in[++j])
-			data->hd[j] = ft_heredoc(data->table[i]->double_in[j]);
-	// printf("%s\n", data->hd);
-	/*if (data->hd)*/
-	/*{*/
-	/*	infile_redir(data->hd);*/
-	/*}*/
+	if (j != 0)
+	{
+		data->hd = ft_calloc(sizeof(char *), j + 1);
+		data->hd[j] = NULL;
+		i = -1;
+		j = -1;
+		while (data->table[++i])
+			while (data->table[i]->double_in[++j])
+				data->hd[j] = ft_heredoc(data->table[i]->double_in[j]);
+	}
 }
