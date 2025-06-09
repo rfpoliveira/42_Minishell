@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:55:27 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/23 13:35:37 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/09 16:51:10 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,16 @@ typedef struct s_envlist
 {
 	struct s_envlist	*next;
 	struct s_envlist	*prev;
-	char				*var;
+	char				*key;
+	char				*value;
 }	t_env;
 
 typedef struct s_simple_command
 {
 	int		number_args;
 	char	**args;
+	char	*paths;
+	int		fd[2];
 	char	**infile;
 	char	**outfile;
 	char	**double_in;
@@ -79,12 +82,16 @@ typedef struct s_data
 	t_simple_command	**table;
 	int					exit_code;
 	t_env				*env;
+	char				**envp;
+	char				**hd;
 	char				**paths;
 }						t_data;
 
 /*============================================================================#
 #                                 Functions                                   #
 #============================================================================*/
+
+#include "exec.h"
 
 void	handle_signals(void);
 void	alloc_struct(t_data **command);

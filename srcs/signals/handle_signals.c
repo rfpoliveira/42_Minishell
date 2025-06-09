@@ -22,6 +22,7 @@
 */
 void	signal_handler(int signumb)
 {
+
 	(void)signumb;
 	rl_replace_line("", 0);
 	ft_putstr_fd(" \n", 1);

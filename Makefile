@@ -3,15 +3,24 @@
 #==============================================================================#
 
 MAIN = $(addprefix $(SRCS_PATH)/, main.c exit.c prompt.c)
+
 PARSING = $(addprefix $(PARSING_PATH)/, parsing.c whitespaces_split.c \
 parsing_split.c expander.c parse_redirect.c)
+
 SIGNAL = srcs/signals/handle_signals.c
+
+EXEC = $(addprefix $(EXEC_PATH)/, commands.c commands_utils.c commands_utils2.c \
+	   pipe_handle.c redirects.c heredoc.c redirect_utils.c free_envp.c)
+
+BUILTINS = $(addprefix $(BUILTINS_PATH)/, ft_echo.c ft_cd.c ft_export.c export_utils.c \
+		   ft_env.c ft_unset.c ft_exit.c)
+
 UTILS = $(addprefix $(UTILS_PATH)/, main_utils.c expand_utils.c\
 split_utils.c parsing_utils.c parsing_utils2.c free_utils.c\
 count_utils.c redirect_utils.c redirect_file_assign.c reorganize_utils.c \
 parsing_utils3.c expand_utils2.c expand_utils3.c parsing_utils4.c)
 
-SRCS = $(UTILS) $(MAIN) $(PARSING) $(SIGNAL)
+SRCS = $(UTILS) $(MAIN) $(PARSING) $(SIGNAL) $(EXEC) $(BUILTINS)
 OBJS = $(SRCS:.c=.o)
 
 NAME = minishell
@@ -21,6 +30,8 @@ LIBFT_ARC = ./libft/libft.a
 LIBFT_PATH = libft
 UTILS_PATH = srcs/utils
 PARSING_PATH = srcs/parsing
+EXEC_PATH = srcs/exec
+BUILTINS_PATH = srcs/builtins
 
 #==============================================================================#
 #                                   Alias                                      #
@@ -29,7 +40,7 @@ PARSING_PATH = srcs/parsing
 RM = rm -rf
 AR = ar rcs
 CFLAGS = -g -Wall -Werror -Wextra
-LEAKS = -fsanitize=leak
+# LEAKS = -fsanitize=leak
 SILENT_MAKE = make -s extra
 
 #==============================================================================#

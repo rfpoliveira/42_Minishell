@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 11:57:07 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/23 13:58:03 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/09 16:51:36 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,16 @@ static void	symbol_checker(char *tmp, char *command, int *i, int *j)
 		if (command[*i + 1] != '>')
 			tmp[++(*j)] = '2';
 		else
-		{
 			tmp[++(*j)] = '4';
-			(*i)++;
-		}
+		(*i)++;
 	}
 	if (command[*i] == '<')
 	{
 		if (command[*i + 1] != '<')
 			tmp[++(*j)] = '1';
 		else
-		{
 			tmp[++(*j)] = '3';
-			(*i)++;
-		}
+		(*i)++;
 	}
 }
 
