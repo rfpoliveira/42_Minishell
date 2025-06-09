@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:16 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/14 11:54:53 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/09 16:57:41 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static void	handle_exit_code(int error_code, int *exit_code)
 		*exit_code = 2;
 	else if (error_code == STDIN_ERROR)
 		*exit_code = 2;
+	else if (error_code == 0)
+		*exit_code = 0;
 }
 
 /**
