@@ -49,7 +49,9 @@ void	free_envp(t_data *data)
 			free(data->env);
 			data->env = p;
 		}
+		matrix_free(data->paths);
 	}
+	free(data);
 	/*i = -1;*/
 	/*while (data->table[++i])*/
 	/*	free_cmd(data->table[i]);*/

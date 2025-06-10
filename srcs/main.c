@@ -52,9 +52,9 @@ int main(int ac, char **av, char **envp)
 		handle_history(command, &user_line);
 		if (command->hd != NULL)
 			ft_unlink_hd(command);
-		/*free_envp(command);*/
 		memory_free(NULL, command, 0);
 	}
+		free_envp(command);
 	(void) ac;
 	(void) av;
 }

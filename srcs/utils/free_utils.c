@@ -29,7 +29,7 @@ void	ft_free(char **ptr)
 */
 void	command_free(t_data **command)
 {
-	free(*command);
+	ft_free((char **)command);
 	*command = NULL;
 }
 /** 
@@ -37,7 +37,7 @@ void	command_free(t_data **command)
  */
 void	table_free(t_simple_command **table)
 {
-	free(*table);
+	ft_free((char **) table);
 	*table = NULL;
 }
 /**
