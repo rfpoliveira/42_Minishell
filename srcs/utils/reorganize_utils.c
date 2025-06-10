@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:01:42 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/09 17:13:42 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/10 11:47:11 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,8 @@ int	populate_tmp(char **tmp, t_data *command, t_simple_command *current, int i)
 		while (current->args[i][j] && current->args[i][j] != '<' && \
 		current->args[i][j] != '>')
 			j++;
-		if ((j != 0 && i == 0) || \
+		if ((j != 0 && i == 0) || (j != 0 && current->args[i][j] == '>') || \
+		(j != 0 && current->args[i][j] == '<') || \
 		(!current->args[i][j] && (current->args[i - 1][last_chr_idx] != '<' && \
 		current->args[i - 1][last_chr_idx] != '>')))
 		{

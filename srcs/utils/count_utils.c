@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:49:43 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/09 17:17:15 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/10 11:16:22 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,14 +112,18 @@ int	count_double_outs(char **current)
 	int	count;
 
 	j = -1;
-	i = -1;
+	i = 0;
 	count = 0;
 	while (current[++j])
 	{
-		while (current[j][++i])
+		while (current[j][i])
+		{
 			if (current[j][i] == '>' && current[j][++i] == '>')
 				count++;
-		i = -1;
+		if (current[j][i])
+			i++;
+		}
+		i = 0;
 	}
 	return (count);
 }
