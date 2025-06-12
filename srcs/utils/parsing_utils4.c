@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 11:57:07 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/09 16:51:36 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/11 17:11:13 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,20 @@ static void	symbol_checker(char *tmp, char *command, int *i, int *j)
 	if (command[*i] == '>')
 	{
 		if (command[*i + 1] != '>')
-			tmp[++(*j)] = '2';
+			tmp[(*j)++] = '2';
 		else
-			tmp[++(*j)] = '4';
+			tmp[(*j)++] = '4';
 		(*i)++;
 	}
 	if (command[*i] == '<')
 	{
 		if (command[*i + 1] != '<')
-			tmp[++(*j)] = '1';
+			tmp[(*j)++] = '1';
 		else
-			tmp[++(*j)] = '3';
+			tmp[(*j)++] = '3';
 		(*i)++;
 	}
+	printf("j: %i\n", (*j));
 }
 
 /**
@@ -44,17 +45,19 @@ static void	symbol_checker(char *tmp, char *command, int *i, int *j)
  @param command is the arguments of the current table
  @param code is where the code will be stored
 */
-char	*red_order_code(int count, char *command)
+void red_order_code(int count, char *command, t_simple_command *curr_table)
 {
 	int		i;
 	int		j;
 	char	*tmp;
 
 	i = -1;
-	j = -1;
-	tmp = malloc(sizeof(char) * count);
-	tmp[count - 1] = '\0';
-	while (command[++i] && j != count - 1)
+	j = 0;
+	printf("command: %s\n", command);
+	tmp = malloc(sizeof(char) * count + 1);
+	tmp[count] = '\0';
+	while (command[++i] && j != count)
 		symbol_checker(tmp, command, &i, &j);
-	return (tmp);
+	curr_table->red_order = ft_strdup(tmp);
+	free(tmp);
 }

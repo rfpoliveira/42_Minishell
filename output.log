@@ -1,0 +1,753 @@
+==73294== Memcheck, a memory error detector
+==73294== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==73294== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==73294== Command: ./minishell
+==73294== Parent PID: 73293
+==73294== 
+==73296== 
+==73296== HEAP SUMMARY:
+==73296==     in use at exit: 223,310 bytes in 1,016 blocks
+==73296==   total heap usage: 1,271 allocs, 255 frees, 249,400 bytes allocated
+==73296== 
+==73296== 1 bytes in 1 blocks are still reachable in loss record 1 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x4095CD: ft_strdup (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x406F3E: setpaths (commands_utils2.c:50)
+==73296==    by 0x4065CE: node_exec (commands.c:43)
+==73296==    by 0x4066AA: exec_cmd (commands.c:59)
+==73296==    by 0x4067F0: ft_cmd (commands.c:85)
+==73296==    by 0x40451F: main (main.c:50)
+==73296== 
+==73296== 2 bytes in 1 blocks are still reachable in loss record 2 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x408FF3: ft_itoa (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x406CBE: init_envp (commands_utils.c:109)
+==73296==    by 0x406D85: init_data (commands_utils.c:124)
+==73296==    by 0x40444C: main (main.c:25)
+==73296== 
+==73296== 2 bytes in 1 blocks are still reachable in loss record 3 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x4095CD: ft_strdup (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x4043D4: red_order_code (parsing_utils4.c:61)
+==73296==    by 0x404FF6: mount_table (parsing.c:53)
+==73296==    by 0x4050D7: ini_command (parsing.c:76)
+==73296==    by 0x4051DC: parsing (parsing.c:113)
+==73296==    by 0x4044E1: main (main.c:43)
+==73296== 
+==73296== 2 bytes in 1 blocks are definitely lost in loss record 4 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x408FF3: ft_itoa (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x407839: heredoc_file (heredoc.c:41)
+==73296==    by 0x407887: ft_heredoc (heredoc.c:53)
+==73296==    by 0x407A5E: init_hd (heredoc.c:85)
+==73296==    by 0x404513: main (main.c:49)
+==73296== 
+==73296== 4 bytes in 1 blocks are still reachable in loss record 7 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x402B45: copy_red (redirect_utils.c:73)
+==73296==    by 0x402E12: assign_util_infile (redirect_file_assign.c:60)
+==73296==    by 0x402A90: assign_file (redirect_utils.c:49)
+==73296==    by 0x405F67: check_red_in (parse_redirect.c:58)
+==73296==    by 0x406010: check_for_red (parse_redirect.c:87)
+==73296==    by 0x4061CE: handle_redirect (parse_redirect.c:154)
+==73296==    by 0x405216: parsing (parsing.c:115)
+==73296==    by 0x4044E1: main (main.c:43)
+==73296== 
+==73296== 6 bytes in 1 blocks are still reachable in loss record 8 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x409C39: ft_substr (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x40699F: env_new (commands_utils.c:39)
+==73296==    by 0x406BD5: init_envp (commands_utils.c:91)
+==73296==    by 0x406D85: init_data (commands_utils.c:124)
+==73296==    by 0x40444C: main (main.c:25)
+==73296== 
+==73296== 8 bytes in 1 blocks are still reachable in loss record 11 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x406101: reorganize_after_redirect (parse_redirect.c:126)
+==73296==    by 0x40625B: handle_redirect (parse_redirect.c:164)
+==73296==    by 0x405216: parsing (parsing.c:115)
+==73296==    by 0x4044E1: main (main.c:43)
+==73296== 
+==73296== 16 bytes in 1 blocks are still reachable in loss record 18 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x403965: alloc_file (parsing_utils3.c:66)
+==73296==    by 0x404EED: mount_table (parsing.c:46)
+==73296==    by 0x4050D7: ini_command (parsing.c:76)
+==73296==    by 0x4051DC: parsing (parsing.c:113)
+==73296==    by 0x4044E1: main (main.c:43)
+==73296== 
+==73296== 16 bytes in 1 blocks are still reachable in loss record 19 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x408E85: ft_calloc (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x4079E3: init_hd (heredoc.c:79)
+==73296==    by 0x404513: main (main.c:49)
+==73296== 
+==73296== 16 bytes in 1 blocks are still reachable in loss record 20 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x4096B4: ft_strjoin (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x407848: heredoc_file (heredoc.c:41)
+==73296==    by 0x407887: ft_heredoc (heredoc.c:53)
+==73296==    by 0x407A5E: init_hd (heredoc.c:85)
+==73296==    by 0x404513: main (main.c:49)
+==73296== 
+==73296== 22 bytes in 1 blocks are still reachable in loss record 22 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x4095CD: ft_strdup (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x4069F4: env_new (commands_utils.c:43)
+==73296==    by 0x406BD5: init_envp (commands_utils.c:91)
+==73296==    by 0x406D85: init_data (commands_utils.c:124)
+==73296==    by 0x40444C: main (main.c:25)
+==73296== 
+==73296== 32 bytes in 1 blocks are still reachable in loss record 25 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x408E85: ft_calloc (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x4068FA: env_new (commands_utils.c:31)
+==73296==    by 0x406BD5: init_envp (commands_utils.c:91)
+==73296==    by 0x406D85: init_data (commands_utils.c:124)
+==73296==    by 0x40444C: main (main.c:25)
+==73296== 
+==73296== 45 bytes in 1 blocks are still reachable in loss record 26 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x408E85: ft_calloc (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x404B56: join_everything (prompt.c:71)
+==73296==    by 0x404D65: get_prompt (prompt.c:140)
+==73296==    by 0x404456: main (main.c:27)
+==73296== 
+==73296== 56 bytes in 1 blocks are still reachable in loss record 30 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x401397: alloc_struct (main_utils.c:38)
+==73296==    by 0x404439: main (main.c:24)
+==73296== 
+==73296== 80 bytes in 1 blocks are still reachable in loss record 32 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x404DAE: mount_table (parsing.c:37)
+==73296==    by 0x4050D7: ini_command (parsing.c:76)
+==73296==    by 0x4051DC: parsing (parsing.c:113)
+==73296==    by 0x4044E1: main (main.c:43)
+==73296== 
+==73296== 88 bytes in 1 blocks are still reachable in loss record 33 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x405075: ini_command (parsing.c:72)
+==73296==    by 0x4051DC: parsing (parsing.c:113)
+==73296==    by 0x4044E1: main (main.c:43)
+==73296== 
+==73296== 192 bytes in 1 blocks are still reachable in loss record 39 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x409203: ft_split (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x406E10: pathfind (commands_utils2.c:25)
+==73296==    by 0x406D95: init_data (commands_utils.c:125)
+==73296==    by 0x40444C: main (main.c:25)
+==73296== 
+==73296== 556 bytes in 23 blocks are still reachable in loss record 41 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x409C39: ft_substr (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x40941C: fill (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x409230: ft_split (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x406E10: pathfind (commands_utils2.c:25)
+==73296==    by 0x406D95: init_data (commands_utils.c:125)
+==73296==    by 0x40444C: main (main.c:25)
+==73296== 
+==73296== 680 bytes in 1 blocks are still reachable in loss record 44 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x408E85: ft_calloc (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x406A39: envp_cpy (commands_utils.c:54)
+==73296==    by 0x406790: ft_cmd (commands.c:80)
+==73296==    by 0x40451F: main (main.c:50)
+==73296== 
+==73296== 680 bytes in 1 blocks are still reachable in loss record 45 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x408E85: ft_calloc (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x406A39: envp_cpy (commands_utils.c:54)
+==73296==    by 0x4065A1: node_exec (commands.c:39)
+==73296==    by 0x4066AA: exec_cmd (commands.c:59)
+==73296==    by 0x4067F0: ft_cmd (commands.c:85)
+==73296==    by 0x40451F: main (main.c:50)
+==73296== 
+==73296== 1,009 bytes in 83 blocks are still reachable in loss record 48 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x409C39: ft_substr (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x40699F: env_new (commands_utils.c:39)
+==73296==    by 0x406C08: init_envp (commands_utils.c:97)
+==73296==    by 0x406D85: init_data (commands_utils.c:124)
+==73296==    by 0x40444C: main (main.c:25)
+==73296== 
+==73296== 1,015 bytes in 84 blocks are definitely lost in loss record 49 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x4095CD: ft_strdup (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x406A95: envp_cpy (commands_utils.c:60)
+==73296==    by 0x406790: ft_cmd (commands.c:80)
+==73296==    by 0x40451F: main (main.c:50)
+==73296== 
+==73296== 1,015 bytes in 84 blocks are definitely lost in loss record 50 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x4095CD: ft_strdup (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x406A95: envp_cpy (commands_utils.c:60)
+==73296==    by 0x4065A1: node_exec (commands.c:39)
+==73296==    by 0x4066AA: exec_cmd (commands.c:59)
+==73296==    by 0x4067F0: ft_cmd (commands.c:85)
+==73296==    by 0x40451F: main (main.c:50)
+==73296== 
+==73296== 1,099 bytes in 84 blocks are definitely lost in loss record 59 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x4096B4: ft_strjoin (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x406AD4: envp_cpy (commands_utils.c:61)
+==73296==    by 0x406790: ft_cmd (commands.c:80)
+==73296==    by 0x40451F: main (main.c:50)
+==73296== 
+==73296== 1,099 bytes in 84 blocks are definitely lost in loss record 60 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x4096B4: ft_strjoin (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x406AD4: envp_cpy (commands_utils.c:61)
+==73296==    by 0x4065A1: node_exec (commands.c:39)
+==73296==    by 0x4066AA: exec_cmd (commands.c:59)
+==73296==    by 0x4067F0: ft_cmd (commands.c:85)
+==73296==    by 0x40451F: main (main.c:50)
+==73296== 
+==73296== 2,227 bytes in 82 blocks are still reachable in loss record 64 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x4095CD: ft_strdup (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x4069F4: env_new (commands_utils.c:43)
+==73296==    by 0x406C08: init_envp (commands_utils.c:97)
+==73296==    by 0x406D85: init_data (commands_utils.c:124)
+==73296==    by 0x40444C: main (main.c:25)
+==73296== 
+==73296== 2,656 bytes in 83 blocks are still reachable in loss record 66 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x408E85: ft_calloc (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x4068FA: env_new (commands_utils.c:31)
+==73296==    by 0x406C08: init_envp (commands_utils.c:97)
+==73296==    by 0x406D85: init_data (commands_utils.c:124)
+==73296==    by 0x40444C: main (main.c:25)
+==73296== 
+==73296== 3,266 bytes in 84 blocks are still reachable in loss record 67 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x4096B4: ft_strjoin (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x406B17: envp_cpy (commands_utils.c:62)
+==73296==    by 0x406790: ft_cmd (commands.c:80)
+==73296==    by 0x40451F: main (main.c:50)
+==73296== 
+==73296== 3,266 bytes in 84 blocks are still reachable in loss record 68 of 92
+==73296==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73296==    by 0x4096B4: ft_strjoin (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73296==    by 0x406B17: envp_cpy (commands_utils.c:62)
+==73296==    by 0x4065A1: node_exec (commands.c:39)
+==73296==    by 0x4066AA: exec_cmd (commands.c:59)
+==73296==    by 0x4067F0: ft_cmd (commands.c:85)
+==73296==    by 0x40451F: main (main.c:50)
+==73296== 
+==73296== LEAK SUMMARY:
+==73296==    definitely lost: 4,230 bytes in 337 blocks
+==73296==    indirectly lost: 0 bytes in 0 blocks
+==73296==      possibly lost: 0 bytes in 0 blocks
+==73296==    still reachable: 14,926 bytes in 457 blocks
+==73296==         suppressed: 204,154 bytes in 222 blocks
+==73296== 
+==73296== ERROR SUMMARY: 5 errors from 5 contexts (suppressed: 0 from 0)
+--73296-- 
+--73296-- used_suppression:     63 leak readline readline.supp:2 suppressed: 204,154 bytes in 222 blocks
+==73296== 
+==73296== ERROR SUMMARY: 5 errors from 5 contexts (suppressed: 0 from 0)
+==73294== Invalid free() / delete / delete[] / realloc()
+==73294==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x40787D: ft_heredoc (heredoc.c:52)
+==73294==    by 0x407A5E: init_hd (heredoc.c:85)
+==73294==    by 0x404513: main (main.c:49)
+==73294==  Address 0x4b68080 is 0 bytes inside a block of size 16 free'd
+==73294==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x4077D3: ft_unlink_hd (heredoc.c:31)
+==73294==    by 0x404556: main (main.c:54)
+==73294==  Block was alloc'd at
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x4096B4: ft_strjoin (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x407848: heredoc_file (heredoc.c:41)
+==73294==    by 0x407887: ft_heredoc (heredoc.c:53)
+==73294==    by 0x407A5E: init_hd (heredoc.c:85)
+==73294==    by 0x404513: main (main.c:49)
+==73294== 
+==73305== 
+==73305== HEAP SUMMARY:
+==73305==     in use at exit: 239,507 bytes in 1,528 blocks
+==73305==   total heap usage: 1,807 allocs, 280 frees, 266,056 bytes allocated
+==73305== 
+==73305== 1 bytes in 1 blocks are still reachable in loss record 1 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x4095CD: ft_strdup (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x406F3E: setpaths (commands_utils2.c:50)
+==73305==    by 0x4065CE: node_exec (commands.c:43)
+==73305==    by 0x4066AA: exec_cmd (commands.c:59)
+==73305==    by 0x4067F0: ft_cmd (commands.c:85)
+==73305==    by 0x40451F: main (main.c:50)
+==73305== 
+==73305== 2 bytes in 1 blocks are still reachable in loss record 2 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x408FF3: ft_itoa (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x406CBE: init_envp (commands_utils.c:109)
+==73305==    by 0x406D85: init_data (commands_utils.c:124)
+==73305==    by 0x40444C: main (main.c:25)
+==73305== 
+==73305== 2 bytes in 1 blocks are still reachable in loss record 3 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x4095CD: ft_strdup (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x4043D4: red_order_code (parsing_utils4.c:61)
+==73305==    by 0x404FF6: mount_table (parsing.c:53)
+==73305==    by 0x4050D7: ini_command (parsing.c:76)
+==73305==    by 0x4051DC: parsing (parsing.c:113)
+==73305==    by 0x4044E1: main (main.c:43)
+==73305== 
+==73305== 4 bytes in 1 blocks are still reachable in loss record 6 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x402B45: copy_red (redirect_utils.c:73)
+==73305==    by 0x402E12: assign_util_infile (redirect_file_assign.c:60)
+==73305==    by 0x402A90: assign_file (redirect_utils.c:49)
+==73305==    by 0x405F67: check_red_in (parse_redirect.c:58)
+==73305==    by 0x406010: check_for_red (parse_redirect.c:87)
+==73305==    by 0x4061CE: handle_redirect (parse_redirect.c:154)
+==73305==    by 0x405216: parsing (parsing.c:115)
+==73305==    by 0x4044E1: main (main.c:43)
+==73305== 
+==73305== 4 bytes in 2 blocks are definitely lost in loss record 7 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x408FF3: ft_itoa (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x407839: heredoc_file (heredoc.c:41)
+==73305==    by 0x407887: ft_heredoc (heredoc.c:53)
+==73305==    by 0x407A5E: init_hd (heredoc.c:85)
+==73305==    by 0x404513: main (main.c:49)
+==73305== 
+==73305== 6 bytes in 1 blocks are still reachable in loss record 8 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x409C39: ft_substr (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x40699F: env_new (commands_utils.c:39)
+==73305==    by 0x406BD5: init_envp (commands_utils.c:91)
+==73305==    by 0x406D85: init_data (commands_utils.c:124)
+==73305==    by 0x40444C: main (main.c:25)
+==73305== 
+==73305== 8 bytes in 1 blocks are still reachable in loss record 12 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x406101: reorganize_after_redirect (parse_redirect.c:126)
+==73305==    by 0x40625B: handle_redirect (parse_redirect.c:164)
+==73305==    by 0x405216: parsing (parsing.c:115)
+==73305==    by 0x4044E1: main (main.c:43)
+==73305== 
+==73305== 16 bytes in 1 blocks are still reachable in loss record 20 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x403965: alloc_file (parsing_utils3.c:66)
+==73305==    by 0x404EED: mount_table (parsing.c:46)
+==73305==    by 0x4050D7: ini_command (parsing.c:76)
+==73305==    by 0x4051DC: parsing (parsing.c:113)
+==73305==    by 0x4044E1: main (main.c:43)
+==73305== 
+==73305== 16 bytes in 1 blocks are still reachable in loss record 21 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x408E85: ft_calloc (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x4079E3: init_hd (heredoc.c:79)
+==73305==    by 0x404513: main (main.c:49)
+==73305== 
+==73305== 16 bytes in 1 blocks are still reachable in loss record 22 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x4096B4: ft_strjoin (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x407848: heredoc_file (heredoc.c:41)
+==73305==    by 0x407887: ft_heredoc (heredoc.c:53)
+==73305==    by 0x407A5E: init_hd (heredoc.c:85)
+==73305==    by 0x404513: main (main.c:49)
+==73305== 
+==73305== 16 bytes in 1 blocks are definitely lost in loss record 23 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x408E85: ft_calloc (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x4079E3: init_hd (heredoc.c:79)
+==73305==    by 0x404513: main (main.c:49)
+==73305== 
+==73305== 22 bytes in 1 blocks are still reachable in loss record 25 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x4095CD: ft_strdup (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x4069F4: env_new (commands_utils.c:43)
+==73305==    by 0x406BD5: init_envp (commands_utils.c:91)
+==73305==    by 0x406D85: init_data (commands_utils.c:124)
+==73305==    by 0x40444C: main (main.c:25)
+==73305== 
+==73305== 32 bytes in 1 blocks are still reachable in loss record 29 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x408E85: ft_calloc (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x4068FA: env_new (commands_utils.c:31)
+==73305==    by 0x406BD5: init_envp (commands_utils.c:91)
+==73305==    by 0x406D85: init_data (commands_utils.c:124)
+==73305==    by 0x40444C: main (main.c:25)
+==73305== 
+==73305== 45 bytes in 1 blocks are still reachable in loss record 30 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x408E85: ft_calloc (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x404B56: join_everything (prompt.c:71)
+==73305==    by 0x404D65: get_prompt (prompt.c:140)
+==73305==    by 0x404456: main (main.c:27)
+==73305== 
+==73305== 56 bytes in 1 blocks are still reachable in loss record 34 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x401397: alloc_struct (main_utils.c:38)
+==73305==    by 0x404439: main (main.c:24)
+==73305== 
+==73305== 80 bytes in 1 blocks are still reachable in loss record 36 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x404DAE: mount_table (parsing.c:37)
+==73305==    by 0x4050D7: ini_command (parsing.c:76)
+==73305==    by 0x4051DC: parsing (parsing.c:113)
+==73305==    by 0x4044E1: main (main.c:43)
+==73305== 
+==73305== 88 bytes in 1 blocks are still reachable in loss record 37 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x405075: ini_command (parsing.c:72)
+==73305==    by 0x4051DC: parsing (parsing.c:113)
+==73305==    by 0x4044E1: main (main.c:43)
+==73305== 
+==73305== 192 bytes in 1 blocks are still reachable in loss record 43 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x409203: ft_split (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x406E10: pathfind (commands_utils2.c:25)
+==73305==    by 0x406D95: init_data (commands_utils.c:125)
+==73305==    by 0x40444C: main (main.c:25)
+==73305== 
+==73305== 556 bytes in 23 blocks are still reachable in loss record 45 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x409C39: ft_substr (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x40941C: fill (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x409230: ft_split (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x406E10: pathfind (commands_utils2.c:25)
+==73305==    by 0x406D95: init_data (commands_utils.c:125)
+==73305==    by 0x40444C: main (main.c:25)
+==73305== 
+==73305== 680 bytes in 1 blocks are still reachable in loss record 48 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x408E85: ft_calloc (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x406A39: envp_cpy (commands_utils.c:54)
+==73305==    by 0x406790: ft_cmd (commands.c:80)
+==73305==    by 0x40451F: main (main.c:50)
+==73305== 
+==73305== 680 bytes in 1 blocks are still reachable in loss record 49 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x408E85: ft_calloc (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x406A39: envp_cpy (commands_utils.c:54)
+==73305==    by 0x4065A1: node_exec (commands.c:39)
+==73305==    by 0x4066AA: exec_cmd (commands.c:59)
+==73305==    by 0x4067F0: ft_cmd (commands.c:85)
+==73305==    by 0x40451F: main (main.c:50)
+==73305== 
+==73305== 1,009 bytes in 83 blocks are still reachable in loss record 52 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x409C39: ft_substr (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x40699F: env_new (commands_utils.c:39)
+==73305==    by 0x406C08: init_envp (commands_utils.c:97)
+==73305==    by 0x406D85: init_data (commands_utils.c:124)
+==73305==    by 0x40444C: main (main.c:25)
+==73305== 
+==73305== 2,030 bytes in 168 blocks are definitely lost in loss record 63 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x4095CD: ft_strdup (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x406A95: envp_cpy (commands_utils.c:60)
+==73305==    by 0x406790: ft_cmd (commands.c:80)
+==73305==    by 0x40451F: main (main.c:50)
+==73305== 
+==73305== 2,030 bytes in 168 blocks are definitely lost in loss record 64 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x4095CD: ft_strdup (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x406A95: envp_cpy (commands_utils.c:60)
+==73305==    by 0x4065A1: node_exec (commands.c:39)
+==73305==    by 0x4066AA: exec_cmd (commands.c:59)
+==73305==    by 0x4067F0: ft_cmd (commands.c:85)
+==73305==    by 0x40451F: main (main.c:50)
+==73305== 
+==73305== 2,198 bytes in 168 blocks are definitely lost in loss record 66 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x4096B4: ft_strjoin (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x406AD4: envp_cpy (commands_utils.c:61)
+==73305==    by 0x406790: ft_cmd (commands.c:80)
+==73305==    by 0x40451F: main (main.c:50)
+==73305== 
+==73305== 2,198 bytes in 168 blocks are definitely lost in loss record 67 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x4096B4: ft_strjoin (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x406AD4: envp_cpy (commands_utils.c:61)
+==73305==    by 0x4065A1: node_exec (commands.c:39)
+==73305==    by 0x4066AA: exec_cmd (commands.c:59)
+==73305==    by 0x4067F0: ft_cmd (commands.c:85)
+==73305==    by 0x40451F: main (main.c:50)
+==73305== 
+==73305== 2,227 bytes in 82 blocks are still reachable in loss record 68 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x4095CD: ft_strdup (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x4069F4: env_new (commands_utils.c:43)
+==73305==    by 0x406C08: init_envp (commands_utils.c:97)
+==73305==    by 0x406D85: init_data (commands_utils.c:124)
+==73305==    by 0x40444C: main (main.c:25)
+==73305== 
+==73305== 2,656 bytes in 83 blocks are still reachable in loss record 70 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x408E85: ft_calloc (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x4068FA: env_new (commands_utils.c:31)
+==73305==    by 0x406C08: init_envp (commands_utils.c:97)
+==73305==    by 0x406D85: init_data (commands_utils.c:124)
+==73305==    by 0x40444C: main (main.c:25)
+==73305== 
+==73305== 3,266 bytes in 84 blocks are still reachable in loss record 71 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x4096B4: ft_strjoin (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x406B17: envp_cpy (commands_utils.c:62)
+==73305==    by 0x406790: ft_cmd (commands.c:80)
+==73305==    by 0x40451F: main (main.c:50)
+==73305== 
+==73305== 3,266 bytes in 84 blocks are still reachable in loss record 72 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x4096B4: ft_strjoin (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x406B17: envp_cpy (commands_utils.c:62)
+==73305==    by 0x4065A1: node_exec (commands.c:39)
+==73305==    by 0x4066AA: exec_cmd (commands.c:59)
+==73305==    by 0x4067F0: ft_cmd (commands.c:85)
+==73305==    by 0x40451F: main (main.c:50)
+==73305== 
+==73305== 3,266 bytes in 84 blocks are indirectly lost in loss record 73 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x4096B4: ft_strjoin (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x406B17: envp_cpy (commands_utils.c:62)
+==73305==    by 0x406790: ft_cmd (commands.c:80)
+==73305==    by 0x40451F: main (main.c:50)
+==73305== 
+==73305== 3,266 bytes in 84 blocks are indirectly lost in loss record 74 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x4096B4: ft_strjoin (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x406B17: envp_cpy (commands_utils.c:62)
+==73305==    by 0x4065A1: node_exec (commands.c:39)
+==73305==    by 0x4066AA: exec_cmd (commands.c:59)
+==73305==    by 0x4067F0: ft_cmd (commands.c:85)
+==73305==    by 0x40451F: main (main.c:50)
+==73305== 
+==73305== 3,946 (680 direct, 3,266 indirect) bytes in 1 blocks are definitely lost in loss record 77 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x408E85: ft_calloc (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x406A39: envp_cpy (commands_utils.c:54)
+==73305==    by 0x406790: ft_cmd (commands.c:80)
+==73305==    by 0x40451F: main (main.c:50)
+==73305== 
+==73305== 3,946 (680 direct, 3,266 indirect) bytes in 1 blocks are definitely lost in loss record 78 of 101
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x408E85: ft_calloc (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x406A39: envp_cpy (commands_utils.c:54)
+==73305==    by 0x4065A1: node_exec (commands.c:39)
+==73305==    by 0x4066AA: exec_cmd (commands.c:59)
+==73305==    by 0x4067F0: ft_cmd (commands.c:85)
+==73305==    by 0x40451F: main (main.c:50)
+==73305== 
+==73305== LEAK SUMMARY:
+==73305==    definitely lost: 9,836 bytes in 677 blocks
+==73305==    indirectly lost: 6,532 bytes in 168 blocks
+==73305==      possibly lost: 0 bytes in 0 blocks
+==73305==    still reachable: 14,926 bytes in 457 blocks
+==73305==         suppressed: 208,213 bytes in 226 blocks
+==73305== 
+==73305== ERROR SUMMARY: 9 errors from 9 contexts (suppressed: 0 from 0)
+==73305== 
+==73305== 1 errors in context 1 of 9:
+==73305== Invalid free() / delete / delete[] / realloc()
+==73305==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x40787D: ft_heredoc (heredoc.c:52)
+==73305==    by 0x407A5E: init_hd (heredoc.c:85)
+==73305==    by 0x404513: main (main.c:49)
+==73305==  Address 0x4b68080 is 0 bytes inside a block of size 16 free'd
+==73305==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x4077D3: ft_unlink_hd (heredoc.c:31)
+==73305==    by 0x404556: main (main.c:54)
+==73305==  Block was alloc'd at
+==73305==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73305==    by 0x4096B4: ft_strjoin (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73305==    by 0x407848: heredoc_file (heredoc.c:41)
+==73305==    by 0x407887: ft_heredoc (heredoc.c:53)
+==73305==    by 0x407A5E: init_hd (heredoc.c:85)
+==73305==    by 0x404513: main (main.c:49)
+==73305== 
+--73305-- 
+--73305-- used_suppression:     63 leak readline readline.supp:2 suppressed: 204,154 bytes in 222 blocks
+--73305-- used_suppression:      4 leak add_history readline.supp:8 suppressed: 4,059 bytes in 4 blocks
+==73305== 
+==73305== ERROR SUMMARY: 9 errors from 9 contexts (suppressed: 0 from 0)
+==73294== 
+==73294== HEAP SUMMARY:
+==73294==     in use at exit: 239,225 bytes in 1,514 blocks
+==73294==   total heap usage: 1,789 allocs, 276 frees, 265,617 bytes allocated
+==73294== 
+==73294== 2 bytes in 1 blocks are indirectly lost in loss record 1 of 82
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x408FF3: ft_itoa (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x406CBE: init_envp (commands_utils.c:109)
+==73294==    by 0x406D85: init_data (commands_utils.c:124)
+==73294==    by 0x40444C: main (main.c:25)
+==73294== 
+==73294== 4 bytes in 2 blocks are definitely lost in loss record 2 of 82
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x408FF3: ft_itoa (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x407839: heredoc_file (heredoc.c:41)
+==73294==    by 0x407887: ft_heredoc (heredoc.c:53)
+==73294==    by 0x407A5E: init_hd (heredoc.c:85)
+==73294==    by 0x404513: main (main.c:49)
+==73294== 
+==73294== 6 bytes in 1 blocks are indirectly lost in loss record 3 of 82
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x409C39: ft_substr (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x40699F: env_new (commands_utils.c:39)
+==73294==    by 0x406BD5: init_envp (commands_utils.c:91)
+==73294==    by 0x406D85: init_data (commands_utils.c:124)
+==73294==    by 0x40444C: main (main.c:25)
+==73294== 
+==73294== 22 bytes in 1 blocks are indirectly lost in loss record 12 of 82
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x4095CD: ft_strdup (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x4069F4: env_new (commands_utils.c:43)
+==73294==    by 0x406BD5: init_envp (commands_utils.c:91)
+==73294==    by 0x406D85: init_data (commands_utils.c:124)
+==73294==    by 0x40444C: main (main.c:25)
+==73294== 
+==73294== 32 bytes in 2 blocks are definitely lost in loss record 15 of 82
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x408E85: ft_calloc (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x4079E3: init_hd (heredoc.c:79)
+==73294==    by 0x404513: main (main.c:49)
+==73294== 
+==73294== 556 bytes in 23 blocks are indirectly lost in loss record 28 of 82
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x409C39: ft_substr (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x40941C: fill (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x409230: ft_split (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x406E10: pathfind (commands_utils2.c:25)
+==73294==    by 0x406D95: init_data (commands_utils.c:125)
+==73294==    by 0x40444C: main (main.c:25)
+==73294== 
+==73294== 748 (192 direct, 556 indirect) bytes in 1 blocks are definitely lost in loss record 31 of 82
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x409203: ft_split (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x406E10: pathfind (commands_utils2.c:25)
+==73294==    by 0x406D95: init_data (commands_utils.c:125)
+==73294==    by 0x40444C: main (main.c:25)
+==73294== 
+==73294== 1,009 bytes in 83 blocks are indirectly lost in loss record 34 of 82
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x409C39: ft_substr (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x40699F: env_new (commands_utils.c:39)
+==73294==    by 0x406C08: init_envp (commands_utils.c:97)
+==73294==    by 0x406D85: init_data (commands_utils.c:124)
+==73294==    by 0x40444C: main (main.c:25)
+==73294== 
+==73294== 2,030 bytes in 168 blocks are definitely lost in loss record 45 of 82
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x4095CD: ft_strdup (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x406A95: envp_cpy (commands_utils.c:60)
+==73294==    by 0x406790: ft_cmd (commands.c:80)
+==73294==    by 0x40451F: main (main.c:50)
+==73294== 
+==73294== 2,030 bytes in 168 blocks are definitely lost in loss record 46 of 82
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x4095CD: ft_strdup (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x406A95: envp_cpy (commands_utils.c:60)
+==73294==    by 0x4065A1: node_exec (commands.c:39)
+==73294==    by 0x4066AA: exec_cmd (commands.c:59)
+==73294==    by 0x4067F0: ft_cmd (commands.c:85)
+==73294==    by 0x40451F: main (main.c:50)
+==73294== 
+==73294== 2,198 bytes in 168 blocks are definitely lost in loss record 48 of 82
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x4096B4: ft_strjoin (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x406AD4: envp_cpy (commands_utils.c:61)
+==73294==    by 0x406790: ft_cmd (commands.c:80)
+==73294==    by 0x40451F: main (main.c:50)
+==73294== 
+==73294== 2,198 bytes in 168 blocks are definitely lost in loss record 49 of 82
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x4096B4: ft_strjoin (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x406AD4: envp_cpy (commands_utils.c:61)
+==73294==    by 0x4065A1: node_exec (commands.c:39)
+==73294==    by 0x4066AA: exec_cmd (commands.c:59)
+==73294==    by 0x4067F0: ft_cmd (commands.c:85)
+==73294==    by 0x40451F: main (main.c:50)
+==73294== 
+==73294== 2,227 bytes in 82 blocks are indirectly lost in loss record 50 of 82
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x4095CD: ft_strdup (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x4069F4: env_new (commands_utils.c:43)
+==73294==    by 0x406C08: init_envp (commands_utils.c:97)
+==73294==    by 0x406D85: init_data (commands_utils.c:124)
+==73294==    by 0x40444C: main (main.c:25)
+==73294== 
+==73294== 2,656 bytes in 83 blocks are indirectly lost in loss record 52 of 82
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x408E85: ft_calloc (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x4068FA: env_new (commands_utils.c:31)
+==73294==    by 0x406C08: init_envp (commands_utils.c:97)
+==73294==    by 0x406D85: init_data (commands_utils.c:124)
+==73294==    by 0x40444C: main (main.c:25)
+==73294== 
+==73294== 5,954 (32 direct, 5,922 indirect) bytes in 1 blocks are definitely lost in loss record 64 of 82
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x408E85: ft_calloc (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x4068FA: env_new (commands_utils.c:31)
+==73294==    by 0x406BD5: init_envp (commands_utils.c:91)
+==73294==    by 0x406D85: init_data (commands_utils.c:124)
+==73294==    by 0x40444C: main (main.c:25)
+==73294== 
+==73294== 6,532 bytes in 168 blocks are indirectly lost in loss record 65 of 82
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x4096B4: ft_strjoin (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x406B17: envp_cpy (commands_utils.c:62)
+==73294==    by 0x406790: ft_cmd (commands.c:80)
+==73294==    by 0x40451F: main (main.c:50)
+==73294== 
+==73294== 6,532 bytes in 168 blocks are indirectly lost in loss record 66 of 82
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x4096B4: ft_strjoin (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x406B17: envp_cpy (commands_utils.c:62)
+==73294==    by 0x4065A1: node_exec (commands.c:39)
+==73294==    by 0x4066AA: exec_cmd (commands.c:59)
+==73294==    by 0x4067F0: ft_cmd (commands.c:85)
+==73294==    by 0x40451F: main (main.c:50)
+==73294== 
+==73294== 7,892 (1,360 direct, 6,532 indirect) bytes in 2 blocks are definitely lost in loss record 67 of 82
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x408E85: ft_calloc (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x406A39: envp_cpy (commands_utils.c:54)
+==73294==    by 0x406790: ft_cmd (commands.c:80)
+==73294==    by 0x40451F: main (main.c:50)
+==73294== 
+==73294== 7,892 (1,360 direct, 6,532 indirect) bytes in 2 blocks are definitely lost in loss record 68 of 82
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x408E85: ft_calloc (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x406A39: envp_cpy (commands_utils.c:54)
+==73294==    by 0x4065A1: node_exec (commands.c:39)
+==73294==    by 0x4066AA: exec_cmd (commands.c:59)
+==73294==    by 0x4067F0: ft_cmd (commands.c:85)
+==73294==    by 0x40451F: main (main.c:50)
+==73294== 
+==73294== LEAK SUMMARY:
+==73294==    definitely lost: 11,436 bytes in 682 blocks
+==73294==    indirectly lost: 19,542 bytes in 610 blocks
+==73294==      possibly lost: 0 bytes in 0 blocks
+==73294==    still reachable: 0 bytes in 0 blocks
+==73294==         suppressed: 208,247 bytes in 222 blocks
+==73294== 
+==73294== ERROR SUMMARY: 11 errors from 11 contexts (suppressed: 0 from 0)
+==73294== 
+==73294== 1 errors in context 1 of 11:
+==73294== Invalid free() / delete / delete[] / realloc()
+==73294==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x40787D: ft_heredoc (heredoc.c:52)
+==73294==    by 0x407A5E: init_hd (heredoc.c:85)
+==73294==    by 0x404513: main (main.c:49)
+==73294==  Address 0x4b68080 is 0 bytes inside a block of size 16 free'd
+==73294==    at 0x484B27F: free (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x4077D3: ft_unlink_hd (heredoc.c:31)
+==73294==    by 0x404556: main (main.c:54)
+==73294==  Block was alloc'd at
+==73294==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==73294==    by 0x4096B4: ft_strjoin (in /home/rpedrosa/Common_Core/42_Minishell/minishell)
+==73294==    by 0x407848: heredoc_file (heredoc.c:41)
+==73294==    by 0x407887: ft_heredoc (heredoc.c:53)
+==73294==    by 0x407A5E: init_hd (heredoc.c:85)
+==73294==    by 0x404513: main (main.c:49)
+==73294== 
+--73294-- 
+--73294-- used_suppression:     62 leak readline readline.supp:2 suppressed: 204,231 bytes in 221 blocks
+--73294-- used_suppression:      1 leak add_history readline.supp:8 suppressed: 4,016 bytes in 1 blocks
+==73294== 
+==73294== ERROR SUMMARY: 11 errors from 11 contexts (suppressed: 0 from 0)
