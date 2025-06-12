@@ -1,0 +1,32 @@
+builtins
+exec
+exit.c
+exit.o
+main.c
+main.o
+parsing
+prompt.c
+prompt.o
+signals
+test
+utils
+[?2004hjpatrici@c1r5s6:~/42/minishell$>
+[?2004l[?2004hjpatrici@c1r5s6:~/42/minishell$>
+[?2004l[?2004hjpatrici@c1r5s6:~/42/minishell$>
+[?2004l[?2004hjpatrici@c1r5s6:~/42/minishell$>
+[?2004l[?2004hjpatrici@c1r5s6:~/42/minishell$>
+[?2004l[?2004hjpatrici@c1r5s6:~/42/minishell$>
+[?2004l[?2004hjpatrici@c1r5s6:~/42/minishell$>
+[?2004l[?2004hjpatrici@c1r5s6:~/42/minishell$>
+[?2004l[?2004hjpatrici@c1r5s6:~/42/minishell$>^C[?2004l 
+jpatrici@c1r5s6:~/42/minishell$>[?2004h^C[?2004l 
+jpatrici@c1r5s6:~/42/minishell$>[?2004h^C[?2004l 
+jpatrici@c1r5s6:~/42/minishell$>[?2004h^C[?2004l 
+jpatrici@c1r5s6:~/42/minishell$>[?2004h^C[?2004l 
+jpatrici@c1r5s6:~/42/minishell$>[?2004h^C[?2004l 
+jpatrici@c1r5s6:~/42/minishell$>[?2004h^C[?2004l 
+jpatrici@c1r5s6:~/42/minishell$>[?2004h^C[?2004l 
+jpatrici@c1r5s6:~/42/minishell$>[?2004h^C[?2004l 
+jpatrici@c1r5s6:~/42/minishell$>[?2004h^C[?2004l 
+jpatrici@c1r5s6:~/42/minishell$>[?2004h[?2004l
+exit

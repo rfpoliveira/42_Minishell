@@ -33,21 +33,24 @@ int	setpaths(t_simple_command *cmd, char **paths)
 	int		i;
 
 	i= -1;
-	while (paths[++i])
+	cmd->paths = NULL;
+	if (cmd->args && *cmd->args)
 	{
-		cmd->paths = ft_strjoin(paths[i], "/");
-		cmd->paths = ft_strjoin(cmd->paths, *cmd->args);
-		if (access(cmd->paths, F_OK) != -1
-			&& open(cmd->paths, O_DIRECTORY) == -1)
-			break ;
-		else
+		while (paths[++i])
 		{
-			free(cmd->paths);
-			cmd->paths = NULL;
+			cmd->paths = ft_strjoin(paths[i], "/");
+			cmd->paths = ft_strjoin_free(cmd->paths, *cmd->args);
+			if (access(cmd->paths, F_OK) != -1
+				&& open(cmd->paths, O_DIRECTORY) == -1)
+				break ;
+			else
+			{
+				free(cmd->paths);
+				cmd->paths = NULL;
+			}
 		}
+		if (!cmd->paths && *cmd->args)
+			cmd->paths = ft_strdup(*cmd->args);
 	}
-	if (!cmd->paths)
-		cmd->paths = ft_strdup(*cmd->args);
 	return (1);
 }
-

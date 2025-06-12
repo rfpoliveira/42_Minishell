@@ -26,5 +26,5 @@ int	ft_exit(t_simple_command *cmd, t_data *data)
     else
         exit_status = data->exit_code;
     ft_putstr_fd("exit\n", 1);
-    exit(exit_status);
+	return (exit_bash(NULL, data), 0);
 }

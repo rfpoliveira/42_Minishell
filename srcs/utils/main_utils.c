@@ -51,8 +51,10 @@ void	alloc_struct(t_data **command)
 void	exit_bash(char **prompt, t_data *command)
 {
 	ft_putstr_fd("exit\n", 1);
-	ft_free(prompt);
-	command_free(&command);
+	free_envp(command);
+	if (prompt)
+		ft_free(prompt);
+	/*command_free(&command);*/
 	rl_clear_history();
 	exit(0);
 }

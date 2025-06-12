@@ -109,6 +109,7 @@ void	memory_free(char **splited, t_data *command, int error)
 			table_free(&command->table[i]);
 		}
 		free(command->table);
+		command->table = NULL;
 	}
 	if (splited)
 	{

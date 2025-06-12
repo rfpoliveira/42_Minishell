@@ -12,6 +12,7 @@
 
 #include "../../incs/minishell.h"
 #include <fcntl.h>
+#include <stdio.h>
 #include <unistd.h>
 
 void	outfile_redir(t_simple_command *cmd, t_data *data, int i)
@@ -54,7 +55,7 @@ void	in_redir(t_simple_command *cmd, int j)
 
 }
 
-void	redirects(t_simple_command *cmd, t_data *data)
+int	redirects(t_simple_command *cmd, t_data *data)
 {
 	int		i;
 	int		j;
@@ -63,15 +64,17 @@ void	redirects(t_simple_command *cmd, t_data *data)
 	j = -1;
 	if (!cmd->double_in && !cmd->infile 
 		&& !cmd->outfile && !cmd->double_out)
-		return ;
+		return (0);
 	while (cmd->red_order[++j])
 	{
 		if (data->hd && cmd->red_order[j] == '3')
 			infile_redir(data->hd[++i]);
-		else if (*cmd->infile && cmd->red_order[j] == '1')
+		else if (cmd->infile && *cmd->infile
+				&& cmd->red_order[j] == '1')
 			in_redir(cmd, j);
-		else if ((*cmd->outfile && cmd->red_order[j] == '2')
-			|| (*cmd->double_out && cmd->red_order[j] == '4'))
+		else if ((cmd->outfile && *cmd->outfile && cmd->red_order[j] == '2')
+			|| (cmd->double_out && *cmd->double_out && cmd->red_order[j] == '4'))
 			outfile_redir(cmd, data, j);
 	}
+	return (j);
 }

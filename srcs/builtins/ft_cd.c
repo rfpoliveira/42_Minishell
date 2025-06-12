@@ -14,25 +14,31 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-int	ft_cd(t_simple_command *cmd)
+int	ft_cd(t_data *data, t_simple_command *cmd)
 {
+	char	*old_pwd;
+	char	*tmp;
 	char	*dir;
 
 	dir = getcwd(NULL, 0);
 	if (!ft_strncmp(cmd->args[0], "pwd", 4))
 	{
-		printf("here\n");
 		ft_putstr_fd(dir, 1);
-		write(1, "\n", 1);
-		return (1);
+		return (write(1, "\n", 1));
 	}
+	old_pwd = ft_strjoin("OLDPWD=", dir);
 	dir = ft_strjoin(dir, "/");
 	dir = ft_strjoin(dir, cmd->args[1]);
 	if (open(dir, O_DIRECTORY))
 	{
+		ft_add_key(&data->env, old_pwd, 6);
 		chdir(dir);
-		return (1);
+		free(dir);
+		dir = getcwd(NULL, 0);
+		tmp = ft_strjoin("PWD=", dir);
+		ft_add_key(&data->env, tmp, 3);
+		return (free(old_pwd), free(dir), free(tmp), 1);
 	}
 	else 
-		return (0);
+		return (free(dir), free(old_pwd), 0);
 }

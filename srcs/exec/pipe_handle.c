@@ -105,8 +105,10 @@ void fd_handler(t_data *data, pid_t *pid)
 				last_arg(data, i);
 			else
 				mid_args(data, i);
-			exec_cmd(data->table[i], data);
-			exit(1);
+			exec_cmd(data->table[i], data, pid);
+			exit_bash(NULL, data);
+			/*memory_free(NULL, data, 0);*/
+			/*exit(data->exit_code);*/
         }
 	}
 	parent_process(data, pid);

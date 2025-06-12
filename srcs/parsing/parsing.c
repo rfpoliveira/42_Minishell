@@ -31,8 +31,8 @@ static void	mount_table(t_data *command, char **splited)
 	int	count;
 
 	count = 0;
-	i = 0;
-	while (i < command->number_simple_commands)
+	i = -1;
+	while (++i < command->number_simple_commands)
 	{
 		command->table[i] = malloc(sizeof(t_simple_command));
 		if (!command->table[i])
@@ -49,9 +49,8 @@ static void	mount_table(t_data *command, char **splited)
 			+ count_outfiles(command->table[i]->args)
 			+ count_double_ins(command->table[i]->args)
 			+ count_double_outs(command->table[i]->args);
-		ft_printf("count: %i\n", count);
+		command->table[i]->paths = NULL;
 		red_order_code(count, splited[i], command->table[i]);
-		i++;
 	}
 }
 
