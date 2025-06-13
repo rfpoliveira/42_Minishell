@@ -48,8 +48,12 @@ void	table_free(t_simple_command **table)
 */
 void	inoutfiles_free(t_simple_command *table)
 {
-	matrix_free(table->infile);
-	matrix_free(table->outfile);
-	matrix_free(table->double_out);
-	matrix_free(table->double_in);
+	if (table->infile)
+		matrix_free(table->infile);
+	if (table->outfile)
+		matrix_free(table->outfile);
+	if (table->double_out)
+		matrix_free(table->double_out);
+	if (table->double_in)
+		matrix_free(table->double_in);
 }

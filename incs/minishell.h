@@ -85,6 +85,7 @@ typedef struct s_data
 	char				**envp;
 	char				**hd;
 	char				**paths;
+	char				*prompt;
 }						t_data;
 
 /*============================================================================#

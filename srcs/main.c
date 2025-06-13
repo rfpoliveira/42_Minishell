@@ -18,29 +18,29 @@ int g_sigint_flag = 0;
 int main(int ac, char **av, char **envp)
 {
 	t_data *command;
-	char *prompt;
 	char *user_line;
 
 	command = NULL;
 	alloc_struct(&command);
 	init_data(command, envp);
 	handle_signals();
-	prompt = get_prompt();
-	if (prompt == NULL)
+	while (42)
+	{
+		command->prompt = get_prompt();
+		if (command->prompt == NULL)
 		{
 			print_error(MALLOC_ERROR, &command->exit_code);
 			exit(1);
 		}
-	while (42)
-	{
-		user_line = readline(prompt);
+		user_line = readline(command->prompt);
+		ft_free(&command->prompt);
 		if (g_sigint_flag == 1)
 		{
 			g_sigint_flag = 0;
  			command->exit_code = 128 + 2;
 		}
 		if (user_line == NULL)
-			exit_bash(&prompt, command);
+			exit_bash(NULL, command);
 		if (parsing(&user_line, command) != 0)
 		{
 			ft_free(&user_line);

@@ -34,7 +34,6 @@ int	node_exec(t_simple_command *cmd, t_data *data)
 {
 	pid_t	pid;
 	int		status;
-	/*char	**temp;*/
 
 	pid = fork();
 	if (pid == 0)
@@ -43,10 +42,6 @@ int	node_exec(t_simple_command *cmd, t_data *data)
 		redirects(cmd, data);
 		if (cmd->args[0] && !builtin_exec(cmd, data))
 			execve(cmd->paths, cmd->args, data->envp);
-		/*else*/
-		/*{*/
-		/*	exit_bash(NULL, data);*/
-		/*}*/
 		exit_bash(NULL, data);
 	}
 	waitpid(pid, &status, 0);

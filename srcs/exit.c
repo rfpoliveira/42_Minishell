@@ -95,7 +95,7 @@ void	memory_free(char **splited, t_data *command, int error)
 
 	print_error(error, &command->exit_code);
 	i = -1;
-	printf("command: %p, table: %p\n", command, command->table);
+	/*printf("command: %p, table: %p\n", command, command->table);*/
 	if (command && command->table)
 	{
 		while (command->table[++i])
@@ -103,9 +103,9 @@ void	memory_free(char **splited, t_data *command, int error)
 			if (command->table[i]->args)
 				matrix_free(command->table[i]->args);
 			inoutfiles_free(command->table[i]);
-			printf("order :%s\n", command->table[i]->red_order);
+			/*printf("order :%s\n", command->table[i]->red_order);*/
 			free(command->table[i]->red_order);
-			printf("chegou\n");
+			/*printf("chegou\n");*/
 			table_free(&command->table[i]);
 		}
 		free(command->table);

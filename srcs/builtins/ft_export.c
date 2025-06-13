@@ -91,6 +91,16 @@ int	ft_print_export(t_env *env)
 	return (0);
 }
 
+void	check_infile(t_data *data, t_simple_command *cmd)
+{
+	int	i;
+
+	i = -1;
+	while (data->table[++i])
+		if (data->table[i] == cmd && data->table[i + 1] && data->table[i + 1]->infile)
+			close(1);
+}
+
 int	ft_export(t_simple_command *cmd, t_data *data)
 {
 	t_env	*temp;
@@ -112,10 +122,7 @@ int	ft_export(t_simple_command *cmd, t_data *data)
 		ft_add_key(&data->env, cmd->args[i], keysep);
 	}
 	export_swap(&data->env);
-	i = -1;
-	while (data->table[++i])
-		if (data->table[i] == cmd && data->table[i + 1] && data->table[i + 1]->infile)
-			close(1);
+	check_infile(data, cmd);
 	if (i == 1)
 		ft_print_export(data->env);
 	data->env = temp;

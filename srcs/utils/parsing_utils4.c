@@ -30,7 +30,7 @@ static void	symbol_checker(char *tmp, char *command, int *i, int *j)
 			tmp[(*j)++] = '3';
 		(*i)++;
 	}
-	printf("j: %i\n", (*j));
+	/*printf("j: %i\n", (*j));*/
 }
 
 /**
@@ -53,7 +53,7 @@ void red_order_code(int count, char *command, t_simple_command *curr_table)
 
 	i = -1;
 	j = 0;
-	printf("command: %s\n", command);
+	/*printf("command: %s\n", command);*/
 	tmp = malloc(sizeof(char) * count + 1);
 	tmp[count] = '\0';
 	while (command[++i] && j != count)
