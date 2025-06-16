@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:43:54 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/11 16:55:25 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/16 16:15:59 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,22 @@
  @param splited is the user input after being separated by pipes
  @param curr_table is the current table we are inicializing
 */
-void	ini_files(t_data *command, char **splited, int curr_table)
+static void	ini_files(t_data *command, int curr_table)
 {
 	int	count;
 
-	count = count_infiles(splited);
-	while (count > 0)
-		command->table[curr_table]->infile[--count] = NULL;
-	count = count_outfiles(splited);
-	while (count > 0)
-		command->table[curr_table]->outfile[--count] = NULL;
-	count = count_double_outs(splited);
-	while (count > 0)
-		command->table[curr_table]->double_out[--count] = NULL;
-	count = count_double_ins(splited);
-	while (count > 0)
-		command->table[curr_table]->double_in[--count] = NULL;
+	count = command->table[curr_table]->numb_ins;
+	while (count >= 0)
+		command->table[curr_table]->infile[count--] = NULL;
+	count = command->table[curr_table]->numb_outs;
+	while (count >= 0)
+		command->table[curr_table]->outfile[count--] = NULL;
+	count = command->table[curr_table]->numb_double_outs;
+	while (count >= 0)
+		command->table[curr_table]->double_out[count--] = NULL;
+	count = command->table[curr_table]->numb_double_ins;
+	while (count >= 0)
+		command->table[curr_table]->double_in[count--] = NULL;
 }
 
 /**
@@ -45,31 +45,21 @@ void	ini_files(t_data *command, char **splited, int curr_table)
  @return 0 in case of success,
          1 or any other number in case of error.
 */
-int	alloc_file(t_data *command, char **splited, int curr_table)
+int	alloc_file(t_data *command, int curr_table)
 {
-	int count;
-
 	command->table[curr_table]->infile = NULL;
 	command->table[curr_table]->outfile = NULL;
 	command->table[curr_table]->double_in = NULL;
 	command->table[curr_table]->double_out = NULL;
-	count = count_infiles(splited);
-	if (count > 0)
-		command->table[curr_table]->infile = malloc(sizeof(char *) \
-		* (count + 1));
-	count = count_outfiles(splited);
-	if (count > 0)
-		command->table[curr_table]->outfile = malloc(sizeof(char *) \
-		* (count+ 1));
-	count = count_double_ins(splited);
-	if (count > 0)
-		command->table[curr_table]->double_in = malloc(sizeof(char *) \
-    	* (count + 1));
-	count = count_double_outs(splited);
-	if (count > 0)
-		command->table[curr_table]->double_out = malloc(sizeof(char *) \
-		* (count + 1));
-	ini_files(command, splited, curr_table);
+	command->table[curr_table]->infile = malloc(sizeof(char *) \
+		* (command->table[curr_table]->numb_ins + 1));
+	command->table[curr_table]->outfile = malloc(sizeof(char *) \
+		* (command->table[curr_table]->numb_outs + 1));
+	command->table[curr_table]->double_in = malloc(sizeof(char *) \
+    	* (command->table[curr_table]->numb_double_ins + 1));
+	command->table[curr_table]->double_out = malloc(sizeof(char *) \
+		* (command->table[curr_table]->numb_double_outs + 1));
+	ini_files(command, curr_table);
 	return (0);
 }
 

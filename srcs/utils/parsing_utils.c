@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 15:25:40 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/23 13:39:56 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/16 12:00:39 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	delete_quotes(char **s, t_data *command)
 			break ;
 		i++;
 	}
-	free((*s));
+	ft_free(s);
 	*s = temp;
 	return (0);
 }

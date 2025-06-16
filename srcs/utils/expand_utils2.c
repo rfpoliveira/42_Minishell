@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 16:08:04 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/23 13:38:58 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/16 11:56:45 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ static int	reorg_mtx(t_simple_command *curr, int curr_arg)
 	if (pop_mtx(new_matrix, curr, tmp, &i))
 		return (matrix_free(new_matrix), matrix_free(tmp), 1);
 	new_matrix[i] = NULL;
-	free(tmp);
+	ft_free(tmp);
 	matrix_free(curr->args);
 	curr->args = new_matrix;
 	return (0);

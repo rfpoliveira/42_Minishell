@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:30:00 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/23 13:38:38 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/16 12:00:26 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ int	my_get_env(char *s, char **env, int x, int *exit_code)
 		return (MALLOC_ERROR);
 	post = ft_substr(s, i, ft_strlen(s));
 	if (!post)
-		return (free(tmp), MALLOC_ERROR);
+		return (ft_free(&tmp), MALLOC_ERROR);
 	if (s[x] == '?')
 		expande_exit_code(env, exit_code);
 	else if (s[x++] == '$')
@@ -141,7 +141,7 @@ int	get_str(char **s, char *prev, char *env, int len)
 {
 	if ((*s)[ft_strlen(*s) - 1] == 34)
 		len--;
-	free(*s);
+	ft_free(s);
 	*s = ft_calloc(len, sizeof(char));
 	if (!(*s))
 		return (MALLOC_ERROR);

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 11:57:07 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/11 17:11:13 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/16 16:02:27 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,10 @@ void red_order_code(int count, char *command, t_simple_command *curr_table)
 
 	i = -1;
 	j = 0;
-	/*printf("command: %s\n", command);*/
 	tmp = malloc(sizeof(char) * count + 1);
 	tmp[count] = '\0';
 	while (command[++i] && j != count)
 		symbol_checker(tmp, command, &i, &j);
 	curr_table->red_order = ft_strdup(tmp);
-	free(tmp);
+	ft_free(&tmp);
 }

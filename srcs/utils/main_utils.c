@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 14:59:33 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/09 17:00:18 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:38:36 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,8 @@ void	exit_bash(char **prompt, t_data *command)
 	exit_code = command->exit_code;
 	if (prompt)
 		ft_putstr_fd("exit\n", 1);
+	memory_free(prompt, command, 0);
 	free_envp(command);
-	if (prompt)
-		ft_free(prompt);
 	/*command_free(&command);*/
 	rl_clear_history();
 	exit(exit_code);

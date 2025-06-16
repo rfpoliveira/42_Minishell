@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:33:32 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/04 15:18:45 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:32:20 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:16 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/12 10:53:48 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/16 15:38:59 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ static void	handle_exit_code(int error_code, int *exit_code)
 		*exit_code = 2;
 	else if (error_code == STDIN_ERROR)
 		*exit_code = 2;
-	else if (error_code == 0)
-		*exit_code = 0;
 }
 
 /**
@@ -95,7 +93,6 @@ void	memory_free(char **splited, t_data *command, int error)
 
 	print_error(error, &command->exit_code);
 	i = -1;
-	/*printf("command: %p, table: %p\n", command, command->table);*/
 	if (command && command->table)
 	{
 		while (command->table[++i])
@@ -103,9 +100,7 @@ void	memory_free(char **splited, t_data *command, int error)
 			if (command->table[i]->args)
 				matrix_free(command->table[i]->args);
 			inoutfiles_free(command->table[i]);
-			/*printf("order :%s\n", command->table[i]->red_order);*/
 			free(command->table[i]->red_order);
-			/*printf("chegou\n");*/
 			table_free(&command->table[i]);
 		}
 		free(command->table);

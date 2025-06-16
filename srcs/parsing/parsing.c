@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/11 17:09:53 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/16 16:10:59 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,14 @@ static void	mount_table(t_data *command, char **splited)
 		if (!(command->table[i]->args))
 			return (memory_free(splited, command, MALLOC_ERROR));
 		command->table[i]->number_args = count_args(command->table[i]);
-		if (alloc_file(command, splited, i) != 0)
+		command->table[i]->numb_ins = count_infiles(command->table[i]->args);
+		command->table[i]->numb_outs = count_outfiles(command->table[i]->args);
+		command->table[i]->numb_double_ins = count_double_ins(command->table[i]->args);
+		command->table[i]->numb_double_outs = count_double_outs(command->table[i]->args);
+		if (alloc_file(command, i) != 0)
 			return (memory_free(splited, command, MALLOC_ERROR));
-		count = count_infiles(command->table[i]->args)
-			+ count_outfiles(command->table[i]->args)
-			+ count_double_ins(command->table[i]->args)
-			+ count_double_outs(command->table[i]->args);
+		count = command->table[i]->numb_ins + command->table[i]->numb_outs + \
+		command->table[i]->numb_double_ins + command->table[i]->numb_double_outs;
 		command->table[i]->paths = NULL;
 		red_order_code(count, splited[i], command->table[i]);
 	}

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:55:27 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/09 16:51:10 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/16 16:00:01 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ typedef struct s_simple_command
 	int		out_iter;
 	int		in_iter;
 	char	*red_order;
+	int		numb_ins;
+	int		numb_outs;
+	int		numb_double_outs;
+	int		numb_double_ins;
 }			t_simple_command;
 
 typedef struct s_data

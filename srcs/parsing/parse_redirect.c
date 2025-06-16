@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 16:34:59 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/23 13:56:27 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/16 11:15:37 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,13 @@ int	check_for_red(t_data *command, int table, int arg)
 	char	*current;
 	int		red_count;
 
-	chr = -1;
+	chr = 0;
 	red_count = 0;
 	current = command->table[table]->args[arg];
-	while (current[++chr])
+	while (current[chr])
 	{
+		if (current[chr] == 34 || current[chr] == 39)
+			chr += skip_quotes(current, chr);
 		if (current[chr] == '<')
 		{
 			if (check_red_in(command, &chr, table, arg) != 0)
@@ -94,6 +96,8 @@ int	check_for_red(t_data *command, int table, int arg)
 				return (-1);
 			red_count++;
 		}
+		if (current[chr])
+			chr++;
 	}
 	return (red_count);
 }

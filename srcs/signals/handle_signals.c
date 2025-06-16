@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:44:20 by renato-oliv       #+#    #+#             */
-/*   Updated: 2025/05/23 13:36:21 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/16 14:45:31 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	signal_handler(int signumb)
 {
 
 	(void)signumb;
-	rl_replace_line("", 0);
-	ft_putstr_fd(" \n", 1);
+	ft_putstr_fd("\n", 1);
 	rl_on_new_line();
+	rl_replace_line("", 0);
 	rl_redisplay();
 	g_sigint_flag = 1;
 }

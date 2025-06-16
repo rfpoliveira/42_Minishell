@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:49:43 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/10 11:16:22 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/16 12:02:41 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,11 @@ int	count_double_ins(char **current)
 	{
 		while (current[j][++i])
 		{
-			if (current[j][i] == '<' && current[j][++i] == '<')
+			if (current[j][i] == '<' && current[j][i + 1] == '<')
+			{
 				count++;
+				i++;
+			}
 		}
 		i = 0;
 	}
@@ -118,8 +121,11 @@ int	count_double_outs(char **current)
 	{
 		while (current[j][i])
 		{
-			if (current[j][i] == '>' && current[j][++i] == '>')
+			if (current[j][i] == '>' && current[j][i + 1] == '>')
+			{
 				count++;
+				i++;
+			}
 		if (current[j][i])
 			i++;
 		}
