@@ -85,22 +85,22 @@ re: fclean all
 
 again: clean all
 
-#leaks: readline.supp
-#	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all -s --log-file=output.log ./minishell
+leaks: readline.supp
+	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all -s --log-file=output.log ./minishell
 
-#readline.supp:
-#	echo "{" > readline.supp
-#	echo "    leak readline" >> readline.supp
-#	echo "    Memcheck:Leak" >> readline.supp
-#	echo "    ..." >> readline.supp
-#	echo "    fun:readline" >> readline.supp
-#	echo "}" >> readline.supp
-#	echo "{" >> readline.supp
-#	echo "    leak add_history" >> readline.supp
-#	echo "    Memcheck:Leak" >> readline.supp
-#	echo "    ..." >> readline.supp
-#	echo "    fun:add_history" >> readline.supp
-#	echo "}" >> readline.supp
+readline.supp:
+	echo "{" > readline.supp
+	echo "    leak readline" >> readline.supp
+	echo "    Memcheck:Leak" >> readline.supp
+	echo "    ..." >> readline.supp
+	echo "    fun:readline" >> readline.supp
+	echo "}" >> readline.supp
+	echo "{" >> readline.supp
+	echo "    leak add_history" >> readline.supp
+	echo "    Memcheck:Leak" >> readline.supp
+	echo "    ..." >> readline.supp
+	echo "    fun:add_history" >> readline.supp
+	echo "}" >> readline.supp
 
 .PHONY: all clean fclean re
 

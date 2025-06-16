@@ -44,6 +44,18 @@ t_env	*env_new(char *envp)
 	return (env);
 }
 
+char	*ft_strjoin_free(char *s1, char *join)
+{
+	char	*tmp;
+
+	tmp = ft_strjoin(s1, join);
+	if (s1)
+		free(s1);
+	/*if (join)*/
+	/*	free(join);*/
+	return (tmp);
+}
+
 char	**envp_cpy(t_env *envp)
 {
 	char	**env;
@@ -58,8 +70,8 @@ char	**envp_cpy(t_env *envp)
 		if (t->key && t->value)
 		{
 			env[++i] = ft_strdup(t->key);
-			env[i] = ft_strjoin(env[i], "=");
-			env[i] = ft_strjoin(env[i], t->value);
+			env[i] = ft_strjoin_free(env[i], "=");
+			env[i] = ft_strjoin_free(env[i], t->value);
 		}
 		t = t->next;
 	}
@@ -109,7 +121,9 @@ void 	init_envp(t_env **env, char **envp)
 				n->value = ft_itoa(num);
 			}
 			else
+			{
 				n->value = ft_itoa(1);
+			}
 			break ;
 		}
 		n = n->next;
@@ -120,7 +134,7 @@ void 	init_envp(t_env **env, char **envp)
 
 void	init_data(t_data *data, char **envp)
 {
-	data->paths = NULL;
+	data->paths = NULL; 
 	init_envp(&data->env, envp);
 	data->paths = pathfind(data->env);
 	data->hd = NULL;

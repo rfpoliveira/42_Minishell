@@ -11,20 +11,22 @@
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
-/**/
-/*void	free_cmd(t_simple_command * cmd)*/
-/*{*/
-/*	int	i;*/
-/**/
-/*	if (cmd->fd[0] && cmd->fd[1])*/
-/*		free(cmd->fd);*/
-/*	if ()*/
-/*}*/
-/**/
-void	free_envp(t_data *data)
+
+void	free_cmd(t_simple_command *cmd)
+{
+	/*int	i;*/
+	
+	if (cmd->paths)
+		free(cmd->paths);
+	/*if (cmd->fd && cmd->fd[0] && cmd->fd[1])*/
+	/*	free(cmd->fd);*/
+	free(cmd);
+	cmd = NULL;
+}
+
+void	free_arrenvp(t_data *data)
 {
 	int	i;
-	t_env	*p;
 
 	i = -1;
 	if (data->envp)
@@ -37,6 +39,14 @@ void	free_envp(t_data *data)
 		free(data->envp);
 		data->envp = NULL;
 	}
+}
+
+void	free_envp(t_data *data)
+{
+	int	i;
+	t_env	*p;
+
+	free_arrenvp(data);
 	if (data->env)
 	{
 		while (data->env)
@@ -50,8 +60,26 @@ void	free_envp(t_data *data)
 			data->env = p;
 		}
 	}
-	/*i = -1;*/
-	/*while (data->table[++i])*/
-	/*	free_cmd(data->table[i]);*/
-	/*free(data);*/
+	i = -1;
+	if (data->paths)
+	{
+		while (data->paths[++i])
+			free(data->paths[i]);
+		free(data->paths);
+		data->paths = NULL;
+	}
+	i = -1;
+	if (data->table && *data->table)
+	{
+		while (data->table[++i])
+			free_cmd(data->table[i]);
+	}
+	i = -1;
+	if (data->hd)
+	{
+		while (data->hd[++i])
+			free(data->hd[i]);
+		free(data->hd);
+	}
+	free(data);
 }

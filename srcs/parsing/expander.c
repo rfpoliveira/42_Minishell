@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:53:37 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/10 11:23:09 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/11 16:46:55 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,13 @@ static int	expande_red(t_simple_command *curr_table, int *exit_code)
 
 	i = 0;
 	j = 0;
-	if (expande_red_util(curr_table->infile, i, j, exit_code) != 0)
+	if (curr_table->infile && expande_red_util(curr_table->infile, i, j, exit_code) != 0)
 		return (1);
-	if (expande_red_util(curr_table->outfile, i, j, exit_code) != 0)
+	if (curr_table->outfile && expande_red_util(curr_table->outfile, i, j, exit_code) != 0)
 		return (1);
-	if (expande_red_util(curr_table->double_in, i, j, exit_code) != 0)
+	if (curr_table->double_in && expande_red_util(curr_table->double_in, i, j, exit_code) != 0)
 		return (1);
-	if (expande_red_util(curr_table->double_out, i, j, exit_code) != 0)
+	if (curr_table->double_out && expande_red_util(curr_table->double_out, i, j, exit_code) != 0)
 		return (1);
 	return (0);
 }

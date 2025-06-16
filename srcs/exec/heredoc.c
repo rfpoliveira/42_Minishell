@@ -37,8 +37,11 @@ char	*heredoc_file()
 {
 	static int	i;
 	char		*filename;
+	char		*tmp;
 
-	filename = ft_strjoin(".hd_temp_file_", ft_itoa(i++));
+	tmp = ft_itoa(i++);
+	filename = ft_strjoin(".hd_temp_file_", tmp);
+	free(tmp);
 	return (filename);
 }
 

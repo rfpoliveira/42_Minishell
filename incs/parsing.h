@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:46:37 by renato-oliv       #+#    #+#             */
-/*   Updated: 2025/05/23 13:55:02 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/11 17:10:54 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ size_t	r_count_whitespaces(char *s);
 size_t	r_count_sep(char *s, char sep);
 
 //parse_commands
-char	*red_order_code(int count, char *command);
+void red_order_code(int count, char *command, t_simple_command *table);
 int		check_pipes(char *s);
 
 #endif
