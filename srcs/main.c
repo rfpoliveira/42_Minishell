@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/09 16:51:50 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/17 18:02:08 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int main(int ac, char **av, char **envp)
 		dup2(fd_out, STDOUT_FILENO);
 		dup2(fd_in, STDIN_FILENO);
 		command->exit_code = 0;
-		handle_history(command, &user_line);
+		handle_history(&user_line);
 		if (command->hd != NULL)
 			ft_unlink_hd(command);
 		free_arrenvp(command);

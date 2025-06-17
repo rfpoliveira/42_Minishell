@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 12:03:29 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/23 13:40:14 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/17 17:48:00 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,10 @@ static int	check_consecutives(char *s)
 	i = -1;
 	while (s[++i])
 	{
+		if (s[i] == 34 || s[i] == 39)
+			i += skip_quotes(s, i);
+		if (!s[i])
+			break ;
 		if (s[i] == '|')
 		{
 			i++;

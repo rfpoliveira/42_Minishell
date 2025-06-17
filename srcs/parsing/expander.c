@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:53:37 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/11 16:46:55 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/17 17:59:27 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,8 @@ static int	expand_args(t_simple_command *curr_table, int *exit_code)
 		{
 			if (mid_expand_quote_handler(&flag, &x, curr_table->args[j]) != 0)
 				break ;
-			if (curr_table->args[j][x] == '$')
+			if (curr_table->args[j][x] == '$' && curr_table->args[j][x + 1] \
+				&& !ft_isspace(curr_table->args[j][x + 1]) && curr_table->args[j][x + 1] != 34)
 			{
 				if (expande(&curr_table->args[j], x, exit_code) != 0)
 					return (1);

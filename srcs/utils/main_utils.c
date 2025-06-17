@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 14:59:33 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/16 15:38:36 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/17 18:07:59 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,22 @@
  @note string starting with whitespaces or any that cause errors
 	    should not be included
 */
-void	handle_history(t_data *command, char **user_line)
+void	handle_history(char **user_line)
 {
+	int	i;
+
+	i = 0;
 	if (!*user_line || !user_line)
 		return ;
-	if (command->exit_code != 0)
-		return (ft_free(user_line));
-	if (ft_isspace((*user_line)[0]) == 0)
-		add_history(*user_line);
+	while ((*user_line)[i])
+	{
+		if (ft_isspace((*user_line)[i]) == 0)
+		{
+			add_history(*user_line);
+			break ;
+		}
+		i++;
+	}
 	ft_free(user_line);
 }
 
