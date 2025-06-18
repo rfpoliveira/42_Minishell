@@ -113,4 +113,5 @@ void	inoutfiles_free(t_simple_command *table);
 void	print_error(int error_code, int *exit_code);
 void	exit_bash(char **prompt, t_data *command);
 
+
 #endif

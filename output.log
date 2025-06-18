@@ -1,0 +1,423 @@
+==794453== Memcheck, a memory error detector
+==794453== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==794453== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==794453== Command: ./minishell
+==794453== Parent PID: 794440
+==794453== 
+==794679== 
+==794679== HEAP SUMMARY:
+==794679==     in use at exit: 223,191 bytes in 531 blocks
+==794679==   total heap usage: 913 allocs, 382 frees, 250,535 bytes allocated
+==794679== 
+==794679== 2 bytes in 1 blocks are still reachable in loss record 1 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x4094D3: ft_itoa (in /home/jpatrici/42/minishell/minishell)
+==794679==    by 0x406DCB: init_envp (commands_utils.c:121)
+==794679==    by 0x406E9C: init_data (commands_utils.c:138)
+==794679==    by 0x404437: main (main.c:25)
+==794679== 
+==794679== 2 bytes in 1 blocks are still reachable in loss record 2 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x409AAD: ft_strdup (in /home/jpatrici/42/minishell/minishell)
+==794679==    by 0x4042E2: red_order_code (parsing_utils4.c:60)
+==794679==    by 0x40530D: mount_table (parsing.c:55)
+==794679==    by 0x40502A: ini_command (parsing.c:77)
+==794679==    by 0x404EA9: parsing (parsing.c:114)
+==794679==    by 0x4044DE: main (main.c:44)
+==794679== 
+==794679== 3 bytes in 1 blocks are still reachable in loss record 3 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x402D46: copy_red (redirect_utils.c:73)
+==794679==    by 0x403783: populate_tmp (reorganize_utils.c:142)
+==794679==    by 0x406298: reorganize_after_redirect (parse_redirect.c:134)
+==794679==    by 0x4061BC: handle_redirect (parse_redirect.c:168)
+==794679==    by 0x404EDC: parsing (parsing.c:116)
+==794679==    by 0x4044DE: main (main.c:44)
+==794679== 
+==794679== 5 bytes in 1 blocks are still reachable in loss record 4 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x402D46: copy_red (redirect_utils.c:73)
+==794679==    by 0x402F64: assign_util_infile (redirect_file_assign.c:60)
+==794679==    by 0x402C5B: assign_file (redirect_utils.c:49)
+==794679==    by 0x405F3F: check_red_in (parse_redirect.c:61)
+==794679==    by 0x40600D: check_for_red (parse_redirect.c:89)
+==794679==    by 0x40612D: handle_redirect (parse_redirect.c:158)
+==794679==    by 0x404EDC: parsing (parsing.c:116)
+==794679==    by 0x4044DE: main (main.c:44)
+==794679== 
+==794679== 8 bytes in 1 blocks are still reachable in loss record 8 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x4038D9: alloc_file (parsing_utils3.c:56)
+==794679==    by 0x405262: mount_table (parsing.c:50)
+==794679==    by 0x40502A: ini_command (parsing.c:77)
+==794679==    by 0x404EA9: parsing (parsing.c:114)
+==794679==    by 0x4044DE: main (main.c:44)
+==794679== 
+==794679== 8 bytes in 1 blocks are still reachable in loss record 9 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x403912: alloc_file (parsing_utils3.c:58)
+==794679==    by 0x405262: mount_table (parsing.c:50)
+==794679==    by 0x40502A: ini_command (parsing.c:77)
+==794679==    by 0x404EA9: parsing (parsing.c:114)
+==794679==    by 0x4044DE: main (main.c:44)
+==794679== 
+==794679== 8 bytes in 1 blocks are still reachable in loss record 10 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x40394B: alloc_file (parsing_utils3.c:60)
+==794679==    by 0x405262: mount_table (parsing.c:50)
+==794679==    by 0x40502A: ini_command (parsing.c:77)
+==794679==    by 0x404EA9: parsing (parsing.c:114)
+==794679==    by 0x4044DE: main (main.c:44)
+==794679== 
+==794679== 10 bytes in 1 blocks are still reachable in loss record 11 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x40A119: ft_substr (in /home/jpatrici/42/minishell/minishell)
+==794679==    by 0x406A44: env_new (commands_utils.c:39)
+==794679==    by 0x406CAB: init_envp (commands_utils.c:103)
+==794679==    by 0x406E9C: init_data (commands_utils.c:138)
+==794679==    by 0x404437: main (main.c:25)
+==794679== 
+==794679== 12 bytes in 1 blocks are still reachable in loss record 13 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x409B94: ft_strjoin (in /home/jpatrici/42/minishell/minishell)
+==794679==    by 0x406AEC: ft_strjoin_free (commands_utils.c:51)
+==794679==    by 0x407001: setpaths (commands_utils2.c:42)
+==794679==    by 0x406652: node_exec (commands.c:41)
+==794679==    by 0x4066FD: exec_cmd (commands.c:54)
+==794679==    by 0x406841: ft_cmd (commands.c:84)
+==794679==    by 0x404534: main (main.c:53)
+==794679== 
+==794679== 16 bytes in 1 blocks are still reachable in loss record 18 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x4038A0: alloc_file (parsing_utils3.c:54)
+==794679==    by 0x405262: mount_table (parsing.c:50)
+==794679==    by 0x40502A: ini_command (parsing.c:77)
+==794679==    by 0x404EA9: parsing (parsing.c:114)
+==794679==    by 0x4044DE: main (main.c:44)
+==794679== 
+==794679== 16 bytes in 1 blocks are still reachable in loss record 19 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x406247: reorganize_after_redirect (parse_redirect.c:130)
+==794679==    by 0x4061BC: handle_redirect (parse_redirect.c:168)
+==794679==    by 0x404EDC: parsing (parsing.c:116)
+==794679==    by 0x4044DE: main (main.c:44)
+==794679== 
+==794679== 26 bytes in 1 blocks are still reachable in loss record 22 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x409AAD: ft_strdup (in /home/jpatrici/42/minishell/minishell)
+==794679==    by 0x406AA3: env_new (commands_utils.c:43)
+==794679==    by 0x406CAB: init_envp (commands_utils.c:103)
+==794679==    by 0x406E9C: init_data (commands_utils.c:138)
+==794679==    by 0x404437: main (main.c:25)
+==794679== 
+==794679== 32 bytes in 1 blocks are still reachable in loss record 24 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x409365: ft_calloc (in /home/jpatrici/42/minishell/minishell)
+==794679==    by 0x40698A: env_new (commands_utils.c:31)
+==794679==    by 0x406CAB: init_envp (commands_utils.c:103)
+==794679==    by 0x406E9C: init_data (commands_utils.c:138)
+==794679==    by 0x404437: main (main.c:25)
+==794679== 
+==794679== 64 bytes in 1 blocks are still reachable in loss record 30 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x401385: alloc_struct (main_utils.c:38)
+==794679==    by 0x40442A: main (main.c:24)
+==794679== 
+==794679== 96 bytes in 1 blocks are still reachable in loss record 35 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x4050AC: mount_table (parsing.c:37)
+==794679==    by 0x40502A: ini_command (parsing.c:77)
+==794679==    by 0x404EA9: parsing (parsing.c:114)
+==794679==    by 0x4044DE: main (main.c:44)
+==794679== 
+==794679== 104 bytes in 1 blocks are still reachable in loss record 36 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x404FD1: ini_command (parsing.c:73)
+==794679==    by 0x404EA9: parsing (parsing.c:114)
+==794679==    by 0x4044DE: main (main.c:44)
+==794679== 
+==794679== 112 bytes in 1 blocks are still reachable in loss record 37 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x4096E3: ft_split (in /home/jpatrici/42/minishell/minishell)
+==794679==    by 0x406F41: pathfind (commands_utils2.c:25)
+==794679==    by 0x406EA9: init_data (commands_utils.c:139)
+==794679==    by 0x404437: main (main.c:25)
+==794679== 
+==794679== 205 bytes in 13 blocks are still reachable in loss record 40 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x40A119: ft_substr (in /home/jpatrici/42/minishell/minishell)
+==794679==    by 0x4098FC: fill (in /home/jpatrici/42/minishell/minishell)
+==794679==    by 0x409710: ft_split (in /home/jpatrici/42/minishell/minishell)
+==794679==    by 0x406F41: pathfind (commands_utils2.c:25)
+==794679==    by 0x406EA9: init_data (commands_utils.c:139)
+==794679==    by 0x404437: main (main.c:25)
+==794679== 
+==794679== 568 bytes in 1 blocks are still reachable in loss record 44 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x409365: ft_calloc (in /home/jpatrici/42/minishell/minishell)
+==794679==    by 0x406B3C: envp_cpy (commands_utils.c:66)
+==794679==    by 0x4067DB: ft_cmd (commands.c:79)
+==794679==    by 0x404534: main (main.c:53)
+==794679== 
+==794679== 919 bytes in 69 blocks are still reachable in loss record 47 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x40A119: ft_substr (in /home/jpatrici/42/minishell/minishell)
+==794679==    by 0x406A44: env_new (commands_utils.c:39)
+==794679==    by 0x406D24: init_envp (commands_utils.c:109)
+==794679==    by 0x406E9C: init_data (commands_utils.c:138)
+==794679==    by 0x404437: main (main.c:25)
+==794679== 
+==794679== 2,208 bytes in 69 blocks are still reachable in loss record 59 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x409365: ft_calloc (in /home/jpatrici/42/minishell/minishell)
+==794679==    by 0x40698A: env_new (commands_utils.c:31)
+==794679==    by 0x406D24: init_envp (commands_utils.c:109)
+==794679==    by 0x406E9C: init_data (commands_utils.c:138)
+==794679==    by 0x404437: main (main.c:25)
+==794679== 
+==794679== 3,080 bytes in 68 blocks are still reachable in loss record 61 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x409AAD: ft_strdup (in /home/jpatrici/42/minishell/minishell)
+==794679==    by 0x406AA3: env_new (commands_utils.c:43)
+==794679==    by 0x406D24: init_envp (commands_utils.c:109)
+==794679==    by 0x406E9C: init_data (commands_utils.c:138)
+==794679==    by 0x404437: main (main.c:25)
+==794679== 
+==794679== 4,037 bytes in 70 blocks are still reachable in loss record 64 of 92
+==794679==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794679==    by 0x409B94: ft_strjoin (in /home/jpatrici/42/minishell/minishell)
+==794679==    by 0x406AEC: ft_strjoin_free (commands_utils.c:51)
+==794679==    by 0x406BD7: envp_cpy (commands_utils.c:74)
+==794679==    by 0x4067DB: ft_cmd (commands.c:79)
+==794679==    by 0x404534: main (main.c:53)
+==794679== 
+==794679== LEAK SUMMARY:
+==794679==    definitely lost: 0 bytes in 0 blocks
+==794679==    indirectly lost: 0 bytes in 0 blocks
+==794679==      possibly lost: 0 bytes in 0 blocks
+==794679==    still reachable: 11,541 bytes in 307 blocks
+==794679==         suppressed: 211,650 bytes in 224 blocks
+==794679== 
+==794679== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--794679-- 
+--794679-- used_suppression:     69 leak readline readline.supp:2 suppressed: 211,650 bytes in 224 blocks
+==794679== 
+==794679== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==794745== 
+==794745== HEAP SUMMARY:
+==794745==     in use at exit: 227,253 bytes in 535 blocks
+==794745==   total heap usage: 1,157 allocs, 622 frees, 266,038 bytes allocated
+==794745== 
+==794745== 2 bytes in 1 blocks are still reachable in loss record 1 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x4094D3: ft_itoa (in /home/jpatrici/42/minishell/minishell)
+==794745==    by 0x406DCB: init_envp (commands_utils.c:121)
+==794745==    by 0x406E9C: init_data (commands_utils.c:138)
+==794745==    by 0x404437: main (main.c:25)
+==794745== 
+==794745== 2 bytes in 1 blocks are still reachable in loss record 2 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x409AAD: ft_strdup (in /home/jpatrici/42/minishell/minishell)
+==794745==    by 0x4042E2: red_order_code (parsing_utils4.c:60)
+==794745==    by 0x40530D: mount_table (parsing.c:55)
+==794745==    by 0x40502A: ini_command (parsing.c:77)
+==794745==    by 0x404EA9: parsing (parsing.c:114)
+==794745==    by 0x4044DE: main (main.c:44)
+==794745== 
+==794745== 3 bytes in 1 blocks are still reachable in loss record 3 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x402D46: copy_red (redirect_utils.c:73)
+==794745==    by 0x403783: populate_tmp (reorganize_utils.c:142)
+==794745==    by 0x406298: reorganize_after_redirect (parse_redirect.c:134)
+==794745==    by 0x4061BC: handle_redirect (parse_redirect.c:168)
+==794745==    by 0x404EDC: parsing (parsing.c:116)
+==794745==    by 0x4044DE: main (main.c:44)
+==794745== 
+==794745== 5 bytes in 1 blocks are still reachable in loss record 4 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x402D46: copy_red (redirect_utils.c:73)
+==794745==    by 0x40321D: assign_util_outfile (redirect_file_assign.c:110)
+==794745==    by 0x402C85: assign_file (redirect_utils.c:51)
+==794745==    by 0x405E9F: check_red_out (parse_redirect.c:37)
+==794745==    by 0x406058: check_for_red (parse_redirect.c:95)
+==794745==    by 0x40612D: handle_redirect (parse_redirect.c:158)
+==794745==    by 0x404EDC: parsing (parsing.c:116)
+==794745==    by 0x4044DE: main (main.c:44)
+==794745== 
+==794745== 8 bytes in 1 blocks are still reachable in loss record 7 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x4038A0: alloc_file (parsing_utils3.c:54)
+==794745==    by 0x405262: mount_table (parsing.c:50)
+==794745==    by 0x40502A: ini_command (parsing.c:77)
+==794745==    by 0x404EA9: parsing (parsing.c:114)
+==794745==    by 0x4044DE: main (main.c:44)
+==794745== 
+==794745== 8 bytes in 1 blocks are still reachable in loss record 8 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x403912: alloc_file (parsing_utils3.c:58)
+==794745==    by 0x405262: mount_table (parsing.c:50)
+==794745==    by 0x40502A: ini_command (parsing.c:77)
+==794745==    by 0x404EA9: parsing (parsing.c:114)
+==794745==    by 0x4044DE: main (main.c:44)
+==794745== 
+==794745== 8 bytes in 1 blocks are still reachable in loss record 9 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x40394B: alloc_file (parsing_utils3.c:60)
+==794745==    by 0x405262: mount_table (parsing.c:50)
+==794745==    by 0x40502A: ini_command (parsing.c:77)
+==794745==    by 0x404EA9: parsing (parsing.c:114)
+==794745==    by 0x4044DE: main (main.c:44)
+==794745== 
+==794745== 10 bytes in 1 blocks are still reachable in loss record 11 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x40A119: ft_substr (in /home/jpatrici/42/minishell/minishell)
+==794745==    by 0x406A44: env_new (commands_utils.c:39)
+==794745==    by 0x406CAB: init_envp (commands_utils.c:103)
+==794745==    by 0x406E9C: init_data (commands_utils.c:138)
+==794745==    by 0x404437: main (main.c:25)
+==794745== 
+==794745== 12 bytes in 1 blocks are still reachable in loss record 15 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x409B94: ft_strjoin (in /home/jpatrici/42/minishell/minishell)
+==794745==    by 0x406AEC: ft_strjoin_free (commands_utils.c:51)
+==794745==    by 0x407001: setpaths (commands_utils2.c:42)
+==794745==    by 0x406652: node_exec (commands.c:41)
+==794745==    by 0x4066FD: exec_cmd (commands.c:54)
+==794745==    by 0x406841: ft_cmd (commands.c:84)
+==794745==    by 0x404534: main (main.c:53)
+==794745== 
+==794745== 16 bytes in 1 blocks are still reachable in loss record 20 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x4038D9: alloc_file (parsing_utils3.c:56)
+==794745==    by 0x405262: mount_table (parsing.c:50)
+==794745==    by 0x40502A: ini_command (parsing.c:77)
+==794745==    by 0x404EA9: parsing (parsing.c:114)
+==794745==    by 0x4044DE: main (main.c:44)
+==794745== 
+==794745== 16 bytes in 1 blocks are still reachable in loss record 21 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x406247: reorganize_after_redirect (parse_redirect.c:130)
+==794745==    by 0x4061BC: handle_redirect (parse_redirect.c:168)
+==794745==    by 0x404EDC: parsing (parsing.c:116)
+==794745==    by 0x4044DE: main (main.c:44)
+==794745== 
+==794745== 26 bytes in 1 blocks are still reachable in loss record 25 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x409AAD: ft_strdup (in /home/jpatrici/42/minishell/minishell)
+==794745==    by 0x406AA3: env_new (commands_utils.c:43)
+==794745==    by 0x406CAB: init_envp (commands_utils.c:103)
+==794745==    by 0x406E9C: init_data (commands_utils.c:138)
+==794745==    by 0x404437: main (main.c:25)
+==794745== 
+==794745== 32 bytes in 1 blocks are still reachable in loss record 27 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x409365: ft_calloc (in /home/jpatrici/42/minishell/minishell)
+==794745==    by 0x40698A: env_new (commands_utils.c:31)
+==794745==    by 0x406CAB: init_envp (commands_utils.c:103)
+==794745==    by 0x406E9C: init_data (commands_utils.c:138)
+==794745==    by 0x404437: main (main.c:25)
+==794745== 
+==794745== 64 bytes in 1 blocks are still reachable in loss record 33 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x401385: alloc_struct (main_utils.c:38)
+==794745==    by 0x40442A: main (main.c:24)
+==794745== 
+==794745== 96 bytes in 1 blocks are still reachable in loss record 38 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x4050AC: mount_table (parsing.c:37)
+==794745==    by 0x40502A: ini_command (parsing.c:77)
+==794745==    by 0x404EA9: parsing (parsing.c:114)
+==794745==    by 0x4044DE: main (main.c:44)
+==794745== 
+==794745== 104 bytes in 1 blocks are still reachable in loss record 39 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x404FD1: ini_command (parsing.c:73)
+==794745==    by 0x404EA9: parsing (parsing.c:114)
+==794745==    by 0x4044DE: main (main.c:44)
+==794745== 
+==794745== 112 bytes in 1 blocks are still reachable in loss record 40 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x4096E3: ft_split (in /home/jpatrici/42/minishell/minishell)
+==794745==    by 0x406F41: pathfind (commands_utils2.c:25)
+==794745==    by 0x406EA9: init_data (commands_utils.c:139)
+==794745==    by 0x404437: main (main.c:25)
+==794745== 
+==794745== 205 bytes in 13 blocks are still reachable in loss record 43 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x40A119: ft_substr (in /home/jpatrici/42/minishell/minishell)
+==794745==    by 0x4098FC: fill (in /home/jpatrici/42/minishell/minishell)
+==794745==    by 0x409710: ft_split (in /home/jpatrici/42/minishell/minishell)
+==794745==    by 0x406F41: pathfind (commands_utils2.c:25)
+==794745==    by 0x406EA9: init_data (commands_utils.c:139)
+==794745==    by 0x404437: main (main.c:25)
+==794745== 
+==794745== 568 bytes in 1 blocks are still reachable in loss record 47 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x409365: ft_calloc (in /home/jpatrici/42/minishell/minishell)
+==794745==    by 0x406B3C: envp_cpy (commands_utils.c:66)
+==794745==    by 0x4067DB: ft_cmd (commands.c:79)
+==794745==    by 0x404534: main (main.c:53)
+==794745== 
+==794745== 919 bytes in 69 blocks are still reachable in loss record 50 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x40A119: ft_substr (in /home/jpatrici/42/minishell/minishell)
+==794745==    by 0x406A44: env_new (commands_utils.c:39)
+==794745==    by 0x406D24: init_envp (commands_utils.c:109)
+==794745==    by 0x406E9C: init_data (commands_utils.c:138)
+==794745==    by 0x404437: main (main.c:25)
+==794745== 
+==794745== 2,208 bytes in 69 blocks are still reachable in loss record 62 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x409365: ft_calloc (in /home/jpatrici/42/minishell/minishell)
+==794745==    by 0x40698A: env_new (commands_utils.c:31)
+==794745==    by 0x406D24: init_envp (commands_utils.c:109)
+==794745==    by 0x406E9C: init_data (commands_utils.c:138)
+==794745==    by 0x404437: main (main.c:25)
+==794745== 
+==794745== 3,080 bytes in 68 blocks are still reachable in loss record 64 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x409AAD: ft_strdup (in /home/jpatrici/42/minishell/minishell)
+==794745==    by 0x406AA3: env_new (commands_utils.c:43)
+==794745==    by 0x406D24: init_envp (commands_utils.c:109)
+==794745==    by 0x406E9C: init_data (commands_utils.c:138)
+==794745==    by 0x404437: main (main.c:25)
+==794745== 
+==794745== 4,037 bytes in 70 blocks are still reachable in loss record 68 of 96
+==794745==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==794745==    by 0x409B94: ft_strjoin (in /home/jpatrici/42/minishell/minishell)
+==794745==    by 0x406AEC: ft_strjoin_free (commands_utils.c:51)
+==794745==    by 0x406BD7: envp_cpy (commands_utils.c:74)
+==794745==    by 0x4067DB: ft_cmd (commands.c:79)
+==794745==    by 0x404534: main (main.c:53)
+==794745== 
+==794745== LEAK SUMMARY:
+==794745==    definitely lost: 0 bytes in 0 blocks
+==794745==    indirectly lost: 0 bytes in 0 blocks
+==794745==      possibly lost: 0 bytes in 0 blocks
+==794745==    still reachable: 11,541 bytes in 307 blocks
+==794745==         suppressed: 215,712 bytes in 228 blocks
+==794745== 
+==794745== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--794745-- 
+--794745-- used_suppression:     69 leak readline readline.supp:2 suppressed: 211,650 bytes in 224 blocks
+--794745-- used_suppression:      4 leak add_history readline.supp:8 suppressed: 4,062 bytes in 4 blocks
+==794745== 
+==794745== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==794453== 
+==794453== HEAP SUMMARY:
+==794453==     in use at exit: 216,127 bytes in 231 blocks
+==794453==   total heap usage: 1,627 allocs, 1,396 frees, 289,054 bytes allocated
+==794453== 
+==794453== LEAK SUMMARY:
+==794453==    definitely lost: 0 bytes in 0 blocks
+==794453==    indirectly lost: 0 bytes in 0 blocks
+==794453==      possibly lost: 0 bytes in 0 blocks
+==794453==    still reachable: 0 bytes in 0 blocks
+==794453==         suppressed: 216,127 bytes in 231 blocks
+==794453== 
+==794453== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--794453-- 
+--794453-- used_suppression:     75 leak readline readline.supp:2 suppressed: 212,111 bytes in 230 blocks
+--794453-- used_suppression:      1 leak add_history readline.supp:8 suppressed: 4,016 bytes in 1 blocks
+==794453== 
+==794453== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

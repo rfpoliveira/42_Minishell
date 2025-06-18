@@ -38,11 +38,11 @@ int	node_exec(t_simple_command *cmd, t_data *data)
 	pid = fork();
 	if (pid == 0)
 	{
-		setpaths(cmd, data->paths);
 		redirects(cmd, data);
+		setpaths(cmd, data->paths);
 		if (cmd->args[0] && !builtin_exec(cmd, data))
 			execve(cmd->paths, cmd->args, data->envp);
-		exit_bash(NULL, data);
+		exit_bash(NULL, data, 1);
 	}
 	waitpid(pid, &status, 0);
 	return (0);
@@ -54,18 +54,21 @@ int	exec_cmd(t_simple_command *cmd, t_data *data, pid_t *pid)
 		node_exec(cmd, data);
 	else if (data->number_simple_commands > 1) 
 	{
-		setpaths(cmd, data->paths);
 		redirects(cmd, data);
+		setpaths(cmd, data->paths);
+		if (!cmd->paths)
+		{
+			exit_bash(NULL, data, -2);
+		}
 		if (cmd->args[0] && !builtin_exec(cmd, data))
 			execve(cmd->paths, cmd->args, data->envp);
 		else
 		{
 			if (pid)
 				free(pid);
-			exit_bash(NULL, data);
+			exit_bash(NULL, data, 1);
 		}
-		/*free_envp(data);*/
-		exit(1);
+		exit_bash(NULL, data, 1);
 	}
 	return (0);
 }

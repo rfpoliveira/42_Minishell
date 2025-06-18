@@ -42,7 +42,7 @@ void	alloc_struct(t_data **command)
 		exit(1);
 	}
 	(*command)->table = NULL;
-	(*command)->exit_code = 0;
+	(*command)->exit_code = 1;
 }
 
 /**
@@ -55,7 +55,12 @@ void	exit_bash(char **prompt, t_data *command)
 	exit_code = command->exit_code;
 	if (prompt)
 		ft_putstr_fd("exit\n", 1);
-	memory_free(prompt, command, 0);
+	if (exit_code <= 0)
+		memory_free(prompt, command, exit_code);
+	else
+	{
+		command->exit_code = exit_code;
+	}
 	free_envp(command);
 	/*command_free(&command);*/
 	rl_clear_history();

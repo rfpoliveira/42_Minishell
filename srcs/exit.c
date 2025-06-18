@@ -52,9 +52,9 @@ static void	handle_exit_code(int error_code, int *exit_code)
 */
 void	print_error(int error_code, int *exit_code)
 {
-	if (error_code == MALLOC_ERROR)
-		ft_putstr_fd("Error Allocating memory!\n", STDERR_FILENO);
-	else if (error_code == QUOTE_ERROR)
+	/*if (error_code == MALLOC_ERROR)*/
+	/*	ft_putstr_fd("Error Allocating memory!\n", STDERR_FILENO);*/
+	if (error_code == QUOTE_ERROR)
 		ft_putstr_fd("Error: Non closed quotes!\n", STDERR_FILENO);
 	else if (error_code == COM_NOT_FOUND)
 		ft_putstr_fd("Error: command not found!\n", STDERR_FILENO);
@@ -72,6 +72,7 @@ void	print_error(int error_code, int *exit_code)
 		ft_putstr_fd("Error: numeric value needed!\n", STDERR_FILENO);
 	else if (error_code == STDIN_ERROR)
 		ft_putstr_fd("Error reading from stdin!\n", STDERR_FILENO);
+
 	handle_exit_code(error_code, exit_code);
 }
 

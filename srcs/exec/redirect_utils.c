@@ -14,9 +14,13 @@
 
 int	redir_out(char *file, t_data *data)
 {
+	/*dprintf(2, "%d", data->exit_code);*/
 	if (!access(file, F_OK)
 	 && access(file, W_OK))
-		exit(data->exit_code);
+	{
+		ft_putstr_fd(" Permission denied", 2);
+		exit_bash(NULL, data, 1);
+	}
 	return (open(file, O_CREAT | O_RDWR | O_TRUNC, 0644));
 }
 
@@ -24,7 +28,10 @@ int	redir_double_out(char *file, t_data *data)
 {
 	if (!access(file, F_OK)
 	&& access(file, W_OK))
-		exit(data->exit_code);
+	{
+		ft_putstr_fd(" Permission denied", 2);
+		exit_bash(NULL, data, 1);
+	}
 	return (open(file, O_CREAT | O_RDWR | O_APPEND, 0644));
 }
 

@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
+#include <fcntl.h>
 #include <unistd.h>
 
 int g_sigint_flag = 0;
@@ -26,6 +27,7 @@ int main(int ac, char **av, char **envp)
 	handle_signals();
 	while (42)
 	{
+		command->exit_code = 0;
 		command->prompt = get_prompt();
 		if (command->prompt == NULL)
 		{
@@ -50,10 +52,10 @@ int main(int ac, char **av, char **envp)
 			init_hd(command);
 		int	fd_out = dup(STDOUT_FILENO);
 		int	fd_in = dup(STDIN_FILENO);
+
 		ft_cmd(command);
 		dup2(fd_out, STDOUT_FILENO);
 		dup2(fd_in, STDIN_FILENO);
-		command->exit_code = 0;
 		handle_history(command, &user_line);
 		if (command->hd != NULL)
 			ft_unlink_hd(command);
