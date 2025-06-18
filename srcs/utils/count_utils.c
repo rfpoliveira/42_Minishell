@@ -6,11 +6,12 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:49:43 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/16 12:02:41 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/17 18:11:19 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
+#include "../../incs/parsing.h"
 
 /**
  @brief counts the number of infiles in the current argument
@@ -22,13 +23,15 @@ int	count_infiles(char **current)
 	int	i;
 	int	count;
 
-	j = 0;
-	i = 0;
+	j = -1;
 	count = 0;
-	while (current[j])
+	while (current[++j])
 	{
+		i = 0;
 		while (current[j][i])
 		{
+			if (current[j][i] == 39 || current[j][i] == 34)
+				i += skip_quotes(current[j], i);
 			if (current[j][i] == '<' && current[j][i + 1] != '<')
 			{
 				if (i == 0)
@@ -36,10 +39,9 @@ int	count_infiles(char **current)
 				else if (i > 0 && current[j][i - 1] != '<')
 					count++;
 			}
-			i++;
+			if (current[j][i])
+				i++;
 		}
-		i = 0;
-		j++;
 	}
 	return (count);
 }
@@ -54,13 +56,15 @@ int	count_outfiles(char **current)
 	int	i;
 	int	count;
 
-	j = 0;
-	i = 0;
+	j = -1;
 	count = 0;
-	while (current[j])
+	while (current[++j])
 	{
+		i = 0;
 		while (current[j][i])
 		{
+			if (current[j][i] == 39 || current[j][i] == 34)
+				i += skip_quotes(current[j], i);
 			if (current[j][i] == '>' && current[j][i + 1] != '>')
 			{
 				if (i == 0)
@@ -68,10 +72,9 @@ int	count_outfiles(char **current)
 				else if (i > 0 && current[j][i - 1] != '>')
 					count++;
 			}
-			i++;
+			if (current[j][i])
+				i++;
 		}
-		i = 0;
-		j++;
 	}
 	return (count);
 }
@@ -87,17 +90,21 @@ int	count_double_ins(char **current)
 	int	count;
 
 	j = -1;
-	i = -1;
+	i = 0;
 	count = 0;
 	while (current[++j])
 	{
-		while (current[j][++i])
+		while (current[j][i])
 		{
-			if (current[j][i] == '<' && current[j][i + 1] == '<')
+			if (current[j][i] == 39 || current[j][i] == 34)
+				i += skip_quotes(current[j], i);
+			if (current[j][i] == '<' && current[j][i] && current[j][i + 1] == '<')
 			{
 				count++;
 				i++;
 			}
+			if (current[j][i])
+				i++;
 		}
 		i = 0;
 	}
@@ -121,6 +128,8 @@ int	count_double_outs(char **current)
 	{
 		while (current[j][i])
 		{
+			if (current[j][i] == 39 || current[j][i] == 34)
+				i += skip_quotes(current[j], i);
 			if (current[j][i] == '>' && current[j][i + 1] == '>')
 			{
 				count++;

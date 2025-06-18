@@ -83,8 +83,7 @@ void parent_process(t_data *data, pid_t *pid)
 	i = -1;
 	while (++i < data->number_simple_commands)
 	   waitpid(pid[i], &status, 0);
-	data->exit_code = WIFEXITED(status);
-	/*exit(data->exit_code);*/
+	data->exit_code = WEXITSTATUS(status);
 }
 
 void fd_handler(t_data *data, pid_t *pid)
@@ -106,9 +105,8 @@ void fd_handler(t_data *data, pid_t *pid)
 			else
 				mid_args(data, i);
 			exec_cmd(data->table[i], data, pid);
-			exit_bash(NULL, data);
-			/*memory_free(NULL, data, 0);*/
-			/*exit(data->exit_code);*/
+			dprintf(2, "exit on pipe:\t%d\n", data->exit_code);
+			exit_bash(NULL, data, data->exit_code);
         }
 	}
 	parent_process(data, pid);

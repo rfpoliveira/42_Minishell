@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
+#include <fcntl.h>
 
 int	builtin_exec(t_simple_command *cmd, t_data *data)
 {
@@ -30,45 +31,59 @@ int	builtin_exec(t_simple_command *cmd, t_data *data)
 	return (0);
 }
 
-int	node_exec(t_simple_command *cmd, t_data *data)
+int	node_exec(t_simple_command *cmd, t_data **data)
 {
 	pid_t	pid;
 	int		status;
+	int		is_builtin;
 
 	pid = fork();
 	if (pid == 0)
 	{
-		redirects(cmd, data);
-		setpaths(cmd, data->paths);
-		if (cmd->args[0] && !builtin_exec(cmd, data))
-			execve(cmd->paths, cmd->args, data->envp);
-		exit_bash(NULL, data, 1);
+		redirects(cmd, *data);
+		setpaths(cmd, (*data)->paths);
+		is_builtin = builtin_exec(cmd, *data);
+		if (cmd->args[0] && !is_builtin)
+			execve(cmd->paths, cmd->args, (*data)->envp);
+		if (cmd->args[0][0] == '.' && !access(cmd->args[0], F_OK))
+		{
+			if (!access(cmd->args[0], F_OK | R_OK))
+				ft_putstr_fd(" Is a directory\n", 2);
+			else
+				ft_putstr_fd(" Permission denied", 2);
+			exit_bash(NULL, *data, 126);
+		}
+		if ((cmd->args[0][0] == '.' || cmd->args[0][0] == '/') && access(cmd->args[0], F_OK) ) 
+			ft_putstr_fd(" No such file or directory\n", 2);
+		else
+			ft_putstr_fd(" command not found\n", 2);
+		exit_bash(NULL, *data, 127);
 	}
 	waitpid(pid, &status, 0);
+	(*data)->exit_code = WEXITSTATUS(status);
 	return (0);
 }
 
 int	exec_cmd(t_simple_command *cmd, t_data *data, pid_t *pid)
 {
+	int		is_builtin;
+
 	if (data->number_simple_commands == 1)
-		node_exec(cmd, data);
+		node_exec(cmd, &data);
 	else if (data->number_simple_commands > 1) 
 	{
 		redirects(cmd, data);
 		setpaths(cmd, data->paths);
-		if (!cmd->paths)
-		{
-			exit_bash(NULL, data, -2);
-		}
-		if (cmd->args[0] && !builtin_exec(cmd, data))
+		is_builtin = builtin_exec(cmd, data);
+		if (cmd->args[0] && !is_builtin)
 			execve(cmd->paths, cmd->args, data->envp);
-		else
+		if (pid)
+			free(pid);
+		if (!is_builtin)
 		{
-			if (pid)
-				free(pid);
-			exit_bash(NULL, data, 1);
+			ft_putstr_fd(" command not found\n", 2);
+			exit_bash(NULL, data, 127);
 		}
-		exit_bash(NULL, data, 1);
 	}
 	return (0);
 }

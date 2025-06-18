@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:55:27 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/16 16:00:01 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/17 18:02:14 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ typedef struct s_data
 void	handle_signals(void);
 void	alloc_struct(t_data **command);
 char	*get_prompt(void);
-void	handle_history(t_data *command, char **user_line);
+void	handle_history(char **user_line);
 int		parsing(char **user_line, t_data *command);
 
 //exiting/errors/memory
@@ -110,8 +110,8 @@ void	command_free(t_data **command);
 void	table_free(t_simple_command **table);
 void	ft_free(char **ptr);
 void	inoutfiles_free(t_simple_command *table);
-void	print_error(int error_code, int *exit_code);
-void	exit_bash(char **prompt, t_data *command);
+void	print_error(int error_code, t_data *command);
+void	exit_bash(char **prompt, t_data *command, int exit_code);
 
 
 #endif

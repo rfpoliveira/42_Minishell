@@ -116,6 +116,9 @@ int	ft_export(t_simple_command *cmd, t_data *data)
 		keysep = export_parse(cmd->args[i], keysep);
 		if (keysep == 0)
 		{
+			if (cmd->args[i][ft_strchrlen(cmd->args[i], '-') + 1] == '\0'
+			|| cmd->args[i][ft_strchrlen(cmd->args[i], '-') + 1 == '='])
+				data->exit_code = 1;
 			export_error(cmd->args[i]);
 			continue ;
 		}

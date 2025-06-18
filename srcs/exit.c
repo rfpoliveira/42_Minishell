@@ -19,28 +19,28 @@ depending of the error_code passed it alters the
 exit_code with is saved in the main struct during the
 whole programs 
 */
-static void	handle_exit_code(int error_code, int *exit_code)
+static void	handle_exit_code(int error_code, t_data *command)
 {
 	if (error_code == MALLOC_ERROR)
-		*exit_code = 1;
+		command->exit_code = 1;
 	else if (error_code == QUOTE_ERROR)
-		*exit_code = 1;
+		command->exit_code = 1;
 	else if (error_code == COM_NOT_FOUND)
-		*exit_code = 127;
+		command->exit_code = 127;
 	else if (error_code == TOO_MANY_ARGS)
-		*exit_code = 1;
+		command->exit_code = 1;
 	else if (error_code == INV_PATH)
-		*exit_code = 1;
+		command->exit_code = 1;
 	else if (error_code == NO_ARGS)
-		*exit_code = 2;
+		command->exit_code = 2;
 	else if (error_code == SYNTAX_ERROR)
-		*exit_code = 2;
+		command->exit_code = 2;
 	else if (error_code == OPEN_ERROR)
-		*exit_code = 2;
+		command->exit_code = 2;
 	else if (error_code == EXIT_ERROR)
-		*exit_code = 2;
+		command->exit_code = 2;
 	else if (error_code == STDIN_ERROR)
-		*exit_code = 2;
+		command->exit_code = 2;
 }
 
 /**
@@ -50,7 +50,7 @@ static void	handle_exit_code(int error_code, int *exit_code)
 	does nothing if error_code = 0, 
 	calls handle_exit_code to alter the exit_code 
 */
-void	print_error(int error_code, int *exit_code)
+void	print_error(int error_code, t_data *command)
 {
 	/*if (error_code == MALLOC_ERROR)*/
 	/*	ft_putstr_fd("Error Allocating memory!\n", STDERR_FILENO);*/
@@ -73,7 +73,7 @@ void	print_error(int error_code, int *exit_code)
 	else if (error_code == STDIN_ERROR)
 		ft_putstr_fd("Error reading from stdin!\n", STDERR_FILENO);
 
-	handle_exit_code(error_code, exit_code);
+	handle_exit_code(error_code, command);
 }
 
 /**
@@ -92,7 +92,7 @@ void	memory_free(char **splited, t_data *command, int error)
 {
 	int	i;
 
-	print_error(error, &command->exit_code);
+	print_error(error, command);
 	i = -1;
 	if (command && command->table)
 	{
