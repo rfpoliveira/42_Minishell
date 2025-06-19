@@ -26,10 +26,12 @@ int	ft_cd(t_data *data, t_simple_command *cmd)
 		ft_putstr_fd(dir, 1);
 		return (write(1, "\n", 1));
 	}
+	if (cmd->number_args > 2)
+		exit_bash(NULL, data, TOO_MANY_ARGS);
 	old_pwd = ft_strjoin("OLDPWD=", dir);
 	dir = ft_strjoin_free(dir, "/");
 	dir = ft_strjoin_free(dir, cmd->args[1]);
-	if (open(dir, O_DIRECTORY))
+	if (open(dir, O_DIRECTORY) > 0)
 	{
 		ft_add_key(&data->env, old_pwd, 6);
 		chdir(dir);
@@ -40,5 +42,11 @@ int	ft_cd(t_data *data, t_simple_command *cmd)
 		return (free(old_pwd), free(dir), free(tmp), 1);
 	}
 	else 
-		return (free(dir), free(old_pwd), 0);
+	{
+		free(old_pwd);
+		free(dir);
+		ft_putstr_fd(" No such file or directory", 2);
+		exit_bash(NULL, data, 1);
+	}
+	return (0);
 }

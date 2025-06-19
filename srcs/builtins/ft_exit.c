@@ -41,7 +41,7 @@ int	ft_exit(t_simple_command *cmd, t_data *data)
     {
         exit_status = ft_atoi(cmd->args[1]);
         if (exit_status < 0 || exit_status > 255)
-            exit_status = 255;
+            exit_status = 42;
     }
     else
 		exit_status = data->exit_code;

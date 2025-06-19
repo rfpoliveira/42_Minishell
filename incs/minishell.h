@@ -110,7 +110,7 @@ void	command_free(t_data **command);
 void	table_free(t_simple_command **table);
 void	ft_free(char **ptr);
 void	inoutfiles_free(t_simple_command *table);
-void	print_error(int error_code, t_data *command);
+void	print_error(int error_code, int *exit_code);
 void	exit_bash(char **prompt, t_data *command, int exit_code);
 
 

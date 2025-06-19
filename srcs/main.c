@@ -31,7 +31,7 @@ int main(int ac, char **av, char **envp)
 		command->prompt = get_prompt();
 		if (command->prompt == NULL)
 		{
-			print_error(MALLOC_ERROR, command);
+			print_error(MALLOC_ERROR, &command->exit_code);
 			exit(1);
 		}
 		user_line = readline(command->prompt);

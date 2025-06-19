@@ -19,28 +19,28 @@ depending of the error_code passed it alters the
 exit_code with is saved in the main struct during the
 whole programs 
 */
-static void	handle_exit_code(int error_code, t_data *command)
+static void	handle_exit_code(int error_code, int *exit_code)
 {
 	if (error_code == MALLOC_ERROR)
-		command->exit_code = 1;
+		*exit_code = 1;
 	else if (error_code == QUOTE_ERROR)
-		command->exit_code = 1;
+		*exit_code = 1;
 	else if (error_code == COM_NOT_FOUND)
-		command->exit_code = 127;
+		*exit_code = 127;
 	else if (error_code == TOO_MANY_ARGS)
-		command->exit_code = 1;
+		*exit_code = 1;
 	else if (error_code == INV_PATH)
-		command->exit_code = 1;
+		*exit_code = 1;
 	else if (error_code == NO_ARGS)
-		command->exit_code = 2;
+		*exit_code = 2;
 	else if (error_code == SYNTAX_ERROR)
-		command->exit_code = 2;
+		*exit_code = 2;
 	else if (error_code == OPEN_ERROR)
-		command->exit_code = 2;
+		*exit_code = 2;
 	else if (error_code == EXIT_ERROR)
-		command->exit_code = 2;
+		*exit_code = 2;
 	else if (error_code == STDIN_ERROR)
-		command->exit_code = 2;
+		*exit_code = 2;
 }
 
 /**
@@ -50,10 +50,10 @@ static void	handle_exit_code(int error_code, t_data *command)
 	does nothing if error_code = 0, 
 	calls handle_exit_code to alter the exit_code 
 */
-void	print_error(int error_code, t_data *command)
+void	print_error(int error_code, int *exit_code)
 {
-	/*if (error_code == MALLOC_ERROR)*/
-	/*	ft_putstr_fd("Error Allocating memory!\n", STDERR_FILENO);*/
+	// if (error_code == MALLOC_ERROR)
+	// 	ft_putstr_fd("Error Allocating memory!\n", STDERR_FILENO);
 	if (error_code == QUOTE_ERROR)
 		ft_putstr_fd("Error: Non closed quotes!\n", STDERR_FILENO);
 	else if (error_code == COM_NOT_FOUND)
@@ -73,7 +73,7 @@ void	print_error(int error_code, t_data *command)
 	else if (error_code == STDIN_ERROR)
 		ft_putstr_fd("Error reading from stdin!\n", STDERR_FILENO);
 
-	handle_exit_code(error_code, command);
+	handle_exit_code(error_code, exit_code);
 }
 
 /**
@@ -92,7 +92,7 @@ void	memory_free(char **splited, t_data *command, int error)
 {
 	int	i;
 
-	print_error(error, command);
+	print_error(error, &command->exit_code);
 	i = -1;
 	if (command && command->table)
 	{
