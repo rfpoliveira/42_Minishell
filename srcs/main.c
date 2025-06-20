@@ -52,7 +52,6 @@ int main(int ac, char **av, char **envp)
 			init_hd(command);
 		int	fd_out = dup(STDOUT_FILENO);
 		int	fd_in = dup(STDIN_FILENO);
-
 		ft_cmd(command);
 		dup2(fd_out, STDOUT_FILENO);
 		dup2(fd_in, STDIN_FILENO);

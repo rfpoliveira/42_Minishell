@@ -11,17 +11,21 @@
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
+#include <stdio.h>
 
-void	free_cmd(t_simple_command *cmd)
+void	free_cmd(t_data *data)
 {
-	/*int	i;*/
-	
-	if (cmd->paths)
-		free(cmd->paths);
+	int	i;
+
+	i = -1;
+	while (data->table[++i])
+	{
+		if (data->table[i]->paths)
+			free(data->table[i]->paths);
+
+	}
 	/*if (cmd->fd && cmd->fd[0] && cmd->fd[1])*/
 	/*	free(cmd->fd);*/
-	free(cmd);
-	cmd = NULL;
 }
 
 void	free_arrenvp(t_data *data)
@@ -68,12 +72,11 @@ void	free_envp(t_data *data)
 		free(data->paths);
 		data->paths = NULL;
 	}
-	i = -1;
 	if (data->table && *data->table)
-	{
+		free_cmd(data);
+	if (data->table && *data->table)
 		while (data->table[++i])
-			free_cmd(data->table[i]);
-	}
+			table_free(data->table);
 	i = -1;
 	if (data->hd)
 	{

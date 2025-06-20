@@ -105,7 +105,6 @@ void fd_handler(t_data *data, pid_t *pid)
 			else
 				mid_args(data, i);
 			exec_cmd(data->table[i], data, pid);
-			dprintf(2, "exit on pipe:\t%d\n", data->exit_code);
 			exit_bash(NULL, data, data->exit_code);
         }
 	}

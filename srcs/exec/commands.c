@@ -50,7 +50,7 @@ int	node_exec(t_simple_command *cmd, t_data **data)
 		{
 			if (!access(cmd->args[0], F_OK | R_OK))
 				ft_putstr_fd(" Is a directory\n", 2);
-			else
+			else if (access(cmd->args[0], R_OK))
 				ft_putstr_fd(" Permission denied", 2);
 			exit_bash(NULL, *data, 126);
 		}

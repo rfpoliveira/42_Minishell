@@ -62,11 +62,20 @@ void	exit_bash(char **prompt, t_data *command, int exit_code)
 	if (prompt)
 		ft_putstr_fd("exit\n", 1);
 	if (exit_code <= 0)
+	{
+		if (command->table && *command->table)
+			free_cmd(command);
 		memory_free(prompt, command, exit_code);
+
+
+	}
 	else
 	{
+		if (command->table && *command->table)
+			free_cmd(command);
 		command->exit_code = exit_code;
 		memory_free(prompt, command, 0);
+		
 	}
 	exit_code = command->exit_code;
 	free_envp(command);

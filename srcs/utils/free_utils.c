@@ -51,12 +51,12 @@ void	inoutfiles_free(t_simple_command *table)
 	/*table->infile -= table->numb_ins;*/
 	/*table->outfile -= table->numb_outs;*/
 	/*table->double_out -= table->numb_double_outs;*/
-	if (*table->infile)
+	if (table->infile)
 		matrix_free(table->infile);
-	if (*table->outfile)
+	if (table->outfile)
 		matrix_free(table->outfile);
-	if (*table->double_out)
+	if (table->double_out)
 		matrix_free(table->double_out);
-	if (*table->double_in)
+	if (table->double_in)
 		matrix_free(table->double_in);
 }
