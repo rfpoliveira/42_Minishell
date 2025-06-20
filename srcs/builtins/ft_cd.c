@@ -28,6 +28,8 @@ int	ft_cd(t_data *data, t_simple_command *cmd)
 	}
 	if (cmd->number_args > 2)
 		exit_bash(NULL, data, TOO_MANY_ARGS);
+	if (!ft_strncmp(cmd->args[1], dir, ft_strlen(dir)))
+		exit_bash(NULL, data, 0);
 	old_pwd = ft_strjoin("OLDPWD=", dir);
 	dir = ft_strjoin_free(dir, "/");
 	dir = ft_strjoin_free(dir, cmd->args[1]);

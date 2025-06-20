@@ -64,8 +64,12 @@ void	exit_bash(char **prompt, t_data *command, int exit_code)
 	if (exit_code <= 0)
 		memory_free(prompt, command, exit_code);
 	else
+	{
 		command->exit_code = exit_code;
+		memory_free(prompt, command, 0);
+	}
+	exit_code = command->exit_code;
 	free_envp(command);
 	rl_clear_history();
-	exit(command->exit_code);
+	exit(exit_code);
 }

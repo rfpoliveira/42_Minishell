@@ -24,12 +24,14 @@ void	outfile_redir(t_simple_command *cmd, t_data *data, int i)
 	{
 		fd = redir_out(*cmd->outfile, data);
 		free(*cmd->outfile);
+		*cmd->outfile = NULL;
 		(cmd->outfile)++;
 	}
 	else if (cmd->red_order[i] == '4')
 	{
 		fd = redir_double_out(*cmd->double_out, data);
 		free(*cmd->double_out);
+		*cmd->double_out = NULL;
 		(cmd->double_out)++;
 	}
 	else
@@ -49,6 +51,7 @@ void	in_redir(t_simple_command *cmd, t_data *data, int j)
 		if (!access(*cmd->infile, F_OK | R_OK) && cmd->red_order[j] == '1')
 			infile_redir(*cmd->infile);
 		free(*cmd->infile);
+		*cmd->infile = NULL;
 		(cmd->infile)++;
 	}
 	else if (*cmd->infile && access(*cmd->infile, F_OK | R_OK))
