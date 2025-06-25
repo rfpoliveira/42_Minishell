@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:46:37 by renato-oliv       #+#    #+#             */
-/*   Updated: 2025/06/16 16:09:29 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/25 10:49:33 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,5 @@ size_t	r_count_sep(char *s, char sep);
 void red_order_code(int count, char *command, t_simple_command *table);
 int		check_pipes(char *s);
 
+int	handle_empty_args (t_data *command);
 #endif

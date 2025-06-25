@@ -5,7 +5,7 @@
 MAIN = $(addprefix $(SRCS_PATH)/, main.c exit.c prompt.c)
 
 PARSING = $(addprefix $(PARSING_PATH)/, parsing.c whitespaces_split.c \
-parsing_split.c expander.c parse_redirect.c)
+parsing_split.c expander.c parse_redirect.c handle_empty_args.c)
 
 SIGNAL = srcs/signals/handle_signals.c
 

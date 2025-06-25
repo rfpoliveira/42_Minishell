@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:07:39 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/03/17 18:07:47 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/06/25 11:40:24 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ int	node_exec(t_simple_command *cmd, t_data **data)
 	pid = fork();
 	if (pid == 0)
 	{
-		/*dprintf(2, "token arg: %s\n", cmd->args[0]);*/
+		/* dprintf(2, "token arg: %s\n", cmd->args[0]); */
 		redirects(cmd, *data);
 		setpaths(cmd, (*data)->paths);
 		is_builtin = builtin_exec(cmd, *data);
 		if (cmd->args[0] && !is_builtin)
 			execve(cmd->paths, cmd->args, (*data)->envp);
-		if (cmd->args[0][0] == '.' && !access(cmd->args[0], F_OK))
+		if (cmd->args[0] && (cmd->args[0][0] == '.' && !access(cmd->args[0], F_OK)))
 		{
 			if (!access(cmd->args[0], F_OK | R_OK))
 				ft_putstr_fd(" Is a directory\n", 2);
@@ -54,11 +54,12 @@ int	node_exec(t_simple_command *cmd, t_data **data)
 				ft_putstr_fd(" Permission denied", 2);
 			exit_bash(NULL, *data, 126);
 		}
-		if ((cmd->args[0][0] == '.' || cmd->args[0][0] == '/') && access(cmd->args[0], F_OK) ) 
+		if (cmd->args[0] && (cmd->args[0][0] == '.' || cmd->args[0][0] == '/') && access(cmd->args[0], F_OK) ) 
 			ft_putstr_fd(" No such file or directory\n", 2);
-		else
+		else if (cmd->args[0])
 			ft_putstr_fd(" command not found\n", 2);
-		exit_bash(NULL, *data, 127);
+		if (cmd->args[0])
+			exit_bash(NULL, *data, 127);
 	}
 	waitpid(pid, &status, 0);
 	(*data)->exit_code = WEXITSTATUS(status);

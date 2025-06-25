@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/16 16:10:59 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/25 10:53:10 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ int	parsing(char **user_line, t_data *command)
 	if (handle_expanding(command) != 0)
 		return (memory_free(splited, command, 0), 1);
 	if (handle_quotes(command) != 0)
+		return (memory_free(splited, command, 0), 1);
+	if (handle_empty_args(command) != 0)
 		return (memory_free(splited, command, 0), 1);
 	return (matrix_free(splited), 0);
 }
