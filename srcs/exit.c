@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:16 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/25 15:18:27 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:02:22 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ void	memory_free(char **splited, t_data *command, int error)
 				matrix_free(command->table[i]->args);
 			inoutfiles_free(command->table[i]);
 			free(command->table[i]->red_order);
+			free(command->table[i]->iters);
 			table_free(&command->table[i]);
 		}
 		free(command->table);

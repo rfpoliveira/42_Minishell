@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:43:54 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/25 15:21:38 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/25 16:02:03 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ static void	ini_files(t_data *command, int curr_table)
 	count = command->table[curr_table]->numb_double_ins;
 	while (count >= 0)
 		command->table[curr_table]->double_in[count--] = NULL;
+	command->table[curr_table]->iters = malloc(sizeof(t_iters));
+	command->table[curr_table]->iters->in_iter = 0;
+	command->table[curr_table]->iters->out_iter = 0;
+	command->table[curr_table]->iters->double_out_iter = 0;
 }
 
 /**

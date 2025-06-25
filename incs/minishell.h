@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:55:27 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/17 18:02:14 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:58:42 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,13 @@ typedef struct s_envlist
 	char				*value;
 }	t_env;
 
+typedef struct s_iters
+{
+	int in_iter;
+	int out_iter;
+	int double_out_iter;
+} t_iters;
+
 typedef struct s_simple_command
 {
 	int		number_args;
@@ -78,6 +85,7 @@ typedef struct s_simple_command
 	int		numb_outs;
 	int		numb_double_outs;
 	int		numb_double_ins;
+	t_iters *iters;
 }			t_simple_command;
 
 typedef struct s_data

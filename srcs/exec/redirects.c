@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 19:35:02 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/25 15:41:03 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:59:43 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	outfile_redir(t_simple_command *cmd, t_data *data, int i)
 		free(*cmd->outfile);
 		*cmd->outfile = NULL;
 		(cmd->outfile)++;
+		cmd->iters->out_iter++;
 	}
 	else if (cmd->red_order[i] == '4')
 	{
@@ -33,6 +34,7 @@ void	outfile_redir(t_simple_command *cmd, t_data *data, int i)
 		free(*cmd->double_out);
 		*cmd->double_out = NULL;
 		(cmd->double_out)++;
+		cmd->iters->double_out_iter++;
 	}
 	else
 		return ;
@@ -53,6 +55,7 @@ void	in_redir(t_simple_command *cmd, t_data *data, int j)
 		free(*cmd->infile);
 		*cmd->infile = NULL;
 		(cmd->infile)++;
+		cmd->iters->in_iter++;
 	}
 	else if (*cmd->infile && access(*cmd->infile, F_OK | R_OK))
 	{
