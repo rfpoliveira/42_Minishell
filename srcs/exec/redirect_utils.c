@@ -6,15 +6,14 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:33:32 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/16 15:32:20 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:37:22 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 
 int	redir_out(char *file, t_data *data)
-{
-	/*dprintf(2, "%d", data->exit_code);*/
+{	
 	if (!access(file, F_OK)
 	 && access(file, W_OK))
 	{

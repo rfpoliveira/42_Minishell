@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 19:35:02 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/16 15:49:29 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:41:03 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ void	in_redir(t_simple_command *cmd, t_data *data, int j)
 	else if (*cmd->infile && access(*cmd->infile, F_OK | R_OK))
 	{
 		data->exit_code = 1;
-		if (access(*cmd->infile, R_OK))
-			ft_putstr_fd(" Permission denied\n", 2);
-		else if (access(*cmd->infile, F_OK))
+		if (access(*cmd->infile, F_OK))
 			ft_putstr_fd(" No such file or directory\n", 2);
+		else if (access(*cmd->infile, R_OK))
+			ft_putstr_fd(" Permission denied\n", 2);
 		exit_bash(NULL, data, 1);
 	}
 	else

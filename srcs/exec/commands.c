@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:07:39 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/25 11:40:24 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/25 14:18:23 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	node_exec(t_simple_command *cmd, t_data **data)
 	pid_t	pid;
 	int		status;
 	int		is_builtin;
+	DIR	*dir;
 
 	pid = fork();
 	if (pid == 0)
@@ -54,7 +55,16 @@ int	node_exec(t_simple_command *cmd, t_data **data)
 				ft_putstr_fd(" Permission denied", 2);
 			exit_bash(NULL, *data, 126);
 		}
-		if (cmd->args[0] && (cmd->args[0][0] == '.' || cmd->args[0][0] == '/') && access(cmd->args[0], F_OK) ) 
+		if (cmd->args[0] && (cmd->args[0][0] == '.' \
+		|| cmd->args[0][0] == '/') && ((dir = opendir(cmd->args[0])) != NULL))
+		{
+			if (access(cmd->args[0], R_OK))
+				ft_putstr_fd(" Permission denied", 2);
+			else
+				ft_putstr_fd(" Is a directory\n", 2);
+			exit_bash(NULL, *data, 126);
+		}
+		if (cmd->args[0] && (cmd->args[0][0] == '.' || cmd->args[0][0] == '/') && access(cmd->args[0], F_OK)) 
 			ft_putstr_fd(" No such file or directory\n", 2);
 		else if (cmd->args[0])
 			ft_putstr_fd(" command not found\n", 2);

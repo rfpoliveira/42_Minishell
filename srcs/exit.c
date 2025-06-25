@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:16 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/25 11:19:12 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:18:27 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,23 @@ void	print_error(int error_code, int *exit_code)
 	// if (error_code == MALLOC_ERROR)
 	// 	ft_putstr_fd("Error Allocating memory!\n", STDERR_FILENO);
 	if (error_code == QUOTE_ERROR)
-		ft_putstr_fd("Non closed quotes\n", STDERR_FILENO);
+		ft_putstr_fd(" non closed quotes\n", STDERR_FILENO);
 	else if (error_code == COM_NOT_FOUND)
-		ft_putstr_fd("command not found\n", STDERR_FILENO);
+		ft_putstr_fd(" command not found\n", STDERR_FILENO);
 	else if (error_code == TOO_MANY_ARGS)
-		ft_putstr_fd("too many arguments\n", STDERR_FILENO);
+		ft_putstr_fd(" too many arguments\n", STDERR_FILENO);
 	else if (error_code == INV_PATH)
-		ft_putstr_fd("Invalid Path\n", STDERR_FILENO);
+		ft_putstr_fd(" invalid Path\n", STDERR_FILENO);
 	else if (error_code == NO_ARGS)
-		ft_putstr_fd("Missing arguments\n", STDERR_FILENO);
+		ft_putstr_fd(" missing arguments\n", STDERR_FILENO);
 	else if (error_code == SYNTAX_ERROR)
-		ft_putstr_fd("Syntax Error\n", STDERR_FILENO);
+		ft_putstr_fd(" syntax Error\n", STDERR_FILENO);
 	else if (error_code == OPEN_ERROR)
-		ft_putstr_fd("Error accesing path\n", STDERR_FILENO);
+		ft_putstr_fd(" error accesing path\n", STDERR_FILENO);
 	else if (error_code == EXIT_ERROR)
-		ft_putstr_fd("numeric value needed\n", STDERR_FILENO);
+		ft_putstr_fd(" numeric value needed\n", STDERR_FILENO);
 	else if (error_code == STDIN_ERROR)
-		ft_putstr_fd("Error reading from stdin\n", STDERR_FILENO);
+		ft_putstr_fd(" error reading from stdin\n", STDERR_FILENO);
 
 	handle_exit_code(error_code, exit_code);
 }

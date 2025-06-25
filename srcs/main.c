@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/17 18:02:08 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/25 14:29:03 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,31 @@
 #include <unistd.h>
 
 int g_sigint_flag = 0;
+
+static int prompt_n_parse(char **user_line, t_data *command)
+{
+	command->prompt = get_prompt();
+	if (command->prompt == NULL)
+	{
+		print_error(MALLOC_ERROR, &command->exit_code);
+		exit(1);
+	}
+	*user_line = readline(command->prompt);
+	ft_free(&command->prompt);
+	if (g_sigint_flag == 1)
+	{
+		g_sigint_flag = 0;
+		command->exit_code = 128 + 2;
+	}
+	if (*user_line == NULL)
+		exit_bash(NULL, command, 0);
+	if (parsing(user_line, command) != 0)
+	{
+		ft_free(user_line);
+		return (1);
+	}
+	return (0);
+}
 
 int main(int ac, char **av, char **envp)
 {
@@ -27,27 +52,8 @@ int main(int ac, char **av, char **envp)
 	handle_signals();
 	while (42)
 	{
-		/*command->exit_code = 0;*/
-		command->prompt = get_prompt();
-		if (command->prompt == NULL)
-		{
-			print_error(MALLOC_ERROR, &command->exit_code);
-			exit(1);
-		}
-		user_line = readline(command->prompt);
-		ft_free(&command->prompt);
-		if (g_sigint_flag == 1)
-		{
-			g_sigint_flag = 0;
- 			command->exit_code = 128 + 2;
-		}
-		if (user_line == NULL)
-			exit_bash(NULL, command, 0);
-		if (parsing(&user_line, command) != 0)
-		{
-			ft_free(&user_line);
+		if (prompt_n_parse(&user_line, command) != 0)
 			continue ;
-		}
 		if (command->table[0]->double_in)
 			init_hd(command);
 		int	fd_out = dup(STDOUT_FILENO);

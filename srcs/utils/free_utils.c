@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 16:25:52 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/16 16:30:39 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:44:13 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,24 @@ void	table_free(t_simple_command **table)
 */
 void	inoutfiles_free(t_simple_command *table)
 {
-	/*table->infile -= table->numb_ins;*/
-	/*table->outfile -= table->numb_outs;*/
-	/*table->double_out -= table->numb_double_outs;*/
 	if (table->infile)
+	{
+		if (*table->infile == NULL && table->numb_ins > 0)
+			table->infile -= table->numb_ins;
 		matrix_free(table->infile);
+	}
 	if (table->outfile)
+	{
+		if (*table->outfile == NULL && table->numb_outs > 0)
+			table->outfile -= table->numb_outs;
 		matrix_free(table->outfile);
+	}
 	if (table->double_out)
+	{
+		if (*table->double_out == NULL && table->numb_double_outs > 0)
+			table->double_out -= table->numb_double_outs;
 		matrix_free(table->double_out);
+	}
 	if (table->double_in)
 		matrix_free(table->double_in);
 }

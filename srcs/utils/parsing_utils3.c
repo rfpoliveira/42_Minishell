@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/09 10:43:54 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/16 16:15:59 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:21:38 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ int	alloc_file(t_data *command, int curr_table)
 	command->table[curr_table]->double_in = NULL;
 	command->table[curr_table]->double_out = NULL;
 	command->table[curr_table]->infile = malloc(sizeof(char *) \
-		* (command->table[curr_table]->numb_ins + 1));
+		* (command->table[curr_table]->numb_ins) + 8);
 	command->table[curr_table]->outfile = malloc(sizeof(char *) \
-		* (command->table[curr_table]->numb_outs + 1));
+		* (command->table[curr_table]->numb_outs) + 8);
 	command->table[curr_table]->double_in = malloc(sizeof(char *) \
-    	* (command->table[curr_table]->numb_double_ins + 1));
+    	* (command->table[curr_table]->numb_double_ins) + 8);
 	command->table[curr_table]->double_out = malloc(sizeof(char *) \
-		* (command->table[curr_table]->numb_double_outs + 1));
+		* (command->table[curr_table]->numb_double_outs) + 8);
 	ini_files(command, curr_table);
 	return (0);
 }
