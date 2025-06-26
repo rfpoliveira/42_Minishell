@@ -53,6 +53,7 @@ static void execution (t_data *command, char **user_line)
 	handle_history(user_line);
 	if (command->hd != NULL)
 		ft_unlink_hd(command);
+	
 }
 
 int main(int ac, char **av, char **envp)

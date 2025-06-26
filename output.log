@@ -1,0 +1,284 @@
+==92922== Memcheck, a memory error detector
+==92922== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==92922== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==92922== Command: ./minishell
+==92922== Parent PID: 92921
+==92922== 
+==93027== Conditional jump or move depends on uninitialised value(s)
+==93027==    at 0x404B9F: handle_exit_code (exit.c:24)
+==93027==    by 0x404B88: print_error (exit.c:76)
+==93027==    by 0x404CE2: memory_free (exit.c:95)
+==93027==    by 0x404881: main (main.c:73)
+==93027== 
+==93079== 
+==93079== HEAP SUMMARY:
+==93079==     in use at exit: 215,660 bytes in 225 blocks
+==93079==   total heap usage: 1,423 allocs, 1,198 frees, 277,479 bytes allocated
+==93079== 
+==93079== LEAK SUMMARY:
+==93079==    definitely lost: 0 bytes in 0 blocks
+==93079==    indirectly lost: 0 bytes in 0 blocks
+==93079==      possibly lost: 0 bytes in 0 blocks
+==93079==    still reachable: 0 bytes in 0 blocks
+==93079==         suppressed: 215,660 bytes in 225 blocks
+==93079== 
+==93079== Use --track-origins=yes to see where uninitialised values come from
+==93079== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==93079== 
+==93079== 1 errors in context 1 of 1:
+==93079== Conditional jump or move depends on uninitialised value(s)
+==93079==    at 0x404B9F: handle_exit_code (exit.c:24)
+==93079==    by 0x404B88: print_error (exit.c:76)
+==93079==    by 0x404CE2: memory_free (exit.c:95)
+==93079==    by 0x404881: main (main.c:73)
+==93079== 
+--93079-- 
+--93079-- used_suppression:     69 leak readline readline.supp:2 suppressed: 211,644 bytes in 224 blocks
+--93079-- used_suppression:      1 leak add_history readline.supp:8 suppressed: 4,016 bytes in 1 blocks
+==93079== 
+==93079== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==93027== 
+==93027== HEAP SUMMARY:
+==93027==     in use at exit: 215,661 bytes in 225 blocks
+==93027==   total heap usage: 1,636 allocs, 1,411 frees, 288,369 bytes allocated
+==93027== 
+==93027== LEAK SUMMARY:
+==93027==    definitely lost: 0 bytes in 0 blocks
+==93027==    indirectly lost: 0 bytes in 0 blocks
+==93027==      possibly lost: 0 bytes in 0 blocks
+==93027==    still reachable: 0 bytes in 0 blocks
+==93027==         suppressed: 215,661 bytes in 225 blocks
+==93027== 
+==93027== Use --track-origins=yes to see where uninitialised values come from
+==93027== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==93027== 
+==93027== 1 errors in context 1 of 1:
+==93027== Conditional jump or move depends on uninitialised value(s)
+==93027==    at 0x404B9F: handle_exit_code (exit.c:24)
+==93027==    by 0x404B88: print_error (exit.c:76)
+==93027==    by 0x404CE2: memory_free (exit.c:95)
+==93027==    by 0x404881: main (main.c:73)
+==93027== 
+--93027-- 
+--93027-- used_suppression:     69 leak readline readline.supp:2 suppressed: 211,645 bytes in 224 blocks
+--93027-- used_suppression:      1 leak add_history readline.supp:8 suppressed: 4,016 bytes in 1 blocks
+==93027== 
+==93027== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==92922== 
+==92922== HEAP SUMMARY:
+==92922==     in use at exit: 227,095 bytes in 534 blocks
+==92922==   total heap usage: 1,161 allocs, 627 frees, 267,172 bytes allocated
+==92922== 
+==92922== 2 bytes in 1 blocks are still reachable in loss record 1 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x40A413: ft_itoa (ft_itoa.c:65)
+==92922==    by 0x40799B: init_envp (commands_utils.c:121)
+==92922==    by 0x407A6C: init_data (commands_utils.c:138)
+==92922==    by 0x404837: main (main.c:65)
+==92922== 
+==92922== 2 bytes in 1 blocks are still reachable in loss record 2 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x40A9ED: ft_strdup (ft_strdup.c:23)
+==92922==    by 0x4046E2: red_order_code (parsing_utils4.c:60)
+==92922==    by 0x40578D: mount_table (parsing.c:55)
+==92922==    by 0x4054AA: ini_command (parsing.c:77)
+==92922==    by 0x4052F9: parsing (parsing.c:114)
+==92922==    by 0x40494C: prompt_n_parse (main.c:36)
+==92922==    by 0x404849: main (main.c:69)
+==92922== 
+==92922== 2 bytes in 1 blocks are still reachable in loss record 3 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x4030C6: copy_red (redirect_utils.c:73)
+==92922==    by 0x4032E4: assign_util_infile (redirect_file_assign.c:60)
+==92922==    by 0x402FDB: assign_file (redirect_utils.c:49)
+==92922==    by 0x406412: check_red_in (parse_redirect.c:58)
+==92922==    by 0x4064FD: check_for_red (parse_redirect.c:89)
+==92922==    by 0x40661D: handle_redirect (parse_redirect.c:158)
+==92922==    by 0x40532C: parsing (parsing.c:116)
+==92922==    by 0x40494C: prompt_n_parse (main.c:36)
+==92922==    by 0x404849: main (main.c:69)
+==92922== 
+==92922== 8 bytes in 1 blocks are still reachable in loss record 8 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x403C1F: alloc_file (parsing_utils3.c:58)
+==92922==    by 0x4056E2: mount_table (parsing.c:50)
+==92922==    by 0x4054AA: ini_command (parsing.c:77)
+==92922==    by 0x4052F9: parsing (parsing.c:114)
+==92922==    by 0x40494C: prompt_n_parse (main.c:36)
+==92922==    by 0x404849: main (main.c:69)
+==92922== 
+==92922== 8 bytes in 1 blocks are still reachable in loss record 9 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x403C57: alloc_file (parsing_utils3.c:60)
+==92922==    by 0x4056E2: mount_table (parsing.c:50)
+==92922==    by 0x4054AA: ini_command (parsing.c:77)
+==92922==    by 0x4052F9: parsing (parsing.c:114)
+==92922==    by 0x40494C: prompt_n_parse (main.c:36)
+==92922==    by 0x404849: main (main.c:69)
+==92922== 
+==92922== 8 bytes in 1 blocks are still reachable in loss record 10 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x403CC7: alloc_file (parsing_utils3.c:64)
+==92922==    by 0x4056E2: mount_table (parsing.c:50)
+==92922==    by 0x4054AA: ini_command (parsing.c:77)
+==92922==    by 0x4052F9: parsing (parsing.c:114)
+==92922==    by 0x40494C: prompt_n_parse (main.c:36)
+==92922==    by 0x404849: main (main.c:69)
+==92922== 
+==92922== 8 bytes in 1 blocks are still reachable in loss record 11 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x406AF2: free_n_dup (handle_empty_args.c:58)
+==92922==    by 0x4068CB: handle_empty_args (handle_empty_args.c:95)
+==92922==    by 0x4053B3: parsing (parsing.c:122)
+==92922==    by 0x40494C: prompt_n_parse (main.c:36)
+==92922==    by 0x404849: main (main.c:69)
+==92922== 
+==92922== 10 bytes in 1 blocks are still reachable in loss record 14 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x40B059: ft_substr (ft_substr.c:30)
+==92922==    by 0x407614: env_new (commands_utils.c:39)
+==92922==    by 0x40787B: init_envp (commands_utils.c:103)
+==92922==    by 0x407A6C: init_data (commands_utils.c:138)
+==92922==    by 0x404837: main (main.c:65)
+==92922== 
+==92922== 12 bytes in 1 blocks are still reachable in loss record 15 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x403E54: ini_files (parsing_utils3.c:38)
+==92922==    by 0x403CEA: alloc_file (parsing_utils3.c:66)
+==92922==    by 0x4056E2: mount_table (parsing.c:50)
+==92922==    by 0x4054AA: ini_command (parsing.c:77)
+==92922==    by 0x4052F9: parsing (parsing.c:114)
+==92922==    by 0x40494C: prompt_n_parse (main.c:36)
+==92922==    by 0x404849: main (main.c:69)
+==92922== 
+==92922== 16 bytes in 1 blocks are still reachable in loss record 20 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x403C8F: alloc_file (parsing_utils3.c:62)
+==92922==    by 0x4056E2: mount_table (parsing.c:50)
+==92922==    by 0x4054AA: ini_command (parsing.c:77)
+==92922==    by 0x4052F9: parsing (parsing.c:114)
+==92922==    by 0x40494C: prompt_n_parse (main.c:36)
+==92922==    by 0x404849: main (main.c:69)
+==92922== 
+==92922== 16 bytes in 1 blocks are still reachable in loss record 21 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x40A2A5: ft_calloc (ft_calloc.c:21)
+==92922==    by 0x408870: init_hd (heredoc.c:82)
+==92922==    by 0x4049AE: execution (main.c:47)
+==92922==    by 0x404864: main (main.c:71)
+==92922== 
+==92922== 16 bytes in 1 blocks are still reachable in loss record 22 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x40AAD4: ft_strjoin (ft_strjoin.c:27)
+==92922==    by 0x4086A6: heredoc_file (heredoc.c:43)
+==92922==    by 0x4086EC: ft_heredoc (heredoc.c:56)
+==92922==    by 0x40890D: init_hd (heredoc.c:88)
+==92922==    by 0x4049AE: execution (main.c:47)
+==92922==    by 0x404864: main (main.c:71)
+==92922== 
+==92922== 26 bytes in 1 blocks are still reachable in loss record 26 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x40A9ED: ft_strdup (ft_strdup.c:23)
+==92922==    by 0x407673: env_new (commands_utils.c:43)
+==92922==    by 0x40787B: init_envp (commands_utils.c:103)
+==92922==    by 0x407A6C: init_data (commands_utils.c:138)
+==92922==    by 0x404837: main (main.c:65)
+==92922== 
+==92922== 32 bytes in 1 blocks are still reachable in loss record 28 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x40A2A5: ft_calloc (ft_calloc.c:21)
+==92922==    by 0x40755A: env_new (commands_utils.c:31)
+==92922==    by 0x40787B: init_envp (commands_utils.c:103)
+==92922==    by 0x407A6C: init_data (commands_utils.c:138)
+==92922==    by 0x404837: main (main.c:65)
+==92922== 
+==92922== 64 bytes in 1 blocks are still reachable in loss record 33 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x4013B5: alloc_struct (main_utils.c:46)
+==92922==    by 0x40482A: main (main.c:64)
+==92922== 
+==92922== 104 bytes in 1 blocks are still reachable in loss record 38 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x40552C: mount_table (parsing.c:37)
+==92922==    by 0x4054AA: ini_command (parsing.c:77)
+==92922==    by 0x4052F9: parsing (parsing.c:114)
+==92922==    by 0x40494C: prompt_n_parse (main.c:36)
+==92922==    by 0x404849: main (main.c:69)
+==92922== 
+==92922== 112 bytes in 1 blocks are still reachable in loss record 39 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x40A623: ft_split (ft_split.c:82)
+==92922==    by 0x407B11: pathfind (commands_utils2.c:25)
+==92922==    by 0x407A79: init_data (commands_utils.c:139)
+==92922==    by 0x404837: main (main.c:65)
+==92922== 
+==92922== 112 bytes in 1 blocks are still reachable in loss record 40 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x405451: ini_command (parsing.c:73)
+==92922==    by 0x4052F9: parsing (parsing.c:114)
+==92922==    by 0x40494C: prompt_n_parse (main.c:36)
+==92922==    by 0x404849: main (main.c:69)
+==92922== 
+==92922== 205 bytes in 13 blocks are still reachable in loss record 43 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x40B059: ft_substr (ft_substr.c:30)
+==92922==    by 0x40A83C: fill (ft_split.c:65)
+==92922==    by 0x40A650: ft_split (ft_split.c:85)
+==92922==    by 0x407B11: pathfind (commands_utils2.c:25)
+==92922==    by 0x407A79: init_data (commands_utils.c:139)
+==92922==    by 0x404837: main (main.c:65)
+==92922== 
+==92922== 560 bytes in 1 blocks are still reachable in loss record 47 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x40A2A5: ft_calloc (ft_calloc.c:21)
+==92922==    by 0x40770C: envp_cpy (commands_utils.c:66)
+==92922==    by 0x4073AB: ft_cmd (commands.c:109)
+==92922==    by 0x4049CE: execution (main.c:50)
+==92922==    by 0x404864: main (main.c:71)
+==92922== 
+==92922== 894 bytes in 68 blocks are still reachable in loss record 50 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x40B059: ft_substr (ft_substr.c:30)
+==92922==    by 0x407614: env_new (commands_utils.c:39)
+==92922==    by 0x4078F4: init_envp (commands_utils.c:109)
+==92922==    by 0x407A6C: init_data (commands_utils.c:138)
+==92922==    by 0x404837: main (main.c:65)
+==92922== 
+==92922== 2,176 bytes in 68 blocks are still reachable in loss record 62 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x40A2A5: ft_calloc (ft_calloc.c:21)
+==92922==    by 0x40755A: env_new (commands_utils.c:31)
+==92922==    by 0x4078F4: init_envp (commands_utils.c:109)
+==92922==    by 0x407A6C: init_data (commands_utils.c:138)
+==92922==    by 0x404837: main (main.c:65)
+==92922== 
+==92922== 3,047 bytes in 67 blocks are still reachable in loss record 64 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x40A9ED: ft_strdup (ft_strdup.c:23)
+==92922==    by 0x407673: env_new (commands_utils.c:43)
+==92922==    by 0x4078F4: init_envp (commands_utils.c:109)
+==92922==    by 0x407A6C: init_data (commands_utils.c:138)
+==92922==    by 0x404837: main (main.c:65)
+==92922== 
+==92922== 3,979 bytes in 69 blocks are still reachable in loss record 67 of 96
+==92922==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==92922==    by 0x40AAD4: ft_strjoin (ft_strjoin.c:27)
+==92922==    by 0x4076BC: ft_strjoin_free (commands_utils.c:51)
+==92922==    by 0x4077A7: envp_cpy (commands_utils.c:74)
+==92922==    by 0x4073AB: ft_cmd (commands.c:109)
+==92922==    by 0x4049CE: execution (main.c:50)
+==92922==    by 0x404864: main (main.c:71)
+==92922== 
+==92922== LEAK SUMMARY:
+==92922==    definitely lost: 0 bytes in 0 blocks
+==92922==    indirectly lost: 0 bytes in 0 blocks
+==92922==      possibly lost: 0 bytes in 0 blocks
+==92922==    still reachable: 11,419 bytes in 304 blocks
+==92922==         suppressed: 215,676 bytes in 230 blocks
+==92922== 
+==92922== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--92922-- 
+--92922-- used_suppression:     68 leak readline readline.supp:2 suppressed: 211,580 bytes in 223 blocks
+--92922-- used_suppression:      4 leak add_history readline.supp:8 suppressed: 4,096 bytes in 7 blocks
+==92922== 
+==92922== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

@@ -6,7 +6,7 @@
 /*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:32:01 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/05/13 18:32:06 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/06/25 17:41:32 by jpatrici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_unlink_hd(t_data *data)
 	int	i;
 
 	i = -1;
-	if (data->hd == NULL)
+	if (data->hd == NULL || !data->hd[0])
 		return ;
 	while (data->hd[++i])
 	{
@@ -29,8 +29,9 @@ void	ft_unlink_hd(t_data *data)
 			exit(EXIT_FAILURE);
 		}
 		free(data->hd[i]);
-		data->hd[i] = NULL;
 	}
+	free(data->hd);
+	data->hd = NULL;
 }
 
 char	*heredoc_file()
@@ -48,11 +49,15 @@ char	*heredoc_file()
 char	*ft_heredoc(char *eof)
 {
 	int		fd;
-	static char	*file;
+	char	*file;
 	char	*input;
 
-	if (file)
-		free(file);
+	/*if (file)*/
+	/*{*/
+	/*	free(file);*/
+	/*	file = NULL;*/
+	/*}*/
+	file = NULL;
 	file = heredoc_file();
 	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	input = readline("> ");

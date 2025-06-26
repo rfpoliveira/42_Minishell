@@ -12,6 +12,7 @@
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
+#include <stdio.h>
 
 /**
  @brief creates the history and frees the user inputed string
@@ -66,8 +67,6 @@ void	exit_bash(char **prompt, t_data *command, int exit_code)
 		if (command->table && *command->table)
 			free_cmd(command);
 		memory_free(prompt, command, exit_code);
-
-
 	}
 	else
 	{
