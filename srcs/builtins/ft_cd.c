@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 19:33:53 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/27 15:59:21 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/27 16:00:09 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,6 @@ int	ft_cd(t_data *data, t_simple_command *cmd)
 	char	*tmp;
 	char	*dir;
 
-<<<<<<< HEAD
-	old_pwd = NULL;
-	if (!ft_strncmp(cmd->args[0], "pwd", 4) && ft_pwd(data, cmd))
-		return (1);
-	dir = get_dir(data, cmd, &old_pwd);
-	if (dir && open(dir, O_DIRECTORY) > 0)
-=======
 	dir = getcwd(NULL, 0);
 	if (!ft_strncmp(cmd->args[0], "pwd", 4))
 	{
@@ -97,7 +90,6 @@ int	ft_cd(t_data *data, t_simple_command *cmd)
 	dir = ft_strjoin_free(dir, "/");
 	dir = ft_strjoin_free(dir, cmd->args[1]);
 	if (opendir(dir) != NULL)
->>>>>>> Renato
 	{
 		ft_add_key(&data->env, old_pwd, 6);
 		chdir(dir);
