@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 19:33:53 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/05/20 20:46:24 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:02:49 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
-#include <fcntl.h>
-#include <unistd.h>
+#include "../../incs/exec.h"
 
 int	ft_cd(t_data *data, t_simple_command *cmd)
 {

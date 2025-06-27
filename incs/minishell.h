@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:55:27 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/25 15:58:42 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:00:11 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # include <term.h>
 # include <errno.h>
 # include <signal.h>
+# include <fcntl.h>
+# include <unistd.h>
 
 # define _XOPEN_SOURCE 700
 
@@ -63,10 +65,10 @@ typedef struct s_envlist
 
 typedef struct s_iters
 {
-	int in_iter;
-	int out_iter;
-	int double_out_iter;
-} t_iters;
+	int	in_iter;
+	int	out_iter;
+	int	double_out_iter;
+}	t_iters;
 
 typedef struct s_simple_command
 {
@@ -85,7 +87,7 @@ typedef struct s_simple_command
 	int		numb_outs;
 	int		numb_double_outs;
 	int		numb_double_ins;
-	t_iters *iters;
+	t_iters	*iters;
 }			t_simple_command;
 
 typedef struct s_data
@@ -104,8 +106,6 @@ typedef struct s_data
 #                                 Functions                                   #
 #============================================================================*/
 
-#include "exec.h"
-
 void	handle_signals(void);
 void	alloc_struct(t_data **command);
 char	*get_prompt(void);
@@ -120,6 +120,5 @@ void	ft_free(char **ptr);
 void	inoutfiles_free(t_simple_command *table);
 void	print_error(int error_code, int *exit_code);
 void	exit_bash(char **prompt, t_data *command, int exit_code);
-
 
 #endif

@@ -6,12 +6,24 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:49:43 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/17 18:11:19 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:23:23 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
+
+void	count_everything(t_data *command, int i)
+{
+	t_simple_command	*current;
+
+	current = command->table[i];
+	current->number_args = count_args(current);
+	current->numb_ins = count_infiles(current->args);
+	current->numb_outs = count_outfiles(current->args);
+	current->numb_double_ins = count_double_ins(current->args);
+	current->numb_double_outs = count_double_outs(current->args);
+}
 
 /**
  @brief counts the number of infiles in the current argument
@@ -98,7 +110,8 @@ int	count_double_ins(char **current)
 		{
 			if (current[j][i] == 39 || current[j][i] == 34)
 				i += skip_quotes(current[j], i);
-			if (current[j][i] == '<' && current[j][i] && current[j][i + 1] == '<')
+			if (current[j][i] == '<' && current[j][i] \
+			&& current[j][i + 1] == '<')
 			{
 				count++;
 				i++;
@@ -135,8 +148,8 @@ int	count_double_outs(char **current)
 				count++;
 				i++;
 			}
-		if (current[j][i])
-			i++;
+			if (current[j][i])
+				i++;
 		}
 		i = 0;
 	}

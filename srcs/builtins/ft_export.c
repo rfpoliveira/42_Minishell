@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:58:49 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/05/20 19:33:40 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:03:07 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
+#include "../../incs/exec.h"
 
 int	is_sorted(t_env (*exp))
 {

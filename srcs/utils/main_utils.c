@@ -6,12 +6,13 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 14:59:33 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/17 18:07:59 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:48:20 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
+#include "../../incs/exec.h"
 
 /**
  @brief creates the history and frees the user inputed string
@@ -58,7 +59,6 @@ void	alloc_struct(t_data **command)
  */
 void	exit_bash(char **prompt, t_data *command, int exit_code)
 {
-
 	if (prompt)
 		ft_putstr_fd("exit\n", 1);
 	if (exit_code <= 0)
@@ -66,8 +66,6 @@ void	exit_bash(char **prompt, t_data *command, int exit_code)
 		if (command->table && *command->table)
 			free_cmd(command);
 		memory_free(prompt, command, exit_code);
-
-
 	}
 	else
 	{
@@ -75,7 +73,6 @@ void	exit_bash(char **prompt, t_data *command, int exit_code)
 			free_cmd(command);
 		command->exit_code = exit_code;
 		memory_free(prompt, command, 0);
-		
 	}
 	exit_code = command->exit_code;
 	free_envp(command);

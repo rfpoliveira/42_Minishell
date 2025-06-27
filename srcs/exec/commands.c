@@ -6,12 +6,12 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:07:39 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/27 11:35:47 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:01:51 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
-#include <fcntl.h>
+#include "../../incs/exec.h"
 
 int	builtin_exec(t_simple_command *cmd, t_data *data)
 {

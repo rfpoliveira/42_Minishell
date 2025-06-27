@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 10:11:46 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/25 11:04:57 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:08:54 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 static int	arg_counter(t_simple_command *current)
 {
-	int j;
-	int count;
+	int	j;
+	int	count;
 
 	j = 0;
 	count = 0;
-	while(current->args[j])
+	while (current->args[j])
 	{
 		if (ft_strncmp("", current->args[j], 1) != 0)
 			count++;
@@ -31,12 +31,12 @@ static int	arg_counter(t_simple_command *current)
 
 static int	pop_tmp(char **tmp, t_data *command, int curr_table)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	j = 0;
-	while(command->table[curr_table]->args[i])
+	while (command->table[curr_table]->args[i])
 	{
 		if (ft_strncmp(command->table[curr_table]->args[i], "", 1) != 0)
 		{
@@ -49,9 +49,10 @@ static int	pop_tmp(char **tmp, t_data *command, int curr_table)
 	}
 	return (0);
 }
+
 static int	free_n_dup(char **tmp, t_data *command, int curr_table)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	matrix_free(command->table[curr_table]->args);
@@ -73,12 +74,12 @@ static int	free_n_dup(char **tmp, t_data *command, int curr_table)
 	return (matrix_free(tmp), 0);
 }
 
-int	handle_empty_args (t_data *command)
+int	handle_empty_args(t_data *command)
 {
 	int		curr_table;
 	int		new_arg_count;
 	char	**tmp;
-	
+
 	if (command->number_simple_commands == 0)
 		return (0);
 	curr_table = 0;

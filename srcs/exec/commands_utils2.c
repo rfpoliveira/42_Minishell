@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   commands_utils2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/16 19:13:09 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/05/16 19:13:48 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:02:17 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
+#include "../../incs/exec.h"
 
 char **pathfind(t_env *envp)
 {
