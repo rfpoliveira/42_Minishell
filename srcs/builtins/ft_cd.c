@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 19:33:53 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/27 15:02:49 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:57:59 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	ft_cd(t_data *data, t_simple_command *cmd)
 	old_pwd = ft_strjoin("OLDPWD=", dir);
 	dir = ft_strjoin_free(dir, "/");
 	dir = ft_strjoin_free(dir, cmd->args[1]);
-	if (open(dir, O_DIRECTORY) > 0)
+	if (opendir(dir) != NULL)
 	{
 		ft_add_key(&data->env, old_pwd, 6);
 		chdir(dir);
