@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 11:57:07 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/16 16:02:27 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:26:15 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static void	symbol_checker(char *tmp, char *command, int *i, int *j)
 			tmp[(*j)++] = '3';
 		(*i)++;
 	}
-	/*printf("j: %i\n", (*j));*/
 }
 
 /**
@@ -45,7 +44,7 @@ static void	symbol_checker(char *tmp, char *command, int *i, int *j)
  @param command is the arguments of the current table
  @param code is where the code will be stored
 */
-void red_order_code(int count, char *command, t_simple_command *curr_table)
+void	red_order_code(int count, char *command, t_simple_command *curr_table)
 {
 	int		i;
 	int		j;

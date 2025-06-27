@@ -6,14 +6,12 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 19:35:02 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/27 11:28:43 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:02:30 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
-#include <fcntl.h>
-#include <stdio.h>
-#include <unistd.h>
+#include "../../incs/exec.h"
 
 void	outfile_redir(t_simple_command *cmd, t_data *data, int i)
 {

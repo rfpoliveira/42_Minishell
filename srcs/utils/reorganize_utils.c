@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:01:42 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/27 13:30:08 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:47:23 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ static int	count_singles(char **args, int curr_arg, int curr_chr)
 */
 static int	count_doubles(char **args, int curr_arg, int curr_chr)
 {
-	if (args[curr_arg][curr_chr] != '\0' 
-	&& args[curr_arg][curr_chr + 1] != '\0' 
+	if (args[curr_arg][curr_chr] != '\0' \
+	&& args[curr_arg][curr_chr + 1] != '\0' \
 	&& args[curr_arg][curr_chr + 2] == '\0')
 	{
 		if (curr_chr > 0)
@@ -80,10 +80,10 @@ int	new_arg_counter(t_simple_command *table, char **args)
 	int	count;
 
 	i = -1;
-	j = -1;
 	count = 0;
 	while (args[++i])
 	{
+		j = -1;
 		while (args[i][++j])
 		{
 			if (args[i][j] == 34 || args[i][j] == 39)
@@ -91,15 +91,11 @@ int	new_arg_counter(t_simple_command *table, char **args)
 			if (args[i][j] == '<' || args[i][j] == '>')
 			{
 				if (args[i][j + 1] == '<' || args[i][j + 1] == '>')
-				{
-					count += count_doubles(args, i, j);
-					j++;
-				}
+					count += count_doubles(args, i, j++);
 				else
 					count += count_singles(args, i, j);
 			}
 		}
-		j = -1;
 	}
 	return (table->number_args - count);
 }
@@ -117,40 +113,47 @@ int	new_arg_counter(t_simple_command *table, char **args)
             if all this is true we can copy.
 			
  @param tmp is where we save the new argument.
- @param current is the table we are working on.
+ @param cur is the table we are working on.
  @param i is used to iterate, inicialize before because of the norm.
+
+ lsx is the last char index;
  @return 0 in case of success,
          1 or any other number in case of error 
 */
-int	populate_tmp(char **tmp, t_data *command, t_simple_command *current, int i)
+
+int	copy_util(t_data *command, char **tmp, char **cur)
+{
+	*tmp = ft_strdup(*cur);
+	if (*tmp == NULL)
+		return (print_error(MALLOC_ERROR, &command->exit_code), 1);
+	return (0);
+}
+
+int	populate_tmp(char **tmp, t_data *command, char **cur, int i)
 {
 	int	j;
-	int	curr_tmp;
-	int	last_chr_idx;
+	int	cur_tmp;
+	int	lsx;
 
-	j = 0;
-	last_chr_idx = 0;
-	curr_tmp = -1;
-	while (current->args[++i])
+	lsx = 0;
+	cur_tmp = 0;
+	while (cur[++i])
 	{
-		while (current->args[i][j] && current->args[i][j] != '<' && \
-		current->args[i][j] != '>')
+		j = 0;
+		while (cur[i][j] && cur[i][j] != '<' && cur[i][j] != '>')
 		{
-			if (current->args[i][j] == 34 || current->args[i][j] == 39)
-				j += skip_quotes(current->args[i], j) - 1;
+			if (cur[i][j] == 34 || cur[i][j] == 39)
+				j += skip_quotes(cur[i], j) - 1;
 			j++;
 		}
-		if ((j != 0 && i == 0) || (j != 0 && current->args[i][j] == '>') || \
-		(j != 0 && current->args[i][j] == '<') || \
-		(!current->args[i][j] && (current->args[i - 1][last_chr_idx] != '<' && \
-		current->args[i - 1][last_chr_idx] != '>')))
+		if ((j != 0 && i == 0) || (j != 0 && cur[i][j] == '>') || \
+		(j != 0 && cur[i][j] == '<') || (!cur[i][j] && (cur[i - 1][lsx] != '<'\
+		&& cur[i - 1][lsx] != '>')))
 		{
-			tmp[++curr_tmp] = ft_strdup(current->args[i]);
-			if (tmp[curr_tmp] == NULL)
-				return (print_error(MALLOC_ERROR, &command->exit_code), 1);
+			if (copy_util(command, &tmp[cur_tmp++], &cur[i]) != 0)
+				return (1);
 		}
-		last_chr_idx = ft_strlen(current->args[i]) - 1;
-		j = 0;
+		lsx = ft_strlen(cur[i]) - 1;
 	}
 	return (0);
 }

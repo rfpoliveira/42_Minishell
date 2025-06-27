@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   commands_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 19:38:20 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/03/27 21:11:41 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:02:05 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
-#include <stdio.h>
+#include "../../incs/exec.h"
 
 int	ft_strchrlen(char *s, char c)
 {
