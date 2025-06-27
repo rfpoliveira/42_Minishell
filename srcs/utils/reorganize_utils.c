@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:01:42 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/10 11:47:11 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/27 13:30:08 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ int	new_arg_counter(t_simple_command *table, char **args)
 	{
 		while (args[i][++j])
 		{
+			if (args[i][j] == 34 || args[i][j] == 39)
+				j += skip_quotes(args[i], j);
 			if (args[i][j] == '<' || args[i][j] == '>')
 			{
 				if (args[i][j + 1] == '<' || args[i][j + 1] == '>')
@@ -133,13 +135,17 @@ int	populate_tmp(char **tmp, t_data *command, t_simple_command *current, int i)
 	{
 		while (current->args[i][j] && current->args[i][j] != '<' && \
 		current->args[i][j] != '>')
+		{
+			if (current->args[i][j] == 34 || current->args[i][j] == 39)
+				j += skip_quotes(current->args[i], j) - 1;
 			j++;
+		}
 		if ((j != 0 && i == 0) || (j != 0 && current->args[i][j] == '>') || \
 		(j != 0 && current->args[i][j] == '<') || \
 		(!current->args[i][j] && (current->args[i - 1][last_chr_idx] != '<' && \
 		current->args[i - 1][last_chr_idx] != '>')))
 		{
-			tmp[++curr_tmp] = copy_red(current->args[i]);
+			tmp[++curr_tmp] = ft_strdup(current->args[i]);
 			if (tmp[curr_tmp] == NULL)
 				return (print_error(MALLOC_ERROR, &command->exit_code), 1);
 		}

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:07:39 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/25 14:18:23 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/27 11:35:47 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	node_exec(t_simple_command *cmd, t_data **data)
 	pid = fork();
 	if (pid == 0)
 	{
-		/* dprintf(2, "token arg: %s\n", cmd->args[0]); */
 		redirects(cmd, *data);
 		setpaths(cmd, (*data)->paths);
 		is_builtin = builtin_exec(cmd, *data);

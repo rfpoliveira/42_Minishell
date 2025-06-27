@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/25 16:17:23 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/27 13:30:51 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int main(int ac, char **av, char **envp)
 	{
 		if (prompt_n_parse(&user_line, command) != 0)
 			continue ;
+/* 		for (int i = 0; command->table[0]->args[i]; i++)
+			dprintf(2, "token arg: %s\n", command->table[0]->args[i]); */
 		execution(command, &user_line);
 		free_arrenvp(command);
 		memory_free(NULL, command, command->exit_code);
