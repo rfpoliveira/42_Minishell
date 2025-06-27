@@ -6,7 +6,7 @@
 /*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:32:01 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/05/13 18:32:06 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/06/25 17:41:32 by jpatrici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_unlink_hd(t_data *data)
 	int	i;
 
 	i = -1;
-	if (data->hd == NULL)
+	if (data->hd == NULL || !data->hd[0])
 		return ;
 	while (data->hd[++i])
 	{
@@ -29,8 +29,9 @@ void	ft_unlink_hd(t_data *data)
 			exit(EXIT_FAILURE);
 		}
 		free(data->hd[i]);
-		data->hd[i] = NULL;
 	}
+	free(data->hd);
+	data->hd = NULL;
 }
 
 char	*heredoc_file()
@@ -48,11 +49,10 @@ char	*heredoc_file()
 char	*ft_heredoc(char *eof)
 {
 	int		fd;
-	static char	*file;
+	char	*file;
 	char	*input;
 
-	if (file)
-		free(file);
+	file = NULL;
 	file = heredoc_file();
 	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	input = readline("> ");
@@ -71,20 +71,30 @@ void	init_hd(t_data *data)
 {
 	int	i;
 	int	j;
+	int count;
 
 	i = -1;
-	j = 0;
+	count = 0;
+	if (!data->table || !data->table[0] || !data->table[0]->double_in[0])
+		return ;
 	while (data->table[++i])
-		while (data->table[i]->double_in[j])
-			j++;
-	if (j != 0)
 	{
-		data->hd = ft_calloc(sizeof(char *), j + 1);
-		data->hd[j] = NULL;
+		j = -1;
+			while (data->table[i]->double_in[++j])
+				count++;
+	}
+	if (count != 0)
+	{
+		data->hd = ft_calloc(sizeof(char *), count + 1);
+		data->hd[count] = NULL;
 		i = -1;
 		j = -1;
+		count = 0;
 		while (data->table[++i])
+		{
+			j = -1;
 			while (data->table[i]->double_in[++j])
-				data->hd[j] = ft_heredoc(data->table[i]->double_in[j]);
+				data->hd[count++] = ft_heredoc(data->table[i]->double_in[j]);
+		}
 	}
 }

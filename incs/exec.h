@@ -6,7 +6,7 @@
 /*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:54:10 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/02 19:49:02 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/06/25 20:49:46 by jpatrici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ int	    ft_exit(t_simple_command *cmd, t_data *data);
 void	ft_unlink_hd(t_data *data);
 void	free_envp(t_data *data);
 void	free_cmd(t_data *data);
+void	dir_check(t_data *data, t_simple_command *cmd);
 
 #endif // !EXEC_H

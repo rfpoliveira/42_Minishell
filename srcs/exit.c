@@ -72,7 +72,6 @@ void	print_error(int error_code, int *exit_code)
 		ft_putstr_fd(" numeric value needed\n", STDERR_FILENO);
 	else if (error_code == STDIN_ERROR)
 		ft_putstr_fd(" error reading from stdin\n", STDERR_FILENO);
-
 	handle_exit_code(error_code, exit_code);
 }
 

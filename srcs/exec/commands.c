@@ -6,12 +6,13 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:07:39 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/27 11:35:47 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/27 13:40:49 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include <fcntl.h>
+#include <stdlib.h>
 
 int	builtin_exec(t_simple_command *cmd, t_data *data)
 {
@@ -36,8 +37,8 @@ int	node_exec(t_simple_command *cmd, t_data **data)
 	pid_t	pid;
 	int		status;
 	int		is_builtin;
-	DIR	*dir;
 
+	status = 0;
 	pid = fork();
 	if (pid == 0)
 	{
@@ -46,29 +47,8 @@ int	node_exec(t_simple_command *cmd, t_data **data)
 		is_builtin = builtin_exec(cmd, *data);
 		if (cmd->args[0] && !is_builtin)
 			execve(cmd->paths, cmd->args, (*data)->envp);
-		if (cmd->args[0] && (cmd->args[0][0] == '.' && !access(cmd->args[0], F_OK)))
-		{
-			if (!access(cmd->args[0], F_OK | R_OK))
-				ft_putstr_fd(" Is a directory\n", 2);
-			else if (access(cmd->args[0], R_OK))
-				ft_putstr_fd(" Permission denied", 2);
-			exit_bash(NULL, *data, 126);
-		}
-		if (cmd->args[0] && (cmd->args[0][0] == '.' \
-		|| cmd->args[0][0] == '/') && ((dir = opendir(cmd->args[0])) != NULL))
-		{
-			if (access(cmd->args[0], R_OK))
-				ft_putstr_fd(" Permission denied", 2);
-			else
-				ft_putstr_fd(" Is a directory\n", 2);
-			exit_bash(NULL, *data, 126);
-		}
-		if (cmd->args[0] && (cmd->args[0][0] == '.' || cmd->args[0][0] == '/') && access(cmd->args[0], F_OK)) 
-			ft_putstr_fd(" No such file or directory\n", 2);
-		else if (cmd->args[0])
-			ft_putstr_fd(" command not found\n", 2);
-		if (cmd->args[0])
-			exit_bash(NULL, *data, 127);
+		if (!is_builtin)
+			dir_check(*data, cmd);
 	}
 	waitpid(pid, &status, 0);
 	(*data)->exit_code = WEXITSTATUS(status);
