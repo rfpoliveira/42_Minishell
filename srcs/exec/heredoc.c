@@ -52,11 +52,6 @@ char	*ft_heredoc(char *eof)
 	char	*file;
 	char	*input;
 
-	/*if (file)*/
-	/*{*/
-	/*	free(file);*/
-	/*	file = NULL;*/
-	/*}*/
 	file = NULL;
 	file = heredoc_file();
 	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
@@ -76,20 +71,30 @@ void	init_hd(t_data *data)
 {
 	int	i;
 	int	j;
+	int count;
 
 	i = -1;
-	j = 0;
+	count = 0;
+	if (!data->table || !data->table[0] || !data->table[0]->double_in[0])
+		return ;
 	while (data->table[++i])
-		while (data->table[i]->double_in[j])
-			j++;
-	if (j != 0)
 	{
-		data->hd = ft_calloc(sizeof(char *), j + 1);
-		data->hd[j] = NULL;
+		j = -1;
+			while (data->table[i]->double_in[++j])
+				count++;
+	}
+	if (count != 0)
+	{
+		data->hd = ft_calloc(sizeof(char *), count + 1);
+		data->hd[count] = NULL;
 		i = -1;
 		j = -1;
+		count = 0;
 		while (data->table[++i])
+		{
+			j = -1;
 			while (data->table[i]->double_in[++j])
-				data->hd[j] = ft_heredoc(data->table[i]->double_in[j]);
+				data->hd[count++] = ft_heredoc(data->table[i]->double_in[j]);
+		}
 	}
 }
