@@ -37,7 +37,7 @@ int		redir_out(char *file, t_data *data);
 int		redir_double_out(char *file, t_data *data);
 void	infile_redir(char *infile);
 char	*ft_heredoc(char *eof);
-void	init_hd(t_data *data);
+int		init_hd(t_data *data);
 int		ft_echo(t_simple_command *cmd);
 int		ft_cd(t_data *data, t_simple_command *cmd);
 int		ft_strchrlen(char *s, char c);

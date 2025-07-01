@@ -45,13 +45,11 @@ static void	execution(t_data *command, char **user_line)
 {
 	int	fd_out;
 	int	fd_in;
-	int	i;
 
-	if (command->table[0]->double_in)
-		init_hd(command);
 	fd_out = dup(STDOUT_FILENO);
 	fd_in = dup(STDIN_FILENO);
-	ft_cmd(command);
+	if (init_hd(command))
+		ft_cmd(command);
 	dup2(fd_out, STDOUT_FILENO);
 	dup2(fd_in, STDIN_FILENO);
 	handle_history(user_line);
@@ -65,6 +63,8 @@ int	main(int ac, char **av, char **envp)
 	t_data	*command;
 	char	*user_line;
 
+	if (!envp || !envp[0])
+		return (ft_putstr_fd("Env not found\n", 2), 1);
 	command = NULL;
 	alloc_struct(&command);
 	init_data(command, envp);

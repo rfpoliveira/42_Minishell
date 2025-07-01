@@ -12,7 +12,7 @@
 
 #include "../../incs/minishell.h"
 
-extern int SIGINT_FLAG;
+extern int g_sigint_flag;
 
 void	ft_unlink_hd(t_data *data)
 {
@@ -56,7 +56,7 @@ char	*ft_heredoc(char *eof)
 	file = heredoc_file();
 	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	input = readline("> ");
-	while (input && ft_strncmp(input, eof, ft_strlen(input)))
+	while (!g_sigint_flag && input && ft_strncmp(input, eof, ft_strlen(input)))
 	{
 		ft_putstr_fd(input, fd);
 		write(fd, "\n", 1);
@@ -65,9 +65,26 @@ char	*ft_heredoc(char *eof)
 	}
 	free(input);
 	close(fd);
+	if (g_sigint_flag)
+	{
+		unlink(file);
+		free(file);
+		return (NULL);
+	}
 	return (file);
 }
-void	init_hd(t_data *data)
+
+void	signal_hd(int signumb)
+{
+	(void)signumb;
+	ft_putstr_fd("\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	g_sigint_flag = 1;
+	close(0);
+}
+
+int	init_hd(t_data *data)
 {
 	int	i;
 	int	j;
@@ -75,8 +92,9 @@ void	init_hd(t_data *data)
 
 	i = -1;
 	count = 0;
-	if (!data->table || !data->table[0] || !data->table[0]->double_in[0])
-		return ;
+	
+	if (!data->table || !data->table[0])
+		return (1);
 	while (data->table[++i])
 	{
 		j = -1;
@@ -90,11 +108,18 @@ void	init_hd(t_data *data)
 		i = -1;
 		j = -1;
 		count = 0;
+		signal(SIGINT, &signal_hd);
 		while (data->table[++i])
 		{
 			j = -1;
 			while (data->table[i]->double_in[++j])
-				data->hd[count++] = ft_heredoc(data->table[i]->double_in[j]);
+			{
+				data->hd[count] = ft_heredoc(data->table[i]->double_in[j]);
+				if (!data->hd[count++])
+					return (0);
+			}
 		}
 	}
+	handle_signals();
+	return (1);
 }
