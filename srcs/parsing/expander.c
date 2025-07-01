@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:53:37 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/27 15:07:08 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/30 12:18:46 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	expande_red_util(char **file, int i, int j, int *exit_code)
 				if (expande(&file[j], i, exit_code) != 0)
 					return (1);
 				if (ft_strncmp(file[j], "", 1) == 0)
-					return (print_error(SYNTAX_ERROR, exit_code), 1);
+					return (print_error(AMBI_REDI, exit_code), 1);
 				i = -1;
 				flag = 0;
 			}
@@ -110,9 +110,9 @@ static int	expande_red(t_simple_command *curr_table, int *exit_code)
 	if (curr_table->outfile && \
 	expande_red_util(curr_table->outfile, i, j, exit_code) != 0)
 		return (1);
-	if (curr_table->double_in && \
-	expande_red_util(curr_table->double_in, i, j, exit_code) != 0)
-		return (1);
+/* 	if (curr_table->double_in && \
+	expande_red_util(curr_table->double_in, i, j, exit_code) != 0) 
+		return (1);*/
 	if (curr_table->double_out && \
 	expande_red_util(curr_table->double_out, i, j, exit_code) != 0)
 		return (1);

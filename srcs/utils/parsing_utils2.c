@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 12:03:29 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/17 17:48:00 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/30 12:41:09 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,9 @@ static int	check_consecutives(char *s)
 			i++;
 			while (s[i] && ft_isspace(s[i]))
 				i++;
-			if (s[i] == '\0' || s[i] == '|')
+			if (s[i] == '\0' || s[i] == '|' \
+				|| s[i] == '&' || s[i] == ';' \
+				|| s[i] == '!')
 				return (1);
 		}
 	}

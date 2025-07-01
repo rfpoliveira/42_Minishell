@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/27 15:01:12 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/30 11:07:44 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static int	prompt_n_parse(char **user_line, t_data *command)
 		exit_bash(NULL, command, 0);
 	if (parsing(user_line, command) != 0)
 	{
+		handle_history(user_line);
 		ft_free(user_line);
 		return (1);
 	}
