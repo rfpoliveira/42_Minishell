@@ -85,8 +85,8 @@ re: fclean all
 
 again: clean all
 
-leaks: readline.supp
-	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all -s --log-file=output.log ./minishell
+leaks: all readline.supp
+	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all -s ./minishell
 
 readline.supp:
 	echo "{" > readline.supp

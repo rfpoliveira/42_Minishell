@@ -94,5 +94,7 @@ int	redirects(t_simple_command *cmd, t_data *data)
 			|| (cmd->double_out && *cmd->double_out && cmd->red_order[j] == '4'))
 			outfile_redir(cmd, data, j);
 	}
+	if (!cmd->args[0])
+		exit_bash(NULL, data, 0);
 	return (j);
 }

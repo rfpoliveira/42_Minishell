@@ -44,6 +44,7 @@ static void	execution(t_data *command, char **user_line)
 {
 	int	fd_out;
 	int	fd_in;
+	int	i;
 
 	if (command->table[0]->double_in)
 		init_hd(command);

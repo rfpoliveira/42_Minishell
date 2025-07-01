@@ -1,41 +1,23 @@
-==192860== Memcheck, a memory error detector
-==192860== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==192860== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==192860== Command: ./minishell
-==192860== Parent PID: 192859
-==192860== 
-==192936== 
-==192936== HEAP SUMMARY:
-==192936==     in use at exit: 204,216 bytes in 222 blocks
-==192936==   total heap usage: 808 allocs, 586 frees, 255,555 bytes allocated
-==192936== 
-==192936== LEAK SUMMARY:
-==192936==    definitely lost: 0 bytes in 0 blocks
-==192936==    indirectly lost: 0 bytes in 0 blocks
-==192936==      possibly lost: 0 bytes in 0 blocks
-==192936==    still reachable: 0 bytes in 0 blocks
-==192936==         suppressed: 204,216 bytes in 222 blocks
-==192936== 
-==192936== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
---192936-- 
---192936-- used_suppression:     63 leak readline readline.supp:2 suppressed: 204,216 bytes in 222 blocks
-==192936== 
-==192936== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==192860== 
-==192860== HEAP SUMMARY:
-==192860==     in use at exit: 208,505 bytes in 227 blocks
-==192860==   total heap usage: 842 allocs, 615 frees, 260,476 bytes allocated
-==192860== 
-==192860== LEAK SUMMARY:
-==192860==    definitely lost: 0 bytes in 0 blocks
-==192860==    indirectly lost: 0 bytes in 0 blocks
-==192860==      possibly lost: 0 bytes in 0 blocks
-==192860==    still reachable: 0 bytes in 0 blocks
-==192860==         suppressed: 208,505 bytes in 227 blocks
-==192860== 
-==192860== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
---192860-- 
---192860-- used_suppression:     67 leak readline readline.supp:2 suppressed: 204,489 bytes in 226 blocks
---192860-- used_suppression:      1 leak add_history readline.supp:8 suppressed: 4,016 bytes in 1 blocks
-==192860== 
-==192860== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==217659== Memcheck, a memory error detector
+==217659== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==217659== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==217659== Command: ./minishell
+==217659== Parent PID: 217648
+==217659== 
+==217659== 
+==217659== HEAP SUMMARY:
+==217659==     in use at exit: 211,640 bytes in 223 blocks
+==217659==   total heap usage: 672 allocs, 449 frees, 243,397 bytes allocated
+==217659== 
+==217659== LEAK SUMMARY:
+==217659==    definitely lost: 0 bytes in 0 blocks
+==217659==    indirectly lost: 0 bytes in 0 blocks
+==217659==      possibly lost: 0 bytes in 0 blocks
+==217659==    still reachable: 0 bytes in 0 blocks
+==217659==         suppressed: 211,640 bytes in 223 blocks
+==217659== 
+==217659== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+--217659-- 
+--217659-- used_suppression:     68 leak readline readline.supp:2 suppressed: 211,640 bytes in 223 blocks
+==217659== 
+==217659== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

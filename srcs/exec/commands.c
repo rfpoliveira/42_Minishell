@@ -62,13 +62,13 @@ int	exec_cmd(t_simple_command *cmd, t_data *data, pid_t *pid)
 		node_exec(cmd, &data);
 	else if (data->number_simple_commands > 1) 
 	{
+		if (pid)
+			free(pid);
 		redirects(cmd, data);
 		setpaths(cmd, data->paths);
 		is_builtin = builtin_exec(cmd, data);
 		if (cmd->args[0] && !is_builtin)
 			execve(cmd->paths, cmd->args, data->envp);
-		if (pid)
-			free(pid);
 		if (!is_builtin)
 		{
 			ft_putstr_fd(" command not found\n", 2);

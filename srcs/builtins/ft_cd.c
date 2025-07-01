@@ -19,8 +19,6 @@ int	ft_pwd(t_data *data, t_simple_command *cmd)
 	char	*dir;
 
 	dir = NULL;
-	/*if (!dir || !dir[0] || !cmd->args[1])*/
-	/*	return (0);*/
 	if (!ft_strncmp(cmd->args[0], "pwd", 4))
 	{
 		dir = getcwd(NULL, 0);
