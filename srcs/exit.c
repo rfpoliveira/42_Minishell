@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:16 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/25 16:02:22 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/30 11:18:45 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static void	handle_exit_code(int error_code, int *exit_code)
 		*exit_code = 2;
 	else if (error_code == STDIN_ERROR)
 		*exit_code = 2;
+	else if (error_code == AMBI_REDI)
+		*exit_code = 1;
 }
 
 /**
@@ -72,6 +74,8 @@ void	print_error(int error_code, int *exit_code)
 		ft_putstr_fd(" numeric value needed\n", STDERR_FILENO);
 	else if (error_code == STDIN_ERROR)
 		ft_putstr_fd(" error reading from stdin\n", STDERR_FILENO);
+	else if (error_code == AMBI_REDI)
+		ft_putstr_fd(" ambiguous redirect\n", STDERR_FILENO);
 	handle_exit_code(error_code, exit_code);
 }
 

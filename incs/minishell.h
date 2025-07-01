@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:55:27 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/27 15:00:11 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/06/30 11:16:32 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ extern int	g_sigint_flag;
 # define OPEN_ERROR -7
 # define EXIT_ERROR -8
 # define STDIN_ERROR -9
+# define AMBI_REDI -10
 
 /*============================================================================#
 #								 STRUCTS									  #
