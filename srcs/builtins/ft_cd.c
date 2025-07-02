@@ -72,6 +72,11 @@ char	*get_dir(t_data *data, t_simple_command *cmd, char **old_pwd)
 			free(dir);
 			dir = ft_find_value(data->env, "HOME");
 		}
+		else
+		{
+			dir = ft_find_value(data->env, "HOME");
+			*old_pwd = ft_strjoin("OLDPWD=", dir);
+		}
 		return (dir);
 	}
 	dir = getcwd(NULL, 0);
