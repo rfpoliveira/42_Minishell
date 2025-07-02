@@ -13,17 +13,6 @@
 #include "../../incs/minishell.h"
 #include "../../incs/exec.h"
 
-int	ft_strchrlen(char *s, char c)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i] != c && s[i] != '\0')
-		i++;
-	return (i);
-}
 t_env	*env_new(char *envp)
 {
 	t_env	*env;
@@ -51,8 +40,6 @@ char	*ft_strjoin_free(char *s1, char *join)
 	tmp = ft_strjoin(s1, join);
 	if (s1)
 		free(s1);
-	/*if (join)*/
-	/*	free(join);*/
 	return (tmp);
 }
 

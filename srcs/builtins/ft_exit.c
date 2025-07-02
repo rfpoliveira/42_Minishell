@@ -1,23 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/02 16:24:28 by jpatrici          #+#    #+#             */
+/*   Updated: 2025/07/02 16:35:48 by jpatrici         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../incs/minishell.h"
-/**/
-/*int	ft_str_digit(char *s)*/
-/*{*/
-/*	int	i;*/
-/**/
-/*	i = -1;*/
-/*	while (s[++i])*/
-/*		if (ft_isdigit(s[i]))*/
-/*			return (1);*/
-/*	return (0);*/
-/*}*/
-/**/
+
 int	ft_exit(t_simple_command *cmd, t_data *data)
 {
     int	exit_status;
 
 	if (cmd->args[1] && !ft_isdigit(cmd->args[1][0]))
     {
-
 		data->exit_code = 2;
 		if (ft_strchr(cmd->args[1], '-'))
 			exit_bash(NULL, data, 156);
@@ -30,7 +30,6 @@ int	ft_exit(t_simple_command *cmd, t_data *data)
 		     ft_putstr_fd(": numeric argument required\n", 2);
 			exit_bash(NULL, data, 2);
 		}
-
     }
 	else if (cmd->args[1] && cmd->args[2])
     {

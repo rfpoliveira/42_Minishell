@@ -48,6 +48,29 @@ int	export_parse(char *args, int keysep)
 	return (keysep);
 }
 
+int	ft_add_key(t_env **env, char *args, int keysep)
+{
+	t_env	*head;
+
+	head = *env;
+	while (*env)
+	{
+		if (args[keysep] == '\0' && !ft_strncmp((*env)->key, args, keysep))
+			return (0);
+		keysep -= (args[keysep - 1] == '+');
+		if (!ft_strncmp((*env)->key, args, keysep)
+			&& (*env)->key[keysep] == '\0')
+		{
+			add_to_export(env, args, keysep);
+			return ((*env = head), 0);
+		}
+		*env = (*env)->next;
+	}
+	*env = head;
+	env_addback(*env, env_new(args));
+	return (0);
+}
+
 int	export_error(char *error)
 {
 	ft_putstr_fd("bash: export: '", 2);

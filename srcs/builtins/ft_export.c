@@ -13,20 +13,6 @@
 #include "../../incs/minishell.h"
 #include "../../incs/exec.h"
 
-int	is_sorted(t_env (*exp))
-{
-	t_env	*temp;
-
-	temp = exp;
-	while (temp->next)
-	{
-		if (ft_strncmp(temp->key, temp->next->key, ft_strlen(temp->key)) > 0)
-			return (0);
-		temp = temp->next;
-	}
-	return (1);
-}
-
 int	export_swap(t_env **exp)
 {
 	t_env	*p;
@@ -50,29 +36,6 @@ int	export_swap(t_env **exp)
 	return (0);
 }
 
-int	ft_add_key(t_env **env, char *args, int keysep)
-{
-	t_env	*head;
-
-	head = *env;
-	while (*env)
-	{
-		if (args[keysep] == '\0' && !ft_strncmp((*env)->key, args, keysep))
-			return (0);
-		keysep -= (args[keysep - 1] == '+');
-		if (!ft_strncmp((*env)->key, args, keysep)
-			&& (*env)->key[keysep] == '\0')
-		{
-			add_to_export(env, args, keysep);
-			return ((*env = head), 0);
-		}
-		*env = (*env)->next;
-	}
-	*env = head;
-	env_addback(*env, env_new(args));
-	return (0);
-}
-
 int	ft_print_export(t_env *env)
 {
 	if (!env)
@@ -87,7 +50,7 @@ int	ft_print_export(t_env *env)
 			ft_putstr_fd(env->value, 1);
 			ft_putstr_fd("\"\n", 1);
 		}
-		else 
+		else
 			ft_putstr_fd("\n", 1);
 		env = env->next;
 	}
@@ -122,9 +85,6 @@ int	ft_export(t_simple_command *cmd, t_data *data)
 		if (keysep == 0)
 		{
 			data->exit_code = 1;
-			/*if (cmd->args[i][ft_strchrlen(cmd->args[i], '-') + 1] == '\0'*/
-			/*|| cmd->args[i][ft_strchrlen(cmd->args[i], '-') + 1 == '='])*/
-			/*	data->exit_code = 1;*/
 			export_error(cmd->args[i]);
 			continue ;
 		}
@@ -134,6 +94,5 @@ int	ft_export(t_simple_command *cmd, t_data *data)
 	check_infile(data, cmd);
 	if (i == 1)
 		ft_print_export(data->env);
-	data->env = temp;
-	return (0);
+	return (data->env = temp, 0);
 }

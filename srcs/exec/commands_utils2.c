@@ -55,3 +55,29 @@ int	setpaths(t_simple_command *cmd, char **paths)
 	}
 	return (1);
 }
+
+int	is_sorted(t_env (*exp))
+{
+	t_env	*temp;
+
+	temp = exp;
+	while (temp->next)
+	{
+		if (ft_strncmp(temp->key, temp->next->key, ft_strlen(temp->key)) > 0)
+			return (0);
+		temp = temp->next;
+	}
+	return (1);
+}
+
+int	ft_strchrlen(char *s, char c)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i] != c && s[i] != '\0')
+		i++;
+	return (i);
+}

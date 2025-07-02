@@ -6,7 +6,7 @@
 /*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:54:10 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/25 20:49:46 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/07/02 16:36:49 by jpatrici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int		ft_strchrlen(char *s, char c);
 int		ft_export(t_simple_command *cmd, t_data *data);
 int		ft_add_key(t_env **env, char *args, int keysep);
 int		swap_util(t_env **exp, t_env *temp);
+int		is_sorted(t_env *exp);
 int		export_parse(char *args, int keysep);
 int		export_error(char *error);
 int		add_to_export(t_env **env, char *args, int keysep);

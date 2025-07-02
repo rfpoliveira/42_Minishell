@@ -6,7 +6,7 @@
 /*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 19:33:53 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/25 20:55:02 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/07/02 16:35:11 by jpatrici         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,21 @@ char	*get_dir(t_data *data, t_simple_command *cmd, char **old_pwd)
 	if (!cmd->args[1])
 	{
 		dir = getcwd(NULL, 0);
-		*old_pwd = ft_strjoin("OLDPWD=", dir);
-		free(dir);
+		if (dir)
+		{
+			*old_pwd = ft_strjoin("OLDPWD=", dir);
+			free(dir);
+		}
 		dir = ft_find_value(data->env, "HOME");
 		return (dir);
 	}
 	dir = getcwd(NULL, 0);
-	*old_pwd = ft_strjoin("OLDPWD=", dir);
-	dir = ft_strjoin_free(dir, "/");
-	dir = ft_strjoin_free(dir, cmd->args[1]);
+	if (dir)
+	{
+		*old_pwd = ft_strjoin("OLDPWD=", dir);
+		dir = ft_strjoin_free(dir, "/");
+		dir = ft_strjoin_free(dir, cmd->args[1]);
+	}
 	return (dir);
 }
 
@@ -98,7 +104,7 @@ int	ft_cd(t_data *data, t_simple_command *cmd)
 		ft_add_key(&data->env, tmp, 3);
 		return (free(old_pwd), free(dir), free(tmp), 1);
 	}
-	else 
+	else
 	{
 		ft_putstr_fd(" No such file or directory\n", 2);
 		return (free(old_pwd), free(dir), data->exit_code = 1);
