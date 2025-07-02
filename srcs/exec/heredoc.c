@@ -120,6 +120,6 @@ int	init_hd(t_data *data)
 			}
 		}
 	}
-	handle_signals();
+	/*handle_signals();*/
 	return (1);
 }

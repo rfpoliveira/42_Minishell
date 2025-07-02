@@ -57,6 +57,8 @@ int	ft_add_key(t_env **env, char *args, int keysep)
 	head = *env;
 	while (*env)
 	{
+		if (args[keysep] == '\0' && !ft_strncmp((*env)->key, args, keysep))
+			return (0);
 		keysep -= (args[keysep - 1] == '+');
 		if (!ft_strncmp((*env)->key, args, keysep)
 			&& (*env)->key[keysep] == '\0')
@@ -98,7 +100,8 @@ void	check_infile(t_data *data, t_simple_command *cmd)
 
 	i = -1;
 	while (data->table[++i])
-		if (data->table[i] == cmd && data->table[i + 1] && data->table[i + 1]->infile)
+		if (data->table[i] == cmd && data->table[i + 1]
+			&& data->table[i + 1]->infile)
 			close(1);
 }
 
@@ -111,15 +114,17 @@ int	ft_export(t_simple_command *cmd, t_data *data)
 	temp = data->env;
 	i = 0;
 	keysep = 0;
+	data->exit_code = 0;
 	while (cmd->args[++i])
 	{
 		keysep = ft_strchrlen(cmd->args[i], '=');
 		keysep = export_parse(cmd->args[i], keysep);
 		if (keysep == 0)
 		{
-			if (cmd->args[i][ft_strchrlen(cmd->args[i], '-') + 1] == '\0'
-			|| cmd->args[i][ft_strchrlen(cmd->args[i], '-') + 1 == '='])
-				data->exit_code = 1;
+			data->exit_code = 1;
+			/*if (cmd->args[i][ft_strchrlen(cmd->args[i], '-') + 1] == '\0'*/
+			/*|| cmd->args[i][ft_strchrlen(cmd->args[i], '-') + 1 == '='])*/
+			/*	data->exit_code = 1;*/
 			export_error(cmd->args[i]);
 			continue ;
 		}

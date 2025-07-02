@@ -16,18 +16,24 @@
 int	builtin_exec(t_simple_command *cmd, t_data *data)
 {
 	if (cmd->args[0] && !ft_strncmp(cmd->args[0], "echo", 5))
-		return (redirects(cmd, data), ft_echo(cmd), 1);
+		return (redirects(cmd, data), 
+		data->exit_code = ft_echo(cmd));
 	if ((cmd->args[0] && !ft_strncmp(cmd->args[0], "cd", 3))
 	|| (cmd->args[0] && !ft_strncmp(cmd->args[0], "pwd", 4)))
-		return (redirects(cmd, data), ft_cd(data, cmd));
+		return (redirects(cmd, data), 
+		data->exit_code = ft_cd(data, cmd));
 	if (cmd->args[0] && !ft_strncmp(cmd->args[0], "export", 7))
-		return (redirects(cmd, data), ft_export(cmd, data), 1);
+		return (redirects(cmd, data), 
+		ft_export(cmd, data), 0);
 	if (cmd->args[0] && !ft_strncmp(cmd->args[0], "env", 4))
-		return (redirects(cmd, data), ft_env(data), 1);
+		return (redirects(cmd, data), 
+		data->exit_code = ft_env(data));
 	if (cmd->args[0] && !ft_strncmp(cmd->args[0], "unset", 6))
-		return (redirects(cmd, data), ft_unset(cmd, data), 1);
+		return (redirects(cmd, data), 
+		data->exit_code = ft_unset(cmd, data));
 	if (cmd->args[0] && !ft_strncmp(cmd->args[0], "exit", 5))
-		return (redirects(cmd, data), ft_exit(cmd, data), 1);
+		return (redirects(cmd, data),
+		data->exit_code = ft_exit(cmd, data));
 	return (-1);
 }
 
