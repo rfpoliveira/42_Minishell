@@ -78,7 +78,8 @@ static char	*join_everything(char *user, char *path, char *hostname)
 	ft_strlcat(prompt, path, sum_len);
 	ft_strlcat(prompt, "$>", sum_len);
 	ft_free(&hostname);
-	ft_free(&path);
+	if (path && *path)
+		ft_free(&path);
 	return (prompt);
 }
 /**
@@ -130,10 +131,10 @@ char	*get_prompt(void)
 
 	user = getenv("USER");
 	if (user == NULL)
-		user = "UNKNOWN_USER";
+		user = ft_strdup("UNKNOWN_USER");
 	path = getcwd(NULL, 0);
 	if (path == NULL)
-		path = "UNKNOWN_PATH";
+		path = ft_strdup("UNKNOWN_PATH");
 	hostname = get_hostname();
 	if (hostname == NULL)
 		return (NULL);

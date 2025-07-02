@@ -22,7 +22,16 @@ int	ft_pwd(t_data *data, t_simple_command *cmd)
 	if (!ft_strncmp(cmd->args[0], "pwd", 4))
 	{
 		dir = getcwd(NULL, 0);
-		ft_putstr_fd(dir, 1);
+		if (dir)
+			ft_putstr_fd(dir, 1);
+		else
+		{
+			dir = ft_find_value(data->env, "PWD");
+			if (dir)
+				ft_putstr_fd(dir, 1);
+			else
+				ft_putstr_fd("Error: unknown path", 2);
+		}
 		return (free(dir), write(1, "\n", 1));
 	}
 	if (cmd->number_args > 2)
