@@ -33,16 +33,6 @@ t_env	*env_new(char *envp)
 	return (env);
 }
 
-char	*ft_strjoin_free(char *s1, char *join)
-{
-	char	*tmp;
-
-	tmp = ft_strjoin(s1, join);
-	if (s1)
-		free(s1);
-	return (tmp);
-}
-
 char	**envp_cpy(t_env *envp)
 {
 	char	**env;
@@ -82,12 +72,12 @@ void	env_addback(t_env *env, t_env *node)
 	p->next = node;
 }
 
-void 	init_envp(t_env **env, char **envp)
+void	init_envp(t_env **env, char **envp)
 {
 	t_env	*n;
 	int		num;
 
-	*env  = env_new(*envp);
+	*env = env_new(*envp);
 	if (!*env)
 		return ;
 	n = *env;
@@ -96,33 +86,13 @@ void 	init_envp(t_env **env, char **envp)
 		env_addback(*env, env_new(*envp));
 		n = n->next;
 	}
-	n = *env;
-	while (n->next)
-	{
-		if (!ft_strncmp(n->key ,"SHLVL", ft_strlen(n->key) + 1))
-		{
-			if (n->value)
-			{
-				num = ft_atoi(n->value) + 1;
-				free(n->value);
-				n->value = ft_itoa(num);
-			}
-			else
-			{
-				n->value = ft_itoa(1);
-			}
-			break ;
-		}
-		n = n->next;
-	}
-	if (ft_strncmp(n->key ,"SHLVL", ft_strlen(n->key) + 1))
-		env_addback(*env , env_new("SHLVL=1"));
+	set_shlvl(env);
 }
 
 void	init_data(t_data *data, char **envp)
 {
-	data->paths = NULL; 
-	init_envp(&data->env, envp);
+	data->paths = NULL;
+	init_env(&data->env, envp);
 	data->paths = pathfind(data->env);
 	data->hd = NULL;
 	data->envp = NULL;

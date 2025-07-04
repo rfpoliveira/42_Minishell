@@ -24,8 +24,6 @@ void	free_cmd(t_data *data)
 			free(data->table[i]->paths);
 
 	}
-	/*if (cmd->fd && cmd->fd[0] && cmd->fd[1])*/
-	/*	free(cmd->fd);*/
 }
 
 void	free_arrenvp(t_data *data)

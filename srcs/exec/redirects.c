@@ -36,16 +36,13 @@ void	outfile_redir(t_simple_command *cmd, t_data *data, int i)
 	}
 	else
 		return ;
-	if (fd != -1)
-	{
-		dup2(fd, STDOUT_FILENO);
+	if (fd != -1 && dup2(fd, STDOUT_FILENO) != -1)
 		close(fd);
-	}
 }
 
 void	in_redir(t_simple_command *cmd, t_data *data, int j)
 {
-	if (*cmd->infile &&  !access(*cmd->infile, F_OK | R_OK)
+	if (*cmd->infile && !access(*cmd->infile, F_OK | R_OK)
 		&& cmd->red_order[j] == '1')
 	{
 		if (!access(*cmd->infile, F_OK | R_OK) && cmd->red_order[j] == '1')
@@ -66,17 +63,16 @@ void	in_redir(t_simple_command *cmd, t_data *data, int j)
 	}
 	else
 		return ;
-
 }
 
 int	redirects(t_simple_command *cmd, t_data *data)
 {
 	int		i;
 	int		j;
-	
+
 	i = -1;
 	j = -1;
-	if (!cmd->double_in && !cmd->infile 
+	if (!cmd->double_in && !cmd->infile
 		&& !cmd->outfile && !cmd->double_out)
 		return (0);
 	while (cmd->red_order[++j])
@@ -88,10 +84,11 @@ int	redirects(t_simple_command *cmd, t_data *data)
 				exit_bash(NULL, data, 0);
 		}
 		else if (cmd->infile && *cmd->infile
-				&& cmd->red_order[j] == '1')
+			&& cmd->red_order[j] == '1')
 			in_redir(cmd, data, j);
 		else if ((cmd->outfile && *cmd->outfile && cmd->red_order[j] == '2')
-			|| (cmd->double_out && *cmd->double_out && cmd->red_order[j] == '4'))
+			|| (cmd->double_out && *cmd->double_out 
+			&& cmd->red_order[j] == '4'))
 			outfile_redir(cmd, data, j);
 	}
 	if (!cmd->args[0])

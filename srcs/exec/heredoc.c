@@ -12,7 +12,7 @@
 
 #include "../../incs/minishell.h"
 
-extern int g_sigint_flag;
+extern int	g_sigint_flag;
 
 void	ft_unlink_hd(t_data *data)
 {
@@ -34,7 +34,7 @@ void	ft_unlink_hd(t_data *data)
 	data->hd = NULL;
 }
 
-char	*heredoc_file()
+char	*heredoc_file(void)
 {
 	static int	i;
 	char		*filename;
@@ -88,38 +88,18 @@ int	init_hd(t_data *data)
 {
 	int	i;
 	int	j;
-	int count;
+	int	count;
 
-	i = -1;
 	count = 0;
-	
 	if (!data->table || !data->table[0])
 		return (1);
-	while (data->table[++i])
-	{
-		j = -1;
-			while (data->table[i]->double_in[++j])
-				count++;
-	}
+	count = hd_counter(data);
 	if (count != 0)
 	{
 		data->hd = ft_calloc(sizeof(char *), count + 1);
 		data->hd[count] = NULL;
-		i = -1;
-		j = -1;
-		count = 0;
 		signal(SIGINT, &signal_hd);
-		while (data->table[++i])
-		{
-			j = -1;
-			while (data->table[i]->double_in[++j])
-			{
-				data->hd[count] = ft_heredoc(data->table[i]->double_in[j]);
-				if (!data->hd[count++])
-					return (0);
-			}
-		}
+		return (hd_iter(data));
 	}
-	/*handle_signals();*/
 	return (1);
 }
