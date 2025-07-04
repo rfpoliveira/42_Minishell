@@ -65,6 +65,12 @@ void	in_redir(t_simple_command *cmd, t_data *data, int j)
 		return ;
 }
 
+void	exit_redirects(t_simple_command *cmd, t_data *data)
+{
+	if (!cmd->args[0])
+		exit_bash(NULL, data, 0);
+}
+
 int	redirects(t_simple_command *cmd, t_data *data)
 {
 	int		i;
@@ -80,18 +86,16 @@ int	redirects(t_simple_command *cmd, t_data *data)
 		if (data->hd && cmd->red_order[j] == '3')
 		{
 			infile_redir(data->hd[++i]);
-			if (!cmd->args[0])
-				exit_bash(NULL, data, 0);
+			exit_redirects(cmd, data);
 		}
 		else if (cmd->infile && *cmd->infile
 			&& cmd->red_order[j] == '1')
 			in_redir(cmd, data, j);
 		else if ((cmd->outfile && *cmd->outfile && cmd->red_order[j] == '2')
-			|| (cmd->double_out && *cmd->double_out 
-			&& cmd->red_order[j] == '4'))
+			|| (cmd->double_out && *cmd->double_out
+				&& cmd->red_order[j] == '4'))
 			outfile_redir(cmd, data, j);
 	}
-	if (!cmd->args[0])
-		exit_bash(NULL, data, 0);
+	exit_redirects(cmd, data);
 	return (j);
 }

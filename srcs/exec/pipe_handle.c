@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../incs/exec.h"
-#include <stdlib.h>
-#include <unistd.h>
 
 #define READ 0
 #define WRITE 1
@@ -51,6 +49,7 @@ void	mid_args(t_data *data, int i)
 	dup2(data->table[i + 1]->fd[WRITE], STDOUT_FILENO);
 	close(data->table[i + 1]->fd[WRITE]);
 }
+
 void	last_arg(t_data *data, int i)
 {
 	int	j;
@@ -69,10 +68,10 @@ void	last_arg(t_data *data, int i)
 	close(data->table[i]->fd[WRITE]);
 }
 
-void parent_process(t_data *data, pid_t *pid)
+void	parent_process(t_data *data, pid_t *pid)
 {
-	int i;
-	int status;
+	int	i;
+	int	status;
 
 	i = -1;
 	while (++i < data->number_simple_commands)
@@ -82,20 +81,20 @@ void parent_process(t_data *data, pid_t *pid)
 	}
 	i = -1;
 	while (++i < data->number_simple_commands)
-	   waitpid(pid[i], &status, 0);
+		waitpid(pid[i], &status, 0);
 	data->exit_code = WEXITSTATUS(status);
 }
 
-void fd_handler(t_data *data, pid_t *pid)
+void	fd_handler(t_data *data, pid_t *pid)
 {
-    int i;
+	int	i;
 
 	i = -1;
-    while (++i < data->number_simple_commands)
+	while (++i < data->number_simple_commands)
 	{
-        pid[i] = fork();
-        if (pid[i] == -1)
-            exit (2);
+		pid[i] = fork();
+		if (pid[i] == -1)
+			exit (2);
 		if (pid[i] == 0)
 		{
 			if (i == 0)
@@ -106,7 +105,7 @@ void fd_handler(t_data *data, pid_t *pid)
 				mid_args(data, i);
 			exec_cmd(data->table[i], data, pid);
 			exit_bash(NULL, data, data->exit_code);
-        }
+		}
 	}
 	parent_process(data, pid);
 }
