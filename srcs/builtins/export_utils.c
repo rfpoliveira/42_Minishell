@@ -35,7 +35,7 @@ int	export_parse(char *args, int keysep)
 
 	i = -1;
 	if ((args[keysep] == '\0' && keysep == 0)
-	|| (args[keysep] == '\0' && args[keysep - 1] == '+'))
+		|| (args[keysep] == '\0' && args[keysep - 1] == '+'))
 		return (0);
 	while (++i < keysep)
 	{

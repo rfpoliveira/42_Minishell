@@ -28,7 +28,7 @@ int	env_len(t_env *env)
 
 int	ft_env(t_data *data)
 {
-	t_env *head;
+	t_env	*head;
 
 	head = data->env;
 	while (data->env)
@@ -45,4 +45,3 @@ int	ft_env(t_data *data)
 	data->env = head;
 	return (0);
 }
-
