@@ -13,9 +13,9 @@
 #include "../../incs/minishell.h"
 
 int	redir_out(char *file, t_data *data)
-{	
+{
 	if (!access(file, F_OK)
-	 && access(file, W_OK))
+		&& access(file, W_OK))
 	{
 		ft_putstr_fd(" Permission denied", 2);
 		exit_bash(NULL, data, 1);
@@ -26,7 +26,7 @@ int	redir_out(char *file, t_data *data)
 int	redir_double_out(char *file, t_data *data)
 {
 	if (!access(file, F_OK)
-	&& access(file, W_OK))
+		&& access(file, W_OK))
 	{
 		ft_putstr_fd(" Permission denied", 2);
 		exit_bash(NULL, data, 1);

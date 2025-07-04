@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/minishell.h"
 #include "../../incs/exec.h"
 
-char **pathfind(t_env *envp)
+char	**pathfind(t_env *envp)
 {
 	char	**path;
 	t_env	*p;
@@ -26,14 +25,14 @@ char **pathfind(t_env *envp)
 			path = ft_split(p->value, ':');
 		p = p->next;
 	}
-		return (path);
+	return (path);
 }
 
 int	setpaths(t_simple_command *cmd, char **paths)
 {
 	int		i;
 
-	i= -1;
+	i = -1;
 	cmd->paths = NULL;
 	if (cmd->args && *cmd->args)
 	{

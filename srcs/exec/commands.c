@@ -10,30 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/minishell.h"
 #include "../../incs/exec.h"
 
 int	builtin_exec(t_simple_command *cmd, t_data *data)
 {
 	if (cmd->args[0] && !ft_strncmp(cmd->args[0], "echo", 5))
-		return (redirects(cmd, data), 
-		data->exit_code = ft_echo(cmd));
+		return (redirects(cmd, data),
+			data->exit_code = ft_echo(cmd));
 	if ((cmd->args[0] && !ft_strncmp(cmd->args[0], "cd", 3))
-	|| (cmd->args[0] && !ft_strncmp(cmd->args[0], "pwd", 4)))
-		return (redirects(cmd, data), 
-		data->exit_code = ft_cd(data, cmd));
+		|| (cmd->args[0] && !ft_strncmp(cmd->args[0], "pwd", 4)))
+		return (redirects(cmd, data),
+			data->exit_code = ft_cd(data, cmd));
 	if (cmd->args[0] && !ft_strncmp(cmd->args[0], "export", 7))
-		return (redirects(cmd, data), 
-		ft_export(cmd, data), 0);
+		return (redirects(cmd, data),
+			ft_export(cmd, data), 0);
 	if (cmd->args[0] && !ft_strncmp(cmd->args[0], "env", 4))
-		return (redirects(cmd, data), 
-		data->exit_code = ft_env(data));
+		return (redirects(cmd, data),
+			data->exit_code = ft_env(data));
 	if (cmd->args[0] && !ft_strncmp(cmd->args[0], "unset", 6))
-		return (redirects(cmd, data), 
-		data->exit_code = ft_unset(cmd, data));
+		return (redirects(cmd, data),
+			data->exit_code = ft_unset(cmd, data));
 	if (cmd->args[0] && !ft_strncmp(cmd->args[0], "exit", 5))
 		return (redirects(cmd, data),
-		data->exit_code = ft_exit(cmd, data));
+			data->exit_code = ft_exit(cmd, data));
 	return (-1);
 }
 
@@ -66,7 +65,7 @@ int	exec_cmd(t_simple_command *cmd, t_data *data, pid_t *pid)
 
 	if (data->number_simple_commands == 1)
 		node_exec(cmd, &data);
-	else if (data->number_simple_commands > 1) 
+	else if (data->number_simple_commands > 1)
 	{
 		if (pid)
 			free(pid);
