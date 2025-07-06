@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/minishell.h"
 #include "../../incs/exec.h"
 
 t_env	*env_new(char *envp)
@@ -75,7 +74,6 @@ void	env_addback(t_env *env, t_env *node)
 void	init_envp(t_env **env, char **envp)
 {
 	t_env	*n;
-	int		num;
 
 	*env = env_new(*envp);
 	if (!*env)
@@ -92,7 +90,7 @@ void	init_envp(t_env **env, char **envp)
 void	init_data(t_data *data, char **envp)
 {
 	data->paths = NULL;
-	init_env(&data->env, envp);
+	init_envp(&data->env, envp);
 	data->paths = pathfind(data->env);
 	data->hd = NULL;
 	data->envp = NULL;

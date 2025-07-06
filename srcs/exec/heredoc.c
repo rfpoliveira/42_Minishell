@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/minishell.h"
+#include "../../incs/exec.h"
 
 extern int	g_sigint_flag;
 
@@ -86,8 +86,6 @@ void	signal_hd(int signumb)
 
 int	init_hd(t_data *data)
 {
-	int	i;
-	int	j;
 	int	count;
 
 	count = 0;

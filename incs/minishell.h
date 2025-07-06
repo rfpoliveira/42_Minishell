@@ -107,7 +107,6 @@ typedef struct s_data
 #                                 Functions                                   #
 #============================================================================*/
 
-#include "exec.h"
 void	handle_signals(void);
 void	alloc_struct(t_data **command);
 char	*get_prompt(void);

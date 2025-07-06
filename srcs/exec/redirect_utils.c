@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/minishell.h"
+#include "../../incs/exec.h"
 
 int	redir_out(char *file, t_data *data)
 {
@@ -44,4 +44,16 @@ void	infile_redir(char *infile)
 	if (dup2(fd, STDIN_FILENO) == -1)
 		return ;
 	close(fd);
+}
+
+int	ft_arrlen(char **arr)
+{
+	int	i;
+
+	i = 0;
+	if (!arr)
+		return (0);
+	while (arr[i])
+		i++;
+	return (i - 1);
 }

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/minishell.h"
 #include "../../incs/exec.h"
 
 void	outfile_redir(t_simple_command *cmd, t_data *data, int i)
@@ -76,7 +75,7 @@ int	redirects(t_simple_command *cmd, t_data *data)
 	int		i;
 	int		j;
 
-	i = -1;
+	i = ft_arrlen(data->hd);
 	j = -1;
 	if (!cmd->double_in && !cmd->infile
 		&& !cmd->outfile && !cmd->double_out)
@@ -85,7 +84,7 @@ int	redirects(t_simple_command *cmd, t_data *data)
 	{
 		if (data->hd && cmd->red_order[j] == '3')
 		{
-			infile_redir(data->hd[++i]);
+			infile_redir(data->hd[i]);
 			exit_redirects(cmd, data);
 		}
 		else if (cmd->infile && *cmd->infile

@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../incs/exec.h"
-#include <fcntl.h>
-#include <unistd.h>
 
 int	ft_pwd(t_data *data, t_simple_command *cmd)
 {
@@ -57,13 +55,25 @@ char	*ft_find_value(t_env *env, char *key)
 	env = head;
 	return (value);
 }
-char	*get_home(t_data *data, char **old_pwd)
-{
-	char	*home;
 
-	home = ft_find_value(data->env, "HOME");
-	*old_pwd = ft_strjoin("OLDPWD=", home);
-	return (home);
+char	*no_args(t_data *data, char **old_pwd)
+{
+	char	*dir;
+
+	dir = NULL;
+	dir = getcwd(NULL, 0);
+	if (dir)
+	{
+		*old_pwd = ft_strjoin("OLDPWD=", dir);
+		free(dir);
+		dir = ft_find_value(data->env, "HOME");
+	}
+	else
+	{
+		dir = ft_find_value(data->env, "HOME");
+		*old_pwd = ft_strjoin("OLDPWD=", dir);
+	}
+	return (dir);
 }
 
 char	*get_dir(t_data *data, t_simple_command *cmd, char **old_pwd)
@@ -73,15 +83,7 @@ char	*get_dir(t_data *data, t_simple_command *cmd, char **old_pwd)
 	dir = NULL;
 	if (!cmd->args[1])
 	{
-		dir = getcwd(NULL, 0);
-		if (dir)
-		{
-			*old_pwd = ft_strjoin("OLDPWD=", dir);
-			free(dir);
-			dir = ft_find_value(data->env, "HOME");
-		}
-		else
-			dir = get_home(data, old_pwd);	
+		dir = no_args(data, old_pwd);
 		return (dir);
 	}
 	dir = getcwd(NULL, 0);

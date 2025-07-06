@@ -74,7 +74,6 @@ void	free_hd(t_data *data)
 void	free_envp(t_data *data)
 {
 	int		i;
-	t_env	*p;
 
 	free_arrenvp(data);
 	free_env(data);

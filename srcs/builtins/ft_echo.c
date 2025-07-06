@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/minishell.h"
+#include "../../incs/exec.h"
 
 int	flagsearch(char *flag)
 {
@@ -34,7 +34,6 @@ int	ft_echo(t_simple_command *cmd)
 	int	i;
 
 	i = 0;
-	/*dprintf(2, "myecho\n");*/
 	while (flagsearch(cmd->args[i + 1]))
 		i++;
 	while (cmd->args[++i])
@@ -45,6 +44,5 @@ int	ft_echo(t_simple_command *cmd)
 	}
 	if (!flagsearch(cmd->args[1]))
 		write(1, "\n", 1);
-	/*exit(1);*/
 	return (0);
 }

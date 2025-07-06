@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../incs/minishell.h"
 #include "../../incs/exec.h"
 
 int	export_swap(t_env **exp)
