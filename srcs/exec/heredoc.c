@@ -19,6 +19,7 @@ void	ft_unlink_hd(t_data *data)
 	int	i;
 
 	i = -1;
+	
 	if (data->hd == NULL || !data->hd[0])
 		return ;
 	while (data->hd[++i])

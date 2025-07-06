@@ -85,7 +85,6 @@ int	redirects(t_simple_command *cmd, t_data *data)
 		if (data->hd && cmd->red_order[j] == '3')
 		{
 			infile_redir(data->hd[i]);
-			exit_redirects(cmd, data);
 		}
 		else if (cmd->infile && *cmd->infile
 			&& cmd->red_order[j] == '1')
