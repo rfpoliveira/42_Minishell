@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:46:37 by renato-oliv       #+#    #+#             */
-/*   Updated: 2025/06/27 15:35:55 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/07 16:05:14 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int		new_arg_counter(t_simple_command *table, char **args);
 int		populate_tmp(char **tmp, t_data *com, char **cur, int i);
 int		alloc_file(t_data *command, int curr_table);
 char	*copy_red(char *str);
+void	iter(char c, int *chr);
 
 //expanding
 int		handle_expanding(t_data *command);

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:53:37 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/30 12:18:46 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/07 16:10:53 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,16 +105,13 @@ static int	expande_red(t_simple_command *curr_table, int *exit_code)
 	i = 0;
 	j = 0;
 	if (curr_table->infile && \
-	expande_red_util(curr_table->infile, i, j, exit_code) != 0)
+expande_red_util(curr_table->infile, i, j, exit_code) != 0)
 		return (1);
 	if (curr_table->outfile && \
-	expande_red_util(curr_table->outfile, i, j, exit_code) != 0)
+expande_red_util(curr_table->outfile, i, j, exit_code) != 0)
 		return (1);
-/* 	if (curr_table->double_in && \
-	expande_red_util(curr_table->double_in, i, j, exit_code) != 0) 
-		return (1);*/
 	if (curr_table->double_out && \
-	expande_red_util(curr_table->double_out, i, j, exit_code) != 0)
+expande_red_util(curr_table->double_out, i, j, exit_code) != 0)
 		return (1);
 	return (0);
 }
@@ -146,8 +143,8 @@ static int	expand_args(t_simple_command *curr_table, int *exit_code)
 			if (mid_expand_quote_handler(&flag, &x, curr_table->args[j]) != 0)
 				break ;
 			if (curr_table->args[j][x] == '$' && curr_table->args[j][x + 1] \
-				&& !ft_isspace(curr_table->args[j][x + 1]) && \
-				curr_table->args[j][x + 1] != 34)
+&& !ft_isspace(curr_table->args[j][x + 1]) \
+&& curr_table->args[j][x + 1] != 34)
 			{
 				if (expande(&curr_table->args[j], x, exit_code) != 0)
 					return (1);

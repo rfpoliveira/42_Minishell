@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:32:01 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/25 17:41:32 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:18:10 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	ft_unlink_hd(t_data *data)
 	int	i;
 
 	i = -1;
-	
 	if (data->hd == NULL || !data->hd[0])
 		return ;
 	while (data->hd[++i])

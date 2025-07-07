@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:35:16 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/30 11:18:45 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/07 16:17:34 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ static void	handle_exit_code(int error_code, int *exit_code)
 */
 void	print_error(int error_code, int *exit_code)
 {
-	// if (error_code == MALLOC_ERROR)
-	// 	ft_putstr_fd("Error Allocating memory!\n", STDERR_FILENO);
 	if (error_code == QUOTE_ERROR)
 		ft_putstr_fd(" non closed quotes\n", STDERR_FILENO);
 	else if (error_code == COM_NOT_FOUND)

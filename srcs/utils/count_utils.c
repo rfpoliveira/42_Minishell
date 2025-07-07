@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:49:43 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/27 15:23:23 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/07 16:12:26 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	count_double_ins(char **current)
 			if (current[j][i] == 39 || current[j][i] == 34)
 				i += skip_quotes(current[j], i);
 			if (current[j][i] == '<' && current[j][i] \
-			&& current[j][i + 1] == '<')
+&& current[j][i + 1] == '<')
 			{
 				count++;
 				i++;

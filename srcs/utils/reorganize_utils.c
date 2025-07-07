@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:01:42 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/27 15:47:23 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/07 16:15:23 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ static int	count_singles(char **args, int curr_arg, int curr_chr)
 static int	count_doubles(char **args, int curr_arg, int curr_chr)
 {
 	if (args[curr_arg][curr_chr] != '\0' \
-	&& args[curr_arg][curr_chr + 1] != '\0' \
-	&& args[curr_arg][curr_chr + 2] == '\0')
+&& args[curr_arg][curr_chr + 1] != '\0' \
+&& args[curr_arg][curr_chr + 2] == '\0')
 	{
 		if (curr_chr > 0)
 			return (1);
@@ -146,9 +146,9 @@ int	populate_tmp(char **tmp, t_data *command, char **cur, int i)
 				j += skip_quotes(cur[i], j) - 1;
 			j++;
 		}
-		if ((j != 0 && i == 0) || (j != 0 && cur[i][j] == '>') || \
-		(j != 0 && cur[i][j] == '<') || (!cur[i][j] && (cur[i - 1][lsx] != '<'\
-		&& cur[i - 1][lsx] != '>')))
+		if ((j != 0 && i == 0) || \
+(j != 0 && cur[i][j] == '>') || (j != 0 && cur[i][j] == '<') || \
+(!cur[i][j] && (cur[i - 1][lsx] != '<' && cur[i - 1][lsx] != '>')))
 		{
 			if (copy_util(command, &tmp[cur_tmp++], &cur[i]) != 0)
 				return (1);

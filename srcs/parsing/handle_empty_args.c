@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/25 10:11:46 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/27 15:08:54 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/07 16:07:19 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	free_n_dup(char **tmp, t_data *command, int curr_table)
 	i = 0;
 	matrix_free(command->table[curr_table]->args);
 	command->table[curr_table]->args = malloc(sizeof(char *) \
-	* command->table[curr_table]->number_args + 8);
+* command->table[curr_table]->number_args + 8);
 	if (command->table[curr_table]->args == NULL)
 		return (matrix_free(tmp), 1);
 	while (tmp[i])

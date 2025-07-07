@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 16:08:04 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/07/01 11:46:29 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/07 16:16:26 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,7 @@ int	sep_per_words(t_simple_command *curr_table, int *exit_code)
 				j = 0;
 				break ;
 			}
-			if (curr_table->args[i][j] && curr_table->args[i][j] != 34 && curr_table->args[i][j] != 39)
-				j++;
+			iter(curr_table->args[i][j], &j);
 		}
 		j = 0;
 	}

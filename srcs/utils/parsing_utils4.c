@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 11:57:07 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/27 15:26:15 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/07 16:13:16 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,10 @@ void	red_order_code(int count, char *command, t_simple_command *curr_table)
 		symbol_checker(tmp, command, &i, &j);
 	curr_table->red_order = ft_strdup(tmp);
 	ft_free(&tmp);
+}
+
+void	iter(char c, int *chr)
+{
+	if (c && c != 34 && c != 39)
+		(*chr)++;
 }

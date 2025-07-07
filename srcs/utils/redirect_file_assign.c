@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 15:07:30 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/23 13:45:05 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/07 16:12:00 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,15 @@ int	assign_util_infile(t_data *command, int arg, int table, int chr)
 	while (file[i])
 		i++;
 	if (file == command->table[table]->infile && \
-	command->table[table]->args[arg][chr] == '<' && \
-	command->table[table]->args[arg][chr + 1] == '>')
+command->table[table]->args[arg][chr] == '<' && \
+command->table[table]->args[arg][chr + 1] == '>')
 		file[i++] = strdup("");
 	else if (command->table[table]->args[arg][chr + 1] == '\0')
 		file[i++] = copy_red(command->table[table]->args[arg + 1]);
 	else
 	{
 		if ((file == command->table[table]->infile && chr != 0) || \
-		(file == command->table[table]->double_in && chr != 1))
+(file == command->table[table]->double_in && chr != 1))
 			command->table[table]->in_iter++;
 		tmp = parsing_split(command->table[table]->args[arg], '<');
 		file[i++] = copy_red(tmp[command->table[table]->in_iter]);
@@ -111,7 +111,7 @@ int	assign_util_outfile(t_data *command, int arg, int table, int chr)
 	else
 	{
 		if ((file == command->table[table]->outfile && chr != 0) || \
-		(file == command->table[table]->double_out && chr != 1))
+(file == command->table[table]->double_out && chr != 1))
 			command->table[table]->out_iter++;
 		tmp = parsing_split(command->table[table]->args[arg], '>');
 		file[i++] = copy_red(tmp[command->table[table]->out_iter]);

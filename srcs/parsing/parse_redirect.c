@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 16:34:59 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/07/07 15:09:10 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/07 16:10:05 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ int	check_for_red(t_data *command, int table, int arg, int red_count)
 	red_count = 0;
 	while (command->table[table]->args[arg][chr])
 	{
-		if (command->table[table]->args[arg][chr] == 34 \
-		|| command->table[table]->args[arg][chr] == 39)
+		if (command->table[table]->args[arg][chr] == 34 || \
+command->table[table]->args[arg][chr] == 39)
 			chr += skip_quotes(command->table[table]->args[arg], chr);
 		if (command->table[table]->args[arg][chr] == '<')
 		{
@@ -94,8 +94,7 @@ int	check_for_red(t_data *command, int table, int arg, int red_count)
 				return (-1);
 			red_count++;
 		}
-		if (command->table[table]->args[arg][chr] && command->table[table]->args[arg][chr] != 34 && command->table[table]->args[arg][chr] != 39)
-			chr++;
+		iter(command->table[table]->args[arg][chr], &chr);
 	}
 	return (red_count);
 }

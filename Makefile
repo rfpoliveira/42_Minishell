@@ -80,6 +80,7 @@ clean:
 fclean: clean
 	@$(RM) $(NAME)
 	@$(RM) $(LIBFT_PATH)
+	@$(RM) minishell_tester
 	@echo "$(BCYA)[fclean] Archive removed$(D)"
 
 re: fclean all

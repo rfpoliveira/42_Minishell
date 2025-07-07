@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:54:00 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/05/08 16:21:14 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/07 15:15:27 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ static int	parse_path(char *user, char **path)
 	}
 	return (ft_free(&temp), 0);
 }
+
 /**
  @brief puts the arguments recieved in a unique prompt
  
@@ -82,6 +83,7 @@ static char	*join_everything(char *user, char *path, char *hostname)
 		ft_free(&path);
 	return (prompt);
 }
+
 /**
  @brief gets us the correct hostname
  @note the exact path of the file might be different in different machines,

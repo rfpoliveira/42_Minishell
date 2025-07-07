@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/27 15:20:55 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/07 16:08:23 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ static void	mount_table(t_data *command, char **splited)
 		if (alloc_file(command, i) != 0)
 			return (memory_free(splited, command, MALLOC_ERROR));
 		count = command->table[i]->numb_ins + command->table[i]->numb_outs + \
-		command->table[i]->numb_double_ins + \
-		command->table[i]->numb_double_outs;
+command->table[i]->numb_double_ins + command->table[i]->numb_double_outs;
 		command->table[i]->paths = NULL;
 		red_order_code(count, splited[i], command->table[i]);
 	}
