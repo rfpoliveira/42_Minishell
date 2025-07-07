@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 19:33:53 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/07/02 16:35:11 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/07/07 17:57:06 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ char	*get_dir(t_data *data, t_simple_command *cmd, char **old_pwd)
 	dir = getcwd(NULL, 0);
 	if (dir)
 	{
+		if (dir[0] == '~')
 		*old_pwd = ft_strjoin("OLDPWD=", dir);
 		dir = ft_strjoin_free(dir, "/");
 		dir = ft_strjoin_free(dir, cmd->args[1]);
@@ -104,7 +105,7 @@ int	ft_cd(t_data *data, t_simple_command *cmd)
 
 	old_pwd = NULL;
 	if (!ft_strncmp(cmd->args[0], "pwd", 4) && ft_pwd(data, cmd))
-		return (1);
+		return (0);
 	dir = get_dir(data, cmd, &old_pwd);
 	if (dir && open(dir, O_DIRECTORY) > 0)
 	{
@@ -114,7 +115,7 @@ int	ft_cd(t_data *data, t_simple_command *cmd)
 		dir = getcwd(NULL, 0);
 		tmp = ft_strjoin("PWD=", dir);
 		ft_add_key(&data->env, tmp, 3);
-		return (free(old_pwd), free(dir), free(tmp), 1);
+		return (free(old_pwd), free(dir), free(tmp), 0);
 	}
 	else
 	{

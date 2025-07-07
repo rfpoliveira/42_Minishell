@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:46:37 by renato-oliv       #+#    #+#             */
-/*   Updated: 2025/07/07 16:05:14 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/07 18:31:31 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ char	*get_prev(char *s, int x);
 int		get_str(char **s, char *prev, char *env, int len);
 int		mid_expand_quote_handler(int *flag, int *i, char *current);
 int		sep_per_words(t_simple_command *curr_table, int *exit_code);
+int	handle_tilde(t_data *command);
 
 //quotes
 int		handle_quotes(t_data *command);

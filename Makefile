@@ -19,7 +19,7 @@ BUILTINS = $(addprefix $(BUILTINS_PATH)/, ft_echo.c ft_cd.c ft_export.c export_u
 UTILS = $(addprefix $(UTILS_PATH)/, main_utils.c expand_utils.c\
 split_utils.c parsing_utils.c parsing_utils2.c free_utils.c\
 count_utils.c redirect_utils.c redirect_file_assign.c reorganize_utils.c \
-parsing_utils3.c expand_utils2.c expand_utils3.c parsing_utils4.c)
+parsing_utils3.c expand_utils2.c expand_utils3.c parsing_utils4.c tilde.c)
 
 SRCS = $(UTILS) $(MAIN) $(PARSING) $(SIGNAL) $(EXEC) $(BUILTINS)
 OBJS = $(SRCS:.c=.o)
@@ -65,6 +65,7 @@ deps:
 	@if test ! -d "$(LIBFT_PATH)"; then make -s get_libft; \
 		else echo "$(GRN)[Libft folder found]$(D)"; fi
 
+
 get_libft:
 	@echo "[$(CYA)Downloading Libft$(D)]"
 	git clone git@github.com:rfpoliveira/42_Libft.git $(LIBFT_PATH)
@@ -84,6 +85,14 @@ fclean: clean
 	@echo "$(BCYA)[fclean] Archive removed$(D)"
 
 re: fclean all
+
+tester: all
+	@if test ! -d "minishell_tester"; then make -s get_tester; \
+		else echo "$(GRN)[tester folder found]$(D)"; fi
+get_tester:
+	@echo "[$(CYA)Downloading tester$(D)]"
+	git clone git@github.com:LucasKuhn/minishell_tester.git minishell_tester
+	@echo "$(CYA)[tester successfully downloaded]$(D)"
 
 again: clean all
 

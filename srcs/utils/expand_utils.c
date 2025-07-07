@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:30:00 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/16 12:00:26 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/07 18:04:27 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	my_get_env(char *s, char **env, int x, int *exit_code)
 		return (ft_free(&tmp), MALLOC_ERROR);
 	if (s[x] == '?')
 		expande_exit_code(env, exit_code);
-	else if (s[x++] == '$')
+	else if (s[x] == '$')
 		*env = ft_strdup("");
 	else
 		*env = ft_strdup(getenv(tmp));

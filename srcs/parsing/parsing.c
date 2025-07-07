@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 16:50:50 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/07/07 16:08:23 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/07 18:32:59 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,7 @@ int	parsing(char **user_line, t_data *command)
 		return (memory_free(splited, command, 0), 1);
 	if (handle_empty_args(command) != 0)
 		return (memory_free(splited, command, 0), 1);
+	if (handle_tilde(command) != 0)
+		return (memory_free(splited, command, 0), print_error(MALLOC_ERROR, &command->exit_code), 1);
 	return (matrix_free(splited), 0);
 }
