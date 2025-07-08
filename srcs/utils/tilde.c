@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 18:08:37 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/07/08 18:50:06 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/08 21:00:29 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,16 @@ int	sum_everything(char *user, char *post, int i)
 	return (sum);
 }
 
-int	expand_tilde(t_data *data, char **arg)
+void	join_arguments(char **arg, char *post, char *user, int sum_len)
+{
+	ft_strlcat((*arg), "/home/", sum_len);
+	ft_strlcat((*arg), user, sum_len);
+	if ((*arg)[1] == '/')
+		ft_strlcat((*arg), "/", sum_len);
+	ft_strlcat((*arg), post, sum_len);
+}
+
+int	ex_tilde(t_data *data, char **arg)
 {
 	int		i;
 	char	*post;
@@ -34,20 +43,19 @@ int	expand_tilde(t_data *data, char **arg)
 	post = NULL;
 	if ((*arg)[i] == '/')
 		i++;
-	if ((post = ft_strdup(&(*arg)[i])) == NULL)
+	post = ft_strdup(&(*arg)[i]);
+	if (post == NULL)
 		return (1);
-	if ((user = ft_find_value(data->env, "USER")) == NULL)
+	user = ft_find_value(data->env, "USER");
+	if (user == NULL)
 		user = ft_strdup("UNKNOWN_USER");
 	ft_free(arg);
 	sum_len = sum_everything(user, post, i);
-	if (((*arg) = ft_calloc(sum_len, 1)) == NULL)
+	(*arg) = ft_calloc(sum_len, 1);
+	if ((*arg) == NULL)
 		return (free(post), free(user), 1);
-	ft_strlcat((*arg), "/home/", sum_len);
-	ft_strlcat((*arg), user, sum_len);
-	if (i == 2)
-		ft_strlcat((*arg), "/", sum_len);
-	ft_strlcat((*arg), post, sum_len);
-	return (free(post), 0);
+	join_arguments(arg, post, user, sum_len);
+	return (free(post), free(user), 0);
 }
 
 int	handle_tilde(t_data *command)
@@ -64,7 +72,7 @@ int	handle_tilde(t_data *command)
 			if (command->table[table]->args[arg][0] == '~' \
 && (command->table[table]->args[arg][1] == '/' \
 || command->table[table]->args[arg][1] == '\0'))
-				return (expand_tilde(command, &command->table[table]->args[arg]));
+				return (ex_tilde(command, &command->table[table]->args[arg]));
 		}
 	}
 	return (0);
