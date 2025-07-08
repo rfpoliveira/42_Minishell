@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 14:55:27 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/30 11:16:32 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:51:18 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ typedef struct s_data
 
 void	handle_signals(void);
 void	alloc_struct(t_data **command);
-char	*get_prompt(void);
+char	*get_prompt(t_data *data);
 void	handle_history(char **user_line);
 int		parsing(char **user_line, t_data *command);
 

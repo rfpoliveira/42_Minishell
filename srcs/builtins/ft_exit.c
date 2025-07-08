@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/02 16:24:28 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/07/02 16:35:48 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:33:44 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	ft_exit(t_simple_command *cmd, t_data *data)
 {
 	int	exit_status;
 
+	if (redirects(cmd, data, 1) == -1)
+		return (1);
 	if (cmd->args[1] && !ft_isdigit(cmd->args[1][0]))
 		exit_error(cmd, data);
 	else if (cmd->args[1] && cmd->args[2])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 17:54:10 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/07/02 16:36:49 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:23:24 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ void	env_addback(t_env *env, t_env *node);
 char	*ft_find_value(t_env *env, char *key);
 void	init_envp(t_env **env, char **envp);
 void	init_data(t_data *data, char **envp);
-int		redirects(t_simple_command *cmd, t_data *data);
-int		redir_out(char *file, t_data *data);
-int		redir_double_out(char *file, t_data *data);
+int		redirects(t_simple_command *cmd, t_data *data, int is_builtin);
+int		redir_out(char *file, t_data *data, int b);
+int		redir_double_out(char *file, t_data *data, int b);
 void	infile_redir(char *infile);
 char	*ft_heredoc(char *eof);
 int		init_hd(t_data *data);
-int		ft_echo(t_simple_command *cmd);
+int		ft_echo(t_simple_command *cmd, t_data *data);
 int		ft_cd(t_data *data, t_simple_command *cmd);
 int		ft_strchrlen(char *s, char c);
 int		ft_export(t_simple_command *cmd, t_data *data);
@@ -53,7 +53,7 @@ int		export_parse(char *args, int keysep);
 int		export_error(char *error);
 int		add_to_export(t_env **env, char *args, int keysep);
 int		env_len(t_env *env);
-int		ft_env(t_data *data);
+int		ft_env(t_simple_command *cmd, t_data *data);
 int		ft_add_key(t_env **env, char *args, int keysep);
 int		ft_unset(t_simple_command *cmd, t_data *data);
 int		ft_exit(t_simple_command *cmd, t_data *data);

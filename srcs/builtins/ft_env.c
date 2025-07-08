@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 14:07:19 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/05/28 16:54:06 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:33:36 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ int	env_len(t_env *env)
 	return (i);
 }
 
-int	ft_env(t_data *data)
+int	ft_env(t_simple_command *cmd, t_data *data)
 {
 	t_env	*head;
 
+	if (redirects(cmd, data, 1) == -1)
+		return (1);
 	head = data->env;
 	while (data->env)
 	{

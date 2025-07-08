@@ -6,30 +6,32 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/02 18:33:32 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/27 11:24:03 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:31:22 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/exec.h"
 
-int	redir_out(char *file, t_data *data)
+int	redir_out(char *file, t_data *data, int b)
 {
 	if (!access(file, F_OK)
 		&& access(file, W_OK))
 	{
-		ft_putstr_fd(" Permission denied", 2);
-		exit_bash(NULL, data, 1);
+		ft_putstr_fd(" Permission denied\n", 2);
+		if (!b)
+			exit_bash(NULL, data, 1);
 	}
 	return (open(file, O_CREAT | O_RDWR | O_TRUNC, 0644));
 }
 
-int	redir_double_out(char *file, t_data *data)
+int	redir_double_out(char *file, t_data *data, int b)
 {
 	if (!access(file, F_OK)
 		&& access(file, W_OK))
 	{
-		ft_putstr_fd(" Permission denied", 2);
-		exit_bash(NULL, data, 1);
+		ft_putstr_fd(" Permission denied\n", 2);
+		if (!b)
+			exit_bash(NULL, data, 1);
 	}
 	return (open(file, O_CREAT | O_RDWR | O_APPEND, 0644));
 }

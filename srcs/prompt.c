@@ -6,11 +6,13 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 16:54:00 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/07/07 15:15:27 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:58:55 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/minishell.h"
+#include "../incs/exec.h"
+
 
 /**
  @brief parses the path to mimic bash
@@ -78,9 +80,12 @@ static char	*join_everything(char *user, char *path, char *hostname)
 	ft_strlcat(prompt, ":", sum_len);
 	ft_strlcat(prompt, path, sum_len);
 	ft_strlcat(prompt, "$>", sum_len);
-	ft_free(&hostname);
+	if (hostname && *hostname)
+		ft_free(&hostname);
 	if (path && *path)
 		ft_free(&path);
+	if (user && *user)
+		ft_free(&user);
 	return (prompt);
 }
 
@@ -125,13 +130,13 @@ static char	*get_hostname(void)
  @return it returns NULL in case of error or the prompt that mimics bash:
 	"<USER>@<HOSTNAME>:~/<PATH>$ "
 */
-char	*get_prompt(void)
+char	*get_prompt(t_data *data)
 {
 	char	*user;
 	char	*path;
 	char	*hostname;
 
-	user = getenv("USER");
+	user = ft_find_value(data->env, "USER");
 	if (user == NULL)
 		user = ft_strdup("UNKNOWN_USER");
 	path = getcwd(NULL, 0);

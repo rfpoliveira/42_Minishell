@@ -6,12 +6,13 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 14:30:00 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/07/07 18:04:27 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:48:59 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/minishell.h"
 #include "../../incs/parsing.h"
+#include "../../incs/exec.h"
 
 /**
  @brief allocs and gets whats before whats being expanded
@@ -98,7 +99,7 @@ static int	get_len(char *s, int *i, int x)
 	return (*i - x);
 }
 
-int	my_get_env(char *s, char **env, int x, int *exit_code)
+int	my_get_env(char *s, char **env, int x, t_data *data)
 {
 	char	*tmp;
 	char	*post;
@@ -114,11 +115,11 @@ int	my_get_env(char *s, char **env, int x, int *exit_code)
 	if (!post)
 		return (ft_free(&tmp), MALLOC_ERROR);
 	if (s[x] == '?')
-		expande_exit_code(env, exit_code);
+		expande_exit_code(env, &data->exit_code);
 	else if (s[x] == '$')
 		*env = ft_strdup("");
 	else
-		*env = ft_strdup(getenv(tmp));
+		*env = ft_find_value(data->env, tmp);
 	apend_post(&tmp, env, post);
 	if (!*env)
 		return (ft_free(&tmp), ft_free(&post), MALLOC_ERROR);

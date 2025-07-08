@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 15:49:26 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/06/30 11:07:44 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:51:27 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	g_sigint_flag = 0;
 
 static int	prompt_n_parse(char **user_line, t_data *command)
 {
-	command->prompt = get_prompt();
+	command->prompt = get_prompt(command);
 	if (command->prompt == NULL)
 	{
 		print_error(MALLOC_ERROR, &command->exit_code);

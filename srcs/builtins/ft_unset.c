@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 18:28:57 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/07/03 18:35:04 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/07/08 19:26:27 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	ft_unset(t_simple_command *cmd, t_data *data)
 	int		i;
 	t_env	*head;
 
+	if (redirects(cmd, data, 1) == -1)
+		return (1);
 	head = data->env;
 	while (data->env)
 	{

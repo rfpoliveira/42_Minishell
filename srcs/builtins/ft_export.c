@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:58:49 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/27 15:03:07 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:33:53 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	ft_export(t_simple_command *cmd, t_data *data)
 	int		i;
 	int		keysep;
 
+	if (redirects(cmd, data, 1) == -1)
+		return (1);
 	temp = data->env;
 	i = 0;
 	keysep = 0;

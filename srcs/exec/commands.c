@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/17 18:07:39 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/27 15:52:33 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:22:37 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,18 @@
 int	builtin_exec(t_simple_command *cmd, t_data *data)
 {
 	if (cmd->args[0] && !ft_strncmp(cmd->args[0], "echo", 5))
-		return (redirects(cmd, data),
-			data->exit_code = ft_echo(cmd));
+		return (data->exit_code = ft_echo(cmd, data));
 	if ((cmd->args[0] && !ft_strncmp(cmd->args[0], "cd", 3))
 		|| (cmd->args[0] && !ft_strncmp(cmd->args[0], "pwd", 4)))
-		return (redirects(cmd, data),
-			data->exit_code = ft_cd(data, cmd));
+		return (data->exit_code = ft_cd(data, cmd));
 	if (cmd->args[0] && !ft_strncmp(cmd->args[0], "export", 7))
-		return (redirects(cmd, data),
-			ft_export(cmd, data), 0);
+		return (ft_export(cmd, data), 0);
 	if (cmd->args[0] && !ft_strncmp(cmd->args[0], "env", 4))
-		return (redirects(cmd, data),
-			data->exit_code = ft_env(data));
+		return (data->exit_code = ft_env(cmd, data));
 	if (cmd->args[0] && !ft_strncmp(cmd->args[0], "unset", 6))
-		return (redirects(cmd, data),
-			data->exit_code = ft_unset(cmd, data));
+		return (data->exit_code = ft_unset(cmd, data));
 	if (cmd->args[0] && !ft_strncmp(cmd->args[0], "exit", 5))
-		return (redirects(cmd, data),
-			data->exit_code = ft_exit(cmd, data));
+		return (data->exit_code = ft_exit(cmd, data));
 	return (-1);
 }
 
@@ -46,7 +40,7 @@ int	node_exec(t_simple_command *cmd, t_data **data)
 	pid = fork();
 	if (pid == 0)
 	{
-		redirects(cmd, *data);
+		redirects(cmd, *data, 0);
 		setpaths(cmd, (*data)->paths);
 		is_builtin = builtin_exec(cmd, *data);
 		if (cmd->args[0] && is_builtin == -1)
@@ -69,7 +63,7 @@ int	exec_cmd(t_simple_command *cmd, t_data *data, pid_t *pid)
 	{
 		if (pid)
 			free(pid);
-		redirects(cmd, data);
+		redirects(cmd, data, 0);
 		setpaths(cmd, data->paths);
 		is_builtin = builtin_exec(cmd, data);
 		if (cmd->args[0] && is_builtin == -1)

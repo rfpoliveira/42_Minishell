@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 19:09:31 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/05/15 19:09:33 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:33:28 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,13 @@ int	flagsearch(char *flag)
 	return (1);
 }
 
-int	ft_echo(t_simple_command *cmd)
+int	ft_echo(t_simple_command *cmd, t_data *data)
 {
 	int	i;
 
 	i = 0;
+	if (redirects(cmd, data, 1) == -1)
+		return (1);
 	while (flagsearch(cmd->args[i + 1]))
 		i++;
 	while (cmd->args[++i])

@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:01:42 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/07/07 16:15:23 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/08 17:33:30 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ int	new_arg_counter(t_simple_command *table, char **args)
 	count = 0;
 	while (args[++i])
 	{
-		j = -1;
-		while (args[i][++j])
+		j = 0;
+		while (args[i][j])
 		{
 			if (args[i][j] == 34 || args[i][j] == 39)
 				j += skip_quotes(args[i], j);
@@ -95,6 +95,7 @@ int	new_arg_counter(t_simple_command *table, char **args)
 				else
 					count += count_singles(args, i, j);
 			}
+			iter(args[i][j], &j);
 		}
 	}
 	return (table->number_args - count);
@@ -123,7 +124,7 @@ int	new_arg_counter(t_simple_command *table, char **args)
 
 int	copy_util(t_data *command, char **tmp, char **cur)
 {
-	*tmp = ft_strdup(*cur);
+	*tmp = copy_red(*cur);
 	if (*tmp == NULL)
 		return (print_error(MALLOC_ERROR, &command->exit_code), 1);
 	return (0);

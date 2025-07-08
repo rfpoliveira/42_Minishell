@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 19:33:53 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/07/07 17:57:06 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:33:19 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ char	*get_dir(t_data *data, t_simple_command *cmd, char **old_pwd)
 	dir = getcwd(NULL, 0);
 	if (dir)
 	{
-		if (dir[0] == '~')
 		*old_pwd = ft_strjoin("OLDPWD=", dir);
 		dir = ft_strjoin_free(dir, "/");
 		dir = ft_strjoin_free(dir, cmd->args[1]);
@@ -103,6 +102,8 @@ int	ft_cd(t_data *data, t_simple_command *cmd)
 	char	*tmp;
 	char	*dir;
 
+	if (redirects(cmd, data, 1) == -1)
+		return (1);
 	old_pwd = NULL;
 	if (!ft_strncmp(cmd->args[0], "pwd", 4) && ft_pwd(data, cmd))
 		return (0);

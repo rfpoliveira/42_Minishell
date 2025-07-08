@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/01 19:33:53 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/07/02 16:35:11 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/07/08 19:09:41 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../../incs/exec.h"
 
 char	*ft_strjoin_free(char *s1, char *join)
@@ -24,6 +25,7 @@ char	*ft_strjoin_free(char *s1, char *join)
 void	set_shlvl(t_env **env)
 {
 	t_env	*n;
+	t_env	*node;
 	int		num;
 
 	n = *env;
@@ -44,7 +46,10 @@ void	set_shlvl(t_env **env)
 		n = n->next;
 	}
 	if (ft_strncmp(n->key, "SHLVL", ft_strlen(n->key) + 1))
-		env_addback(*env, env_new("SHLVL=1"));
+	{
+		node = env_new("SHLVL=1");
+		env_addback(*env, node);
+	}
 }
 
 int	hd_counter(t_data *data)

@@ -6,20 +6,20 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 19:35:02 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/27 15:02:30 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/08 18:33:01 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/exec.h"
 
-void	outfile_redir(t_simple_command *cmd, t_data *data, int i)
+int	outfile_redir(t_simple_command *cmd, t_data *data, int i, int b)
 {
 	int	fd;
 
 	fd = -1;
 	if (cmd->red_order[i] == '2')
 	{
-		fd = redir_out(*cmd->outfile, data);
+		fd = redir_out(*cmd->outfile, data, b);
 		free(*cmd->outfile);
 		*cmd->outfile = NULL;
 		(cmd->outfile)++;
@@ -27,19 +27,22 @@ void	outfile_redir(t_simple_command *cmd, t_data *data, int i)
 	}
 	else if (cmd->red_order[i] == '4')
 	{
-		fd = redir_double_out(*cmd->double_out, data);
+		fd = redir_double_out(*cmd->double_out, data, b);
 		free(*cmd->double_out);
 		*cmd->double_out = NULL;
 		(cmd->double_out)++;
 		cmd->iters->double_out_iter++;
 	}
 	else
-		return ;
+		return (-1);
+	if (fd == -1)
+		return (0);
 	if (fd != -1 && dup2(fd, STDOUT_FILENO) != -1)
 		close(fd);
+	return (1);
 }
 
-void	in_redir(t_simple_command *cmd, t_data *data, int j)
+int	in_redir(t_simple_command *cmd, t_data *data, int j, int is_builtin)
 {
 	if (*cmd->infile && !access(*cmd->infile, F_OK | R_OK)
 		&& cmd->red_order[j] == '1')
@@ -58,10 +61,14 @@ void	in_redir(t_simple_command *cmd, t_data *data, int j)
 			ft_putstr_fd(" No such file or directory\n", 2);
 		else if (access(*cmd->infile, R_OK))
 			ft_putstr_fd(" Permission denied\n", 2);
-		exit_bash(NULL, data, 1);
+		if (!is_builtin)
+			exit_bash(NULL, data, 1);
+		else
+			return (0);
 	}
 	else
-		return ;
+		return (1);
+	return (1);
 }
 
 void	exit_redirects(t_simple_command *cmd, t_data *data)
@@ -70,7 +77,7 @@ void	exit_redirects(t_simple_command *cmd, t_data *data)
 		exit_bash(NULL, data, 0);
 }
 
-int	redirects(t_simple_command *cmd, t_data *data)
+int	redirects(t_simple_command *cmd, t_data *data, int is_builtin)
 {
 	int		i;
 	int		j;
@@ -83,16 +90,20 @@ int	redirects(t_simple_command *cmd, t_data *data)
 	while (cmd->red_order[++j])
 	{
 		if (data->hd && cmd->red_order[j] == '3')
-		{
 			infile_redir(data->hd[i]);
-		}
 		else if (cmd->infile && *cmd->infile
 			&& cmd->red_order[j] == '1')
-			in_redir(cmd, data, j);
+			{
+			if (!in_redir(cmd, data, j, is_builtin))
+				return (-1);
+			}
 		else if ((cmd->outfile && *cmd->outfile && cmd->red_order[j] == '2')
 			|| (cmd->double_out && *cmd->double_out
 				&& cmd->red_order[j] == '4'))
-			outfile_redir(cmd, data, j);
+			{
+			if (!outfile_redir(cmd, data, j, is_builtin))
+				return (-1);
+			}
 	}
 	exit_redirects(cmd, data);
 	return (j);

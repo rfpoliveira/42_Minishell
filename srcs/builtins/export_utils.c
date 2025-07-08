@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpatrici <jpatrici@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 12:31:44 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/05/28 13:05:48 by jpatrici         ###   ########.fr       */
+/*   Updated: 2025/07/08 19:07:00 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	export_parse(char *args, int keysep)
 int	ft_add_key(t_env **env, char *args, int keysep)
 {
 	t_env	*head;
+	t_env	*node;
 
 	head = *env;
 	while (*env)
@@ -67,7 +68,8 @@ int	ft_add_key(t_env **env, char *args, int keysep)
 		*env = (*env)->next;
 	}
 	*env = head;
-	env_addback(*env, env_new(args));
+	node = env_new(args);
+	env_addback(*env, node);
 	return (0);
 }
 

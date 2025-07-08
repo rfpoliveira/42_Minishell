@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 18:32:01 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/07/07 15:18:10 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/08 17:40:17 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*ft_heredoc(char *eof)
 	file = heredoc_file();
 	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	input = readline("> ");
-	while (!g_sigint_flag && input && ft_strncmp(input, eof, ft_strlen(input)))
+	while (!g_sigint_flag && input && ft_strncmp(input, eof, ft_strlen(eof) + 1))
 	{
 		ft_putstr_fd(input, fd);
 		write(fd, "\n", 1);

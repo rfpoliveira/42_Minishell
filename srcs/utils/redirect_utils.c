@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:34:23 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/07/07 16:17:13 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/08 17:37:11 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,35 @@ char	*copy_red(char *str)
 
 	if (!str)
 		return (NULL);
-	i = -1;
+	i = 0;
 	len = 0;
 	while (str[len] && str[len] != '>' && str[len] != '<')
-		len++;
+	{
+		if (str[len] == 34 || str[len] == 39)
+			len += skip_quotes(str, len);
+		else
+			len++;
+	}
 	dup = malloc (len + 1);
 	if (!dup)
 		return (NULL);
-	while (str[++i] && str[i] != '>' && str[i] != '<')
+	while (str[i] && str[i] != '>' && str[i] != '<')
+	{
+		if (str[i] == 34)
+		{
+			dup[i] = str[i];
+			while (str[++i] != 34)
+				dup[i] = str[i];
+		}
+		else if (str[i] == 39)
+		{
+			dup[i] = str[i];
+			while (str[++i] != 39)
+				dup[i] = str[i];
+		}
 		dup[i] = str[i];
+		i++;
+	}
 	dup[i] = '\0';
 	return (dup);
 }
