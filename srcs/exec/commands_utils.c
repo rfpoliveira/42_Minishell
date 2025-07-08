@@ -74,16 +74,14 @@ void	env_addback(t_env *env, t_env *node)
 void	init_envp(t_env **env, char **envp)
 {
 	t_env	*n;
-	int		i;
 
-	i = -1;
 	*env = env_new(*envp);
 	if (!*env)
 		return ;
 	n = *env;
-	while (n && envp[++i])
+	while (n && (*(++envp)))
 	{
-		env_addback(*env, env_new(envp[i]));
+		env_addback(*env, env_new(*envp));
 		if (n)
 			n = n->next;
 	}

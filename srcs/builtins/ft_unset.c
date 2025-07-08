@@ -48,8 +48,8 @@ t_env	*unset_var(t_data *data, int index)
 			env[i] = ft_strdup(t->key);
 			if (t->value)
 			{
-			env[i] = ft_strjoin_free(env[i], "=");
-			env[i] = ft_strjoin_free(env[i], t->value);
+				env[i] = ft_strjoin_free(env[i], "=");
+				env[i] = ft_strjoin_free(env[i], t->value);
 			}
 		}
 		if (i == index)
@@ -57,7 +57,8 @@ t_env	*unset_var(t_data *data, int index)
 			i--;
 			index = -1;
 		}
-		t = t->next;
+		if (t)
+			t = t->next;
 	}
 	init_envp(&temp, env);
 	free_t_env(data->env);
@@ -92,7 +93,6 @@ int	ft_unset(t_simple_command *cmd, t_data *data)
 					head = head->next;
 					j++;
 				}
-
 			}
 		}
 		++n;
