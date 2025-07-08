@@ -12,62 +12,92 @@
 
 #include "../../incs/exec.h"
 
-int	unset_firstnode(t_data *data, t_env *head)
+void	free_t_env(t_env *env)
 {
-	head = data->env->next;
-	free(data->env->key);
-	free(data->env->value);
-	data->env = head;
-	data->env->prev = NULL;
-	return (0);
+	t_env	*p;
+
+	if (env)
+	{
+		while (env)
+		{
+			p = env->next;
+			if (env->key)
+				free(env->key);
+			if (env->value)
+				free(env->value);
+			free(env);
+			env = p;
+		}
+	}
 }
 
-int	unset_lastnode(t_data *data)
+t_env	*unset_var(t_data *data, int index)
 {
-	data->env->prev->next = NULL;
-	data->env->prev = NULL;
-	free(data->env->key);
-	free(data->env->value);
-	return (0);
-}
+	char	**env;
+	t_env	*t;
+	t_env	*temp;
+	int		i;
 
-int	unset_middle(t_data *data)
-{
-	data->env->prev->next = data->env->next;
-	data->env = data->env->prev;
-	free(data->env->next->prev->key);
-	free(data->env->next->prev->value);
-	data->env->next->prev = data->env;
-	return (0);
+	t = data->env;
+	env = ft_calloc(sizeof(char *), env_len(t) + 1);
+	i = -1;
+	while (t)
+	{
+		if (++i != index && t->key)
+		{
+			env[i] = ft_strdup(t->key);
+			if (t->value)
+			{
+			env[i] = ft_strjoin_free(env[i], "=");
+			env[i] = ft_strjoin_free(env[i], t->value);
+			}
+		}
+		if (i == index)
+		{
+			i--;
+			index = -1;
+		}
+		t = t->next;
+	}
+	init_envp(&temp, env);
+	free_t_env(data->env);
+	matrix_free(env);
+	return (temp);
 }
 
 int	ft_unset(t_simple_command *cmd, t_data *data)
 {
 	int		i;
+	int		j;
+	int		n;
 	t_env	*head;
 
 	if (redirects(cmd, data, 1) == -1)
 		return (1);
 	head = data->env;
-	while (data->env)
+	n = 0;
+	while (head)
 	{
 		i = 0;
 		while (cmd->args[++i])
 		{
-			if (data->env->prev == NULL
-				&& !ft_strncmp(cmd->args[i], data->env->key,
-					ft_strlen(data->env->key)))
-				unset_firstnode(data, head);
-			else if (data->env->next == NULL
-				&& !ft_strncmp(cmd->args[i], data->env->key,
-					ft_strlen(data->env->key)))
-				unset_lastnode(data);
-			else if (!ft_strncmp(cmd->args[i], data->env->key,
-					ft_strlen(data->env->key)))
-				unset_middle(data);
+			if (!ft_strncmp(cmd->args[i], head->key,
+			   ft_strlen(head->key) + 1))
+			{
+				data->env = unset_var(data, n);
+				head = data->env;
+				j = 0;
+				while (head && j < n)
+				{
+					head = head->next;
+					j++;
+				}
+
+			}
 		}
-		data->env = data->env->next;
+		++n;
+		if (head)
+			head = head->next;
 	}
-	data->env = head;
 	return (0);
 }
