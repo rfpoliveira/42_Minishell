@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:34:23 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/07/08 17:37:11 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/08 20:48:46 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,39 @@ command->table[table]->args[arg + 1][0] == '>')
  @note based of strdup
  @return the copy until the correct point
 */
+
+void	copy_red_util(char *str, char **dup)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && str[i] != '>' && str[i] != '<')
+	{
+		if (str[i] == 34)
+		{
+			(*dup)[i] = str[i];
+			while (str[++i] != 34)
+				(*dup)[i] = str[i];
+		}
+		else if (str[i] == 39)
+		{
+			(*dup)[i] = str[i];
+			while (str[++i] != 39)
+				(*dup)[i] = str[i];
+		}
+		(*dup)[i] = str[i];
+		i++;
+	}
+	(*dup)[i] = '\0';
+}
+
 char	*copy_red(char *str)
 {
 	int		len;
 	char	*dup;
-	int		i;
 
 	if (!str)
 		return (NULL);
-	i = 0;
 	len = 0;
 	while (str[len] && str[len] != '>' && str[len] != '<')
 	{
@@ -78,23 +102,6 @@ char	*copy_red(char *str)
 	dup = malloc (len + 1);
 	if (!dup)
 		return (NULL);
-	while (str[i] && str[i] != '>' && str[i] != '<')
-	{
-		if (str[i] == 34)
-		{
-			dup[i] = str[i];
-			while (str[++i] != 34)
-				dup[i] = str[i];
-		}
-		else if (str[i] == 39)
-		{
-			dup[i] = str[i];
-			while (str[++i] != 39)
-				dup[i] = str[i];
-		}
-		dup[i] = str[i];
-		i++;
-	}
-	dup[i] = '\0';
+	copy_red_util(str, &dup);
 	return (dup);
 }
