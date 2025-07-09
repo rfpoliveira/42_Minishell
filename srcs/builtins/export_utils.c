@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/28 12:31:44 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/07/08 19:07:00 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/09 17:00:35 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	export_parse(char *args, int keysep)
 		return (0);
 	while (++i < keysep)
 	{
-		if (args[i] == '+' && i == keysep - 1)
+		if (i != 0 && (args[i] == '+' && i == keysep - 1))
 			break ;
 		if ((args[i] != '_' && !ft_isalnum(args[i]))
 			|| ft_isdigit(args[0]))
