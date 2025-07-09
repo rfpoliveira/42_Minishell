@@ -21,6 +21,7 @@ void	dir_errors(t_data *data, t_simple_command *cmd, DIR *dir)
 			ft_putstr_fd(" Permission denied", 2);
 		else
 			ft_putstr_fd(" Is a directory\n", 2);
+		free(dir);
 		exit_bash(NULL, data, 126);
 	}
 	if (cmd->args[0] && (cmd->args[0][0] == '.'
@@ -29,7 +30,10 @@ void	dir_errors(t_data *data, t_simple_command *cmd, DIR *dir)
 	else if (cmd->args[0])
 		ft_putstr_fd(" command not found\n", 2);
 	if (cmd->args[0])
+	{
+		free(dir);
 		exit_bash(NULL, data, 127);
+	}
 }
 
 void	dir_check(t_data *data, t_simple_command *cmd)
