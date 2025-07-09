@@ -53,7 +53,7 @@ t_env	*unset_var(t_data *data, int index)
 	int		i;
 
 	t = data->env;
-	env = ft_calloc(sizeof(char *), env_len(t) + 1);
+	env = ft_calloc(sizeof(char *), env_len(t) + 100);
 	i = -1;
 	while (t)
 	{

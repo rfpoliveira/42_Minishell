@@ -15,15 +15,18 @@
 int	swap_util(t_env **exp, t_env *temp)
 {
 	temp->key = ft_strdup((*exp)->key);
-	temp->value = ft_strdup((*exp)->value);
+	if ((*exp)->value)
+		temp->value = ft_strdup((*exp)->value);
 	free((*exp)->key);
 	free((*exp)->value);
 	(*exp)->key = ft_strdup((*exp)->next->key);
-	(*exp)->value = ft_strdup((*exp)->next->value);
+	if ((*exp)->next->value)
+		(*exp)->value = ft_strdup((*exp)->next->value);
 	free((*exp)->next->key);
 	free((*exp)->next->value);
 	(*exp)->next->key = ft_strdup(temp->key);
-	(*exp)->next->value = ft_strdup(temp->value);
+	if (temp->value)
+		(*exp)->next->value = ft_strdup(temp->value);
 	free(temp->key);
 	free(temp->value);
 	return (0);
@@ -51,7 +54,6 @@ int	export_parse(char *args, int keysep)
 int	ft_add_key(t_env **env, char *args, int keysep)
 {
 	t_env	*head;
-	t_env	*node;
 
 	head = *env;
 	while (*env)
@@ -68,8 +70,7 @@ int	ft_add_key(t_env **env, char *args, int keysep)
 		*env = (*env)->next;
 	}
 	*env = head;
-	node = env_new(args);
-	env_addback(*env, node);
+	env_addback(*env, env_new(args));
 	return (0);
 }
 
