@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/04 16:34:59 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/07/07 16:10:05 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/09 15:03:00 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ static int	reorganize_after_redirect(t_data *command, int curr_table)
 	i = -1;
 	current = command->table[curr_table];
 	new_arg_count = new_arg_counter(current, current->args);
+	printf("args: %i", new_arg_count);
 	current->number_args = new_arg_count;
 	tmp = ft_calloc(sizeof(char *), new_arg_count + 8);
 	if (tmp == NULL)

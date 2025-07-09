@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 11:57:07 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/07/07 16:13:16 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/09 15:23:51 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,16 @@ void	iter(char c, int *chr)
 {
 	if (c && c != 34 && c != 39)
 		(*chr)++;
+}
+
+int	check_arg_red(int j, int i, int lsx, char **cur)
+{
+	if ((j != 0 && i == 0) || \
+(j != 0 && cur[i][j] == '>' && \
+(cur[i - 1][lsx] != '<' && cur[i - 1][lsx] != '>')) || \
+(j != 0 && cur[i][j] == '<' && \
+(cur[i - 1][lsx] != '<' && cur[i - 1][lsx] != '>')) || \
+(!cur[i][j] && (cur[i - 1][lsx] != '<' && cur[i - 1][lsx] != '>')))
+		return (1);
+	return (0);
 }

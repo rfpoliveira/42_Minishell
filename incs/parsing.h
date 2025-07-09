@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 14:46:37 by renato-oliv       #+#    #+#             */
-/*   Updated: 2025/07/08 20:50:19 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/09 15:22:12 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int		populate_tmp(char **tmp, t_data *com, char **cur, int i);
 int		alloc_file(t_data *command, int curr_table);
 char	*copy_red(char *str);
 void	iter(char c, int *chr);
+int		check_arg_red(int j, int i, int lsx, char **cur);
 
 //expanding
 int		handle_expanding(t_data *command);

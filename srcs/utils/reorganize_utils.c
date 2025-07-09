@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 12:01:42 by rpedrosa          #+#    #+#             */
-/*   Updated: 2025/07/08 17:33:30 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/09 15:23:00 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,13 +147,9 @@ int	populate_tmp(char **tmp, t_data *command, char **cur, int i)
 				j += skip_quotes(cur[i], j) - 1;
 			j++;
 		}
-		if ((j != 0 && i == 0) || \
-(j != 0 && cur[i][j] == '>') || (j != 0 && cur[i][j] == '<') || \
-(!cur[i][j] && (cur[i - 1][lsx] != '<' && cur[i - 1][lsx] != '>')))
-		{
+		if (check_arg_red(j, i, lsx, cur))
 			if (copy_util(command, &tmp[cur_tmp++], &cur[i]) != 0)
 				return (1);
-		}
 		lsx = ft_strlen(cur[i]) - 1;
 	}
 	return (0);
