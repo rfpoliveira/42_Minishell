@@ -6,7 +6,7 @@
 /*   By: rpedrosa <rpedrosa@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 19:38:20 by jpatrici          #+#    #+#             */
-/*   Updated: 2025/06/27 15:02:05 by rpedrosa         ###   ########.fr       */
+/*   Updated: 2025/07/09 09:43:11 by rpedrosa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	init_data(t_data *data, char **envp)
 {
 	data->paths = NULL;
 	init_envp(&data->env, envp);
-	set_shlvl(env);
+	set_shlvl(&data->env);
 	data->paths = pathfind(data->env);
 	data->hd = NULL;
 	data->envp = NULL;
