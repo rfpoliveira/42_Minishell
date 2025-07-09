@@ -77,7 +77,6 @@ void	keysep_check(t_simple_command *cmd, t_data *data, int keysep, int i)
 		export_error(cmd->args[i]);
 		return ;
 	}
-	printf("%s\n", cmd->args[i]);
 	ft_add_key(&data->env, cmd->args[i], keysep);
 }
 

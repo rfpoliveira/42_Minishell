@@ -63,9 +63,10 @@ int	exec_cmd(t_simple_command *cmd, t_data *data, pid_t *pid)
 	{
 		if (pid)
 			free(pid);
-		redirects(cmd, data, 0);
-		setpaths(cmd, data->paths);
 		is_builtin = builtin_exec(cmd, data);
+		if (is_builtin == -1)
+			redirects(cmd, data, 0);
+		setpaths(cmd, data->paths);
 		if (cmd->args[0] && is_builtin == -1)
 			execve(cmd->paths, cmd->args, data->envp);
 		if (is_builtin == -1)

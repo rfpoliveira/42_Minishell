@@ -123,7 +123,6 @@ static int	reorganize_after_redirect(t_data *command, int curr_table)
 	i = -1;
 	current = command->table[curr_table];
 	new_arg_count = new_arg_counter(current, current->args);
-	printf("args: %i", new_arg_count);
 	current->number_args = new_arg_count;
 	tmp = ft_calloc(sizeof(char *), new_arg_count + 8);
 	if (tmp == NULL)
