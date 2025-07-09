@@ -19,6 +19,8 @@ int	ft_pwd(t_data *data, t_simple_command *cmd)
 	dir = NULL;
 	if (!ft_strncmp(cmd->args[0], "pwd", 4))
 	{
+		if (cmd->number_args > 1)
+			return (data->exit_code = -3, 1);
 		dir = getcwd(NULL, 0);
 		if (dir)
 			ft_putstr_fd(dir, 1);
@@ -32,8 +34,6 @@ int	ft_pwd(t_data *data, t_simple_command *cmd)
 		}
 		return (free(dir), write(1, "\n", 1));
 	}
-	if (cmd->number_args > 2)
-		return (data->exit_code = -3, free(dir), 1);
 	if (!ft_strncmp(cmd->args[1], dir, ft_strlen(dir)))
 		return (free(dir), 1);
 	return (free(dir), 0);
@@ -48,7 +48,7 @@ char	*ft_find_value(t_env *env, char *key)
 	value = NULL;
 	while (env)
 	{
-		if (!ft_strncmp(env->key, key, ft_strlen(env->key)))
+		if (!ft_strncmp(env->key, key, ft_strlen(env->key) + 1))
 			value = ft_strdup(env->value);
 		env = env->next;
 	}
@@ -110,8 +110,9 @@ int	ft_cd(t_data *data, t_simple_command *cmd)
 	char	*dir;
 
 	old_pwd = NULL;
-	if (!ft_strncmp(cmd->args[0], "pwd", 4) && ft_pwd(data, cmd))
-		return (0);
+	if (check_cd(cmd, data) || \
+(!ft_strncmp(cmd->args[0], "pwd", 4) && ft_pwd(data, cmd)))
+		return (data->exit_code);
 	dir = get_dir(data, cmd, &old_pwd);
 	if (dir && open(dir, O_DIRECTORY) > 0)
 	{

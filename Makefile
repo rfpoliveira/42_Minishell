@@ -41,14 +41,14 @@ BUILTINS_PATH = srcs/builtins
 RM = rm -rf
 AR = ar rcs
 CFLAGS = -g -Wall -Werror -Wextra
-# LEAKS = -fsanitize=leak
+MAKE = make -s
 SILENT_MAKE = make -s extra
 
 #==============================================================================#
 #                                    Rules                                     #
 #==============================================================================#
 
-all: deps $(LIBFT_ARC) $(NAME)
+all: $(LIBFT_ARC) $(NAME)
 
 $(NAME): $(OBJS) 
 	@cc $(CFLAGS) $(OBJS) $(LIBFT_ARC) -o $(NAME) -lreadline
@@ -61,40 +61,20 @@ $(NAME): $(OBJS)
 $(LIBFT_ARC): $(LIBFT_PATH)
 	@$(SILENT_MAKE) -C $(LIBFT_PATH)
 
-deps:
-	@if test ! -d "$(LIBFT_PATH)"; then make -s get_libft; \
-		else echo "$(GRN)[Libft folder found]$(D)"; fi
-
-
-get_libft:
-	@echo "[$(CYA)Downloading Libft$(D)]"
-	git clone git@github.com:rfpoliveira/42_Libft.git $(LIBFT_PATH)
-	@echo "$(CYA)[Libft successfully downloaded]$(D)"
-
 #==============================================================================#
 #                                    cleaning rules                            #
 #==============================================================================#
 clean: 
 	@$(RM) $(OBJS)
+	@cd ./libft && $(MAKE) clean
 	@echo "$(BCYA)[clean] Objects removed$(D)"
 
 fclean: clean
 	@$(RM) $(NAME)
-	@$(RM) $(LIBFT_PATH)
-	@$(RM) minishell_tester
+	@cd ./libft && $(MAKE) fclean
 	@echo "$(BCYA)[fclean] Archive removed$(D)"
 
 re: fclean all
-
-tester: all
-	@if test ! -d "minishell_tester"; then make -s get_tester; \
-		else echo "$(GRN)[tester folder found]$(D)"; fi
-get_tester:
-	@echo "[$(CYA)Downloading tester$(D)]"
-	git clone git@github.com:LucasKuhn/minishell_tester.git minishell_tester
-	@echo "$(CYA)[tester successfully downloaded]$(D)"
-
-again: clean all
 
 leaks: all readline.supp
 	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all -s ./minishell

@@ -31,7 +31,10 @@ static int	prompt_n_parse(char **user_line, t_data *command)
 		command->exit_code = 128 + 2;
 	}
 	if (*user_line == NULL)
+	{
+		ft_putstr_fd("exit\n", 2);
 		exit_bash(NULL, command, 0);
+	}
 	if (parsing(user_line, command) != 0)
 	{
 		handle_history(user_line);

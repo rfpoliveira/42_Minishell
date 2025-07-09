@@ -67,6 +67,19 @@ void	check_infile(t_data *data, t_simple_command *cmd)
 			close(1);
 }
 
+void	keysep_check(t_simple_command *cmd, t_data *data, int keysep, int i)
+{
+	keysep = ft_strchrlen(cmd->args[i], '=');
+	keysep = export_parse(cmd->args[i], keysep);
+	if (keysep == 0)
+	{
+		data->exit_code = 1;
+		export_error(cmd->args[i]);
+		return ;
+	}
+	ft_add_key(&data->env, cmd->args[i], keysep);
+}
+
 int	ft_export(t_simple_command *cmd, t_data *data)
 {
 	t_env	*temp;
@@ -80,17 +93,7 @@ int	ft_export(t_simple_command *cmd, t_data *data)
 	keysep = 0;
 	data->exit_code = 0;
 	while (cmd->args[++i])
-	{
-		keysep = ft_strchrlen(cmd->args[i], '=');
-		keysep = export_parse(cmd->args[i], keysep);
-		if (keysep == 0)
-		{
-			data->exit_code = 1;
-			export_error(cmd->args[i]);
-			continue ;
-		}
-		ft_add_key(&data->env, cmd->args[i], keysep);
-	}
+		keysep_check(cmd, data, keysep, i);
 	export_swap(&data->env);
 	check_infile(data, cmd);
 	if (i == 1)

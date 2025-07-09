@@ -13,7 +13,6 @@
 #include "../incs/minishell.h"
 #include "../incs/exec.h"
 
-
 /**
  @brief parses the path to mimic bash
  

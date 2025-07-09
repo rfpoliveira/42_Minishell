@@ -92,6 +92,25 @@ static int	ini_command(char **splited, t_data *command)
  @return 0 in case of sucess,
 		 1 or any number is case of error
 */
+
+int	parsing_util(t_data *command, char **splited, int i, int j)
+{
+	if (ini_command(splited, command) != 0)
+		return (memory_free(splited, command, 0), 1);
+	if (handle_redirect(command, i, j) != 0)
+		return (memory_free(splited, command, 0), 1);
+	if (handle_expanding(command) != 0)
+		return (memory_free(splited, command, 0), 1);
+	if (handle_quotes(command) != 0)
+		return (memory_free(splited, command, 0), 1);
+	if (handle_empty_args(command) != 0)
+		return (memory_free(splited, command, 0), 1);
+	if (handle_tilde(command) != 0)
+		return (memory_free(splited, command, 0),
+			print_error(MALLOC_ERROR, &command->exit_code), 1);
+	return (0);
+}
+
 int	parsing(char **user_line, t_data *command)
 {
 	char	**splited;
@@ -107,17 +126,7 @@ int	parsing(char **user_line, t_data *command)
 	splited = parsing_split(*user_line, '|');
 	if (!splited)
 		return (memory_free(NULL, command, MALLOC_ERROR), 1);
-	if (ini_command(splited, command) != 0)
-		return (memory_free(splited, command, 0), 1);
-	if (handle_redirect(command, i, j) != 0)
-		return (memory_free(splited, command, 0), 1);
-	if (handle_expanding(command) != 0)
-		return (memory_free(splited, command, 0), 1);
-	if (handle_quotes(command) != 0)
-		return (memory_free(splited, command, 0), 1);
-	if (handle_empty_args(command) != 0)
-		return (memory_free(splited, command, 0), 1);
-	if (handle_tilde(command) != 0)
-		return (memory_free(splited, command, 0), print_error(MALLOC_ERROR, &command->exit_code), 1);
+	if (parsing_util(command, splited, i, j) != 0)
+		return (1);
 	return (matrix_free(splited), 0);
 }

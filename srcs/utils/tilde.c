@@ -23,13 +23,20 @@ int	sum_everything(char *user, char *post, int i)
 	return (sum);
 }
 
-void	join_arguments(char **arg, char *post, char *user, int sum_len)
+int	join_arguments(char **arg, char *post, char *user, int i)
 {
+	int		sum_len;
+
+	sum_len = sum_everything(user, post, i);
+	(*arg) = ft_calloc(sum_len, 1);
+	if ((*arg) == NULL)
+		return (free(post), free(user), 1);
 	ft_strlcat((*arg), "/home/", sum_len);
 	ft_strlcat((*arg), user, sum_len);
-	if ((*arg)[1] == '/')
+	if (i == 2)
 		ft_strlcat((*arg), "/", sum_len);
 	ft_strlcat((*arg), post, sum_len);
+	return (0);
 }
 
 int	ex_tilde(t_data *data, char **arg)
@@ -37,7 +44,6 @@ int	ex_tilde(t_data *data, char **arg)
 	int		i;
 	char	*post;
 	char	*user;
-	int		sum_len;
 
 	i = 1;
 	post = NULL;
@@ -50,11 +56,8 @@ int	ex_tilde(t_data *data, char **arg)
 	if (user == NULL)
 		user = ft_strdup("UNKNOWN_USER");
 	ft_free(arg);
-	sum_len = sum_everything(user, post, i);
-	(*arg) = ft_calloc(sum_len, 1);
-	if ((*arg) == NULL)
-		return (free(post), free(user), 1);
-	join_arguments(arg, post, user, sum_len);
+	if (join_arguments(arg, post, user, 2) != 0)
+		return (1);
 	return (free(post), free(user), 0);
 }
 

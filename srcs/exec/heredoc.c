@@ -26,7 +26,8 @@ void	ft_unlink_hd(t_data *data)
 		if (unlink(data->hd[i]) == -1)
 		{
 			perror("unlink");
-			exit(EXIT_FAILURE);
+			memory_free(NULL, data, 1);
+			return ;
 		}
 		free(data->hd[i]);
 	}

@@ -48,6 +48,13 @@ void	set_shlvl(t_env **env)
 		env_addback(*env, env_new("SHLVL=1"));
 }
 
+int	check_cd(t_simple_command *cmd, t_data *data)
+{
+	if (cmd->number_args > 2)
+		return (data->exit_code = -3, 1);
+	return (0);
+}
+
 int	hd_counter(t_data *data)
 {
 	int	i;

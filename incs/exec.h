@@ -44,6 +44,7 @@ char	*ft_heredoc(char *eof);
 int		init_hd(t_data *data);
 int		ft_echo(t_simple_command *cmd, t_data *data);
 int		ft_cd(t_data *data, t_simple_command *cmd);
+int		check_cd(t_simple_command *cmd, t_data *data);
 int		ft_strchrlen(char *s, char c);
 int		ft_export(t_simple_command *cmd, t_data *data);
 int		ft_add_key(t_env **env, char *args, int keysep);

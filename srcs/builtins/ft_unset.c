@@ -31,6 +31,20 @@ void	free_t_env(t_env *env)
 	}
 }
 
+char	*env_str(t_env *t)
+{
+	char	*s;
+
+	s = NULL;
+	s = ft_strdup(t->key);
+	if (t->value)
+	{
+		s = ft_strjoin_free(s, "=");
+		s = ft_strjoin_free(s, t->value);
+	}
+	return (s);
+}
+
 t_env	*unset_var(t_data *data, int index)
 {
 	char	**env;
@@ -44,14 +58,7 @@ t_env	*unset_var(t_data *data, int index)
 	while (t)
 	{
 		if (++i != index && t->key)
-		{
-			env[i] = ft_strdup(t->key);
-			if (t->value)
-			{
-				env[i] = ft_strjoin_free(env[i], "=");
-				env[i] = ft_strjoin_free(env[i], t->value);
-			}
-		}
+			env[i] = env_str(t);
 		if (i == index)
 		{
 			i--;
@@ -61,15 +68,25 @@ t_env	*unset_var(t_data *data, int index)
 			t = t->next;
 	}
 	init_envp(&temp, env);
-	free_t_env(data->env);
-	matrix_free(env);
-	return (temp);
+	return (free_t_env(data->env), matrix_free(env), temp);
+}
+
+void	set_head(t_env **head, t_data *data, int n)
+{
+	int	j;
+
+	*head = data->env;
+	j = 0;
+	while (*head && j < n)
+	{
+		*head = (*head)->next;
+		j++;
+	}
 }
 
 int	ft_unset(t_simple_command *cmd, t_data *data)
 {
 	int		i;
-	int		j;
 	int		n;
 	t_env	*head;
 
@@ -83,16 +100,10 @@ int	ft_unset(t_simple_command *cmd, t_data *data)
 		while (cmd->args[++i])
 		{
 			if (!ft_strncmp(cmd->args[i], head->key,
-			   ft_strlen(head->key) + 1))
+					ft_strlen(head->key) + 1))
 			{
 				data->env = unset_var(data, n);
-				head = data->env;
-				j = 0;
-				while (head && j < n)
-				{
-					head = head->next;
-					j++;
-				}
+				set_head(&head, data, n);
 			}
 		}
 		++n;
