@@ -56,7 +56,8 @@ char	*ft_heredoc(char *eof)
 	file = heredoc_file();
 	fd = open(file, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	input = readline("> ");
-	while (!g_sigint_flag && input && ft_strncmp(input, eof, ft_strlen(eof) + 1))
+	while (!g_sigint_flag && input
+		&& ft_strncmp(input, eof, ft_strlen(eof) + 1))
 	{
 		ft_putstr_fd(input, fd);
 		write(fd, "\n", 1);

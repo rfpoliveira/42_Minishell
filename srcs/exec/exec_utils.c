@@ -25,7 +25,6 @@ char	*ft_strjoin_free(char *s1, char *join)
 void	set_shlvl(t_env **env)
 {
 	t_env	*n;
-	t_env	*node;
 	int		num;
 
 	n = *env;
@@ -46,10 +45,7 @@ void	set_shlvl(t_env **env)
 		n = n->next;
 	}
 	if (ft_strncmp(n->key, "SHLVL", ft_strlen(n->key) + 1))
-	{
-		node = env_new("SHLVL=1");
-		env_addback(*env, node);
-	}
+		env_addback(*env, env_new("SHLVL=1"));
 }
 
 int	hd_counter(t_data *data)

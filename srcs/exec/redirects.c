@@ -33,8 +33,6 @@ int	outfile_redir(t_simple_command *cmd, t_data *data, int i, int b)
 		(cmd->double_out)++;
 		cmd->iters->double_out_iter++;
 	}
-	else
-		return (-1);
 	if (fd == -1)
 		return (0);
 	if (fd != -1 && dup2(fd, STDOUT_FILENO) != -1)
@@ -79,10 +77,8 @@ void	exit_redirects(t_simple_command *cmd, t_data *data)
 
 int	redirects(t_simple_command *cmd, t_data *data, int is_builtin)
 {
-	int		i;
 	int		j;
 
-	i = ft_arrlen(data->hd);
 	j = -1;
 	if (!cmd->double_in && !cmd->infile
 		&& !cmd->outfile && !cmd->double_out)
@@ -90,21 +86,20 @@ int	redirects(t_simple_command *cmd, t_data *data, int is_builtin)
 	while (cmd->red_order[++j])
 	{
 		if (data->hd && cmd->red_order[j] == '3')
-			infile_redir(data->hd[i]);
+			infile_redir(data->hd[ft_arrlen(data->hd)]);
 		else if (cmd->infile && *cmd->infile
 			&& cmd->red_order[j] == '1')
-			{
+		{
 			if (!in_redir(cmd, data, j, is_builtin))
 				return (-1);
-			}
+		}
 		else if ((cmd->outfile && *cmd->outfile && cmd->red_order[j] == '2')
 			|| (cmd->double_out && *cmd->double_out
 				&& cmd->red_order[j] == '4'))
-			{
+		{
 			if (!outfile_redir(cmd, data, j, is_builtin))
 				return (-1);
-			}
+		}
 	}
-	exit_redirects(cmd, data);
-	return (j);
+	return (exit_redirects(cmd, data), j);
 }

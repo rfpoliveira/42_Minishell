@@ -85,13 +85,13 @@ void	init_envp(t_env **env, char **envp)
 		if (n)
 			n = n->next;
 	}
-	set_shlvl(env);
 }
 
 void	init_data(t_data *data, char **envp)
 {
 	data->paths = NULL;
 	init_envp(&data->env, envp);
+	set_shlvl(env);
 	data->paths = pathfind(data->env);
 	data->hd = NULL;
 	data->envp = NULL;
