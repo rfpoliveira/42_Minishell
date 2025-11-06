@@ -9,3 +9,6 @@ All this with no leaks or invalid reads while dinamic allocating all the memory 
 I was responsable for the parsing of the commands, expansions, signals, prompt and parsing the informacion from the user in a organized way to the user. Joana handleded the pipes, redirections, heredocs and built ins.
 
 The project made us understand the way bash works in a very very deep way, the way redirections work, how pipes work, how to fork processes and use that to our advantage, how to handle multiple fd's and signals both in a single and multiple processes and how exit codes were made and how it can help us.
+<img width="1851" height="1037" alt="Captura de ecrã de 2025-11-06 13-11-00" src="https://github.com/user-attachments/assets/87167363-e319-4c0f-af8c-24250379d760" />
+<img width="1851" height="1037" alt="Captura de ecrã de 2025-11-06 13-11-44" src="https://github.com/user-attachments/assets/ea11d113-c898-4c44-abe2-38e884cff957" />
+
